@@ -1,0 +1,18 @@
+{
+  "title": "Chulip",
+  "region": "USA",
+  "archive": {
+    "expected_filename": "Chulip (USA).zip",
+    "size": 482800907,
+    "sha1": "daed22c4448377c71ca5e856ea85565cd9ba1300",
+    "sha256": "da60dca8ac09ace2206fc43a568221a13c3694b3af3da8f41edb49f963b8bbfe"
+  },
+  "track": {
+    "expected_filename": "Chulip (USA).bin",
+    "format": "MODE2/2352",
+    "size": 712982928,
+    "crc32": "f49bd531",
+    "sha1": "b23e2aef3535198d168b13c2688e5f48fca6e721",
+    "sha256": "f1efe2cc0aedb685e1a244bd07b16c402e2bb3319aadaf1381267a0c4a654c06"
+  }
+}

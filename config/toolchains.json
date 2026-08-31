@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "status": "SN Systems GNU C 2.95.3-EE build 1.36 is proven for the first promoted contiguous neighborhood; whole-program and small-data flag mapping remains in progress",
+  "profiles": {
+    "ee-gcc2.96-O2": {
+      "family": "GNU C",
+      "version": "2.96-ee-001003-1",
+      "runner": "linux32-cc1",
+      "compiler": "tools/compilers/ee-gcc2.96/lib/gcc-lib/ee/2.96-ee-001003-1/cc1",
+      "flags": ["-quiet", "-O2", "-G", "0", "-fno-optimize-sibling-calls"],
+      "archive": "tools/compilers/downloads/ee-gcc2.96.tar.xz",
+      "archive_sha256": "0590d2ca9da8f5903889d66761220d14b47a8d14ba987ca53db84a1650a1fd0a"
+    },
+    "ee-gcc2.95.2-273a-O2": {
+      "family": "SN Systems GNU C",
+      "version": "2.95.2 SN BUILD v2.73a for Playstation2",
+      "runner": "wibo-driver",
+      "compiler": "tools/compilers/ee-gcc2.95.2-273a/bin/ee-gcc.exe",
+      "flags": ["-O2", "-G0"],
+      "archive": "tools/compilers/downloads/ee-gcc2.95.2-273a.tar.gz",
+      "archive_sha256": "ee9d9a7fccb59aebfa78a5587f6f8059660b91f705acddbc292ad2243c8e562e"
+    },
+    "ee-gcc2.95.3-136-O2": {
+      "family": "SN Systems GNU C",
+      "version": "2.95.3-EE build 1.36",
+      "runner": "wibo-driver",
+      "compiler": "tools/compilers/ee-gcc2.95.3-136/bin/ee-gcc.exe",
+      "flags": ["-O2", "-G0"],
+      "archive": "tools/compilers/downloads/ee-gcc2.95.3-136.tar.gz",
+      "archive_sha256": "3b6ae6897229ad005aaf1b0afaa1f3cb46e74b4c21a42e01130c07c0c598067f"
+    },
+    "ee-gcc2.95.3-136-O2-G8": {
+      "family": "SN Systems GNU C",
+      "version": "2.95.3-EE build 1.36",
+      "runner": "wibo-driver",
+      "compiler": "tools/compilers/ee-gcc2.95.3-136/bin/ee-gcc.exe",
+      "flags": ["-O2", "-G8"],
+      "archive": "tools/compilers/downloads/ee-gcc2.95.3-136.tar.gz",
+      "archive_sha256": "3b6ae6897229ad005aaf1b0afaa1f3cb46e74b4c21a42e01130c07c0c598067f"
+    }
+  },
+  "runtime": {
+    "wibo_sha256": "13f86a2d618f0dbe67179d349625345eabf9b46450295cb4c904e49f6aff85af",
+    "libc6_i386_archive_sha256": "ba90a203148af52bafea245c779043adf9650b373fbbb2fc9b86e5b3bfe4ced4"
+  }
+}

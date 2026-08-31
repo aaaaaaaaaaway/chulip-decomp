@@ -1,0 +1,20 @@
+# User-supplied copyrighted content and anything extracted from it.
+disc/
+original/
+expected/
+
+# Generated reverse-engineering/build output.
+asm/
+asm-baseline/
+assets/
+build/
+work/
+*.elf
+*.map
+*.o
+
+# Local tools and noise.
+.venv/
+tools/compilers/
+__pycache__/
+*.log

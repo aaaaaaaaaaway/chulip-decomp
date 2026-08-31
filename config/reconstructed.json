@@ -1,0 +1,79 @@
+[
+  {
+    "function": "func_00100100",
+    "source": "src/game/func_00100100.c",
+    "address": "0x00100100",
+    "size": 40,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2",
+      "ee-gcc2.95.3-136-O2-G8"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "promoted": false,
+    "blocker": "the enclosing startup translation-unit boundary is not yet established"
+  },
+  {
+    "function": "func_00100488",
+    "source": "src/game/func_00100488.c",
+    "address": "0x00100488",
+    "size": 8,
+    "verified_profiles": [
+      "ee-gcc2.96-O2",
+      "ee-gcc2.95.2-273a-O2",
+      "ee-gcc2.95.3-136-O2",
+      "ee-gcc2.95.3-136-O2-G8"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "promoted": false,
+    "blocker": "the enclosing startup translation-unit boundary is not yet established"
+  },
+  {
+    "function": "func_00101490",
+    "source": "src/game/func_00101490.c",
+    "address": "0x00101490",
+    "size": 32,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2",
+      "ee-gcc2.95.3-136-O2-G8"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "promoted": true
+  },
+  {
+    "function": "func_001014B0",
+    "source": "src/game/func_001014B0.c",
+    "address": "0x001014B0",
+    "size": 32,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2",
+      "ee-gcc2.95.3-136-O2-G8"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "promoted": true
+  },
+  {
+    "function": "func_001014D0",
+    "source": "src/game/func_001014D0.c",
+    "address": "0x001014D0",
+    "size": 12,
+    "verified_profiles": [
+      "ee-gcc2.96-O2",
+      "ee-gcc2.95.2-273a-O2",
+      "ee-gcc2.95.3-136-O2",
+      "ee-gcc2.95.3-136-O2-G8"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "promoted": true,
+    "profile_evidence": "inherits the uniquely verified profile of both immediately preceding functions"
+  }
+]

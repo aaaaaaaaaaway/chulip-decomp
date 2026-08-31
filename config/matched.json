@@ -1,0 +1,26 @@
+[
+  {
+    "function": "func_00101490",
+    "source": "src/game/func_00101490.c",
+    "address": "0x00101490",
+    "size": 32,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; immediately followed by a second uniquely matching wrapper"
+  },
+  {
+    "function": "func_001014B0",
+    "source": "src/game/func_001014B0.c",
+    "address": "0x001014B0",
+    "size": 32,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; immediately preceded by a uniquely matching wrapper"
+  },
+  {
+    "function": "func_001014D0",
+    "source": "src/game/func_001014D0.c",
+    "address": "0x001014D0",
+    "size": 12,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match under all candidates; profile inherited from the two immediately preceding unique matches"
+  }
+]

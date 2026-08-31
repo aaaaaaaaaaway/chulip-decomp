@@ -1,0 +1,2 @@
+// Addresses proven by the ELF header/startup. Add names only with evidence.
+_start = 0x00100008; // type:func

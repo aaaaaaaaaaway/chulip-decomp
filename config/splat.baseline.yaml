@@ -1,0 +1,53 @@
+sha1: ea21ebbe19645cc430844211f9e4f9bc42ee5e57
+options:
+  basename: chulip.baseline
+  base_path: ..
+  target_path: original/SLUS_207.42.rom
+  elf_path: build/baseline-split/SLUS_207.42.elf
+  platform: ps2
+  compiler: EEGCC
+  gp_value: 0x001F4870
+  ld_gp_expression: cod_SDATA_START + 0x7FF0
+  asm_path: asm-baseline
+  src_path: src
+  asset_path: build/baseline-split/assets
+  build_path: build/baseline-split
+  ld_script_path: build/baseline-split/chulip.baseline.ld
+  ld_dependencies: true
+  ld_wildcard_sections: true
+  ld_bss_contains_common: true
+  ld_align_segment_vram_end: false
+  ld_align_section_vram_end: false
+  create_asm_dependencies: true
+  create_undefined_funcs_auto: true
+  create_undefined_syms_auto: true
+  undefined_funcs_auto_path: build/baseline-split/undefined_funcs_auto.txt
+  undefined_syms_auto_path: build/baseline-split/undefined_syms_auto.txt
+  symbol_addrs_path:
+    - config/symbol_addrs.txt
+  find_file_boundaries: false
+  disassemble_all: true
+  o_as_suffix: true
+  string_encoding: ASCII
+  data_string_encoding: ASCII
+  rodata_string_guesser_level: 2
+  data_string_guesser_level: 2
+  named_regs_for_c_funcs: false
+  section_order: [.text, .data, .rodata, .sdata, .sbss, .bss]
+  auto_link_sections: [.data, .rodata, .sdata, .sbss, .bss]
+segments:
+  - name: cod
+    type: code
+    start: 0x000000
+    vram: 0x00100000
+    bss_size: 0xF8328
+    subalign: null
+    subsegments:
+      - [0x000000, asm, cod/text]
+      - [0x0A3000, textbin, cod/vutext]
+      - [0x0A3980, data, cod/data]
+      - [0x0E6A00, rodata, cod/rodata]
+      - [0x0EC880, sdata, cod/sdata]
+      - { type: sbss, vram: 0x001ED080, name: cod/sbss }
+      - { type: bss, vram: 0x001EDA00, name: cod/bss }
+  - [0x0ED014]

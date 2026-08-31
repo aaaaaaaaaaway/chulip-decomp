@@ -1,0 +1,25 @@
+{
+  "path": "original/SLUS_207.42",
+  "size": 978212,
+  "sha1": "3384ef9781f760a30bf0595afc3ebef994fc9c70",
+  "sha256": "057ef8c41d0216749bbd576c3c64580467dff7bda73ee0861c77a52689d19946",
+  "entry": "0x00100008",
+  "gp": "0x001F4870",
+  "load_segment": {
+    "file_offset": "0x1000",
+    "vram": "0x00100000",
+    "file_size": "0xED014",
+    "memory_size": "0x1E53AC",
+    "sha1": "ea21ebbe19645cc430844211f9e4f9bc42ee5e57",
+    "sha256": "77768f0c5d84a92a6d185499b8bb4bb2205779a81fbdb859b15cc1d9ce28f876"
+  },
+  "sections": [
+    {"name": ".text", "vram": "0x00100000", "offset": "0x1000", "size": "0xA3000"},
+    {"name": ".vutext", "vram": "0x001A3000", "offset": "0xA4000", "size": "0x950"},
+    {"name": ".data", "vram": "0x001A3980", "offset": "0xA4980", "size": "0x43034"},
+    {"name": ".rodata", "vram": "0x001E6A00", "offset": "0xE7A00", "size": "0x5E20"},
+    {"name": ".sdata", "vram": "0x001EC880", "offset": "0xED880", "size": "0x794"},
+    {"name": ".sbss", "vram": "0x001ED080", "size": "0x97C"},
+    {"name": ".bss", "vram": "0x001EDA00", "size": "0xF79AC"}
+  ]
+}

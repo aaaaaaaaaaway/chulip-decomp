@@ -1,0 +1,23 @@
+name: Architecture or toolchain research
+description: Record a bounded research question or evidence-backed finding.
+title: "[research] "
+labels: [research]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question or finding
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: List addresses, symbols, hashes, call relationships, or reproducible commands.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Why it matters
+      description: Explain which matching or architecture work this unblocks.

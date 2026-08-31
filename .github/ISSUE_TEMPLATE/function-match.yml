@@ -1,0 +1,35 @@
+name: Function matching claim
+description: Claim or coordinate work on an address range.
+title: "[match] "
+labels: [matching]
+body:
+  - type: input
+    id: functions
+    attributes:
+      label: Functions and addresses
+      placeholder: "func_00101678 at 0x00101678"
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Current understanding
+      description: Describe behavior, callers, globals, likely subsystem, and any names.
+    validations:
+      required: true
+  - type: dropdown
+    id: state
+    attributes:
+      label: Work state
+      options:
+        - Unclaimed investigation
+        - I am actively working on this
+        - Exact candidate needs provenance
+        - Near match needs help
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence or current diff
+      description: Do not paste large target-byte or assembly dumps.

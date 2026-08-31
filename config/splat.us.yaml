@@ -1,0 +1,80 @@
+sha1: ea21ebbe19645cc430844211f9e4f9bc42ee5e57
+options:
+  basename: chulip.us
+  base_path: ..
+  target_path: original/SLUS_207.42.rom
+  elf_path: build/SLUS_207.42.elf
+  platform: ps2
+  compiler: EEGCC
+
+  gp_value: 0x001F4870
+  ld_gp_expression: cod_SDATA_START + 0x7FF0
+
+  asm_path: asm
+  src_path: src
+  asset_path: build/assets
+  build_path: build
+  ld_script_path: build/chulip.us.ld
+  ld_dependencies: true
+  ld_wildcard_sections: true
+  ld_bss_contains_common: true
+  ld_align_segment_vram_end: false
+  ld_align_section_vram_end: false
+  create_asm_dependencies: true
+  create_undefined_funcs_auto: true
+  create_undefined_syms_auto: true
+  undefined_funcs_auto_path: build/undefined_funcs_auto.txt
+  undefined_syms_auto_path: build/undefined_syms_auto.txt
+  symbol_addrs_path:
+    - config/symbol_addrs.txt
+
+  find_file_boundaries: false
+  disassemble_all: true
+  o_as_suffix: true
+  string_encoding: ASCII
+  data_string_encoding: ASCII
+  rodata_string_guesser_level: 2
+  data_string_guesser_level: 2
+  named_regs_for_c_funcs: false
+
+  section_order:
+    - .text
+    - .data
+    - .rodata
+    - .sdata
+    - .sbss
+    - .bss
+
+  auto_link_sections:
+    - .data
+    - .rodata
+    - .sdata
+    - .sbss
+    - .bss
+
+segments:
+  - name: cod
+    type: code
+    start: 0x000000
+    vram: 0x00100000
+    bss_size: 0xF8328
+    # Retail object boundaries are 8-byte aligned; compiler-emitted ELF input
+    # sections advertise 16, so preserve the proven linker subalignment.
+    subalign: 8
+    subsegments:
+      - [0x000000, asm, cod/text_00100000]
+      - [0x000100, c, game/func_00100100]
+      - [0x000128, asm, cod/text_00100128]
+      - [0x000488, c, game/func_00100488]
+      - [0x000490, asm, cod/text_00100490]
+      - [0x001490, c, game/func_00101490]
+      - [0x0014B0, c, game/func_001014B0]
+      - [0x0014D0, c, game/func_001014D0]
+      - [0x0014E0, asm, cod/text_001014E0]
+      - [0x0A3000, textbin, cod/vutext] # .vutext plus 0x30-byte loaded gap
+      - [0x0A3980, data, cod/data]      # .data plus 0x4c-byte loaded gap
+      - [0x0E6A00, rodata, cod/rodata]  # .rodata plus 0x60-byte loaded gap
+      - [0x0EC880, sdata, cod/sdata]    # .sdata
+      - { type: sbss, vram: 0x001ED080, name: cod/sbss }
+      - { type: bss, vram: 0x001EDA00, name: cod/bss }
+  - [0x0ED014]

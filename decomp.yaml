@@ -1,0 +1,10 @@
+name: chulip
+platform: ps2
+versions:
+  - name: us
+    fullname: Chulip (USA)
+    paths:
+      target: original/SLUS_207.42
+      build_dir: build
+      compiled_target: build/SLUS_207.42
+      elf: build/chulip.elf
