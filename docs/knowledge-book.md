@@ -69,6 +69,53 @@ address-local discriminator. It matches build 1.36 `-G8` and rejects build
 2.73a even when that compiler is also run with `-G8`; this separates compiler
 generation from the small-data threshold.
 
+### The two-sided small-data threshold
+
+How a global is spelled in C decides its addressing mode, and the decision has
+two independent halves. The compiler emits `.extern sym, N` and chooses between
+a one-instruction pseudo and an explicit `lui`/`%lo` pair by comparing `N` with
+its own `-G`. The assembler then chooses between a GP-relative access and an
+absolute `%hi`/`%lo` expansion by comparing the same `N` with *its* `-G`. Two
+different thresholds therefore produce three distinguishable retail forms:
+
+| Retail form | Object | Spelling |
+| --- | --- | --- |
+| `lw $v0, %gp_rel(X)($gp)` | at most four bytes | `extern int X;` |
+| `lui $rN,%hi(X)` then `%lo(X)($rN)`, same register | exactly eight bytes, assembled `-G4` | `struct S8 { int a; char pad[4]; }; extern struct S8 X;` |
+| `lui $rN,%hi(X)` then `%lo(X)($rM)`, different registers | larger than eight bytes | `extern int X[];` |
+
+The middle row is the one that cannot be reached by any single-threshold
+spelling. The compiler believes the eight-byte object is small and emits the
+pseudo; the assembler at `-G4` believes it is large and expands it absolutely,
+which is exactly the retail `lui $at` store form and the same-register load
+form. Genuine four-byte neighbours in the same function stay GP-relative, so
+one function can legitimately carry both modes. First proved on `func_0014FF10`
+and now carried by a large family of state accessors.
+
+Do not reach for an object larger than eight bytes to force absolute
+addressing. Above eight bytes the compiler splits the address itself and shares
+the base register across accesses, which never matches retail
+(`func_00181EB8`).
+
+### Register-precision evidence for a second build
+
+Retail spills callee-saved registers two different ways. Below roughly
+`0x00184918` it uses `sq`/`lq` on sixteen-byte slots, which is what SN GCC
+2.95.2 build 2.73a and 2.95.3 build 1.36 both emit. From roughly `0x001855F0`
+upward it uses `sd`/`ld` while keeping the same sixteen-byte slot stride.
+
+For `func_0018FFC0` build 2.73a at `-O2 -G8` reproduces retail exactly except
+that its spills are `sq`/`lq` rather than `sd`/`ld`, together with one
+downstream register-allocation difference. Frame size, slot offsets,
+instruction selection, scheduling and branch forms all already agree. Both SN
+`cc1.exe` binaries contain a `register_precision` token and the diagnostic
+"Register precision must be 32, 64, or 128", so the setting exists; no `-m`
+option or pragma spelling tried so far reaches it. `ee-gcc2.96` emits `sd` but
+gets frame layout and scheduling wrong, so it is not the same build.
+
+This is currently the largest single structural blocker: it accounts for
+roughly 240 otherwise-tractable functions in the upper bands.
+
 ## 4. Translation-unit and data lessons
 
 The camera block at `0x001017F0-0x00101CC3` is the first proven multi-function
@@ -116,6 +163,35 @@ the resulting full-image layout.
   instruction sequence. A locally better opcode count is not a substitute for
   the correct object model.
 
+- An eight-byte object read at offset zero needs `volatile`. Without it the
+  load is hoisted into the `jr` delay slot, because the compiler still counts
+  the access as a single instruction. Offset-four reads need no qualifier
+  (`func_001500C8` against `func_0015EDC0`).
+- `long` is eight bytes and `long long` is sixteen. A retail `sd`/`ld` field is
+  `long`; spelling it `long long` produces `sq`/`por` (`func_0018E608`,
+  `func_00198F58`).
+- `(base + index)->field` and `base[index].field` are not interchangeable. Only
+  the first reproduces the retail `addiu %lo`, `sll`, `addu` operand order; a
+  local pointer temporary swaps the `addu` operands.
+- Independent trailing stores are reordered by the compiler, not by the struct.
+  For a run of stores written in ascending order the emitted order is
+  `first, last, second, third, ...`, with the second-to-last landing in the
+  `jr` delay slot. Reorder the source, never invent padding (`func_00182EA8`).
+- Assigning a mask to a local defeats the single-bit store-flag optimisation.
+  `return (x & 2) == 0;` yields `srl`/`xori`/`andi`; `int f = x & 2; return f == 0;`
+  yields the retail `andi`/`sltiu` (`func_0014D380`).
+- Ternary polarity is inverted by the compiler, so retail `slti`/`movn` needs
+  the condition written the positive way round (`func_0014ED90`).
+- Prototyping a call whose result is discarded as `int` rather than `void`
+  changes register allocation (`func_0014F1E0`).
+- Block layout follows source order: write the guard so that the common path
+  falls through.
+- The branch comparison reads its operands as they stand at the branch, before
+  the delay-slot instruction runs. For a branch-likely form the delay slot
+  belongs to the taken path only.
+- Values produced on a guarded path are not live after the join, and a guarded
+  path ending in `jr $ra` makes the tail an else branch rather than common code.
+
 ## 6. Negative evidence and dead ends
 
 - Modern assembly of historical compiler output is not authoritative for
@@ -135,6 +211,27 @@ the resulting full-image layout.
 - Permutation search is appropriate only after a plausible semantic C candidate
   exists. A search result must still pass the ordinary isolated verifier and
   full-image rebuild; score improvements alone are not evidence.
+
+### Structural blockers with no natural-C expression
+
+These are recorded so they are not re-attempted. Each is a toolchain or ISA
+limit, not a missing insight.
+
+- PS2 kernel syscall stubs (`addiu`/`syscall`/`jr`/`nop`, about 160 functions)
+  are hand-written assembly and cannot be produced from C.
+- VU0 macro-mode code (`lqc2`, `vadd.xyzw`, `vdiv`, `qmtc2`), roughly
+  `0x0018A3D0-0x0018AFC8`, is reachable only through inline assembly.
+- Sixty-four-bit bitwise arithmetic is rejected by the proven profile with
+  "unsupported wide integer operation", which blocks every function that builds
+  GS or DMA qword tags. A `volatile long long` bitfield is the one recovered
+  way to read such a word.
+- The second EE multiply pipe (`mult1`) is never emitted; the compiler issues
+  two plain `mult` instructions where retail pairs `mult1` with `mult`.
+- Neither SN build accepts `-foptimize-sibling-calls`, so retail frameless tail
+  calls (`j callee` with no prologue) cannot be reproduced.
+- Hazard `nop`s after float-literal materialisation remain unrecoverable, as
+  first recorded for `func_001016A0`. Synthetic `nop`s are not an acceptable
+  shortcut, so these stay unmatched near-matches.
 
 ## 7. Tool map
 
