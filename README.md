@@ -1,9 +1,31 @@
 # Chulip (USA) matching decompilation
 
+![Chulip matching decompilation](docs/banner.svg)
+
 An in-progress, byte-matching decompilation of the USA PlayStation 2 release
 of *Chulip* (`SLUS_207.42`). The goal is a complete, readable source
 reconstruction of the game executable—not a port, recompilation shortcut, or
 assembly transcription.
+
+## About the game
+
+*Chulip* (チュリップ) is a PlayStation 2 adventure game developed by Punchline,
+a studio founded by former Love-de-Lic staff. Victor Interactive Software
+released it in Japan in 2002; Natsume published this North American version in
+2007.
+
+You play a boy who moves with his family to Long Life Town, a dilapidated
+place where the residents live as much underground as above it, and where a
+letter from a girl sets you chasing the one thing that will reach her: a kiss.
+Kissing the townspeople—each of whom must be caught in exactly the right mood,
+in the right place, at the right hour—raises your courage and reputation, and
+most attempts end with you dead on the pavement and back at your father's
+cardboard house.
+
+Its blend of a strict daily schedule, obscure conditions, blunt difficulty and
+deadpan humour made it a commercial failure and a lasting cult favourite. That
+same density is what makes it interesting to decompile: the town's behaviour is
+driven by a large, tightly interlocked body of state machines and timing tables.
 
 The current source-plus-assembly build reproduces the complete 970,772-byte
 loaded image with SHA-256
@@ -14,14 +36,14 @@ never counted as decompilation progress.
 <!-- decomp-progress-start -->
 ## Decompilation progress
 
-![Matched functions](https://img.shields.io/badge/functions-179%20%2F%202189-2f81f7) ![Matched text bytes](https://img.shields.io/badge/text%20bytes-5468%20%2F%20663704-2f81f7)
+![Matched functions](https://img.shields.io/badge/functions-203%20%2F%202189-2f81f7) ![Matched text bytes](https://img.shields.io/badge/text%20bytes-5948%20%2F%20663704-2f81f7)
 
-`▏░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░` **0.8239%** of provisional text bytes matched
+`▏░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░` **0.8962%** of provisional text bytes matched
 
 | Metric | Matched | Total | Progress |
 | --- | ---: | ---: | ---: |
-| Functions | 179 | 2,189 | 8.1772% |
-| Text bytes | 5,468 | 663,704 | 0.8239% |
+| Functions | 203 | 2,189 | 9.2736% |
+| Text bytes | 5,948 | 663,704 | 0.8962% |
 
 Only readable source that passes isolated byte comparison, compiler-provenance review, and the complete-image rebuild is counted. Generated retail assembly contributes zero progress.
 <!-- decomp-progress-end -->
