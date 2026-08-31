@@ -2,8 +2,9 @@ PYTHON ?= python3
 VENV_PYTHON := .venv/bin/python
 FUNCTION ?=
 PROFILE ?= ee-gcc2.95.3-136-O2-G8
+CANDIDATES ?=
 
-.PHONY: setup split baseline verify match progress audit public-check
+.PHONY: setup split baseline verify match merge progress audit public-check
 
 setup:
 	$(PYTHON) tools/bootstrap.py
@@ -22,6 +23,10 @@ verify: split
 match:
 	@test -n "$(FUNCTION)" || (echo "usage: make match FUNCTION=func_00101490 [PROFILE=...]" && exit 2)
 	$(PYTHON) tools/match.py "$(FUNCTION)" --profile "$(PROFILE)"
+
+merge:
+	@test -n "$(CANDIDATES)" || (echo "usage: make merge CANDIDATES=work/candidates.jsonl" && exit 2)
+	$(PYTHON) tools/merge_candidates.py "$(CANDIDATES)"
 
 progress:
 	$(PYTHON) tools/progress.py --write-readme

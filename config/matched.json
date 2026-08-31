@@ -246,5 +246,85 @@
     "size": 8,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "exact empty tail in the uniquely verified resource translation unit"
+  },
+  {
+    "function": "func_00137EA0",
+    "source": "src/game/resource_records_00137EE0.c",
+    "address": "0x00137EA0",
+    "size": 64,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact natural ten-function resource-record unit including four internal alignment words; complete profile matrix uniquely selects SN GCC 2.95.3 build 1.36 -O2 -G8"
+  },
+  {
+    "function": "func_00137EE0",
+    "source": "src/game/resource_records_00137EE0.c",
+    "address": "0x00137EE0",
+    "size": 24,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact natural ten-function resource-record unit including four internal alignment words; complete profile matrix uniquely selects SN GCC 2.95.3 build 1.36 -O2 -G8"
+  },
+  {
+    "function": "func_00137EF8",
+    "source": "src/game/resource_records_00137EE0.c",
+    "address": "0x00137EF8",
+    "size": 20,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact natural ten-function resource-record unit including four internal alignment words; complete profile matrix uniquely selects SN GCC 2.95.3 build 1.36 -O2 -G8"
+  },
+  {
+    "function": "func_00137F10",
+    "source": "src/game/resource_records_00137EE0.c",
+    "address": "0x00137F10",
+    "size": 24,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact natural ten-function resource-record unit including four internal alignment words; complete profile matrix uniquely selects SN GCC 2.95.3 build 1.36 -O2 -G8"
+  },
+  {
+    "function": "func_00137F28",
+    "source": "src/game/resource_records_00137EE0.c",
+    "address": "0x00137F28",
+    "size": 20,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact natural ten-function resource-record unit including four internal alignment words; complete profile matrix uniquely selects SN GCC 2.95.3 build 1.36 -O2 -G8"
+  },
+  {
+    "function": "func_00137F40",
+    "source": "src/game/resource_records_00137EE0.c",
+    "address": "0x00137F40",
+    "size": 40,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact natural ten-function resource-record unit including four internal alignment words; complete profile matrix uniquely selects SN GCC 2.95.3 build 1.36 -O2 -G8"
+  },
+  {
+    "function": "func_00137F68",
+    "source": "src/game/resource_records_00137EE0.c",
+    "address": "0x00137F68",
+    "size": 24,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact natural ten-function resource-record unit including four internal alignment words; complete profile matrix uniquely selects SN GCC 2.95.3 build 1.36 -O2 -G8"
+  },
+  {
+    "function": "func_00137F80",
+    "source": "src/game/resource_records_00137EE0.c",
+    "address": "0x00137F80",
+    "size": 20,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact natural ten-function resource-record unit including four internal alignment words; complete profile matrix uniquely selects SN GCC 2.95.3 build 1.36 -O2 -G8"
+  },
+  {
+    "function": "func_00137F98",
+    "source": "src/game/resource_records_00137EE0.c",
+    "address": "0x00137F98",
+    "size": 12,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact natural ten-function resource-record unit including four internal alignment words; complete profile matrix uniquely selects SN GCC 2.95.3 build 1.36 -O2 -G8"
+  },
+  {
+    "function": "func_00137FA8",
+    "source": "src/game/resource_records_00137EE0.c",
+    "address": "0x00137FA8",
+    "size": 36,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact natural ten-function resource-record unit including four internal alignment words; complete profile matrix uniquely selects SN GCC 2.95.3 build 1.36 -O2 -G8"
   }
 ]

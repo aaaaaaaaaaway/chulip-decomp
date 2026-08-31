@@ -12,23 +12,25 @@
 | Baseline split and nonmatching rebuild works | complete | 970,772-byte whole-image match |
 | Isolated byte-match verifier works | complete | `tools/match.py` |
 | Batch candidate verifier and ranked queue work | complete | `tools/batch_verify.py`, `tools/candidate_queue.py` |
+| Transactional candidate integration works | complete | `tools/merge_candidates.py` with automatic rollback across all gates |
 | First source neighborhood promoted | complete | `0x00101490-0x001014DC`, isolated and full-image exact |
 | All game code/data byte-matches | pending | — |
 | Clean-from-disc reproduction passes | pending | — |
 
 Provisional function catalog: **2,189 functions / 663,704 bytes**
 
-Source-reconstructed in exact current build: **33 functions / 2,176 bytes**
+Source-reconstructed in exact current build: **67 functions / 2,724 bytes**
 
-Promoted matched functions: **31 / 2,189 (1.4162%)**
+Promoted matched functions: **41 / 2,189 (1.8730%)**
 
-Promoted matched text bytes: **2,128 / 663,704 (0.3206%)**
+Promoted matched text bytes: **2,412 / 663,704 (0.3634%)**
 
-Two startup candidates remain deliberately unpromoted even though they are
-isolated and globally exact: their enclosing translation-unit boundary is not
-yet established. Progress is derived only from `config/matched.json`.
+Twenty-six source-built functions remain deliberately unpromoted even though
+they are isolated and globally exact: two startup candidates and 24 batch
+leaves whose compiler generation or authentic translation-unit boundary is not
+yet established. Promoted progress is derived only from `config/matched.json`.
 
-The current batch manifest re-verifies 58 exact candidates in one restartable
-pass: nine integrated camera matches and 49 pending leaf candidates. Batch
-success alone does not promote a candidate; compiler and source-unit provenance
-remain separate acceptance gates.
+The first batch manifest re-verifies 58 exact candidates in one restartable
+pass. Twenty-nine of its 49 leaf candidates are now source-built; boundary
+probing extended that set by five more functions. A separate ten-function
+packet/VIF lane and nine empty leaves are exact and queued for integration.

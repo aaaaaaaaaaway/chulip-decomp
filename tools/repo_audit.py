@@ -147,8 +147,18 @@ def main() -> int:
             errors.append(f"reconstructed source missing function definition: {name}")
         if entry.get("build_profile") not in profiles:
             errors.append(f"unknown build profile for {name}: {entry.get('build_profile')}")
+        verified_profiles = entry.get("verified_profiles")
+        if (
+            not isinstance(verified_profiles, list)
+            or not verified_profiles
+            or entry.get("build_profile") not in verified_profiles
+            or any(profile not in profiles for profile in verified_profiles)
+        ):
+            errors.append(f"invalid verified profile evidence for {name}")
         if not entry.get("isolated_match") or not entry.get("whole_program_match"):
             errors.append(f"reconstructed entry lacks exact verification: {name}")
+        if not entry.get("promoted") and not str(entry.get("blocker", "")).strip():
+            errors.append(f"unpromoted reconstruction lacks blocker: {name}")
 
     entries_by_source: dict[str, list[dict[str, object]]] = {}
     for entry in reconstructed:

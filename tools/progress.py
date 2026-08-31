@@ -15,6 +15,7 @@ END = "<!-- decomp-progress-end -->"
 def progress_data() -> dict[str, int | float]:
     catalog = json.loads((ROOT / "config/functions.json").read_text())["functions"]
     ledger = json.loads((ROOT / "config/matched.json").read_text())
+    reconstructed = json.loads((ROOT / "config/reconstructed.json").read_text())
     by_name = {entry["name"]: entry for entry in catalog}
     names = [entry["function"] for entry in ledger]
     if len(names) != len(set(names)):
@@ -31,7 +32,23 @@ def progress_data() -> dict[str, int | float]:
 
     total_bytes = sum(entry["size"] for entry in catalog)
     matched_bytes = sum(by_name[name]["size"] for name in names)
+    exact_names = [
+        entry["function"]
+        for entry in reconstructed
+        if entry.get("isolated_match") and entry.get("whole_program_match")
+    ]
+    if len(exact_names) != len(set(exact_names)):
+        raise SystemExit("duplicate exact function in config/reconstructed.json")
+    exact_unknown = sorted(set(exact_names) - set(by_name))
+    if exact_unknown:
+        raise SystemExit(
+            "reconstruction ledger has unknown exact functions: "
+            + ", ".join(exact_unknown)
+        )
+    exact_bytes = sum(by_name[name]["size"] for name in exact_names)
     return {
+        "exact_functions": len(exact_names),
+        "exact_bytes": exact_bytes,
         "matched_functions": len(names),
         "total_functions": len(catalog),
         "function_percent": 100 * len(names) / len(catalog),
@@ -58,19 +75,25 @@ def markdown(data: dict[str, int | float]) -> str:
         "https://img.shields.io/badge/text%20bytes-"
         f"{data['matched_bytes']}%20%2F%20{data['total_bytes']}-2f81f7"
     )
+    exact_badge = (
+        "https://img.shields.io/badge/exact%20source-"
+        f"{data['exact_functions']}%20functions%20%2F%20{data['exact_bytes']}%20bytes-5b8c5a"
+    )
     return "\n".join(
         [
             START,
             "## Decompilation progress",
             "",
-            f"![Matched functions]({function_badge}) ![Matched text bytes]({byte_badge})",
+            f"![Matched functions]({function_badge}) ![Matched text bytes]({byte_badge}) ![Exact source built]({exact_badge})",
             "",
             f"`{bar}` **{byte_percent:.4f}%** of provisional text bytes promoted",
             "",
-            "| Metric | Matched | Total | Progress |",
+            "| Metric | Current | Total | Progress |",
             "| --- | ---: | ---: | ---: |",
-            f"| Functions | {data['matched_functions']:,} | {data['total_functions']:,} | {function_percent:.4f}% |",
-            f"| Text bytes | {data['matched_bytes']:,} | {data['total_bytes']:,} | {byte_percent:.4f}% |",
+            f"| Exact source-built functions | {data['exact_functions']:,} | {data['total_functions']:,} | {100 * int(data['exact_functions']) / int(data['total_functions']):.4f}% |",
+            f"| Exact source-built bytes | {data['exact_bytes']:,} | {data['total_bytes']:,} | {100 * int(data['exact_bytes']) / int(data['total_bytes']):.4f}% |",
+            f"| Promoted functions | {data['matched_functions']:,} | {data['total_functions']:,} | {function_percent:.4f}% |",
+            f"| Promoted text bytes | {data['matched_bytes']:,} | {data['total_bytes']:,} | {byte_percent:.4f}% |",
             "",
             "Only readable source that passes isolated byte comparison, compiler-provenance review, and the complete-image rebuild is counted. Generated retail assembly contributes zero progress.",
             END,
@@ -111,6 +134,10 @@ def main() -> int:
         print("README progress block updated" if args.write_readme else "README progress block OK")
         return 0
 
+    print(
+        f"exact source:      {data['exact_functions']} functions / "
+        f"{data['exact_bytes']} bytes"
+    )
     print(
         f"matched functions: {data['matched_functions']} / {data['total_functions']} "
         f"({data['function_percent']:.4f}%)"

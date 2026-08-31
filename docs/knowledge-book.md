@@ -64,6 +64,11 @@ Do not apply this profile globally merely because a small function happens to
 match it. Record every matching profile and establish address-local evidence
 before promotion.
 
+The complete resource-record unit at `0x00137EA0-0x00137FCC` supplies a second
+address-local discriminator. It matches build 1.36 `-G8` and rejects build
+2.73a even when that compiler is also run with `-G8`; this separates compiler
+generation from the small-data threshold.
+
 ## 4. Translation-unit and data lessons
 
 The camera block at `0x001017F0-0x00101CC3` is the first proven multi-function
@@ -146,6 +151,7 @@ the resulting full-image layout.
 | Batch proof | `tools/batch_verify.py` | Re-verifies a JSONL candidate manifest with complete ranges and compact, restartable results. |
 | Candidate ranking | `tools/candidate_queue.py` | Ranks untouched functions by size and instruction features without changing proof state. |
 | Split generation | `tools/gen_splat_config.py` | Derives source islands from the reconstruction ledger and rejects stale manual boundaries. |
+| Transactional integration | `tools/merge_candidates.py` | Validates candidate provenance, updates ledgers and source islands, and rolls back unless the full image, baseline, progress, and public audit all pass. |
 | Full-image proof | `tools/build.py` | Requires the reconstructed 970,772-byte image and SHA-256 to match. |
 | Independent coverage proof | `tools/build_baseline.py` | Proves that generated assembly still covers the untouched image exactly. |
 | Progress and hygiene | `tools/progress.py`, `tools/repo_audit.py` | Derives public metrics and rejects missing evidence, local paths, secrets, or generated inputs. |
@@ -186,9 +192,11 @@ run the independent zero-C baseline, and audit the public tree before a commit.
   `0x001017F0`; the complete source unit matches as one object.
 - Nine additional camera-area functions in four exact source islands extend
   promotion-grade compiler evidence through `0x001041D7`.
-- Fifty-eight exact candidates can now be rechecked in one batch. Nine are the
-  integrated camera matches; the other 49 still need local compiler and
-  translation-unit provenance before promotion.
+- The ten-function resource-record unit is the second promoted compiler-
+  discriminating neighborhood.
+- Sixty-seven functions are now exact in the source build. Forty-one are
+  promotion-grade; 26 remain explicitly blocked on provenance rather than
+  being folded into the public matched count.
 - The adjacent `func_001016A0` and `func_00101748` near-matches remain blocked on
   authentic hazard scheduling, not semantics.
 - Small exact functions elsewhere in the executable are useful candidates, but

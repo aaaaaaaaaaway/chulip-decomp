@@ -21,6 +21,16 @@
       "archive": "tools/compilers/downloads/ee-gcc2.95.2-273a.tar.gz",
       "archive_sha256": "ee9d9a7fccb59aebfa78a5587f6f8059660b91f705acddbc292ad2243c8e562e"
     },
+    "ee-gcc2.95.2-273a-O2-G8": {
+      "family": "SN Systems GNU C",
+      "version": "2.95.2 SN BUILD v2.73a for Playstation2",
+      "runner": "wibo-driver",
+      "compiler": "tools/compilers/ee-gcc2.95.2-273a/bin/ee-gcc.exe",
+      "assembler": "tools/compilers/ee-gcc2.95.2-273a/lib/gcc-lib/ee/2.95.2/as.exe",
+      "flags": ["-O2", "-G8", "-Iinclude"],
+      "archive": "tools/compilers/downloads/ee-gcc2.95.2-273a.tar.gz",
+      "archive_sha256": "ee9d9a7fccb59aebfa78a5587f6f8059660b91f705acddbc292ad2243c8e562e"
+    },
     "ee-gcc2.95.3-136-O2": {
       "family": "SN Systems GNU C",
       "version": "2.95.3-EE build 1.36",

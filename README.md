@@ -14,14 +14,16 @@ never counted as decompilation progress.
 <!-- decomp-progress-start -->
 ## Decompilation progress
 
-![Matched functions](https://img.shields.io/badge/functions-31%20%2F%202189-2f81f7) ![Matched text bytes](https://img.shields.io/badge/text%20bytes-2128%20%2F%20663704-2f81f7)
+![Matched functions](https://img.shields.io/badge/functions-41%20%2F%202189-2f81f7) ![Matched text bytes](https://img.shields.io/badge/text%20bytes-2412%20%2F%20663704-2f81f7) ![Exact source built](https://img.shields.io/badge/exact%20source-67%20functions%20%2F%202724%20bytes-5b8c5a)
 
-`▏░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░` **0.3206%** of provisional text bytes promoted
+`▏░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░` **0.3634%** of provisional text bytes promoted
 
-| Metric | Matched | Total | Progress |
+| Metric | Current | Total | Progress |
 | --- | ---: | ---: | ---: |
-| Functions | 31 | 2,189 | 1.4162% |
-| Text bytes | 2,128 | 663,704 | 0.3206% |
+| Exact source-built functions | 67 | 2,189 | 3.0608% |
+| Exact source-built bytes | 2,724 | 663,704 | 0.4104% |
+| Promoted functions | 41 | 2,189 | 1.8730% |
+| Promoted text bytes | 2,412 | 663,704 | 0.3634% |
 
 Only readable source that passes isolated byte comparison, compiler-provenance review, and the complete-image rebuild is counted. Generated retail assembly contributes zero progress.
 <!-- decomp-progress-end -->
@@ -33,7 +35,7 @@ Only readable source that passes isolated byte comparison, compiler-provenance r
 - A zero-C baseline and the current source-plus-assembly project both reproduce
   the complete loaded image exactly.
 - SN Systems GNU C 2.95.3-EE build 1.36, its bundled assembler, and
-  `-O2 -G8` are proven for the first promoted address-contiguous neighborhood.
+  `-O2 -G8` are proven for two promoted address-contiguous neighborhoods.
   Toolchain claims elsewhere remain local until surrounding functions support
   them.
 - `DAT/SYSTEM.BIN`, `DAT/SYSTEX.BIN`, SDK code, data, and linker layout remain
@@ -68,6 +70,24 @@ The independent zero-C coverage check is:
 .venv/bin/python configure.py --baseline-split
 python3 tools/build_baseline.py
 ```
+
+## Matching workflow
+
+```sh
+# Rank untouched functions by static tractability.
+python3 tools/candidate_queue.py --limit 50 --json work/candidate-queue.json
+
+# Recheck a JSONL lane manifest without changing proof ledgers.
+python3 tools/batch_verify.py work/candidates.jsonl
+
+# Validate an integration plan, then apply it through every rollback-protected gate.
+python3 tools/merge_candidates.py work/candidates.jsonl
+python3 tools/merge_candidates.py work/candidates.jsonl --write
+```
+
+Candidate manifests and lane artifacts stay under ignored `work/`; accepted C,
+proof metadata, and reusable conclusions move into `src/`, `config/`, and
+`docs/`.
 
 ## Contributing
 

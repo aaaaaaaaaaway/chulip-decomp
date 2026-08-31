@@ -86,6 +86,20 @@ segments:
       - [0x003DD0, asm, cod/text_00103DD0]
       - [0x004178, c, game/camera_resource]
       - [0x0041D8, asm, cod/text_001041D8]
+      - [0x0353E0, c, game/state_00135400]
+      - [0x035440, asm, cod/text_00135440]
+      - [0x035788, c, game/state_00135788]
+      - [0x0357C8, asm, cod/text_001357C8]
+      - [0x037EA0, c, game/resource_records_00137EE0]
+      - [0x037FD0, asm, cod/text_00137FD0]
+      - [0x04D910, c, game/state_0014D910]
+      - [0x04D928, asm, cod/text_0014D928]
+      - [0x079348, c, game/state_00179350]
+      - [0x079360, asm, cod/text_00179360]
+      - [0x07F7D0, c, game/state_0017F7D0]
+      - [0x07F808, asm, cod/text_0017F808]
+      - [0x081E98, c, game/state_00181E98]
+      - [0x081EB8, asm, cod/text_00181EB8]
       # generated-text-subsegments-end
       - [0x0A3000, textbin, cod/vutext] # .vutext plus 0x30-byte loaded gap
       - [0x0A3980, data, cod/data]      # .data plus 0x4c-byte loaded gap

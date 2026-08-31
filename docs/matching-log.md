@@ -130,3 +130,22 @@
 - The exact source build and independent zero-C baseline both retain the
   970,772-byte image SHA-256. The promoted ledger now contains 31 functions /
   2,128 bytes; the exact source build contains 33 functions / 2,176 bytes.
+
+## 2026-08-31 — transactional batch integration
+
+- Added a named SN GCC 2.95.2 build 2.73a `-O2 -G8` profile. All 49 first-batch
+  leaf candidates also match it, proving that small isolated functions cannot
+  identify the compiler generation by themselves.
+- Boundary probing extended three candidate ranges and recovered five adjacent
+  functions. The combined resource-record source at
+  `0x00137EA0-0x00137FCC` reproduces all 300 emitted bytes and uniquely selects
+  SN GCC 2.95.3 build 1.36 `-G8`, rejecting every tested alternative including
+  build 2.73a `-G8`.
+- Added a fail-closed transactional importer. It validates natural C and ledger
+  consistency, regenerates source islands, rebuilds the exact full image and
+  independent baseline, refreshes README progress, audits the public tree, and
+  restores all modified metadata if any gate fails.
+- Integrated 34 exact functions: ten promotion-grade resource helpers and 24
+  provenance-blocked state/accessor leaves. The exact source build now contains
+  67 functions / 2,724 bytes; the promoted ledger contains 41 functions /
+  2,412 bytes.

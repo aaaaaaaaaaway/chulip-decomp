@@ -64,3 +64,13 @@ Four later source islands extend the same subsystem evidence:
 
 These islands support a local camera-area compiler model; they do not prove
 that the entire executable used one compiler profile or source layout.
+
+## Resource-record frontier
+
+Ten contiguous functions at `0x00137EA0-0x00137FCB` manage three indexed
+record families and an adjacent 16-byte object. Expressed as one natural C
+unit, they reproduce the full 300-byte emitted range, including four internal
+alignment words. This range uniquely selects SN GCC 2.95.3 build 1.36 with
+`-O2 -G8`: GCC 2.96, both configured `-G0` profiles, and SN GCC 2.95.2 with
+`-G8` all reject. The unit is therefore promoted; its outer historical source
+file edges may still expand as adjacent functions are recovered.
