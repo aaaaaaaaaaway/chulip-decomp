@@ -123,6 +123,15 @@ def main() -> int:
     if len(matched_names) != len(set(matched_names)):
         errors.append("duplicate function in config/matched.json")
 
+    reconstructed_sources = {entry["source"] for entry in reconstructed}
+    public_sources = {
+        name for name in files if name.startswith("src/") and name.endswith(".c")
+    }
+    for source in sorted(public_sources - reconstructed_sources):
+        errors.append(f"public source is absent from reconstruction ledger: {source}")
+    for source in sorted(reconstructed_sources - public_sources):
+        errors.append(f"reconstruction ledger source is not committable: {source}")
+
     for entry in reconstructed:
         name = entry["function"]
         known = by_name.get(name)
