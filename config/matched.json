@@ -264,6 +264,518 @@
     "evidence": "exact empty tail in the uniquely verified resource translation unit"
   },
   {
+    "function": "func_00105E90",
+    "source": "src/game/func_00105E90.c",
+    "address": "0x00105E90",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00106518",
+    "source": "src/game/func_00106518.c",
+    "address": "0x00106518",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00106DB0",
+    "source": "src/game/func_00106DB0.c",
+    "address": "0x00106DB0",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00107610",
+    "source": "src/game/func_00107610.c",
+    "address": "0x00107610",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00107658",
+    "source": "src/game/func_00107658.c",
+    "address": "0x00107658",
+    "size": 28,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00108128",
+    "source": "src/game/func_00108128.c",
+    "address": "0x00108128",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00108BF0",
+    "source": "src/game/func_00108BF0.c",
+    "address": "0x00108BF0",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00109130",
+    "source": "src/game/func_00109130.c",
+    "address": "0x00109130",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00109748",
+    "source": "src/game/func_00109748.c",
+    "address": "0x00109748",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00109CC0",
+    "source": "src/game/func_00109CC0.c",
+    "address": "0x00109CC0",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0010A200",
+    "source": "src/game/func_0010A200.c",
+    "address": "0x0010A200",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0010AB50",
+    "source": "src/game/func_0010AB50.c",
+    "address": "0x0010AB50",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0010B448",
+    "source": "src/game/func_0010B448.c",
+    "address": "0x0010B448",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0010BC10",
+    "source": "src/game/func_0010BC10.c",
+    "address": "0x0010BC10",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0010BF10",
+    "source": "src/game/unit_0010BF10.c",
+    "address": "0x0010BF10",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0010BF18",
+    "source": "src/game/unit_0010BF10.c",
+    "address": "0x0010BF18",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0010C9D0",
+    "source": "src/game/func_0010C9D0.c",
+    "address": "0x0010C9D0",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0010D418",
+    "source": "src/game/func_0010D418.c",
+    "address": "0x0010D418",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0010D508",
+    "source": "src/game/func_0010D508.c",
+    "address": "0x0010D508",
+    "size": 32,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0010E258",
+    "source": "src/game/func_0010E258.c",
+    "address": "0x0010E258",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0010E6D0",
+    "source": "src/game/func_0010E6D0.c",
+    "address": "0x0010E6D0",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0010F250",
+    "source": "src/game/func_0010F250.c",
+    "address": "0x0010F250",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0010FFF0",
+    "source": "src/game/unit_0010FFF0.c",
+    "address": "0x0010FFF0",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0010FFF8",
+    "source": "src/game/unit_0010FFF0.c",
+    "address": "0x0010FFF8",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00110C60",
+    "source": "src/game/func_00110C60.c",
+    "address": "0x00110C60",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00111448",
+    "source": "src/game/func_00111448.c",
+    "address": "0x00111448",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001121B8",
+    "source": "src/game/func_001121B8.c",
+    "address": "0x001121B8",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00112A98",
+    "source": "src/game/func_00112A98.c",
+    "address": "0x00112A98",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00112FD0",
+    "source": "src/game/func_00112FD0.c",
+    "address": "0x00112FD0",
+    "size": 316,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00113C10",
+    "source": "src/game/unit_00113C10.c",
+    "address": "0x00113C10",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00113C18",
+    "source": "src/game/unit_00113C10.c",
+    "address": "0x00113C18",
+    "size": 12,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00113FA8",
+    "source": "src/game/func_00113FA8.c",
+    "address": "0x00113FA8",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00114338",
+    "source": "src/game/func_00114338.c",
+    "address": "0x00114338",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001174D0",
+    "source": "src/game/func_001174D0.c",
+    "address": "0x001174D0",
+    "size": 28,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001174F0",
+    "source": "src/game/func_001174F0.c",
+    "address": "0x001174F0",
+    "size": 24,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00117538",
+    "source": "src/game/func_00117538.c",
+    "address": "0x00117538",
+    "size": 44,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00117568",
+    "source": "src/game/func_00117568.c",
+    "address": "0x00117568",
+    "size": 72,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00117678",
+    "source": "src/game/func_00117678.c",
+    "address": "0x00117678",
+    "size": 28,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00117698",
+    "source": "src/game/func_00117698.c",
+    "address": "0x00117698",
+    "size": 28,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001177F8",
+    "source": "src/game/func_001177F8.c",
+    "address": "0x001177F8",
+    "size": 16,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00119B70",
+    "source": "src/game/func_00119B70.c",
+    "address": "0x00119B70",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0011E390",
+    "source": "src/game/func_0011E390.c",
+    "address": "0x0011E390",
+    "size": 28,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00127150",
+    "source": "src/game/func_00127150.c",
+    "address": "0x00127150",
+    "size": 12,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00127160",
+    "source": "src/game/unit_00127160.c",
+    "address": "0x00127160",
+    "size": 24,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00127178",
+    "source": "src/game/unit_00127160.c",
+    "address": "0x00127178",
+    "size": 24,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00127190",
+    "source": "src/game/func_00127190.c",
+    "address": "0x00127190",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001271C8",
+    "source": "src/game/func_001271C8.c",
+    "address": "0x001271C8",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001271D0",
+    "source": "src/game/func_001271D0.c",
+    "address": "0x001271D0",
+    "size": 32,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001272D0",
+    "source": "src/game/func_001272D0.c",
+    "address": "0x001272D0",
+    "size": 32,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00128B40",
+    "source": "src/game/func_00128B40.c",
+    "address": "0x00128B40",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00128DD8",
+    "source": "src/game/func_00128DD8.c",
+    "address": "0x00128DD8",
+    "size": 52,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00129040",
+    "source": "src/game/func_00129040.c",
+    "address": "0x00129040",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00129048",
+    "source": "src/game/func_00129048.c",
+    "address": "0x00129048",
+    "size": 44,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0012E5D8",
+    "source": "src/game/unit_0012E5D8.c",
+    "address": "0x0012E5D8",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0012E5E0",
+    "source": "src/game/unit_0012E5D8.c",
+    "address": "0x0012E5E0",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0012E628",
+    "source": "src/game/func_0012E628.c",
+    "address": "0x0012E628",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0012F560",
+    "source": "src/game/func_0012F560.c",
+    "address": "0x0012F560",
+    "size": 12,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0012FC88",
+    "source": "src/game/func_0012FC88.c",
+    "address": "0x0012FC88",
+    "size": 28,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00131F40",
+    "source": "src/game/func_00131F40.c",
+    "address": "0x00131F40",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00133040",
+    "source": "src/game/func_00133040.c",
+    "address": "0x00133040",
+    "size": 104,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00133188",
+    "source": "src/game/func_00133188.c",
+    "address": "0x00133188",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00133658",
+    "source": "src/game/func_00133658.c",
+    "address": "0x00133658",
+    "size": 44,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00133EA8",
+    "source": "src/game/func_00133EA8.c",
+    "address": "0x00133EA8",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00134EB8",
+    "source": "src/game/func_00134EB8.c",
+    "address": "0x00134EB8",
+    "size": 12,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
     "function": "func_001353E0",
     "source": "src/game/state_00135400.c",
     "address": "0x001353E0",
@@ -334,6 +846,22 @@
     "size": 12,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "complete aggregate-backed state unit is exact under both compiler generations and both tested small-data thresholds; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_00135A50",
+    "source": "src/game/func_00135A50.c",
+    "address": "0x00135A50",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00135BB8",
+    "source": "src/game/func_00135BB8.c",
+    "address": "0x00135BB8",
+    "size": 28,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
     "function": "func_00137EA0",
@@ -416,6 +944,62 @@
     "evidence": "exact natural ten-function resource-record unit including four internal alignment words; complete profile matrix uniquely selects SN GCC 2.95.3 build 1.36 -O2 -G8"
   },
   {
+    "function": "func_001382C8",
+    "source": "src/game/func_001382C8.c",
+    "address": "0x001382C8",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00138E50",
+    "source": "src/game/func_00138E50.c",
+    "address": "0x00138E50",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00139F90",
+    "source": "src/game/unit_00139F90.c",
+    "address": "0x00139F90",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00139F98",
+    "source": "src/game/unit_00139F90.c",
+    "address": "0x00139F98",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0013B1D8",
+    "source": "src/game/func_0013B1D8.c",
+    "address": "0x0013B1D8",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0013B1E0",
+    "source": "src/game/func_0013B1E0.c",
+    "address": "0x0013B1E0",
+    "size": 44,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0013F5A0",
+    "source": "src/game/func_0013F5A0.c",
+    "address": "0x0013F5A0",
+    "size": 44,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
     "function": "func_0014D910",
     "source": "src/game/state_0014D910.c",
     "address": "0x0014D910",
@@ -440,6 +1024,182 @@
     "evidence": "complete three-accessor small-data range is exact under both compiler generations at G8; complete-range and whole-image exact"
   },
   {
+    "function": "func_00161390",
+    "source": "src/game/func_00161390.c",
+    "address": "0x00161390",
+    "size": 40,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001614A8",
+    "source": "src/game/func_001614A8.c",
+    "address": "0x001614A8",
+    "size": 32,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001614F8",
+    "source": "src/game/func_001614F8.c",
+    "address": "0x001614F8",
+    "size": 56,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00161620",
+    "source": "src/game/func_00161620.c",
+    "address": "0x00161620",
+    "size": 32,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00161670",
+    "source": "src/game/func_00161670.c",
+    "address": "0x00161670",
+    "size": 44,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001616D0",
+    "source": "src/game/unit_001616D0.c",
+    "address": "0x001616D0",
+    "size": 48,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00161700",
+    "source": "src/game/unit_001616D0.c",
+    "address": "0x00161700",
+    "size": 52,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00161848",
+    "source": "src/game/func_00161848.c",
+    "address": "0x00161848",
+    "size": 36,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00161870",
+    "source": "src/game/func_00161870.c",
+    "address": "0x00161870",
+    "size": 48,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001618C8",
+    "source": "src/game/func_001618C8.c",
+    "address": "0x001618C8",
+    "size": 36,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001618F0",
+    "source": "src/game/func_001618F0.c",
+    "address": "0x001618F0",
+    "size": 24,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001632E0",
+    "source": "src/game/func_001632E0.c",
+    "address": "0x001632E0",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00163370",
+    "source": "src/game/func_00163370.c",
+    "address": "0x00163370",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001638A8",
+    "source": "src/game/func_001638A8.c",
+    "address": "0x001638A8",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00163BC8",
+    "source": "src/game/func_00163BC8.c",
+    "address": "0x00163BC8",
+    "size": 60,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00163C08",
+    "source": "src/game/unit_00163C08.c",
+    "address": "0x00163C08",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00163C10",
+    "source": "src/game/unit_00163C08.c",
+    "address": "0x00163C10",
+    "size": 24,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00167120",
+    "source": "src/game/func_00167120.c",
+    "address": "0x00167120",
+    "size": 28,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00170730",
+    "source": "src/game/func_00170730.c",
+    "address": "0x00170730",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00173428",
+    "source": "src/game/func_00173428.c",
+    "address": "0x00173428",
+    "size": 28,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00173448",
+    "source": "src/game/func_00173448.c",
+    "address": "0x00173448",
+    "size": 28,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001750E8",
+    "source": "src/game/func_001750E8.c",
+    "address": "0x001750E8",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
     "function": "func_00179348",
     "source": "src/game/state_00179350.c",
     "address": "0x00179348",
@@ -462,6 +1222,126 @@
     "size": 8,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "complete extended setter/getter small-data range is exact under both compiler generations at G8; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_00179930",
+    "source": "src/game/func_00179930.c",
+    "address": "0x00179930",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0017A580",
+    "source": "src/game/func_0017A580.c",
+    "address": "0x0017A580",
+    "size": 44,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0017A5B0",
+    "source": "src/game/func_0017A5B0.c",
+    "address": "0x0017A5B0",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0017C220",
+    "source": "src/game/func_0017C220.c",
+    "address": "0x0017C220",
+    "size": 32,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0017C760",
+    "source": "src/game/func_0017C760.c",
+    "address": "0x0017C760",
+    "size": 48,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0017C7C8",
+    "source": "src/game/func_0017C7C8.c",
+    "address": "0x0017C7C8",
+    "size": 48,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0017C940",
+    "source": "src/game/func_0017C940.c",
+    "address": "0x0017C940",
+    "size": 48,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0017C9C0",
+    "source": "src/game/func_0017C9C0.c",
+    "address": "0x0017C9C0",
+    "size": 48,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0017CD80",
+    "source": "src/game/func_0017CD80.c",
+    "address": "0x0017CD80",
+    "size": 36,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0017DBC8",
+    "source": "src/game/func_0017DBC8.c",
+    "address": "0x0017DBC8",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0017E7F0",
+    "source": "src/game/func_0017E7F0.c",
+    "address": "0x0017E7F0",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0017F170",
+    "source": "src/game/func_0017F170.c",
+    "address": "0x0017F170",
+    "size": 52,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0017F1A8",
+    "source": "src/game/func_0017F1A8.c",
+    "address": "0x0017F1A8",
+    "size": 44,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0017F440",
+    "source": "src/game/func_0017F440.c",
+    "address": "0x0017F440",
+    "size": 44,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0017F730",
+    "source": "src/game/func_0017F730.c",
+    "address": "0x0017F730",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
     "function": "func_0017F7D0",
@@ -504,6 +1384,14 @@
     "evidence": "complete five-function small-data state range is exact under both compiler generations at G8; complete-range and whole-image exact"
   },
   {
+    "function": "func_0017F9A0",
+    "source": "src/game/func_0017F9A0.c",
+    "address": "0x0017F9A0",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
     "function": "func_00181E98",
     "source": "src/game/state_00181E98.c",
     "address": "0x00181E98",
@@ -534,5 +1422,13 @@
     "size": 8,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "complete four-accessor small-data range is exact under both compiler generations at G8; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_001A0360",
+    "source": "src/game/func_001A0360.c",
+    "address": "0x001A0360",
+    "size": 28,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   }
 ]

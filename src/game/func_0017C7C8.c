@@ -1,0 +1,9 @@
+extern int D_001ECF60;
+
+int func_0017C240();
+int func_001987E0();
+
+int func_0017C7C8(void) {
+    func_001987E0(D_001ECF60);
+    return func_0017C240(20, 0, 0);
+}
