@@ -22,8 +22,44 @@ not silently excluded from the completion target.
 
 Late-text diagnostic strings reference Sony EE libraries such as GS and pad
 code, providing an initial SDK-identification frontier around the high text
-addresses. Exact game-versus-SDK boundaries and subsystem names are not yet
-proven and are therefore not assigned in the function catalog.
+addresses.
+
+A second, sharper signal now supports the same boundary. The executable was not
+produced by one compiler configuration: functions below a single address spill
+`$s0`-`$s7` with `sq`, at 128-bit register precision, while functions above it
+use `sd` at the same sixteen-byte slot stride. `tools/regime_scan.py` derives
+this from the zero-C baseline disassembly rather than asserting it:
+
+```
+functions spilling callee-saved registers: 972
+  128-bit sq regime: 705
+  64-bit  sd regime: 255
+  mixed within one function: 12
+first sd-regime function: 0x001855F0
+last sq-regime function below it: 0x00185218
+sq-regime functions above the boundary: 2 (0x001926D0, 0x001A1340)
+```
+
+The cut is clean: every one of the 705 `sq` functions except two lies below
+`0x001855F0`, and every one of the 255 `sd` functions lies above it. The twelve
+mixed functions spill both widths within one body, which is ordinary inside a
+single object and does not weaken the split.
+
+Reading of the upper region agrees with that boundary. It contains an IEEE
+float and double classify/pack/unpack library, `libm` sine, cosine and arctangent
+kernels with their `fabs`/`isnan`/`copysign` helpers, a VU0 macro-mode vector
+library, a C runtime with a `FILE`-like structure and a four-entry
+read/write/seek/close vtable, `strstr`, `memcpy`, `memset` and `memcmp`, a
+linear-congruential `rand`, an errno layer, SIF and DMA transfer code, and a
+contiguous block of PS2 kernel syscall stubs. The `libgcc` 64-by-64 multiply
+helper appears at `0x00187180`.
+
+So the frontier is provisionally `0x00185400`, in the gap between the last
+`sq` function and the first `sd` function: game code below, SDK and runtime
+above. This remains provisional because the compiler setting that selects
+64-bit register precision has not been recovered, so no upper-region function
+has yet been matched byte-for-byte through its own regime. Subsystem names are
+still not assigned in the function catalog.
 
 ## View/camera state frontier
 
