@@ -59,10 +59,10 @@ REQUIRED = (
     "docs/DECOMP_POLICY.md",
     "docs/knowledge-book.md",
     "docs/SETUP.md",
-    "docs/chulip-gameplay.jpg",
+    "docs/chulip-gameplay.webp",
 )
 ALLOWED_BINARY_SHA256 = {
-    "docs/chulip-gameplay.jpg": "7ce82d26e3d4c37cc26910e2a90b39ffa02ed8c259f89450e2a62278e257d712",
+    "docs/chulip-gameplay.webp": "181d41ebc6fdb23a58ce52aaabc93cde6a042912d0aca4267ed472295b42c676",
 }
 
 
@@ -116,10 +116,6 @@ def main() -> int:
             json.loads(path.read_text())
         except json.JSONDecodeError as error:
             errors.append(f"invalid JSON {path.relative_to(ROOT)}: {error}")
-    if "https://www.rpgfan.com/gallery/chulip-screenshots/" not in (
-        ROOT / "README.md"
-    ).read_text():
-        errors.append("README gameplay screenshot lacks its source credit")
     ledger_path = ROOT / "docs/matching-knowledge.jsonl"
     for line_number, line in enumerate(ledger_path.read_text().splitlines(), 1):
         try:

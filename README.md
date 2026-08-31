@@ -1,8 +1,6 @@
 # Chulip (USA) matching decompilation
 
-![Chulip gameplay](docs/chulip-gameplay.jpg)
-
-*Gameplay screenshot from the [RPGFan Chulip gallery](https://www.rpgfan.com/gallery/chulip-screenshots/).*
+![Chulip gameplay](docs/chulip-gameplay.webp)
 
 An in-progress, byte-matching decompilation of the USA PlayStation 2 release
 of *Chulip* (`SLUS_207.42`). The goal is a complete, readable source
@@ -132,7 +130,7 @@ and semantic-only rewrites do not count. The complete policy is in
 ## Legal
 
 This project is not affiliated with Punchline, Victor Interactive Software,
-Natsume, or Sony. Apart from the credited README screenshot, do not commit or
+Natsume, or Sony. Apart from the README screenshot, do not commit or
 distribute disc images, archives, extracted executables, game assets, generated
 retail disassembly, or proprietary SDK material. Historical toolchains are
 downloaded locally from their respective third-party archives and are not
