@@ -14,14 +14,14 @@ never counted as decompilation progress.
 <!-- decomp-progress-start -->
 ## Decompilation progress
 
-![Matched functions](https://img.shields.io/badge/functions-3%20%2F%202189-2f81f7) ![Matched text bytes](https://img.shields.io/badge/text%20bytes-76%20%2F%20663704-2f81f7)
+![Matched functions](https://img.shields.io/badge/functions-10%20%2F%202189-2f81f7) ![Matched text bytes](https://img.shields.io/badge/text%20bytes-184%20%2F%20663704-2f81f7)
 
-`▏░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░` **0.0115%** of provisional text bytes promoted
+`▏░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░` **0.0277%** of provisional text bytes promoted
 
 | Metric | Matched | Total | Progress |
 | --- | ---: | ---: | ---: |
-| Functions | 3 | 2,189 | 0.1370% |
-| Text bytes | 76 | 663,704 | 0.0115% |
+| Functions | 10 | 2,189 | 0.4568% |
+| Text bytes | 184 | 663,704 | 0.0277% |
 
 Only readable source that passes isolated byte comparison, compiler-provenance review, and the complete-image rebuild is counted. Generated retail assembly contributes zero progress.
 <!-- decomp-progress-end -->
@@ -32,7 +32,7 @@ Only readable source that passes isolated byte comparison, compiler-provenance r
   fingerprinted in `config/`.
 - A zero-C baseline and the current source-plus-assembly project both reproduce
   the complete loaded image exactly.
-- SN Systems GNU C 2.95.3-EE build 1.36 at `-O2` is proven for the first
+- SN Systems GNU C 2.95.3-EE build 1.36 at `-O2 -G8` is proven for the first
   promoted address-contiguous neighborhood. Toolchain claims elsewhere remain
   local until surrounding functions support them.
 - `DAT/SYSTEM.BIN`, `DAT/SYSTEX.BIN`, SDK code, data, and linker layout remain

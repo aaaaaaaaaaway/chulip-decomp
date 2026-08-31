@@ -75,5 +75,84 @@
     "whole_program_match": true,
     "promoted": true,
     "profile_evidence": "inherits the uniquely verified profile of both immediately preceding functions"
+  },
+  {
+    "function": "func_00101678",
+    "source": "src/game/func_00101678.c",
+    "address": "0x00101678",
+    "size": 36,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "promoted": true
+  },
+  {
+    "function": "func_001018C8",
+    "source": "src/game/func_001018C8.c",
+    "address": "0x001018C8",
+    "size": 12,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "promoted": true
+  },
+  {
+    "function": "func_001018D8",
+    "source": "src/game/func_001018D8.c",
+    "address": "0x001018D8",
+    "size": 12,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "promoted": true
+  },
+  {
+    "function": "func_00101908",
+    "source": "src/game/func_00101908.c",
+    "address": "0x00101908",
+    "size": 12,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "promoted": true
+  },
+  {
+    "function": "func_00101918",
+    "source": "src/game/func_00101918.c",
+    "address": "0x00101918",
+    "size": 12,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "promoted": true
+  },
+  {
+    "function": "func_00101CA8",
+    "source": "src/game/func_00101CA8.c",
+    "address": "0x00101CA8",
+    "size": 12,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "promoted": true,
+    "profile_evidence": "GP-relative output matches -G8 and rejects -G0"
+  },
+  {
+    "function": "func_00101CB8",
+    "source": "src/game/func_00101CB8.c",
+    "address": "0x00101CB8",
+    "size": 12,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "promoted": true,
+    "profile_evidence": "GP-relative output matches -G8 and rejects -G0"
   }
 ]

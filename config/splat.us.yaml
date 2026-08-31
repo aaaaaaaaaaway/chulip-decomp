@@ -71,6 +71,17 @@ segments:
       - [0x0014B0, c, game/func_001014B0]
       - [0x0014D0, c, game/func_001014D0]
       - [0x0014E0, asm, cod/text_001014E0]
+      - [0x001678, c, game/func_00101678]
+      - [0x0016A0, asm, cod/text_001016A0]
+      - [0x0018C8, c, game/func_001018C8]
+      - [0x0018D8, c, game/func_001018D8]
+      - [0x0018E8, asm, cod/text_001018E8]
+      - [0x001908, c, game/func_00101908]
+      - [0x001918, c, game/func_00101918]
+      - [0x001928, asm, cod/text_00101928]
+      - [0x001CA8, c, game/func_00101CA8]
+      - [0x001CB8, c, game/func_00101CB8]
+      - [0x001CC8, asm, cod/text_00101CC8]
       - [0x0A3000, textbin, cod/vutext] # .vutext plus 0x30-byte loaded gap
       - [0x0A3980, data, cod/data]      # .data plus 0x4c-byte loaded gap
       - [0x0E6A00, rodata, cod/rodata]  # .rodata plus 0x60-byte loaded gap

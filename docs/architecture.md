@@ -24,3 +24,17 @@ Late-text diagnostic strings reference Sony EE libraries such as GS and pad
 code, providing an initial SDK-identification frontier around the high text
 addresses. Exact game-versus-SDK boundaries and subsystem names are not yet
 proven and are therefore not assigned in the function catalog.
+
+## View/camera state frontier
+
+The address-contiguous module beginning near `0x00101490` maintains a large
+state object at `0x001EDE00`. Its first twelve bytes are a three-float vector;
+floats at offsets `0x30` and `0x34` have widely used accessors. `CameraState`
+is the current evidence-based working name because the callers repeatedly feed
+view-related state, but field semantics beyond the proven layout remain
+provisional.
+
+Two independent floats at `0x001EC884` and `0x001EC888` are emitted through GP
+relative addressing. Exact setters at `0x00101CA8` and `0x00101CB8` prove the
+module's `-G8` small-data setting: the same source under `-G0` expands into
+absolute `lui`-based accesses and does not match.

@@ -38,3 +38,17 @@
 - Promoted 3 functions / 76 bytes after the complete 970,772-byte image still
   matched. `func_00100100` and `func_00100488` remain exact but unpromoted
   until their startup translation-unit boundary is supported.
+
+## 2026-08-31 — camera-state layout and small-data proof
+
+- Reconstructed seven more functions between `0x00101678` and `0x00101CB8`:
+  a three-float aggregate copy, four absolute state-field accessors, and two
+  GP-relative small-data setters.
+- A scalar `extern float` declaration for the fields at state offsets `0x30`
+  and `0x34` incorrectly generated GP-relative accesses. Modeling them as
+  fields of the larger `0x001EDE00` aggregate generated the retail absolute
+  addressing and exposed the first `CameraState` layout.
+- The setters for `0x001EC884` and `0x001EC888` match under `-G8` and reject
+  `-G0`, proving the small-data threshold for this module.
+- Promoted the seven isolated matches after the complete load image remained
+  byte-identical. The ledger now contains 10 functions / 184 bytes.
