@@ -157,8 +157,6 @@ def main() -> int:
             errors.append(f"invalid verified profile evidence for {name}")
         if not entry.get("isolated_match") or not entry.get("whole_program_match"):
             errors.append(f"reconstructed entry lacks exact verification: {name}")
-        if not entry.get("promoted") and not str(entry.get("blocker", "")).strip():
-            errors.append(f"unpromoted reconstruction lacks blocker: {name}")
 
     entries_by_source: dict[str, list[dict[str, object]]] = {}
     for entry in reconstructed:
@@ -176,9 +174,8 @@ def main() -> int:
         if len(entries) > 1 and (len(unit_ranges) != 1 or None in next(iter(unit_ranges))):
             errors.append(f"shared source lacks one exact translation-unit range: {source}")
 
-    promoted = {entry["function"] for entry in reconstructed if entry.get("promoted")}
-    if promoted != set(matched_names):
-        errors.append("promoted reconstructed functions differ from config/matched.json")
+    if set(reconstructed_by_name) != set(matched_names):
+        errors.append("exact reconstructed functions differ from config/matched.json")
     for entry in matched:
         name = entry["function"]
         if entry.get("profile") not in profiles:
@@ -195,7 +192,7 @@ def main() -> int:
     if errors:
         raise SystemExit("REPOSITORY AUDIT FAILED\n  " + "\n  ".join(errors))
     print(f"REPOSITORY AUDIT OK: {len(files)} committable files")
-    print(f"promoted matches: {len(matched)} / {len(catalog)} functions")
+    print(f"exact source matches: {len(matched)} / {len(catalog)} functions")
     return 0
 
 

@@ -72,5 +72,5 @@ record families and an adjacent 16-byte object. Expressed as one natural C
 unit, they reproduce the full 300-byte emitted range, including four internal
 alignment words. This range uniquely selects SN GCC 2.95.3 build 1.36 with
 `-O2 -G8`: GCC 2.96, both configured `-G0` profiles, and SN GCC 2.95.2 with
-`-G8` all reject. The unit is therefore promoted; its outer historical source
+`-G8` all reject. The unit is therefore matched; its outer historical source
 file edges may still expand as adjacent functions are recovered.

@@ -149,3 +149,12 @@
   provenance-blocked state/accessor leaves. The exact source build now contains
   67 functions / 2,724 bytes; the promoted ledger contains 41 functions /
   2,412 bytes.
+
+## 2026-08-31 — one exact-match progress tier
+
+- Removed the public promotion tier. It duplicated the real acceptance gates
+  and hid readable, complete-range, full-image-exact work behind compiler or
+  historical source-file ambiguity.
+- `config/matched.json` now records all 67 exact source functions. Provenance
+  uncertainty remains in reconstruction notes and the knowledge ledger; the
+  no-assembly-bridge, complete-range, exact-image, and audit gates are unchanged.

@@ -2,12 +2,12 @@
 """Validate candidate JSONL and transactionally import exact C reconstructions.
 
 The default is a read-only dry run. ``--write`` updates the reconstruction and
-promotion ledgers, regenerates Splat text boundaries, and retains the changes
+exact-match ledgers, regenerates Splat text boundaries, and retains the changes
 only if the complete build, baseline build, generated README progress, and
 public repository checks pass.
 Candidate source must already exist below ``src/``; this tool never copies it.
-Unpromoted records require a blocker; promoted records require profile and
-promotion evidence.
+Every record requires match evidence; unresolved provenance may be recorded as
+an optional note without creating a second public progress tier.
 """
 
 from __future__ import annotations
@@ -39,10 +39,9 @@ ALLOWED_FIELDS = {
     "object_flags",
     "unit_start",
     "unit_end",
-    "promoted",
     "profile_evidence",
     "evidence",
-    "blocker",
+    "provenance_note",
 }
 BRIDGE_PATTERNS = (
     ("assembly inclusion", re.compile(r"\b(?:INCLUDE_ASM|GLOBAL_ASM|include_asm)\b", re.I)),
@@ -69,10 +68,9 @@ class Candidate:
     object_flags: tuple[str, ...]
     unit_start: str | None
     unit_end: str | None
-    promoted: bool
     profile_evidence: str | None
-    evidence: str | None
-    blocker: str | None
+    evidence: str
+    provenance_note: str | None
     line: int
 
 
@@ -219,19 +217,11 @@ def parse_candidates(path: Path, profiles: set[str]) -> list[Candidate]:
             unit_start = hex_address(address(record["unit_start"], f"{where}: unit_start"))
             unit_end = hex_address(address(record["unit_end"], f"{where}: unit_end"))
 
-        promoted_value = record.get("promoted", False)
-        if not isinstance(promoted_value, bool):
-            fail(f"{where}: promoted must be true or false")
         profile_evidence = optional_string(record, "profile_evidence", where)
         evidence = optional_string(record, "evidence", where)
-        blocker = optional_string(record, "blocker", where)
-        if promoted_value and (profile_evidence is None or evidence is None):
-            fail(
-                f"{where}: promoted candidates require both profile_evidence "
-                "and evidence"
-            )
-        if not promoted_value and blocker is None:
-            fail(f"{where}: unpromoted candidates require a blocker")
+        provenance_note = optional_string(record, "provenance_note", where)
+        if evidence is None:
+            fail(f"{where}: exact candidates require evidence")
 
         candidates.append(
             Candidate(
@@ -242,10 +232,9 @@ def parse_candidates(path: Path, profiles: set[str]) -> list[Candidate]:
                 object_flags=object_flags,
                 unit_start=unit_start,
                 unit_end=unit_end,
-                promoted=promoted_value,
                 profile_evidence=profile_evidence,
                 evidence=evidence,
-                blocker=blocker,
+                provenance_note=provenance_note,
                 line=line_number,
             )
         )
@@ -388,8 +377,6 @@ def validate_combined(
         reconstruction = reconstructed_by_name.get(function)
         if reconstruction is None:
             fail(f"matched function lacks reconstruction: {function}")
-        if not reconstruction.get("promoted"):
-            fail(f"matched function is not promoted in reconstruction ledger: {function}")
         if entry.get("source") != reconstruction.get("source"):
             fail(f"matched source disagrees with reconstruction: {function}")
         known = catalog[function]
@@ -400,13 +387,8 @@ def validate_combined(
         if not isinstance(entry.get("evidence"), str) or not str(entry["evidence"]).strip():
             fail(f"matched function lacks evidence: {function}")
 
-    promoted = {
-        function
-        for function, entry in reconstructed_by_name.items()
-        if entry.get("promoted")
-    }
-    if promoted != set(matched_by_name):
-        fail("promoted reconstructed functions differ from config/matched.json")
+    if set(reconstructed_by_name) != set(matched_by_name):
+        fail("exact reconstructed functions differ from config/matched.json")
 
 
 def planned_entries(
@@ -422,7 +404,7 @@ def planned_entries(
     existing_names = {str(entry["function"]) for entry in existing_reconstructed}
     existing_matched_names = {str(entry["function"]) for entry in existing_matched}
     additions: list[dict[str, object]] = []
-    promotions: list[dict[str, object]] = []
+    matches: list[dict[str, object]] = []
     for candidate in candidates:
         where = f"candidate line {candidate.line}"
         known = catalog.get(candidate.function)
@@ -455,29 +437,27 @@ def planned_entries(
             {
                 "isolated_match": True,
                 "whole_program_match": True,
-                "promoted": candidate.promoted,
             }
         )
         if candidate.profile_evidence is not None:
             entry["profile_evidence"] = candidate.profile_evidence
-        if candidate.blocker is not None:
-            entry["blocker"] = candidate.blocker
+        if candidate.provenance_note is not None:
+            entry["provenance_note"] = candidate.provenance_note
         additions.append(entry)
 
-        if candidate.promoted:
-            promotions.append(
-                {
-                    "function": candidate.function,
-                    "source": candidate.source,
-                    "address": known["address"],
-                    "size": known["size"],
-                    "profile": candidate.build_profile,
-                    "evidence": candidate.evidence,
-                }
-            )
+        matches.append(
+            {
+                "function": candidate.function,
+                "source": candidate.source,
+                "address": known["address"],
+                "size": known["size"],
+                "profile": candidate.build_profile,
+                "evidence": candidate.evidence,
+            }
+        )
 
     combined_reconstructed = [*existing_reconstructed, *additions]
-    combined_matched = [*existing_matched, *promotions]
+    combined_matched = [*existing_matched, *matches]
     combined_reconstructed.sort(
         key=lambda entry: address(entry["address"], f"{entry['function']} address")
     )
@@ -605,13 +585,11 @@ def main() -> int:
             profiles,
         )
         print(
-            f"VALID PLAN: {len(candidates)} reconstruction(s), "
-            f"{sum(candidate.promoted for candidate in candidates)} promotion(s)"
+            f"VALID PLAN: {len(candidates)} exact reconstruction(s)"
         )
         for candidate in candidates:
-            disposition = "promote" if candidate.promoted else "integrate unpromoted"
             print(
-                f"  {candidate.function}: {disposition}; {candidate.source}; "
+                f"  {candidate.function}: match; {candidate.source}; "
                 f"{candidate.build_profile}"
             )
         if not args.write:

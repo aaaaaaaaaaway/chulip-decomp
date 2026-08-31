@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "SN Systems GNU C 2.95.3-EE build 1.36 with its bundled GNU assembler 2.9-ee-991111b and -O2 -G8 is proven for the first promoted state-management module; whole-program translation-unit mapping remains in progress",
+  "status": "SN Systems GNU C 2.95.3-EE build 1.36 with its bundled GNU assembler 2.9-ee-991111b and -O2 -G8 is proven for two exact source neighborhoods; whole-program translation-unit mapping remains in progress",
   "profiles": {
     "ee-gcc2.96-O2": {
       "family": "GNU C",

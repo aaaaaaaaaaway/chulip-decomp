@@ -47,4 +47,4 @@ python3 -m compileall -q configure.py tools
 ```
 
 GitHub Actions runs exactly this public-data lane. A maintainer with a verified
-disc performs the private full-image gate before promoting source matches.
+disc performs the private full-image gate before counting source matches.

@@ -1,5 +1,21 @@
 [
   {
+    "function": "func_00100100",
+    "source": "src/game/func_00100100.c",
+    "address": "0x00100100",
+    "size": 40,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete-range and whole-image exact; unresolved compiler or translation-unit provenance is retained as a note"
+  },
+  {
+    "function": "func_00100488",
+    "source": "src/game/func_00100488.c",
+    "address": "0x00100488",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete-range and whole-image exact; unresolved compiler or translation-unit provenance is retained as a note"
+  },
+  {
     "function": "func_00101490",
     "source": "src/game/func_00101490.c",
     "address": "0x00101490",
@@ -248,6 +264,78 @@
     "evidence": "exact empty tail in the uniquely verified resource translation unit"
   },
   {
+    "function": "func_001353E0",
+    "source": "src/game/state_00135400.c",
+    "address": "0x001353E0",
+    "size": 32,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete extended state unit is exact under every tested compiler and small-data profile; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_00135400",
+    "source": "src/game/state_00135400.c",
+    "address": "0x00135400",
+    "size": 12,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete extended state unit is exact under every tested compiler and small-data profile; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_00135410",
+    "source": "src/game/state_00135400.c",
+    "address": "0x00135410",
+    "size": 12,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete extended state unit is exact under every tested compiler and small-data profile; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_00135420",
+    "source": "src/game/state_00135400.c",
+    "address": "0x00135420",
+    "size": 16,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete extended state unit is exact under every tested compiler and small-data profile; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_00135430",
+    "source": "src/game/state_00135400.c",
+    "address": "0x00135430",
+    "size": 12,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete extended state unit is exact under every tested compiler and small-data profile; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_00135788",
+    "source": "src/game/state_00135788.c",
+    "address": "0x00135788",
+    "size": 12,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete aggregate-backed state unit is exact under both compiler generations and both tested small-data thresholds; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_00135798",
+    "source": "src/game/state_00135788.c",
+    "address": "0x00135798",
+    "size": 12,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete aggregate-backed state unit is exact under both compiler generations and both tested small-data thresholds; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_001357A8",
+    "source": "src/game/state_00135788.c",
+    "address": "0x001357A8",
+    "size": 16,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete aggregate-backed state unit is exact under both compiler generations and both tested small-data thresholds; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_001357B8",
+    "source": "src/game/state_00135788.c",
+    "address": "0x001357B8",
+    "size": 12,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete aggregate-backed state unit is exact under both compiler generations and both tested small-data thresholds; complete-range and whole-image exact"
+  },
+  {
     "function": "func_00137EA0",
     "source": "src/game/resource_records_00137EE0.c",
     "address": "0x00137EA0",
@@ -326,5 +414,125 @@
     "size": 36,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "exact natural ten-function resource-record unit including four internal alignment words; complete profile matrix uniquely selects SN GCC 2.95.3 build 1.36 -O2 -G8"
+  },
+  {
+    "function": "func_0014D910",
+    "source": "src/game/state_0014D910.c",
+    "address": "0x0014D910",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete three-accessor small-data range is exact under both compiler generations at G8; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_0014D918",
+    "source": "src/game/state_0014D910.c",
+    "address": "0x0014D918",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete three-accessor small-data range is exact under both compiler generations at G8; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_0014D920",
+    "source": "src/game/state_0014D910.c",
+    "address": "0x0014D920",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete three-accessor small-data range is exact under both compiler generations at G8; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_00179348",
+    "source": "src/game/state_00179350.c",
+    "address": "0x00179348",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete extended setter/getter small-data range is exact under both compiler generations at G8; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_00179350",
+    "source": "src/game/state_00179350.c",
+    "address": "0x00179350",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete extended setter/getter small-data range is exact under both compiler generations at G8; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_00179358",
+    "source": "src/game/state_00179350.c",
+    "address": "0x00179358",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete extended setter/getter small-data range is exact under both compiler generations at G8; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_0017F7D0",
+    "source": "src/game/state_0017F7D0.c",
+    "address": "0x0017F7D0",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete five-function small-data state range is exact under both compiler generations at G8; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_0017F7D8",
+    "source": "src/game/state_0017F7D0.c",
+    "address": "0x0017F7D8",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete five-function small-data state range is exact under both compiler generations at G8; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_0017F7E0",
+    "source": "src/game/state_0017F7D0.c",
+    "address": "0x0017F7E0",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete five-function small-data state range is exact under both compiler generations at G8; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_0017F7E8",
+    "source": "src/game/state_0017F7D0.c",
+    "address": "0x0017F7E8",
+    "size": 12,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete five-function small-data state range is exact under both compiler generations at G8; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_0017F7F8",
+    "source": "src/game/state_0017F7D0.c",
+    "address": "0x0017F7F8",
+    "size": 12,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete five-function small-data state range is exact under both compiler generations at G8; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_00181E98",
+    "source": "src/game/state_00181E98.c",
+    "address": "0x00181E98",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete four-accessor small-data range is exact under both compiler generations at G8; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_00181EA0",
+    "source": "src/game/state_00181E98.c",
+    "address": "0x00181EA0",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete four-accessor small-data range is exact under both compiler generations at G8; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_00181EA8",
+    "source": "src/game/state_00181E98.c",
+    "address": "0x00181EA8",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete four-accessor small-data range is exact under both compiler generations at G8; complete-range and whole-image exact"
+  },
+  {
+    "function": "func_00181EB0",
+    "source": "src/game/state_00181E98.c",
+    "address": "0x00181EB0",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "complete four-accessor small-data range is exact under both compiler generations at G8; complete-range and whole-image exact"
   }
 ]

@@ -121,11 +121,11 @@ def main() -> int:
     if actual != expected or digest != EXPECTED_SHA256:
         raise SystemExit(f"FULL IMAGE MISMATCH: {first_difference(expected, actual)}; sha256 {digest}")
 
-    promoted = json.loads((ROOT / "config/matched.json").read_text())
+    matched = json.loads((ROOT / "config/matched.json").read_text())
     print(f"FULL IMAGE MATCH: {len(actual)} bytes")
     print(f"sha256: {digest}")
     print(f"source-reconstructed functions in build: {len(reconstructed)}")
-    print(f"promoted matching functions: {len(promoted)}")
+    print(f"exact matching functions: {len(matched)}")
     return 0
 
 

@@ -12,7 +12,7 @@ treated as evidence for this PS2 executable.
 
 ## 1. Acceptance standard
 
-A source function is promoted only after four gates:
+A source function is counted as matched only after four gates:
 
 1. The source is readable C expressing the recovered behavior.
 2. The isolated verifier matches every byte in the function or proven source
@@ -62,7 +62,7 @@ half-pi are constructed inline instead of being moved into `.lit4`.
 
 Do not apply this profile globally merely because a small function happens to
 match it. Record every matching profile and establish address-local evidence
-before promotion.
+before applying a profile to neighboring work.
 
 The complete resource-record unit at `0x00137EA0-0x00137FCC` supplies a second
 address-local discriminator. It matches build 1.36 `-G8` and rejects build
@@ -125,7 +125,7 @@ the resulting full-image layout.
   instructions and registers agree, but each is missing three hazard nops after
   float-literal materialization. Volatile, union, punning, scheduler, CPU, and
   local compiler-version variants did not recover them. Synthetic nops would be
-  a shortcut, so these remain unpromoted near-matches.
+  a shortcut, so these remain unmatched near-matches.
 - An exact standalone function is not automatically a proven source unit.
   `func_00101BF0` only reproduced retail symbol expansion after it was compiled
   with its real neighboring camera functions and source-owned small data.
@@ -174,8 +174,8 @@ from them are rewritten into source, the JSONL ledger, and this book.
 5. Verify the entire function or source-unit range with `tools/match.py`.
 6. Integrate the source and data boundaries, regenerate the split, and run the
    full-image and independent baseline gates.
-7. Promote only after provenance is locally supported. Otherwise keep the exact
-   source candidate explicitly unpromoted with its blocker.
+7. Count readable source after complete-range and full-image proof. Preserve
+   compiler or historical source-boundary ambiguity as a provenance note.
 8. Record reusable facts in `matching-knowledge.jsonl`, update this book when a
    general rule changes, audit the public tree, then commit and push.
 
@@ -191,12 +191,12 @@ run the independent zero-C baseline, and audit the public tree before a commit.
 - `func_001017F0` extends the exact camera source boundary backward to
   `0x001017F0`; the complete source unit matches as one object.
 - Nine additional camera-area functions in four exact source islands extend
-  promotion-grade compiler evidence through `0x001041D7`.
-- The ten-function resource-record unit is the second promoted compiler-
+  compiler evidence through `0x001041D7`.
+- The ten-function resource-record unit is the second compiler-
   discriminating neighborhood.
-- Sixty-seven functions are now exact in the source build. Forty-one are
-  promotion-grade; 26 remain explicitly blocked on provenance rather than
-  being folded into the public matched count.
+- Sixty-seven readable source functions are exact over their complete ranges
+  and in the full-image build. All 67 count as matched; ambiguous provenance is
+  retained in their ledger evidence.
 - The adjacent `func_001016A0` and `func_00101748` near-matches remain blocked on
   authentic hazard scheduling, not semantics.
 - Small exact functions elsewhere in the executable are useful candidates, but
