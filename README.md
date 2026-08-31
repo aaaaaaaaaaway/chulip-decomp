@@ -1,31 +1,20 @@
 # Chulip (USA) matching decompilation
 
-![Chulip matching decompilation](docs/banner.svg)
+![Chulip gameplay](docs/chulip-gameplay.jpg)
+
+*Gameplay screenshot from the [RPGFan Chulip gallery](https://www.rpgfan.com/gallery/chulip-screenshots/).*
 
 An in-progress, byte-matching decompilation of the USA PlayStation 2 release
 of *Chulip* (`SLUS_207.42`). The goal is a complete, readable source
-reconstruction of the game executable—not a port, recompilation shortcut, or
-assembly transcription.
+reconstruction of the game executable. This is not a port, recompilation
+shortcut, or assembly transcription.
 
 ## About the game
 
-*Chulip* (チュリップ) is a PlayStation 2 adventure game developed by Punchline,
-a studio founded by former Love-de-Lic staff. Victor Interactive Software
-released it in Japan in 2002; Natsume published this North American version in
-2007.
-
-You play a boy who moves with his family to Long Life Town, a dilapidated
-place where the residents live as much underground as above it, and where a
-letter from a girl sets you chasing the one thing that will reach her: a kiss.
-Kissing the townspeople—each of whom must be caught in exactly the right mood,
-in the right place, at the right hour—raises your courage and reputation, and
-most attempts end with you dead on the pavement and back at your father's
-cardboard house.
-
-Its blend of a strict daily schedule, obscure conditions, blunt difficulty and
-deadpan humour made it a commercial failure and a lasting cult favourite. That
-same density is what makes it interesting to decompile: the town's behaviour is
-driven by a large, tightly interlocked body of state machines and timing tables.
+*Chulip* is a PlayStation 2 adventure game developed by Punchline. You explore
+Long Life Town, follow its residents' schedules, solve puzzles, and improve
+your reputation by finding the right time to kiss each character. Natsume
+released this USA version in 2007.
 
 The current source-plus-assembly build reproduces the complete 970,772-byte
 loaded image with SHA-256
@@ -36,14 +25,14 @@ never counted as decompilation progress.
 <!-- decomp-progress-start -->
 ## Decompilation progress
 
-![Matched functions](https://img.shields.io/badge/functions-244%20%2F%202189-2f81f7) ![Matched text bytes](https://img.shields.io/badge/text%20bytes-8136%20%2F%20663704-2f81f7)
+![Matched functions](https://img.shields.io/badge/functions-377%20%2F%202189-2f81f7) ![Matched text bytes](https://img.shields.io/badge/text%20bytes-13036%20%2F%20663704-2f81f7)
 
-`▏░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░` **1.2258%** of provisional text bytes matched
+`▏░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░` **1.9641%** of provisional text bytes matched
 
 | Metric | Matched | Total | Progress |
 | --- | ---: | ---: | ---: |
-| Functions | 244 | 2,189 | 11.1466% |
-| Text bytes | 8,136 | 663,704 | 1.2258% |
+| Functions | 377 | 2,189 | 17.2225% |
+| Text bytes | 13,036 | 663,704 | 1.9641% |
 
 Only readable source that passes isolated byte comparison, compiler-provenance review, and the complete-image rebuild is counted. Generated retail assembly contributes zero progress.
 <!-- decomp-progress-end -->
@@ -143,7 +132,8 @@ and semantic-only rewrites do not count. The complete policy is in
 ## Legal
 
 This project is not affiliated with Punchline, Victor Interactive Software,
-Natsume, or Sony. Do not commit or distribute disc images, archives, extracted
-executables, game assets, generated retail disassembly, or proprietary SDK
-material. Historical toolchains are downloaded locally from their respective
-third-party archives and are not redistributed here.
+Natsume, or Sony. Apart from the credited README screenshot, do not commit or
+distribute disc images, archives, extracted executables, game assets, generated
+retail disassembly, or proprietary SDK material. Historical toolchains are
+downloaded locally from their respective third-party archives and are not
+redistributed here.

@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Audit the committable repository using no copyrighted local inputs."""
+"""Audit the committable repository for public-safe inputs."""
 
 from __future__ import annotations
 
 import json
+import hashlib
 import re
 import subprocess
 from pathlib import Path
@@ -58,7 +59,11 @@ REQUIRED = (
     "docs/DECOMP_POLICY.md",
     "docs/knowledge-book.md",
     "docs/SETUP.md",
+    "docs/chulip-gameplay.jpg",
 )
+ALLOWED_BINARY_SHA256 = {
+    "docs/chulip-gameplay.jpg": "7ce82d26e3d4c37cc26910e2a90b39ffa02ed8c259f89450e2a62278e257d712",
+}
 
 
 def committable_files() -> list[str]:
@@ -91,7 +96,12 @@ def main() -> int:
             continue
         data = (ROOT / name).read_bytes()
         if b"\0" in data:
-            errors.append(f"binary/NUL-containing tracked file: {name}")
+            expected_hash = ALLOWED_BINARY_SHA256.get(name)
+            actual_hash = hashlib.sha256(data).hexdigest()
+            if expected_hash is None:
+                errors.append(f"binary/NUL-containing tracked file: {name}")
+            elif actual_hash != expected_hash:
+                errors.append(f"allowlisted binary hash changed: {name}")
             continue
         text = data.decode("utf-8", errors="replace")
         for pattern in SECRET_PATTERNS:
@@ -106,6 +116,10 @@ def main() -> int:
             json.loads(path.read_text())
         except json.JSONDecodeError as error:
             errors.append(f"invalid JSON {path.relative_to(ROOT)}: {error}")
+    if "https://www.rpgfan.com/gallery/chulip-screenshots/" not in (
+        ROOT / "README.md"
+    ).read_text():
+        errors.append("README gameplay screenshot lacks its source credit")
     ledger_path = ROOT / "docs/matching-knowledge.jsonl"
     for line_number, line in enumerate(ledger_path.read_text().splitlines(), 1):
         try:

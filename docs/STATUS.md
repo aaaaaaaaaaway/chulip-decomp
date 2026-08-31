@@ -19,18 +19,30 @@
 
 Provisional function catalog: **2,189 functions / 663,704 bytes**
 
-Source-reconstructed and matched: **67 functions / 2,724 bytes**
+Source-reconstructed and matched: **244 functions / 8,136 bytes**
 
-Matched functions: **67 / 2,189 (3.0608%)**
+Matched functions: **244 / 2,189 (11.1466%)**
 
-Matched text bytes: **2,724 / 663,704 (0.4104%)**
+Matched text bytes: **8,136 / 663,704 (1.2258%)**
 
 There is one public match tier. Readable source that matches its complete range
 and survives the exact full-image rebuild is counted; unresolved compiler or
 historical source-file provenance remains attached as evidence rather than
 hiding the function from progress.
 
-The first batch manifest re-verifies 58 exact candidates in one restartable
-pass. Twenty-nine of its 49 leaf candidates are now source-built; boundary
-probing extended that set by five more functions. A separate ten-function
-packet/VIF lane and nine empty leaves are exact and queued for integration.
+The original 49-function leaf batch is fully source-built. A separate symbolic
+leaf pass recovered 112 additional exact functions by deriving readable
+statements and then compiling the finite declaration/order variants; only
+complete-range byte matches survived. Boundary work also established five
+multi-function ranges and added 24 further functions in the latest gated
+transaction.
+
+A structured single-conditional pass then added 41 functions / 2,188 bytes.
+It models the delay slot at branch time, guarded-path register liveness,
+early-return branches, and the R5900 three-operand multiply before attempting
+source-shape matching.
+
+The packet/VIF frontier now has 24 exact functions arranged in three combined
+ranges plus a ten-helper continuation. One was already source-built; the other
+23 remain queued until their public units pass the same complete-image
+transaction.

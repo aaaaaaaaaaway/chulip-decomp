@@ -158,3 +158,36 @@
 - `config/matched.json` now records all 67 exact source functions. Provenance
   uncertainty remains in reconstruction notes and the knowledge ledger; the
   no-assembly-bridge, complete-range, exact-image, and audit gates are unchanged.
+
+## 2026-08-31 — bounded symbolic leaf recovery
+
+- Recovered 112 branch-free functions by interpreting retail instructions into
+  readable statements, compiling the finite declaration and independent-order
+  variants, and accepting only complete-range byte matches.
+- Grouped adjacent functions into shared C units where separate objects would
+  introduce false alignment. No target-byte arrays, assembly transcription,
+  generated opcode source, or relaxed verifier was used.
+- The exact source build increased to 179 functions / 5,468 catalog bytes and
+  retained the complete 970,772-byte image SHA-256.
+
+## 2026-08-31 — complete first leaf batch and boundary units
+
+- Integrated the 20 remaining functions from the original 49-function leaf
+  batch plus four exact boundary neighbors: 24 functions / 480 catalog bytes.
+- Verified 19 distinct public source/range compilations. Five combined units
+  reproduce their complete emitted ranges, including internal alignment; two
+  already-counted functions were moved into those stronger units without
+  inflating the function or byte totals.
+- The transactional importer passed the exact full-image build, independent
+  zero-C baseline, generated progress check, and public repository audit. The
+  build now contains 203 exact source functions / 5,948 catalog bytes.
+
+## 2026-08-31 — structured single-conditional recovery
+
+- Extended bounded recovery to functions with one forward conditional. Branch
+  operands are captured before the delay slot, guarded-path-only register state
+  is discarded before the common tail, and early returns form an else path.
+- Added R5900 three-operand multiply handling and address-only external symbol
+  declarations.
+- Recovered 41 functions / 2,188 catalog bytes. The exact build now contains
+  244 functions / 8,136 bytes and retains the complete image SHA-256.

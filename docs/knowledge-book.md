@@ -194,11 +194,25 @@ run the independent zero-C baseline, and audit the public tree before a commit.
   compiler evidence through `0x001041D7`.
 - The ten-function resource-record unit is the second compiler-
   discriminating neighborhood.
-- Sixty-seven readable source functions are exact over their complete ranges
-  and in the full-image build. All 67 count as matched; ambiguous provenance is
-  retained in their ledger evidence.
+- Two hundred and forty-four readable source functions / 8,136 catalog bytes are
+  exact over their complete ranges and in the full-image build. Every one
+  counts as matched; ambiguous compiler or historical source-file provenance
+  remains attached as evidence.
+- A bounded symbolic pass recovered 112 branch-free leaves without emitting
+  target bytes as source: it derived readable statements from retail
+  instructions, compiled the finite declaration and independent-statement
+  order variants, and retained only strict complete-range matches.
+- The recovery engine also handles a single forward conditional by preserving
+  branch-time operand values across the delay slot, restoring registers that
+  are live only on the guarded path, and distinguishing early-return paths from
+  common tails. This added 41 exact functions.
+- Five boundary-tested units at `0x0012FC88-0x0012FCC0`,
+  `0x0014B4A0-0x0014B4C0`, `0x00178248-0x0017826C`,
+  `0x0017F9A0-0x0017F9B8`, and `0x0019A7D8-0x0019A83C` preserve their
+  internal alignment and now build as combined readable C.
 - The adjacent `func_001016A0` and `func_00101748` near-matches remain blocked on
   authentic hazard scheduling, not semantics.
-- Small exact functions elsewhere in the executable are useful candidates, but
-  remain subject to local compiler and source-unit provenance before they can
-  increase public completion metrics.
+- Small exact functions elsewhere in the executable remain useful throughput
+  candidates, but they increase public metrics only after complete-range
+  verification, full-image reconstruction, independent baseline, and public
+  audit all pass.
