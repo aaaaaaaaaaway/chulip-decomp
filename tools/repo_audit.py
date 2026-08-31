@@ -40,11 +40,13 @@ SECRET_PATTERNS = (
     re.compile(r"github_pat_[A-Za-z0-9_]{30,}"),
     re.compile(r"AKIA[0-9A-Z]{16}"),
 )
+LOCAL_PATH_PATTERNS = (
+    re.compile(r"/(?:home|Users)/[A-Za-z0-9._-]+/"),
+    re.compile(r"[A-Za-z]:\\\\Users\\\\[A-Za-z0-9._-]+\\\\"),
+)
 REQUIRED = (
-    ".github/pull_request_template.md",
     ".github/workflows/verify.yml",
     ".gitignore",
-    "CONTRIBUTING.md",
     "README.md",
     "config/disc.json",
     "config/elf.json",
@@ -64,7 +66,8 @@ def committable_files() -> list[str]:
         check=True,
         capture_output=True,
     )
-    return sorted(path.decode() for path in result.stdout.split(b"\0") if path)
+    files = (path.decode() for path in result.stdout.split(b"\0") if path)
+    return sorted(path for path in files if (ROOT / path).is_file())
 
 
 def load_json(path: str):
@@ -92,6 +95,9 @@ def main() -> int:
         for pattern in SECRET_PATTERNS:
             if pattern.search(text):
                 errors.append(f"possible credential in {name}: {pattern.pattern}")
+        for pattern in LOCAL_PATH_PATTERNS:
+            if pattern.search(text):
+                errors.append(f"machine-local path in {name}: {pattern.pattern}")
 
     for path in sorted((ROOT / "config").glob("*.json")):
         try:

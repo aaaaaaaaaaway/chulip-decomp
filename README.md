@@ -69,8 +69,7 @@ python3 tools/build_baseline.py
 
 ## Contributing
 
-Issues and pull requests are open. See [CONTRIBUTING.md](CONTRIBUTING.md) for
-the matching checks and the list of content that must stay out of Git.
+Issues and pull requests are open.
 
 ## Repository layout
 
@@ -81,7 +80,7 @@ the matching checks and the list of content that must stay out of Git.
 | `config/` | Disc/ELF fingerprints, function catalog, toolchains, and match ledgers |
 | `docs/` | Architecture, status, policy, campaign log, and durable findings |
 | `tools/` | Extraction, splitting, compilation, matching, build, and audit tools |
-| `.github/` | Collaboration templates and public-data CI checks |
+| `.github/` | Public-data CI checks |
 
 Generated assembly, extracted files, historical compiler binaries, and build
 products are deliberately excluded from Git.

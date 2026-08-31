@@ -23,6 +23,7 @@ options:
   create_undefined_syms_auto: true
   undefined_funcs_auto_path: build/baseline-split/undefined_funcs_auto.txt
   undefined_syms_auto_path: build/baseline-split/undefined_syms_auto.txt
+  generate_asm_macros_files: false
   symbol_addrs_path:
     - config/symbol_addrs.txt
   find_file_boundaries: false
