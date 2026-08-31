@@ -87,3 +87,16 @@
   flags. Both the 970,772-byte source build and independent zero-C baseline
   retain SHA-256 `77768f0c5d84a92a6d185499b8bb4bb2205779a81fbdb859b15cc1d9ce28f876`.
 - The promoted ledger now contains 20 functions / 1,076 bytes.
+
+## 2026-08-31 — complete camera-motion source unit
+
+- Reconstructed `func_00101BF0`, a 184-byte camera-position and view-angle
+  update. A standalone candidate was deliberately rejected because external
+  small-data symbols changed its assembler expansion.
+- Merged all ten contiguous recovered functions from `0x00101928` through
+  `0x00101CC3` into one source unit. The resulting 924-byte object text matches
+  as a whole; the linker-proven 8-byte input alignment supplies the retail
+  four-byte gap before `0x00101CC8`.
+- The exact complete-image build now contains 21 promoted functions / 1,260
+  bytes. This strengthens the source boundary instead of retaining convenient
+  artificial per-function units.

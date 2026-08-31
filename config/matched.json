@@ -105,7 +105,7 @@
   },
   {
     "function": "func_00101A00",
-    "source": "src/game/func_00101A00.c",
+    "source": "src/game/camera_motion.c",
     "address": "0x00101A00",
     "size": 104,
     "profile": "ee-gcc2.95.3-136-O2-G8",
@@ -113,7 +113,7 @@
   },
   {
     "function": "func_00101A68",
-    "source": "src/game/func_00101A68.c",
+    "source": "src/game/camera_motion.c",
     "address": "0x00101A68",
     "size": 104,
     "profile": "ee-gcc2.95.3-136-O2-G8",
@@ -121,7 +121,7 @@
   },
   {
     "function": "func_00101AD0",
-    "source": "src/game/func_00101AD0.c",
+    "source": "src/game/camera_motion.c",
     "address": "0x00101AD0",
     "size": 36,
     "profile": "ee-gcc2.95.3-136-O2-G8",
@@ -129,7 +129,7 @@
   },
   {
     "function": "func_00101AF8",
-    "source": "src/game/func_00101AF8.c",
+    "source": "src/game/camera_motion.c",
     "address": "0x00101AF8",
     "size": 164,
     "profile": "ee-gcc2.95.3-136-O2-G8",
@@ -137,15 +137,23 @@
   },
   {
     "function": "func_00101BA0",
-    "source": "src/game/func_00101BA0.c",
+    "source": "src/game/camera_motion.c",
     "address": "0x00101BA0",
     "size": 80,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact three-component camera-position assignment and state updates"
   },
   {
+    "function": "func_00101BF0",
+    "source": "src/game/camera_motion.c",
+    "address": "0x00101BF0",
+    "size": 184,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact camera-position and angle reconstruction; historical assembler -G0 avoids a non-retail literal pool"
+  },
+  {
     "function": "func_00101CA8",
-    "source": "src/game/func_00101CA8.c",
+    "source": "src/game/camera_motion.c",
     "address": "0x00101CA8",
     "size": 12,
     "profile": "ee-gcc2.95.3-136-O2-G8",
@@ -153,7 +161,7 @@
   },
   {
     "function": "func_00101CB8",
-    "source": "src/game/func_00101CB8.c",
+    "source": "src/game/camera_motion.c",
     "address": "0x00101CB8",
     "size": 12,
     "profile": "ee-gcc2.95.3-136-O2-G8",
