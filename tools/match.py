@@ -146,7 +146,7 @@ def words(data: bytes) -> list[str]:
     return result
 
 
-def compare(expected: bytes, actual: bytes) -> str:
+def compare(expected: bytes, actual: bytes, verbose: bool = True) -> str:
     if expected == actual:
         return "MATCH"
     limit = min(len(expected), len(actual))
@@ -155,8 +155,11 @@ def compare(expected: bytes, actual: bytes) -> str:
         detail = f"size expected {len(expected)}, actual {len(actual)}"
     else:
         detail = f"first byte +0x{offset:X}: expected {expected[offset]:02X}, actual {actual[offset]:02X}"
+    summary = f"MISMATCH ({detail})"
+    if not verbose:
+        return summary
     return (
-        f"MISMATCH ({detail})\n"
+        f"{summary}\n"
         f"  expected words: {' '.join(words(expected))}\n"
         f"  actual words:   {' '.join(words(actual))}"
     )
@@ -170,6 +173,7 @@ def main() -> int:
     parser.add_argument("--range-start", type=lambda value: int(value, 0))
     parser.add_argument("--range-end", type=lambda value: int(value, 0))
     parser.add_argument("--object-flag", action="append", default=[])
+    parser.add_argument("--quiet", action="store_true", help="omit complete word dumps on mismatch")
     args = parser.parse_args()
 
     record = function_record(args.function)
@@ -266,7 +270,7 @@ def main() -> int:
         )
         run(["mipsel-linux-gnu-objcopy", "-O", "binary", "-j", ".text", str(linked), str(binary)])
         actual = binary.read_bytes()
-        result = compare(expected, actual)
+        result = compare(expected, actual, verbose=not args.quiet)
         print(f"{profile_name}: {result}")
         if result == "MATCH":
             matched.append(profile_name)

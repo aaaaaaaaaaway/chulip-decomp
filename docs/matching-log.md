@@ -112,3 +112,21 @@
 - Both the source build and independent baseline still reproduce the complete
   970,772-byte load image and expected SHA-256. The promoted ledger now contains
   22 functions / 1,380 bytes.
+
+## 2026-08-31 — batch workflow and later camera units
+
+- Added deterministic generation of Splat source islands from the
+  reconstruction ledger, a JSONL batch verifier, and a ranked untouched-function
+  queue. A 58-candidate manifest now re-verifies the nine integrated camera
+  matches and 49 pending exact leaves in one compact, restartable pass.
+- Reconstructed `func_00102440`, the two-function camera snapshot unit, the
+  four-function camera object-helper unit, and the two-function resource unit:
+  nine functions and 748 retail bytes in total.
+- Negative compiler controls reject SN build 2.73a for all nontrivial units.
+  The resource unit additionally requires compiler `-G8` and historical
+  assembler `-G0`; the standalone camera update rejects compiler `-G0`.
+- Added proven inner symbols at `0x001ED088` and `0x001ED08C` without splitting
+  the underlying raw 16-byte small-BSS allocation.
+- The exact source build and independent zero-C baseline both retain the
+  970,772-byte image SHA-256. The promoted ledger now contains 31 functions /
+  2,128 bytes; the exact source build contains 33 functions / 2,176 bytes.

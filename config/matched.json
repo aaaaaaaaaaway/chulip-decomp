@@ -174,5 +174,77 @@
     "size": 12,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact GP-relative zero setters; -G0 rejected"
+  },
+  {
+    "function": "func_00102440",
+    "source": "src/game/func_00102440.c",
+    "address": "0x00102440",
+    "size": 136,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact GP-relative camera update; compiler -G0 and SN build 2.73a reject"
+  },
+  {
+    "function": "func_00103AD0",
+    "source": "src/game/camera_snapshot.c",
+    "address": "0x00103AD0",
+    "size": 100,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact complete snapshot translation unit; SN build 2.73a rejects"
+  },
+  {
+    "function": "func_00103B38",
+    "source": "src/game/camera_snapshot.c",
+    "address": "0x00103B38",
+    "size": 216,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact complete snapshot translation unit; SN build 2.73a rejects"
+  },
+  {
+    "function": "func_00103CF8",
+    "source": "src/game/camera_object.c",
+    "address": "0x00103CF8",
+    "size": 36,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact complete four-function object-helper unit; SN build 2.73a rejects"
+  },
+  {
+    "function": "func_00103D20",
+    "source": "src/game/camera_object.c",
+    "address": "0x00103D20",
+    "size": 28,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact complete four-function object-helper unit; SN build 2.73a rejects"
+  },
+  {
+    "function": "func_00103D40",
+    "source": "src/game/camera_object.c",
+    "address": "0x00103D40",
+    "size": 52,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact complete four-function object-helper unit; SN build 2.73a rejects"
+  },
+  {
+    "function": "func_00103D78",
+    "source": "src/game/camera_object.c",
+    "address": "0x00103D78",
+    "size": 88,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact complete four-function object-helper unit; SN build 2.73a rejects"
+  },
+  {
+    "function": "func_00104178",
+    "source": "src/game/camera_resource.c",
+    "address": "0x00104178",
+    "size": 84,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact complete resource unit uniquely requires compiler -G8 and historical assembler -G0"
+  },
+  {
+    "function": "func_001041D0",
+    "source": "src/game/camera_resource.c",
+    "address": "0x001041D0",
+    "size": 8,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact empty tail in the uniquely verified resource translation unit"
   }
 ]

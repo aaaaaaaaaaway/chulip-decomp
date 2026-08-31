@@ -9,6 +9,7 @@ import subprocess
 from pathlib import Path
 
 from progress import markdown, progress_data, replace_readme
+from gen_splat_config import rendered_config
 
 ROOT = Path(__file__).resolve().parents[1]
 FORBIDDEN_PREFIXES = (
@@ -178,6 +179,8 @@ def main() -> int:
         replace_readme(markdown(data), write=False)
     except SystemExit as error:
         errors.append(str(error))
+    if (ROOT / "config/splat.us.yaml").read_text() != rendered_config():
+        errors.append("generated splat text subsegments are stale")
 
     if errors:
         raise SystemExit("REPOSITORY AUDIT FAILED\n  " + "\n  ".join(errors))

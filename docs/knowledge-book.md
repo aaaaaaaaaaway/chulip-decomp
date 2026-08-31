@@ -71,6 +71,13 @@ source unit. Its seventeen functions produce 1,236 exact object-text bytes toget
 the linker then contributes four bytes of input alignment before the following
 object.
 
+Later camera-area units show why whole-unit proof is the default even for easy
+functions. The two snapshot functions produce an exact 320-byte object, four
+object helpers produce an exact 216-byte object, and the resource loader plus
+empty tail produce an exact 96-byte object. The snapshot copy also proves that
+`CameraState` has 16-byte alignment: removing the alignment changes the
+compiler's aggregate-copy sequence.
+
 This matters because compiling the functions as convenient isolated objects can
 change symbol classification, literal placement, alignment, and register
 scheduling even when each C body looks correct.
@@ -136,6 +143,9 @@ the resulting full-image layout.
 | Historical assembly | bundled GNU assembler | Produces authoritative source-object encodings for the proven profile. |
 | ELF repair/linking | GNU MIPS binutils | Removes obsolete metadata, resolves relocations, links, and extracts images. |
 | Isolated proof | `tools/match.py` | Compares a complete function or shared source-unit byte range. |
+| Batch proof | `tools/batch_verify.py` | Re-verifies a JSONL candidate manifest with complete ranges and compact, restartable results. |
+| Candidate ranking | `tools/candidate_queue.py` | Ranks untouched functions by size and instruction features without changing proof state. |
+| Split generation | `tools/gen_splat_config.py` | Derives source islands from the reconstruction ledger and rejects stale manual boundaries. |
 | Full-image proof | `tools/build.py` | Requires the reconstructed 970,772-byte image and SHA-256 to match. |
 | Independent coverage proof | `tools/build_baseline.py` | Proves that generated assembly still covers the untouched image exactly. |
 | Progress and hygiene | `tools/progress.py`, `tools/repo_audit.py` | Derives public metrics and rejects missing evidence, local paths, secrets, or generated inputs. |
@@ -163,12 +173,22 @@ from them are rewritten into source, the JSONL ledger, and this book.
 8. Record reusable facts in `matching-knowledge.jsonl`, update this book when a
    general rule changes, audit the public tree, then commit and push.
 
+For throughput, selection and isolated verification may run in parallel across
+disjoint ignored lanes. Integration remains serialized: regenerate source
+boundaries from the ledger, verify shared units, rebuild the complete image,
+run the independent zero-C baseline, and audit the public tree before a commit.
+
 ## 9. Current frontier
 
 - The early camera module is the strongest compiler and translation-unit
   evidence region.
 - `func_001017F0` extends the exact camera source boundary backward to
   `0x001017F0`; the complete source unit matches as one object.
+- Nine additional camera-area functions in four exact source islands extend
+  promotion-grade compiler evidence through `0x001041D7`.
+- Fifty-eight exact candidates can now be rechecked in one batch. Nine are the
+  integrated camera matches; the other 49 still need local compiler and
+  translation-unit provenance before promotion.
 - The adjacent `func_001016A0` and `func_00101748` near-matches remain blocked on
   authentic hazard scheduling, not semantics.
 - Small exact functions elsewhere in the executable are useful candidates, but

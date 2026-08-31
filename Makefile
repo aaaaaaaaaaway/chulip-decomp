@@ -9,6 +9,7 @@ setup:
 	$(PYTHON) tools/bootstrap.py
 
 split:
+	$(PYTHON) tools/gen_splat_config.py --check
 	$(VENV_PYTHON) configure.py --split
 
 baseline:
@@ -30,5 +31,6 @@ audit:
 
 public-check:
 	$(PYTHON) -m compileall -q configure.py tools
+	$(PYTHON) tools/gen_splat_config.py --check
 	$(PYTHON) tools/progress.py --check-readme
 	$(PYTHON) tools/repo_audit.py

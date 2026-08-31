@@ -48,3 +48,19 @@ position updates, angle accumulation, vector copies, state accessors, and view
 notifications reproduce all 1,236 object-text bytes only when the historical
 assembler constructs half-pi literals inline. The following four bytes are
 linker input alignment, not part of the source object's text section.
+
+Four later source islands extend the same subsystem evidence:
+
+- `func_00102440` updates the camera position and small-data radius, and
+  independently rejects both compiler `-G0` and SN build 2.73a.
+- The snapshot pair at `0x00103AD0-0x00103C0F` copies a 16-byte-aligned
+  `CameraState` into and out of the object at `0x001EDE40`. Its complete
+  320-byte source unit rejects the older compiler's aggregate-copy schedule.
+- Four object helpers at `0x00103CF8-0x00103DCF` form an exact 216-byte unit
+  that copies camera state and updates transform buffers.
+- The resource pair at `0x00104178-0x001041D7` is an exact 96-byte unit. It
+  requires compiler `-G8` with historical assembler `-G0` and addresses two
+  fields inside the raw small-BSS allocation at `0x001ED080`.
+
+These islands support a local camera-area compiler model; they do not prove
+that the entire executable used one compiler profile or source layout.

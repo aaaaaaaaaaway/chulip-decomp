@@ -18,7 +18,7 @@ typedef struct CameraState {
     Vec3f position;
     unsigned char unknown_0C[0x24];
     Vec4f vector_30;
-} CameraState;
+} __attribute__((aligned(16))) CameraState;
 
 extern CameraState D_001EDE00;
 extern Vec3f D_001EDDE0;

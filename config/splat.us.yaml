@@ -63,6 +63,7 @@ segments:
     # sections advertise 16, so preserve the proven linker subalignment.
     subalign: 8
     subsegments:
+      # generated-text-subsegments-start
       - [0x000000, asm, cod/text_00100000]
       - [0x000100, c, game/func_00100100]
       - [0x000128, asm, cod/text_00100128]
@@ -77,6 +78,15 @@ segments:
       - [0x0016A0, asm, cod/text_001016A0]
       - [0x0017F0, c, game/camera_motion]
       - [0x001CC8, asm, cod/text_00101CC8]
+      - [0x002440, c, game/func_00102440]
+      - [0x0024C8, asm, cod/text_001024C8]
+      - [0x003AD0, c, game/camera_snapshot]
+      - [0x003C10, asm, cod/text_00103C10]
+      - [0x003CF8, c, game/camera_object]
+      - [0x003DD0, asm, cod/text_00103DD0]
+      - [0x004178, c, game/camera_resource]
+      - [0x0041D8, asm, cod/text_001041D8]
+      # generated-text-subsegments-end
       - [0x0A3000, textbin, cod/vutext] # .vutext plus 0x30-byte loaded gap
       - [0x0A3980, data, cod/data]      # .data plus 0x4c-byte loaded gap
       - [0x0E6A00, rodata, cod/rodata]  # .rodata plus 0x60-byte loaded gap
