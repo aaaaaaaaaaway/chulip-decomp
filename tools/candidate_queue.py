@@ -89,22 +89,48 @@ def features(entry: dict[str, object], assembly: str) -> dict[str, object]:
     }
 
 
+def manifest_functions(paths: list[Path]) -> set[str]:
+    excluded: set[str] = set()
+    for path in paths:
+        path = path if path.is_absolute() else ROOT / path
+        for line_number, line in enumerate(path.read_text().splitlines(), 1):
+            if not line.strip() or line.lstrip().startswith("#"):
+                continue
+            try:
+                entry = json.loads(line)
+            except json.JSONDecodeError as error:
+                raise SystemExit(f"invalid JSONL {path}:{line_number}: {error}") from error
+            function = entry.get("function") if isinstance(entry, dict) else None
+            if not isinstance(function, str) or not function:
+                raise SystemExit(f"manifest entry lacks function: {path}:{line_number}")
+            excluded.add(function)
+    return excluded
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=50)
     parser.add_argument("--min-size", type=int, default=8)
     parser.add_argument("--json", type=Path, help="optional queue output")
+    parser.add_argument(
+        "--exclude-manifest",
+        action="append",
+        default=[],
+        type=Path,
+        help="exclude functions named by this JSONL manifest; repeatable",
+    )
     args = parser.parse_args()
 
     catalog = json.loads(CATALOG.read_text())["functions"]
     reconstructed = {
         entry["function"] for entry in json.loads(RECONSTRUCTED.read_text())
     }
+    excluded = reconstructed | manifest_functions(args.exclude_manifest)
     assembly = assembly_functions()
     queue = [
         features(entry, assembly.get(str(entry["name"]), ""))
         for entry in catalog
-        if entry["name"] not in reconstructed and int(entry["size"]) >= args.min_size
+        if entry["name"] not in excluded and int(entry["size"]) >= args.min_size
     ]
     queue.sort(key=lambda row: (row["score"], row["size"], row["address"]))
 

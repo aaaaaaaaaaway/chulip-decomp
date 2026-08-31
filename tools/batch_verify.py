@@ -108,6 +108,7 @@ def main() -> int:
         for entry in json.loads(FUNCTIONS.read_text())["functions"]
     }
     results: list[dict[str, object]] = []
+    proof_cache: dict[tuple[object, ...], subprocess.CompletedProcess[str]] = {}
     failures = 0
     for entry in entries(args.manifest):
         validate_range(entry, catalog)
@@ -119,12 +120,27 @@ def main() -> int:
         matched: list[str] = []
         attempts: dict[str, str] = {}
         for profile in requested:
-            proof = subprocess.run(
-                command(entry, source, str(profile)),
-                cwd=ROOT,
-                capture_output=True,
-                text=True,
+            explicit_range = (
+                entry.get("range_start") is not None
+                and entry.get("range_end") is not None
             )
+            key = (
+                str(relative(source)),
+                str(profile),
+                tuple(entry.get("object_flags", [])),
+                entry.get("range_start"),
+                entry.get("range_end"),
+                None if explicit_range else entry["function"],
+            )
+            proof = proof_cache.get(key)
+            if proof is None:
+                proof = subprocess.run(
+                    command(entry, source, str(profile)),
+                    cwd=ROOT,
+                    capture_output=True,
+                    text=True,
+                )
+                proof_cache[key] = proof
             lines = [line for line in proof.stdout.splitlines() if ": " in line]
             attempts[str(profile)] = lines[0] if lines else proof.stderr.strip()[-240:]
             if proof.returncode == 0:
@@ -148,8 +164,14 @@ def main() -> int:
             }
         )
 
-    summary = {"candidates": len(results), "passed": len(results) - failures, "failed": failures}
+    summary = {
+        "candidates": len(results),
+        "compilations": len(proof_cache),
+        "passed": len(results) - failures,
+        "failed": failures,
+    }
     print(f"verified {summary['passed']} / {summary['candidates']} candidates")
+    print(f"compiled {summary['compilations']} unique source/range/profile comparisons")
     if args.report:
         report = args.report if args.report.is_absolute() else ROOT / args.report
         report.parent.mkdir(parents=True, exist_ok=True)
