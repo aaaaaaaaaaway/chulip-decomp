@@ -66,8 +66,8 @@ before promotion.
 
 ## 4. Translation-unit and data lessons
 
-The camera block at `0x00101928-0x00101CC3` is the first proven multi-function
-source unit. Its ten functions produce 924 exact object-text bytes together;
+The camera block at `0x001017F0-0x00101CC3` is the first proven multi-function
+source unit. Its seventeen functions produce 1,236 exact object-text bytes together;
 the linker then contributes four bytes of input alignment before the following
 object.
 
@@ -167,8 +167,8 @@ from them are rewritten into source, the JSONL ledger, and this book.
 
 - The early camera module is the strongest compiler and translation-unit
   evidence region.
-- `func_001017F0` is an exact 120-byte candidate under the same mixed-threshold
-  camera model and is the next source-unit boundary extension to integrate.
+- `func_001017F0` extends the exact camera source boundary backward to
+  `0x001017F0`; the complete source unit matches as one object.
 - The adjacent `func_001016A0` and `func_00101748` near-matches remain blocked on
   authentic hazard scheduling, not semantics.
 - Small exact functions elsewhere in the executable are useful candidates, but

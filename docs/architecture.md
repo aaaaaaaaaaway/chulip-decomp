@@ -42,9 +42,9 @@ setters at `0x00101CA8` and `0x00101CB8` prove the module's `-G8` compiler
 setting: the same source under `-G0` expands into absolute `lui`-based accesses
 and does not match.
 
-The ten contiguous motion routines at `0x00101928-0x00101CC3` are a proven
-shared source unit rather than isolated artificial objects. Their camera
-position updates, angle accumulation, state accessors, and view notifications
-reproduce all 924 object-text bytes only when the historical assembler
-constructs half-pi literals inline. The following four bytes are linker input
-alignment, not part of the source object's text section.
+The seventeen contiguous motion routines at `0x001017F0-0x00101CC3` are a
+proven shared source unit rather than isolated artificial objects. Their camera
+position updates, angle accumulation, vector copies, state accessors, and view
+notifications reproduce all 1,236 object-text bytes only when the historical
+assembler constructs half-pi literals inline. The following four bytes are
+linker input alignment, not part of the source object's text section.

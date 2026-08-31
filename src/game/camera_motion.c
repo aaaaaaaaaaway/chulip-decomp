@@ -15,8 +15,48 @@ int D_001EC88C __attribute__((section(".sdata"))) = 0;
 float func_00127F80(float y, float x);
 GameState *func_00136AE8(void);
 void func_00136AF8(int index, int enabled);
+void func_0018A680(void *destination, const void *source);
 float func_0018B210(float angle);
 float func_0018B2F8(float angle);
+
+void func_001017F0(float amount) {
+    D_001EDE00.position.y += amount;
+    D_001EDE00.vector_30.x =
+        -(func_00127F80(-D_001EDE00.position.y + -200.0f, D_001EC880) +
+          1.5707964f);
+
+    func_00136AF8(0, 1);
+    func_00136AF8(17, 0);
+}
+
+void func_00101868(const Vec3f *offset) {
+    Vec3f *position = (Vec3f *)&D_001EDDC0;
+
+    position->x += offset->x;
+    position->y += offset->y;
+    position->z += offset->z;
+    func_00136AF8(0, 1);
+}
+
+float func_001018C8(void) {
+    return D_001EDE00.vector_30.y;
+}
+
+float func_001018D8(void) {
+    return D_001EDE00.vector_30.x;
+}
+
+void func_001018E8(void *destination) {
+    func_0018A680(destination, &D_001EDE00.vector_30);
+}
+
+void func_00101908(float value) {
+    D_001EDE00.vector_30.x = value;
+}
+
+void func_00101918(float value) {
+    D_001EDE00.vector_30.y = value;
+}
 
 void func_00101928(float y_offset, float angle_offset) {
     D_001EC880 += angle_offset;

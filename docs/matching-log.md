@@ -100,3 +100,15 @@
 - The exact complete-image build now contains 21 promoted functions / 1,260
   bytes. This strengthens the source boundary instead of retaining convenient
   artificial per-function units.
+
+## 2026-08-31 — camera unit extended backward
+
+- Reconstructed `func_001017F0`, a 120-byte vertical camera and angle update.
+  The function independently confirms the compiler `-G8` plus historical
+  assembler `-G0` model and the same source-owned small-data sentinel.
+- Merged the six already recovered intervening accessors and vector operations
+  into the real camera source. The seventeen-function unit now reproduces all
+  1,236 object-text bytes at `0x001017F0-0x00101CC3` together.
+- Both the source build and independent baseline still reproduce the complete
+  970,772-byte load image and expected SHA-256. The promoted ledger now contains
+  22 functions / 1,380 bytes.

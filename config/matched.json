@@ -40,8 +40,16 @@
     "evidence": "isolated exact aggregate-field copy in the proven camera-state module"
   },
   {
+    "function": "func_001017F0",
+    "source": "src/game/camera_motion.c",
+    "address": "0x001017F0",
+    "size": 120,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact complete camera-unit match under compiler -G8, historical assembler -G0, and source-owned small data"
+  },
+  {
     "function": "func_00101868",
-    "source": "src/game/func_00101868.c",
+    "source": "src/game/camera_motion.c",
     "address": "0x00101868",
     "size": 92,
     "profile": "ee-gcc2.95.3-136-O2-G8",
@@ -49,7 +57,7 @@
   },
   {
     "function": "func_001018C8",
-    "source": "src/game/func_001018C8.c",
+    "source": "src/game/camera_motion.c",
     "address": "0x001018C8",
     "size": 12,
     "profile": "ee-gcc2.95.3-136-O2-G8",
@@ -57,7 +65,7 @@
   },
   {
     "function": "func_001018D8",
-    "source": "src/game/func_001018D8.c",
+    "source": "src/game/camera_motion.c",
     "address": "0x001018D8",
     "size": 12,
     "profile": "ee-gcc2.95.3-136-O2-G8",
@@ -65,7 +73,7 @@
   },
   {
     "function": "func_001018E8",
-    "source": "src/game/func_001018E8.c",
+    "source": "src/game/camera_motion.c",
     "address": "0x001018E8",
     "size": 32,
     "profile": "ee-gcc2.95.3-136-O2-G8",
@@ -73,7 +81,7 @@
   },
   {
     "function": "func_00101908",
-    "source": "src/game/func_00101908.c",
+    "source": "src/game/camera_motion.c",
     "address": "0x00101908",
     "size": 12,
     "profile": "ee-gcc2.95.3-136-O2-G8",
@@ -81,7 +89,7 @@
   },
   {
     "function": "func_00101918",
-    "source": "src/game/func_00101918.c",
+    "source": "src/game/camera_motion.c",
     "address": "0x00101918",
     "size": 12,
     "profile": "ee-gcc2.95.3-136-O2-G8",

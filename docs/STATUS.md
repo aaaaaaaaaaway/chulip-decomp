@@ -17,11 +17,11 @@
 
 Provisional function catalog: **2,189 functions / 663,704 bytes**
 
-Source-reconstructed in exact current build: **23 functions / 1,308 bytes**
+Source-reconstructed in exact current build: **24 functions / 1,428 bytes**
 
-Promoted matched functions: **21 / 2,189 (0.9593%)**
+Promoted matched functions: **22 / 2,189 (1.0050%)**
 
-Promoted matched text bytes: **1,260 / 663,704 (0.1898%)**
+Promoted matched text bytes: **1,380 / 663,704 (0.2079%)**
 
 Two startup candidates remain deliberately unpromoted even though they are
 isolated and globally exact: their enclosing translation-unit boundary is not
