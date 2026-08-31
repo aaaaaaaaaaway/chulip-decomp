@@ -7,11 +7,17 @@ typedef struct Vec3f {
     float z;
 } Vec3f;
 
+typedef struct Vec4f {
+    float x;
+    float y;
+    float z;
+    float w;
+} Vec4f;
+
 typedef struct CameraState {
     Vec3f position;
     unsigned char unknown_0C[0x24];
-    float field_30;
-    float field_34;
+    Vec4f vector_30;
 } CameraState;
 
 extern CameraState D_001EDE00;

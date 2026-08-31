@@ -8,7 +8,7 @@
 | Disc filesystem reproducibly extracted | complete | `tools/mode2_to_iso.py`, `tools/iso9660_extract.py` |
 | Main executable identified and hashed | complete | `config/elf.json` |
 | ELF/code/data layout mapped | complete | `config/elf.json`, `config/splat.us.yaml` |
-| Original compiler/linker family identified | partial | SN GCC 2.95.3-EE build 1.36 `-O2 -G8` proven for first state module |
+| Original compiler/linker family identified | partial | SN GCC 2.95.3-EE build 1.36, bundled assembler, and `-O2 -G8` proven for first state module |
 | Baseline split and nonmatching rebuild works | complete | 970,772-byte whole-image match |
 | Isolated byte-match verifier works | complete | `tools/match.py` |
 | First source neighborhood promoted | complete | `0x00101490-0x001014DC`, isolated and full-image exact |
@@ -17,11 +17,11 @@
 
 Provisional function catalog: **2,189 functions / 663,704 bytes**
 
-Source-reconstructed in exact current build: **12 functions / 232 bytes**
+Source-reconstructed in exact current build: **14 functions / 336 bytes**
 
-Promoted matched functions: **10 / 2,189 (0.4568%)**
+Promoted matched functions: **12 / 2,189 (0.5482%)**
 
-Promoted matched text bytes: **184 / 663,704 (0.0277%)**
+Promoted matched text bytes: **288 / 663,704 (0.0434%)**
 
 Two startup candidates remain deliberately unpromoted even though they are
 isolated and globally exact: their enclosing translation-unit boundary is not

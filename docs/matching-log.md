@@ -52,3 +52,18 @@
   `-G0`, proving the small-data threshold for this module.
 - Promoted the seven isolated matches after the complete load image remained
   byte-identical. The ledger now contains 10 functions / 184 bytes.
+
+## 2026-08-31 — historical assembler path and vector copies
+
+- The build 1.36 compiler emits `move` pseudos for pointer copies. Its bundled
+  GNU assembler 2.9-ee-991111b encodes those as retail `daddu` instructions;
+  modern GNU `as` encodes them as `or` and caused false isolated mismatches.
+- Historical objects contain obsolete `.mdebug` metadata and an incorrect
+  symbol-table boundary. Passing them through modern `objcopy` while removing
+  `.mdebug` repairs the metadata without changing text or relocations.
+- Reconstructed `func_00101630` and `func_001018E8`, which copy vectors into
+  and out of the state object. Build 2.95.2-2.73a rejects both; build 1.36
+  matches under `-G0` and `-G8`.
+- All previous isolated matches passed through the corrected compiler-driver
+  path, and the integrated load image remained byte-identical. The promoted
+  ledger now contains 12 functions / 288 bytes.

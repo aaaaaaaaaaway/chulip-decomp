@@ -14,8 +14,9 @@ sudo apt install python3 python3-venv binutils-mipsel-linux-gnu
 
 Then run `python3 tools/bootstrap.py`. It creates the ignored `.venv`, installs
 the Python versions from `requirements.txt`, downloads Wibo 1.2.0, and
-downloads SN Systems GNU C 2.95.3-EE build 1.36. Every download is checked
-against `config/toolchains.json`; none is committed to Git.
+downloads SN Systems GNU C 2.95.3-EE build 1.36 with its bundled assembler.
+Every download is checked against `config/toolchains.json`; none is committed
+to Git.
 
 ## Supplying the target
 

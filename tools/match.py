@@ -51,6 +51,38 @@ def profile_command(profile: dict[str, object], source: Path, output: Path) -> l
     raise SystemExit(f"unknown toolchain runner: {profile['runner']}")
 
 
+def profile_object_command(
+    profile: dict[str, object], source: Path, output: Path
+) -> list[str] | None:
+    """Compile and assemble with the historical driver when it is available."""
+    if profile["runner"] != "wibo-driver":
+        return None
+    compiler = str(ROOT / str(profile["compiler"]))
+    flags = [str(flag) for flag in profile["flags"]]
+    return [
+        str(ROOT / "tools/compilers/wibo"),
+        compiler,
+        *flags,
+        "-c",
+        str(source),
+        "-o",
+        str(output),
+    ]
+
+
+def compile_historical_object(
+    profile: dict[str, object], source: Path, output: Path
+) -> bool:
+    """Use the original driver/assembler and repair its obsolete ELF metadata."""
+    raw = output.with_name(output.stem + ".historical.o")
+    command = profile_object_command(profile, source, raw)
+    if command is None:
+        return False
+    run(command)
+    run(["mipsel-linux-gnu-objcopy", "--remove-section=.mdebug", str(raw), str(output)])
+    return True
+
+
 def function_record(name: str) -> dict[str, object]:
     functions = json.loads(CATALOG.read_text())["functions"]
     found = [entry for entry in functions if entry["name"] == name]
@@ -155,19 +187,20 @@ def main() -> int:
 
         run(profile_command(profile, source, assembly))
         normalized.write_text(normalize(assembly.read_text()))
-        run(
-            [
-                "mipsel-linux-gnu-as",
-                "-EL",
-                "-march=r5900",
-                "-mabi=eabi",
-                "-no-pad-sections",
-                "-Iinclude",
-                "-o",
-                str(obj),
-                str(normalized),
-            ]
-        )
+        if not compile_historical_object(profile, source, obj):
+            run(
+                [
+                    "mipsel-linux-gnu-as",
+                    "-EL",
+                    "-march=r5900",
+                    "-mabi=eabi",
+                    "-no-pad-sections",
+                    "-Iinclude",
+                    "-o",
+                    str(obj),
+                    str(normalized),
+                ]
+            )
         script.write_text(linker_script(address))
         write_derived_symbols(obj, derived)
         run(

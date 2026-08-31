@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "SN Systems GNU C 2.95.3-EE build 1.36 with -O2 -G8 is proven for the first promoted state-management module; whole-program translation-unit mapping remains in progress",
+  "status": "SN Systems GNU C 2.95.3-EE build 1.36 with its bundled GNU assembler 2.9-ee-991111b and -O2 -G8 is proven for the first promoted state-management module; whole-program translation-unit mapping remains in progress",
   "profiles": {
     "ee-gcc2.96-O2": {
       "family": "GNU C",
@@ -16,6 +16,7 @@
       "version": "2.95.2 SN BUILD v2.73a for Playstation2",
       "runner": "wibo-driver",
       "compiler": "tools/compilers/ee-gcc2.95.2-273a/bin/ee-gcc.exe",
+      "assembler": "tools/compilers/ee-gcc2.95.2-273a/lib/gcc-lib/ee/2.95.2/as.exe",
       "flags": ["-O2", "-G0", "-Iinclude"],
       "archive": "tools/compilers/downloads/ee-gcc2.95.2-273a.tar.gz",
       "archive_sha256": "ee9d9a7fccb59aebfa78a5587f6f8059660b91f705acddbc292ad2243c8e562e"
@@ -25,6 +26,7 @@
       "version": "2.95.3-EE build 1.36",
       "runner": "wibo-driver",
       "compiler": "tools/compilers/ee-gcc2.95.3-136/bin/ee-gcc.exe",
+      "assembler": "tools/compilers/ee-gcc2.95.3-136/lib/gcc-lib/ee/2.95.3/as.exe",
       "flags": ["-O2", "-G0", "-Iinclude"],
       "archive": "tools/compilers/downloads/ee-gcc2.95.3-136.tar.gz",
       "archive_sha256": "3b6ae6897229ad005aaf1b0afaa1f3cb46e74b4c21a42e01130c07c0c598067f"
@@ -34,6 +36,7 @@
       "version": "2.95.3-EE build 1.36",
       "runner": "wibo-driver",
       "compiler": "tools/compilers/ee-gcc2.95.3-136/bin/ee-gcc.exe",
+      "assembler": "tools/compilers/ee-gcc2.95.3-136/lib/gcc-lib/ee/2.95.3/as.exe",
       "flags": ["-O2", "-G8", "-Iinclude"],
       "archive": "tools/compilers/downloads/ee-gcc2.95.3-136.tar.gz",
       "archive_sha256": "3b6ae6897229ad005aaf1b0afaa1f3cb46e74b4c21a42e01130c07c0c598067f"

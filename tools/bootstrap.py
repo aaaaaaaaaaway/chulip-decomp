@@ -90,7 +90,8 @@ def setup_toolchain() -> None:
 
     target = COMPILERS / "ee-gcc2.95.3-136"
     compiler = target / "bin/ee-gcc.exe"
-    if not compiler.is_file():
+    assembler = target / "lib/gcc-lib/ee/2.95.3/as.exe"
+    if not compiler.is_file() or not assembler.is_file():
         if target.exists():
             raise SystemExit(f"incomplete toolchain directory exists: {target}")
         archive = COMPILERS / "downloads/ee-gcc2.95.3-136.tar.gz"
@@ -101,7 +102,7 @@ def setup_toolchain() -> None:
             with tarfile.open(archive, "r:gz") as bundle:
                 bundle.extractall(temp_path, filter="data")
             temp_path.rename(target)
-    print("verified required compiler: ee-gcc2.95.3-136")
+    print("verified required compiler and assembler: ee-gcc2.95.3-136")
 
 
 def check_host_tools() -> None:

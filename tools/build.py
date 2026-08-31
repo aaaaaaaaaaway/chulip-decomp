@@ -9,7 +9,7 @@ import re
 import subprocess
 from pathlib import Path
 
-from match import profile_command
+from match import compile_historical_object, profile_command
 from normalize_asm import normalize
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -67,7 +67,10 @@ def main() -> int:
         generated = ROOT / "build/compiled" / f"{entry['function']}.s"
         generated.parent.mkdir(parents=True, exist_ok=True)
         run(profile_command(profile, source, generated))
-        assemble(generated, ROOT / "build" / Path(entry["source"]).with_suffix(".o"))
+        obj = ROOT / "build" / Path(entry["source"]).with_suffix(".o")
+        obj.parent.mkdir(parents=True, exist_ok=True)
+        if not compile_historical_object(profile, source, obj):
+            assemble(generated, obj)
 
     output = ROOT / "build/current"
     output.mkdir(parents=True, exist_ok=True)

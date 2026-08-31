@@ -29,7 +29,8 @@ proven and are therefore not assigned in the function catalog.
 
 The address-contiguous module beginning near `0x00101490` maintains a large
 state object at `0x001EDE00`. Its first twelve bytes are a three-float vector;
-floats at offsets `0x30` and `0x34` have widely used accessors. `CameraState`
+offset `0x30` begins a 16-byte vector copied as one EE quadword, and its first
+two floats have widely used accessors. `CameraState`
 is the current evidence-based working name because the callers repeatedly feed
 view-related state, but field semantics beyond the proven layout remain
 provisional.

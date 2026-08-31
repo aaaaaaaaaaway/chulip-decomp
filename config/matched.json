@@ -24,6 +24,14 @@
     "evidence": "isolated exact match under all candidates; profile inherited from the two immediately preceding unique matches"
   },
   {
+    "function": "func_00101630",
+    "source": "src/game/func_00101630.c",
+    "address": "0x00101630",
+    "size": 72,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact two-vector state copy; build 2.73a rejects and build 1.36 matches through its historical assembler"
+  },
+  {
     "function": "func_00101678",
     "source": "src/game/func_00101678.c",
     "address": "0x00101678",
@@ -46,6 +54,14 @@
     "size": 12,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact camera-state field accessor"
+  },
+  {
+    "function": "func_001018E8",
+    "source": "src/game/func_001018E8.c",
+    "address": "0x001018E8",
+    "size": 32,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact state-vector copy wrapper; build 2.73a rejects and build 1.36 matches"
   },
   {
     "function": "func_00101908",
