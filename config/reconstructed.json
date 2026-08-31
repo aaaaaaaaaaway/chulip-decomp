@@ -498,6 +498,17 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00108BF8",
+    "source": "src/game/func_00108BF8.c",
+    "address": "0x00108BF8",
+    "size": 48,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_00109130",
     "source": "src/game/func_00109130.c",
     "address": "0x00109130",
@@ -506,6 +517,19 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001091A8",
+    "source": "src/game/func_001091A8.c",
+    "address": "0x001091A8",
+    "size": 56,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
@@ -520,6 +544,19 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_001097C0",
+    "source": "src/game/func_001097C0.c",
+    "address": "0x001097C0",
+    "size": 56,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_00109CC0",
     "source": "src/game/func_00109CC0.c",
     "address": "0x00109CC0",
@@ -528,6 +565,19 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00109D38",
+    "source": "src/game/func_00109D38.c",
+    "address": "0x00109D38",
+    "size": 56,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
@@ -542,6 +592,19 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0010A208",
+    "source": "src/game/func_0010A208.c",
+    "address": "0x0010A208",
+    "size": 56,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_0010AB50",
     "source": "src/game/func_0010AB50.c",
     "address": "0x0010AB50",
@@ -553,6 +616,19 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0010AB58",
+    "source": "src/game/func_0010AB58.c",
+    "address": "0x0010AB58",
+    "size": 56,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_0010B448",
     "source": "src/game/func_0010B448.c",
     "address": "0x0010B448",
@@ -561,6 +637,19 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0010B450",
+    "source": "src/game/func_0010B450.c",
+    "address": "0x0010B450",
+    "size": 56,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
@@ -612,6 +701,19 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0010CA38",
+    "source": "src/game/func_0010CA38.c",
+    "address": "0x0010CA38",
+    "size": 56,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_0010D418",
     "source": "src/game/func_0010D418.c",
     "address": "0x0010D418",
@@ -620,6 +722,19 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0010D4D0",
+    "source": "src/game/func_0010D4D0.c",
+    "address": "0x0010D4D0",
+    "size": 56,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
@@ -645,6 +760,17 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0010E260",
+    "source": "src/game/func_0010E260.c",
+    "address": "0x0010E260",
+    "size": 48,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_0010E6D0",
     "source": "src/game/func_0010E6D0.c",
     "address": "0x0010E6D0",
@@ -653,6 +779,19 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0010E6D8",
+    "source": "src/game/func_0010E6D8.c",
+    "address": "0x0010E6D8",
+    "size": 28,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
@@ -693,6 +832,19 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00110000",
+    "source": "src/game/func_00110000.c",
+    "address": "0x00110000",
+    "size": 28,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_00110C60",
     "source": "src/game/func_00110C60.c",
     "address": "0x00110C60",
@@ -701,6 +853,19 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00110CD8",
+    "source": "src/game/func_00110CD8.c",
+    "address": "0x00110CD8",
+    "size": 56,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
@@ -715,6 +880,19 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_001114C0",
+    "source": "src/game/func_001114C0.c",
+    "address": "0x001114C0",
+    "size": 56,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_001121B8",
     "source": "src/game/func_001121B8.c",
     "address": "0x001121B8",
@@ -723,6 +901,19 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001121C0",
+    "source": "src/game/func_001121C0.c",
+    "address": "0x001121C0",
+    "size": 72,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
@@ -737,10 +928,34 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00112AA0",
+    "source": "src/game/func_00112AA0.c",
+    "address": "0x00112AA0",
+    "size": 72,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_00112FD0",
     "source": "src/game/func_00112FD0.c",
     "address": "0x00112FD0",
     "size": 316,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00113388",
+    "source": "src/game/func_00113388.c",
+    "address": "0x00113388",
+    "size": 208,
     "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
@@ -793,6 +1008,30 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001159A0",
+    "source": "src/game/func_001159A0.c",
+    "address": "0x001159A0",
+    "size": 64,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001159E0",
+    "source": "src/game/func_001159E0.c",
+    "address": "0x001159E0",
+    "size": 112,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
@@ -866,6 +1105,32 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00117738",
+    "source": "src/game/unit_00117738.c",
+    "address": "0x00117738",
+    "size": 80,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "unit_start": "0x00117738",
+    "unit_end": "0x001177A8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00117788",
+    "source": "src/game/unit_00117738.c",
+    "address": "0x00117788",
+    "size": 32,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "unit_start": "0x00117738",
+    "unit_end": "0x001177A8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_001177F8",
     "source": "src/game/func_001177F8.c",
     "address": "0x001177F8",
@@ -874,6 +1139,19 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001185D0",
+    "source": "src/game/func_001185D0.c",
+    "address": "0x001185D0",
+    "size": 48,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
@@ -892,6 +1170,50 @@
     "source": "src/game/func_0011E390.c",
     "address": "0x0011E390",
     "size": 28,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00120F20",
+    "source": "src/game/func_00120F20.c",
+    "address": "0x00120F20",
+    "size": 40,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00121C58",
+    "source": "src/game/func_00121C58.c",
+    "address": "0x00121C58",
+    "size": 40,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00124AD0",
+    "source": "src/game/func_00124AD0.c",
+    "address": "0x00124AD0",
+    "size": 40,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001255F0",
+    "source": "src/game/func_001255F0.c",
+    "address": "0x001255F0",
+    "size": 40,
     "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
@@ -1189,6 +1511,17 @@
     "provenance_note": "The original translation-unit and compiler-build provenance remain unresolved."
   },
   {
+    "function": "func_00133628",
+    "source": "src/game/func_00133628.c",
+    "address": "0x00133628",
+    "size": 48,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_00133658",
     "source": "src/game/func_00133658.c",
     "address": "0x00133658",
@@ -1200,6 +1533,41 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00133750",
+    "source": "src/game/func_00133750.c",
+    "address": "0x00133750",
+    "size": 32,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00133838",
+    "source": "src/game/func_00133838.c",
+    "address": "0x00133838",
+    "size": 32,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00133E48",
+    "source": "src/game/func_00133E48.c",
+    "address": "0x00133E48",
+    "size": 28,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_00133EA8",
     "source": "src/game/func_00133EA8.c",
     "address": "0x00133EA8",
@@ -1208,6 +1576,32 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00133F20",
+    "source": "src/game/func_00133F20.c",
+    "address": "0x00133F20",
+    "size": 56,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00134E68",
+    "source": "src/game/func_00134E68.c",
+    "address": "0x00134E68",
+    "size": 76,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
@@ -1365,6 +1759,56 @@
     "size": 28,
     "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00136318",
+    "source": "src/game/func_00136318.c",
+    "address": "0x00136318",
+    "size": 40,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00136370",
+    "source": "src/game/unit_00136370.c",
+    "address": "0x00136370",
+    "size": 32,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "unit_start": "0x00136370",
+    "unit_end": "0x001363EC",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00136390",
+    "source": "src/game/unit_00136370.c",
+    "address": "0x00136390",
+    "size": 32,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "unit_start": "0x00136370",
+    "unit_end": "0x001363EC",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001363B0",
+    "source": "src/game/unit_00136370.c",
+    "address": "0x001363B0",
+    "size": 60,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "unit_start": "0x00136370",
+    "unit_end": "0x001363EC",
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
@@ -1938,6 +2382,17 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00167080",
+    "source": "src/game/func_00167080.c",
+    "address": "0x00167080",
+    "size": 48,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_00167120",
     "source": "src/game/func_00167120.c",
     "address": "0x00167120",
@@ -1953,6 +2408,30 @@
     "source": "src/game/func_00170730.c",
     "address": "0x00170730",
     "size": 8,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00172570",
+    "source": "src/game/func_00172570.c",
+    "address": "0x00172570",
+    "size": 32,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00173050",
+    "source": "src/game/func_00173050.c",
+    "address": "0x00173050",
+    "size": 28,
     "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
@@ -2005,6 +2484,19 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001781D8",
+    "source": "src/game/func_001781D8.c",
+    "address": "0x001781D8",
+    "size": 28,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
@@ -2106,6 +2598,19 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0017ABB0",
+    "source": "src/game/func_0017ABB0.c",
+    "address": "0x0017ABB0",
+    "size": 56,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
