@@ -21,7 +21,10 @@ typedef struct CameraState {
 } CameraState;
 
 extern CameraState D_001EDE00;
+extern Vec3f D_001EDDE0;
+extern float D_001EC880;
 extern float D_001EC884;
 extern float D_001EC888;
+extern int D_001EC88C;
 
 #endif

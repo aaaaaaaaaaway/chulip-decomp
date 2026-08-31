@@ -40,6 +40,14 @@
     "evidence": "isolated exact aggregate-field copy in the proven camera-state module"
   },
   {
+    "function": "func_00101868",
+    "source": "src/game/func_00101868.c",
+    "address": "0x00101868",
+    "size": 92,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact three-component camera-offset accumulation and state update"
+  },
+  {
     "function": "func_001018C8",
     "source": "src/game/func_001018C8.c",
     "address": "0x001018C8",
@@ -78,6 +86,62 @@
     "size": 12,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact camera-state field setter"
+  },
+  {
+    "function": "func_00101928",
+    "source": "src/game/camera_motion.c",
+    "address": "0x00101928",
+    "size": 76,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact complete translation-unit match with historical assembler flags and source-owned small data"
+  },
+  {
+    "function": "func_00101978",
+    "source": "src/game/camera_motion.c",
+    "address": "0x00101978",
+    "size": 132,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "exact complete translation-unit match including inter-function alignment and inline float construction"
+  },
+  {
+    "function": "func_00101A00",
+    "source": "src/game/func_00101A00.c",
+    "address": "0x00101A00",
+    "size": 104,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact three-float offset accumulation followed by state-bit updates"
+  },
+  {
+    "function": "func_00101A68",
+    "source": "src/game/func_00101A68.c",
+    "address": "0x00101A68",
+    "size": 104,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact camera-position offset accumulation followed by state-bit updates"
+  },
+  {
+    "function": "func_00101AD0",
+    "source": "src/game/func_00101AD0.c",
+    "address": "0x00101AD0",
+    "size": 36,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact GP-relative accumulation with alias-compatible float pointer; -G0 and Vec3f pointer variants reject"
+  },
+  {
+    "function": "func_00101AF8",
+    "source": "src/game/func_00101AF8.c",
+    "address": "0x00101AF8",
+    "size": 164,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact camera-position update; -G0 rejected by GP-relative globals"
+  },
+  {
+    "function": "func_00101BA0",
+    "source": "src/game/func_00101BA0.c",
+    "address": "0x00101BA0",
+    "size": 80,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact three-component camera-position assignment and state updates"
   },
   {
     "function": "func_00101CA8",

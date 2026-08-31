@@ -67,3 +67,23 @@
 - All previous isolated matches passed through the corrected compiler-driver
   path, and the integrated load image remained byte-identical. The promoted
   ledger now contains 12 functions / 288 bytes.
+
+## 2026-08-31 — parallel camera-motion recovery
+
+- Three disjoint analysis lanes recovered eight additional exact functions;
+  every candidate was then recompiled and verified in the main tree.
+- `func_00101928` and `func_00101978` form the first proven multi-function
+  source unit. Compiling the unit with build 1.36, `-O2 -G8`, and the bundled
+  assembler's `-G0` option reproduces its complete 212-byte text range,
+  including the inter-function alignment.
+- The same source unit owns the aligned small-data block at `0x001EC880`:
+  radius `-999.0f`, two zero position offsets, and a zero state word. Moving
+  those 16 bytes from generated assembly into source preserves every GP
+  relocation and the complete retail image.
+- Reconstructed six more camera transformations and state updates at
+  `0x00101868` and `0x00101A00-0x00101BEF`. A `const float *` parameter in
+  `func_00101AD0` is required to preserve the retail alias schedule.
+- Added verifier/build support for shared source units and per-object assembler
+  flags. Both the 970,772-byte source build and independent zero-C baseline
+  retain SHA-256 `77768f0c5d84a92a6d185499b8bb4bb2205779a81fbdb859b15cc1d9ce28f876`.
+- The promoted ledger now contains 20 functions / 1,076 bytes.

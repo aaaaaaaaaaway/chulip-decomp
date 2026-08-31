@@ -61,15 +61,27 @@ def main() -> int:
         relative = source.relative_to(ROOT / "asm")
         assemble(source, ROOT / "build/asm" / relative.with_suffix(".o"))
 
+    source_entries: dict[str, list[dict[str, object]]] = {}
     for entry in reconstructed:
-        source = ROOT / entry["source"]
-        profile = toolchains[entry["build_profile"]]
-        generated = ROOT / "build/compiled" / f"{entry['function']}.s"
+        source_entries.setdefault(str(entry["source"]), []).append(entry)
+
+    for source_name, entries in source_entries.items():
+        source = ROOT / source_name
+        profile_names = {str(entry["build_profile"]) for entry in entries}
+        object_flag_sets = {
+            tuple(str(flag) for flag in entry.get("object_flags", [])) for entry in entries
+        }
+        if len(profile_names) != 1 or len(object_flag_sets) != 1:
+            functions = ", ".join(str(entry["function"]) for entry in entries)
+            raise SystemExit(f"inconsistent shared translation-unit settings: {functions}")
+        profile = toolchains[profile_names.pop()]
+        object_flags = list(object_flag_sets.pop())
+        generated = ROOT / "build/compiled" / Path(source_name).with_suffix(".s")
         generated.parent.mkdir(parents=True, exist_ok=True)
         run(profile_command(profile, source, generated))
-        obj = ROOT / "build" / Path(entry["source"]).with_suffix(".o")
+        obj = ROOT / "build" / Path(source_name).with_suffix(".o")
         obj.parent.mkdir(parents=True, exist_ok=True)
-        if not compile_historical_object(profile, source, obj):
+        if not compile_historical_object(profile, source, obj, object_flags):
             assemble(generated, obj)
 
     output = ROOT / "build/current"

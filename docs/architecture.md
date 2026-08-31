@@ -35,7 +35,14 @@ is the current evidence-based working name because the callers repeatedly feed
 view-related state, but field semantics beyond the proven layout remain
 provisional.
 
-Two independent floats at `0x001EC884` and `0x001EC888` are emitted through GP
-relative addressing. Exact setters at `0x00101CA8` and `0x00101CB8` prove the
-module's `-G8` small-data setting: the same source under `-G0` expands into
-absolute `lui`-based accesses and does not match.
+An aligned source-owned small-data block begins at `0x001EC880`. Its first
+four words are a `-999.0f` radius sentinel, two zero position offsets, and a
+zero state word. The floats are emitted through GP-relative addressing. Exact
+setters at `0x00101CA8` and `0x00101CB8` prove the module's `-G8` compiler
+setting: the same source under `-G0` expands into absolute `lui`-based accesses
+and does not match.
+
+The motion routines at `0x00101928` and `0x00101978` are a proven shared source
+unit rather than isolated artificial objects. Their camera-position updates,
+angle accumulation, and view-state notifications reproduce the complete unit
+only when the historical assembler constructs the half-pi literal inline.

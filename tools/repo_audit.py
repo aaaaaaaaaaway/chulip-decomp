@@ -148,6 +148,22 @@ def main() -> int:
         if not entry.get("isolated_match") or not entry.get("whole_program_match"):
             errors.append(f"reconstructed entry lacks exact verification: {name}")
 
+    entries_by_source: dict[str, list[dict[str, object]]] = {}
+    for entry in reconstructed:
+        entries_by_source.setdefault(entry["source"], []).append(entry)
+    for source, entries in entries_by_source.items():
+        profiles_for_source = {entry.get("build_profile") for entry in entries}
+        object_flags_for_source = {
+            tuple(entry.get("object_flags", [])) for entry in entries
+        }
+        unit_ranges = {
+            (entry.get("unit_start"), entry.get("unit_end")) for entry in entries
+        }
+        if len(profiles_for_source) != 1 or len(object_flags_for_source) != 1:
+            errors.append(f"inconsistent shared translation-unit settings: {source}")
+        if len(entries) > 1 and (len(unit_ranges) != 1 or None in next(iter(unit_ranges))):
+            errors.append(f"shared source lacks one exact translation-unit range: {source}")
+
     promoted = {entry["function"] for entry in reconstructed if entry.get("promoted")}
     if promoted != set(matched_names):
         errors.append("promoted reconstructed functions differ from config/matched.json")

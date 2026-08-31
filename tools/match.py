@@ -52,7 +52,7 @@ def profile_command(profile: dict[str, object], source: Path, output: Path) -> l
 
 
 def profile_object_command(
-    profile: dict[str, object], source: Path, output: Path
+    profile: dict[str, object], source: Path, output: Path, object_flags: list[str] | None = None
 ) -> list[str] | None:
     """Compile and assemble with the historical driver when it is available."""
     if profile["runner"] != "wibo-driver":
@@ -63,6 +63,7 @@ def profile_object_command(
         str(ROOT / "tools/compilers/wibo"),
         compiler,
         *flags,
+        *(object_flags or []),
         "-c",
         str(source),
         "-o",
@@ -71,11 +72,14 @@ def profile_object_command(
 
 
 def compile_historical_object(
-    profile: dict[str, object], source: Path, output: Path
+    profile: dict[str, object],
+    source: Path,
+    output: Path,
+    object_flags: list[str] | None = None,
 ) -> bool:
     """Use the original driver/assembler and repair its obsolete ELF metadata."""
     raw = output.with_name(output.stem + ".historical.o")
-    command = profile_object_command(profile, source, raw)
+    command = profile_object_command(profile, source, raw, object_flags)
     if command is None:
         return False
     run(command)
@@ -91,6 +95,18 @@ def function_record(name: str) -> dict[str, object]:
     return found[0]
 
 
+def reconstruction_record(name: str) -> dict[str, object] | None:
+    entries = json.loads((ROOT / "config/reconstructed.json").read_text())
+    found = [entry for entry in entries if entry["function"] == name]
+    if len(found) > 1:
+        raise SystemExit(f"function duplicated in reconstruction ledger: {name}")
+    return found[0] if found else None
+
+
+def parse_address(value: object) -> int:
+    return value if isinstance(value, int) else int(str(value), 16)
+
+
 def linker_script(address: int) -> str:
     return f"""OUTPUT_ARCH(mips)
 SECTIONS
@@ -98,6 +114,7 @@ SECTIONS
   _gp = 0x001F4870;
   . = 0x{address:08X};
   .text : {{ *(.text) *(.text.*) }}
+  .sdata 0x001EC880 : {{ *(.sdata) *(.sdata.*) }}
   /DISCARD/ : {{ *(.reginfo) *(.MIPS.abiflags) *(.pdr) *(.comment) *(.gnu.attributes) }}
 }}
 """
@@ -150,18 +167,42 @@ def main() -> int:
     parser.add_argument("function")
     parser.add_argument("--profile", action="append", help="profile name; repeatable (default: all)")
     parser.add_argument("--source", type=Path, help="default: src/game/<function>.c")
+    parser.add_argument("--range-start", type=lambda value: int(value, 0))
+    parser.add_argument("--range-end", type=lambda value: int(value, 0))
+    parser.add_argument("--object-flag", action="append", default=[])
     args = parser.parse_args()
 
     record = function_record(args.function)
-    address = int(str(record["address"]), 16)
-    size = int(record["size"])
-    source = (ROOT / args.source) if args.source else ROOT / "src/game" / f"{args.function}.c"
+    reconstructed = reconstruction_record(args.function)
+    function_address = parse_address(record["address"])
+    function_end = function_address + int(record["size"])
+    address = args.range_start
+    if address is None:
+        address = parse_address(reconstructed.get("unit_start", record["address"])) if reconstructed else function_address
+    end = args.range_end
+    if end is None:
+        end = parse_address(reconstructed.get("unit_end", function_end)) if reconstructed else function_end
+    if address > function_address or end < function_end or end <= address:
+        raise SystemExit("verification range must contain the requested function")
+    size = end - address
+    if args.source:
+        source = ROOT / args.source
+    elif reconstructed:
+        source = ROOT / str(reconstructed["source"])
+    else:
+        source = ROOT / "src/game" / f"{args.function}.c"
     if not source.is_file():
         raise SystemExit(f"missing source: {source}")
 
+    object_flags = args.object_flag
+    if not object_flags and reconstructed:
+        object_flags = [str(flag) for flag in reconstructed.get("object_flags", [])]
+
     configuration = json.loads(TOOLCHAINS.read_text())
     profiles = configuration["profiles"]
-    requested = args.profile or list(profiles)
+    requested = args.profile or (
+        [str(reconstructed["build_profile"])] if reconstructed else list(profiles)
+    )
     unknown = sorted(set(requested) - set(profiles))
     if unknown:
         raise SystemExit("unknown profiles: " + ", ".join(unknown))
@@ -187,7 +228,7 @@ def main() -> int:
 
         run(profile_command(profile, source, assembly))
         normalized.write_text(normalize(assembly.read_text()))
-        if not compile_historical_object(profile, source, obj):
+        if not compile_historical_object(profile, source, obj, object_flags):
             run(
                 [
                     "mipsel-linux-gnu-as",
