@@ -311,7 +311,7 @@ run the independent zero-C baseline, and audit the public tree before a commit.
   compiler evidence through `0x001041D7`.
 - The ten-function resource-record unit is the second compiler-
   discriminating neighborhood.
-- Two hundred and forty-four readable source functions / 8,136 catalog bytes are
+- Seven hundred and six readable source functions / 35,760 catalog bytes are
   exact over their complete ranges and in the full-image build. Every one
   counts as matched; ambiguous compiler or historical source-file provenance
   remains attached as evidence.
@@ -333,3 +333,6 @@ run the independent zero-C baseline, and audit the public tree before a commit.
   candidates, but they increase public metrics only after complete-range
   verification, full-image reconstruction, independent baseline, and public
   audit all pass.
+- Parallel lanes use ignored artifacts or isolated clones. The shared checkout,
+  generated split, and build directories are single-writer resources; candidate
+  integration is serialized and revalidated on the current committed base.

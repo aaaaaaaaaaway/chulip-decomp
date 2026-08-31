@@ -191,3 +191,18 @@
   declarations.
 - Recovered 41 functions / 2,188 catalog bytes. The exact build now contains
   244 functions / 8,136 bytes and retains the complete image SHA-256.
+
+## 2026-08-31 — parallel recovery through 706 exact functions
+
+- Restored the exact-ledger union after concurrent candidate transactions
+  exposed the shared split and build directories as single-writer resources.
+  Discovery remains parallel in ignored lanes; integration now runs serially
+  against a committed base or in an isolated clone.
+- Integrated 35 gameplay and runtime functions after an isolated snapshot
+  reproduced all 970,772 load-image bytes and the independent zero-C baseline.
+  Whole-image linking now resolves address-named extern aliases by the same
+  deterministic suffix rule already used by the isolated verifier.
+- Integrated five further small gameplay helpers, including the Ps2EeAs-specific
+  `func_0015DD48`, in one rollback-protected transaction. The exact build now
+  contains 706 functions / 35,760 catalog bytes and retains the expected image
+  SHA-256.

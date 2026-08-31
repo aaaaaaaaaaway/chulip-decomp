@@ -19,30 +19,24 @@
 
 Provisional function catalog: **2,189 functions / 663,704 bytes**
 
-Source-reconstructed and matched: **244 functions / 8,136 bytes**
+Source-reconstructed and matched: **706 functions / 35,760 bytes**
 
-Matched functions: **244 / 2,189 (11.1466%)**
+Matched functions: **706 / 2,189 (32.2522%)**
 
-Matched text bytes: **8,136 / 663,704 (1.2258%)**
+Matched text bytes: **35,760 / 663,704 (5.3879%)**
 
 There is one public match tier. Readable source that matches its complete range
 and survives the exact full-image rebuild is counted; unresolved compiler or
 historical source-file provenance remains attached as evidence rather than
 hiding the function from progress.
 
-The original 49-function leaf batch is fully source-built. A separate symbolic
-leaf pass recovered 112 additional exact functions by deriving readable
-statements and then compiling the finite declaration/order variants; only
-complete-range byte matches survived. Boundary work also established five
-multi-function ranges and added 24 further functions in the latest gated
-transaction.
+The first leaf and boundary campaigns established the compiler matrix and
+source-unit rules. Bounded recovery then added branch-free leaves and structured
+single-conditional functions while retaining complete-range verification.
+Later state, packet, message, gameplay, and SDK campaigns used disjoint ignored
+lanes for discovery and a serialized transaction for integration.
 
-A structured single-conditional pass then added 41 functions / 2,188 bytes.
-It models the delay slot at branch time, guarded-path register liveness,
-early-return branches, and the R5900 three-operand multiply before attempting
-source-shape matching.
-
-The packet/VIF frontier now has 24 exact functions arranged in three combined
-ranges plus a ten-helper continuation. One was already source-built; the other
-23 remain queued until their public units pass the same complete-image
-transaction.
+Every accepted batch has passed the exact 970,772-byte source build, the
+independent zero-C baseline, generated progress checks, and the public-tree
+audit. Near-matches and isolated candidates that fail source-boundary or
+whole-image integration remain uncounted.
