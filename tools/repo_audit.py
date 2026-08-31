@@ -55,6 +55,7 @@ REQUIRED = (
     "config/reconstructed.json",
     "config/toolchains.json",
     "docs/DECOMP_POLICY.md",
+    "docs/knowledge-book.md",
     "docs/SETUP.md",
 )
 

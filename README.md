@@ -40,7 +40,8 @@ Only readable source that passes isolated byte comparison, compiler-provenance r
   part of the completion scope.
 
 See [project status](docs/STATUS.md), [architecture notes](docs/architecture.md),
-and the append-only [matching knowledge ledger](docs/matching-knowledge.jsonl).
+the curated [knowledge book](docs/knowledge-book.md), and the append-only
+[matching knowledge ledger](docs/matching-knowledge.jsonl).
 
 ## Quick start
 
@@ -79,7 +80,7 @@ Issues and pull requests are open.
 | `src/` | Readable reconstructed source |
 | `include/` | Shared types, macros, and declarations |
 | `config/` | Disc/ELF fingerprints, function catalog, toolchains, and match ledgers |
-| `docs/` | Architecture, status, policy, campaign log, and durable findings |
+| `docs/` | Architecture, status, policy, knowledge book, campaign log, and durable findings |
 | `tools/` | Extraction, splitting, compilation, matching, build, and audit tools |
 | `.github/` | Public-data CI checks |
 

@@ -40,6 +40,7 @@ function body.
 - The source BIN is immutable and identified by `config/disc.json`.
 - `config/matched.json` is the authoritative promoted-match ledger.
 - `docs/matching-knowledge.jsonl` holds reusable technical findings.
+- `docs/knowledge-book.md` distills verified cross-function rules and tooling.
 - `docs/matching-log.md` records campaign milestones and rejected leads.
 - `docs/STATUS.md` separates extraction, analysis, build, and byte-match gates.
 - Every source edit is rechecked locally, then through a clean whole-program
