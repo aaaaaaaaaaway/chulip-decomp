@@ -20,6 +20,53 @@ def run(command: list[str]) -> None:
     subprocess.run(command, cwd=ROOT, check=True)
 
 
+ADDRESS_SUFFIX = re.compile(r"_([0-9A-Fa-f]{8})$")
+
+
+def derived_symbols(objects: list[Path], provided: list[Path], output: Path) -> None:
+    """Define address-named symbols that nothing in the link provides.
+
+    A source file may legitimately name one address twice, because the retail
+    assembler expands a small-data pseudo GP-relatively in a delay slot and
+    absolutely elsewhere. The isolated verifier already resolves any symbol
+    whose name ends in an eight-digit address; the whole-image link needs the
+    same rule for the aliases that only C sources introduce.
+    """
+    defined: set[str] = set()
+    undefined: set[str] = set()
+    for obj in objects:
+        listing = subprocess.run(
+            ["mipsel-linux-gnu-nm", str(obj)],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout
+        for line in listing.splitlines():
+            fields = line.split()
+            if len(fields) < 2:
+                continue
+            kind, name = fields[-2], fields[-1]
+            (undefined if kind == "U" else defined).add(name)
+    already = set()
+    for script in provided:
+        for line in script.read_text().splitlines():
+            head = line.split("=", 1)[0].strip()
+            if head:
+                already.add(head)
+    missing = sorted(
+        name
+        for name in undefined - defined - already
+        if ADDRESS_SUFFIX.search(name)
+    )
+    output.write_text(
+        "\n".join(
+            f"{name} = 0x{ADDRESS_SUFFIX.search(name).group(1)};" for name in missing
+        )
+        + "\n"
+    )
+
+
 def assemble(source: Path, obj: Path) -> None:
     normalized = ROOT / "build/normalized" / source.relative_to(ROOT)
     normalized.parent.mkdir(parents=True, exist_ok=True)
@@ -55,13 +102,17 @@ def main() -> int:
     generated_linker = (ROOT / "build/chulip.us.ld").read_text()
     object_paths = sorted(set(re.findall(r"build/asm/([^\s(]+\.o)", generated_linker)))
     assembly_sources = [ROOT / "asm" / Path(path).with_suffix(".s") for path in object_paths]
+    objects: list[Path] = []
     for source in assembly_sources:
         if not source.is_file():
             raise SystemExit(f"missing generated input: {source.relative_to(ROOT)}; run configure.py --split")
         relative = source.relative_to(ROOT / "asm")
-        assemble(source, ROOT / "build/asm" / relative.with_suffix(".o"))
+        obj = ROOT / "build/asm" / relative.with_suffix(".o")
+        assemble(source, obj)
+        objects.append(obj)
 
     source_entries: dict[str, list[dict[str, object]]] = {}
+
     for entry in reconstructed:
         source_entries.setdefault(str(entry["source"]), []).append(entry)
 
@@ -83,6 +134,7 @@ def main() -> int:
         obj.parent.mkdir(parents=True, exist_ok=True)
         if not compile_historical_object(profile, source, obj, object_flags):
             assemble(generated, obj)
+        objects.append(obj)
 
     output = ROOT / "build/current"
     output.mkdir(parents=True, exist_ok=True)
@@ -92,6 +144,12 @@ def main() -> int:
     linker = generated_linker.replace(bss_header, ".cod_bss 0x001ED080 (NOLOAD) :")
     linker_path = output / "chulip.us.ld"
     linker_path.write_text(linker)
+    derived = output / "derived_syms.ld"
+    derived_symbols(
+        objects,
+        [ROOT / "build/undefined_funcs_auto.txt", ROOT / "build/undefined_syms_auto.txt"],
+        derived,
+    )
     linked = output / "chulip.us.elf"
     run(
         [
@@ -108,6 +166,8 @@ def main() -> int:
             "build/undefined_funcs_auto.txt",
             "-T",
             "build/undefined_syms_auto.txt",
+            "-T",
+            str(derived),
             "-o",
             str(linked),
         ]
