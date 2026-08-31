@@ -3520,6 +3520,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_0015DD48",
+    "source": "src/game/func_0015DD48.c",
+    "address": "0x0015DD48",
+    "size": 40,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "Natural counter-update C reproduces every byte in the complete 40-byte retail function range [0x0015DD48,0x0015DD70)."
+  },
+  {
     "function": "func_0015DE90",
     "source": "src/game/func_0015DE90.c",
     "address": "0x0015DE90",
@@ -3528,12 +3536,44 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_0015E0D0",
+    "source": "src/game/func_0015E0D0.c",
+    "address": "0x0015E0D0",
+    "size": 36,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "Readable structure-field C reproduces every byte in the complete 36-byte retail function range [0x0015E0D0,0x0015E0F4) under all four historical 2.95.x profiles."
+  },
+  {
     "function": "func_0015E0F8",
     "source": "src/game/func_0015E0F8.c",
     "address": "0x0015E0F8",
     "size": 28,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0015E118",
+    "source": "src/game/func_0015E118.c",
+    "address": "0x0015E118",
+    "size": 32,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "Readable structure-field C reproduces every byte in the complete 32-byte retail function range [0x0015E118,0x0015E138) under all four historical 2.95.x profiles."
+  },
+  {
+    "function": "func_0015E138",
+    "source": "src/game/func_0015E138.c",
+    "address": "0x0015E138",
+    "size": 32,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "Natural float structure-field C reproduces every byte in the complete 32-byte retail function range [0x0015E138,0x0015E158) under all four historical 2.95.x profiles."
+  },
+  {
+    "function": "func_0015E158",
+    "source": "src/game/func_0015E158.c",
+    "address": "0x0015E158",
+    "size": 32,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "Readable structure-field C reproduces every byte in the complete 32-byte retail function range [0x0015E158,0x0015E178) under all four historical 2.95.x profiles."
   },
   {
     "function": "func_0015E178",

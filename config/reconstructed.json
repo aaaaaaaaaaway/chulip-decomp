@@ -5169,6 +5169,19 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0015DD48",
+    "source": "src/game/func_0015DD48.c",
+    "address": "0x0015DD48",
+    "size": 40,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "The complete function is exact with SN Systems GNU C 2.95.3-EE build 1.36, compiler -G8, the bundled Ps2EeAs assembler, and assembler -G4. The bundled GNU assembler materializes both reads GP-relative and does not reproduce retail's absolute-read plus GP-relative-store expansion.",
+    "provenance_note": "The source and assembler behavior are proven for the complete function; the authentic surrounding translation-unit boundary remains unresolved."
+  },
+  {
     "function": "func_0015DE90",
     "source": "src/game/func_0015DE90.c",
     "address": "0x0015DE90",
@@ -5180,6 +5193,18 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0015E0D0",
+    "source": "src/game/func_0015E0D0.c",
+    "address": "0x0015E0D0",
+    "size": 36,
+    "verified_profiles": ["ee-gcc2.95.2-273a-O2", "ee-gcc2.95.2-273a-O2-G8", "ee-gcc2.95.3-136-O2", "ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "The complete function matches both historical SN 2.95 builds at compiler -G0 and -G8, so it does not discriminate exact compiler provenance.",
+    "provenance_note": "The original compiler build and authentic translation-unit boundary remain unresolved."
+  },
+  {
     "function": "func_0015E0F8",
     "source": "src/game/func_0015E0F8.c",
     "address": "0x0015E0F8",
@@ -5189,6 +5214,42 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0015E118",
+    "source": "src/game/func_0015E118.c",
+    "address": "0x0015E118",
+    "size": 32,
+    "verified_profiles": ["ee-gcc2.95.2-273a-O2", "ee-gcc2.95.2-273a-O2-G8", "ee-gcc2.95.3-136-O2", "ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "The complete function matches both historical SN 2.95 builds at compiler -G0 and -G8, so it does not discriminate exact compiler provenance.",
+    "provenance_note": "The original compiler build and authentic translation-unit boundary remain unresolved."
+  },
+  {
+    "function": "func_0015E138",
+    "source": "src/game/func_0015E138.c",
+    "address": "0x0015E138",
+    "size": 32,
+    "verified_profiles": ["ee-gcc2.95.2-273a-O2", "ee-gcc2.95.2-273a-O2-G8", "ee-gcc2.95.3-136-O2", "ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "The complete function matches both historical SN 2.95 builds at compiler -G0 and -G8, so it does not discriminate exact compiler provenance.",
+    "provenance_note": "The original compiler build and authentic translation-unit boundary remain unresolved."
+  },
+  {
+    "function": "func_0015E158",
+    "source": "src/game/func_0015E158.c",
+    "address": "0x0015E158",
+    "size": 32,
+    "verified_profiles": ["ee-gcc2.95.2-273a-O2", "ee-gcc2.95.2-273a-O2-G8", "ee-gcc2.95.3-136-O2", "ee-gcc2.95.3-136-O2-G8"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "The complete function matches both historical SN 2.95 builds at compiler -G0 and -G8, so it does not discriminate exact compiler provenance.",
+    "provenance_note": "The original compiler build and authentic translation-unit boundary remain unresolved."
   },
   {
     "function": "func_0015E178",
