@@ -97,6 +97,26 @@ addressing. Above eight bytes the compiler splits the address itself and shares
 the base register across accesses, which never matches retail
 (`func_00181EB8`).
 
+### The bundled PS2 assembler is authoritative for delay-slot pseudos
+
+Each SN toolchain ships two assemblers: the GNU `as.exe` the project has been
+using, and `Ps2EeAs.exe`. They disagree in one narrow but decisive place.
+
+The compiler emits a bare small-data pseudo such as `sb $2,D_001ED1E1` and
+leaves the choice of expansion to the assembler. When such a pseudo lands in a
+branch delay slot, `Ps2EeAs` expands it to the single-instruction GP-relative
+form, while GNU `as` emits the two-instruction absolute macro and warns "macro
+used after `.set nomacro'". Retail contains the GP-relative form.
+
+This is why one symbol can legitimately show both addressing modes inside a
+single function: the sites in delay slots are GP-relative and the sites outside
+them are absolute, from identical compiler output. `func_00117268` is the
+proof; its compiler assembly is already instruction-for-instruction identical
+to retail, and only the assembler choice decides whether the bytes match.
+
+The `ee-gcc2.95.3-136-O2-G8-ps2as` profile selects this path. Prefer it
+wherever a function shows a symbol in both addressing modes.
+
 ### Register-precision evidence for a second build
 
 Retail spills callee-saved registers two different ways. Below roughly

@@ -467,6 +467,19 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00105EE8",
+    "source": "src/game/func_00105EE8.c",
+    "address": "0x00105EE8",
+    "size": 64,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "this range needs the bundled Ps2EeAs assembler rather than the bundled GNU as: retail expands a small-data pseudo that lands in a branch delay slot to the single-instruction GP-relative form while addressing the same symbol absolutely elsewhere, which GNU as cannot produce",
+    "provenance_note": "recovered by symbolic reconstruction of the retail function and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_00106518",
     "source": "src/game/func_00106518.c",
     "address": "0x00106518",
@@ -476,6 +489,19 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00106570",
+    "source": "src/game/func_00106570.c",
+    "address": "0x00106570",
+    "size": 64,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "this range needs the bundled Ps2EeAs assembler rather than the bundled GNU as: retail expands a small-data pseudo that lands in a branch delay slot to the single-instruction GP-relative form while addressing the same symbol absolutely elsewhere, which GNU as cannot produce",
+    "provenance_note": "recovered by symbolic reconstruction of the retail function and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
     "function": "func_00106DB0",
@@ -489,6 +515,19 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00106E08",
+    "source": "src/game/func_00106E08.c",
+    "address": "0x00106E08",
+    "size": 64,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "this range needs the bundled Ps2EeAs assembler rather than the bundled GNU as: retail expands a small-data pseudo that lands in a branch delay slot to the single-instruction GP-relative form while addressing the same symbol absolutely elsewhere, which GNU as cannot produce",
+    "provenance_note": "recovered by symbolic reconstruction of the retail function and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_00107610",
     "source": "src/game/func_00107610.c",
     "address": "0x00107610",
@@ -498,6 +537,19 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00107618",
+    "source": "src/game/func_00107618.c",
+    "address": "0x00107618",
+    "size": 64,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "this range needs the bundled Ps2EeAs assembler rather than the bundled GNU as: retail expands a small-data pseudo that lands in a branch delay slot to the single-instruction GP-relative form while addressing the same symbol absolutely elsewhere, which GNU as cannot produce",
+    "provenance_note": "recovered by symbolic reconstruction of the retail function and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
     "function": "func_00107658",
@@ -520,6 +572,19 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001081A0",
+    "source": "src/game/func_001081A0.c",
+    "address": "0x001081A0",
+    "size": 64,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "this range needs the bundled Ps2EeAs assembler rather than the bundled GNU as: retail expands a small-data pseudo that lands in a branch delay slot to the single-instruction GP-relative form while addressing the same symbol absolutely elsewhere, which GNU as cannot produce",
+    "provenance_note": "recovered by symbolic reconstruction of the retail function and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
     "function": "func_00108BF0",
@@ -727,6 +792,19 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0010BC88",
+    "source": "src/game/func_0010BC88.c",
+    "address": "0x0010BC88",
+    "size": 64,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "this range needs the bundled Ps2EeAs assembler rather than the bundled GNU as: retail expands a small-data pseudo that lands in a branch delay slot to the single-instruction GP-relative form while addressing the same symbol absolutely elsewhere, which GNU as cannot produce",
+    "provenance_note": "recovered by symbolic reconstruction of the retail function and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
     "function": "func_0010BF10",
@@ -1131,6 +1209,19 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00117268",
+    "source": "src/game/func_00117268.c",
+    "address": "0x00117268",
+    "size": 40,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "this range needs the bundled Ps2EeAs assembler rather than the bundled GNU as: retail expands a small-data pseudo that lands in a branch delay slot to the single-instruction GP-relative form while addressing the same symbol absolutely elsewhere, which GNU as cannot produce",
+    "provenance_note": "recovered by symbolic reconstruction of the retail function and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
     "function": "func_001174D0",
@@ -4238,6 +4329,19 @@
     "whole_program_match": true,
     "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0017F1D8",
+    "source": "src/game/func_0017F1D8.c",
+    "address": "0x0017F1D8",
+    "size": 72,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": ["-Wa,-G4"],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "this range needs the bundled Ps2EeAs assembler rather than the bundled GNU as: retail expands a small-data pseudo that lands in a branch delay slot to the single-instruction GP-relative form while addressing the same symbol absolutely elsewhere, which GNU as cannot produce",
+    "provenance_note": "recovered by symbolic reconstruction of the retail function and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
     "function": "func_0017F440",

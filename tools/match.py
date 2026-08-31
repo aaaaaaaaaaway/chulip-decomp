@@ -71,6 +71,49 @@ def profile_object_command(
     ]
 
 
+def small_data_flag(object_flags: list[str] | None) -> str:
+    """Recover the assembler small-data threshold from -Wa,-G object flags."""
+    requested = [flag for flag in (object_flags or []) if flag.startswith("-Wa,-G")]
+    return requested[-1].split(",", 1)[1] if requested else "-G8"
+
+
+def assemble_with_bundled_assembler(
+    profile: dict[str, object],
+    source: Path,
+    raw: Path,
+    object_flags: list[str] | None,
+) -> None:
+    """Assemble driver output with the bundled PS2 assembler instead of GNU as.
+
+    Ps2EeAs expands a small-data pseudo that lands in a branch delay slot to the
+    single-instruction GP-relative form, where the bundled GNU as emits the
+    two-instruction absolute macro and warns. Retail contains the former, so
+    this assembler is authoritative wherever both forms appear for one symbol.
+    """
+    assembly = raw.with_suffix(".driver.s")
+    run(
+        [
+            str(ROOT / "tools/compilers/wibo"),
+            str(ROOT / str(profile["compiler"])),
+            *[str(flag) for flag in profile["flags"]],
+            "-S",
+            str(source),
+            "-o",
+            str(assembly),
+        ]
+    )
+    run(
+        [
+            str(ROOT / "tools/compilers/wibo"),
+            str(ROOT / str(profile["assembler"])),
+            small_data_flag(object_flags),
+            "-o",
+            str(raw),
+            str(assembly),
+        ]
+    )
+
+
 def compile_historical_object(
     profile: dict[str, object],
     source: Path,
@@ -79,10 +122,13 @@ def compile_historical_object(
 ) -> bool:
     """Use the original driver/assembler and repair its obsolete ELF metadata."""
     raw = output.with_name(output.stem + ".historical.o")
-    command = profile_object_command(profile, source, raw, object_flags)
-    if command is None:
-        return False
-    run(command)
+    if profile.get("assembler_runner") == "ps2eeas":
+        assemble_with_bundled_assembler(profile, source, raw, object_flags)
+    else:
+        command = profile_object_command(profile, source, raw, object_flags)
+        if command is None:
+            return False
+        run(command)
     run(["mipsel-linux-gnu-objcopy", "--remove-section=.mdebug", str(raw), str(output)])
     return True
 
