@@ -311,7 +311,7 @@ run the independent zero-C baseline, and audit the public tree before a commit.
   compiler evidence through `0x001041D7`.
 - The ten-function resource-record unit is the second compiler-
   discriminating neighborhood.
-- Seven hundred and six readable source functions / 35,760 catalog bytes are
+- Seven hundred and eleven readable source functions / 36,196 catalog bytes are
   exact over their complete ranges and in the full-image build. Every one
   counts as matched; ambiguous compiler or historical source-file provenance
   remains attached as evidence.

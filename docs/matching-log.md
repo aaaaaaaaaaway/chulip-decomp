@@ -192,7 +192,7 @@
 - Recovered 41 functions / 2,188 catalog bytes. The exact build now contains
   244 functions / 8,136 bytes and retains the complete image SHA-256.
 
-## 2026-08-31 — parallel recovery through 706 exact functions
+## 2026-08-31 — parallel recovery through 711 exact functions
 
 - Restored the exact-ledger union after concurrent candidate transactions
   exposed the shared split and build directories as single-writer resources.
@@ -206,3 +206,7 @@
   `func_0015DD48`, in one rollback-protected transaction. The exact build now
   contains 706 functions / 35,760 catalog bytes and retains the expected image
   SHA-256.
+- Added two identical packet-header builders, a two-function signed-short to
+  float setter unit, and one aligned volatile-global initializer. All require
+  the bundled PS2 assembler behavior and passed one isolated full transaction,
+  bringing the exact build to 711 functions / 36,196 catalog bytes.

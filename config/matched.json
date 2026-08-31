@@ -896,6 +896,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_00113648",
+    "source": "src/game/func_00113648.c",
+    "address": "0x00113648",
+    "size": 40,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "Readable packet-header construction reproduces every byte in the complete 40-byte retail function range [0x00113648,0x00113670)."
+  },
+  {
     "function": "func_00113C10",
     "source": "src/game/unit_00113C10.c",
     "address": "0x00113C10",
@@ -950,6 +958,14 @@
     "size": 112,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00115A50",
+    "source": "src/game/func_00115A50.c",
+    "address": "0x00115A50",
+    "size": 40,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "Readable packet-header construction reproduces every byte in the complete 40-byte retail function range [0x00115A50,0x00115A78)."
   },
   {
     "function": "func_00115EF0",
@@ -1670,6 +1686,22 @@
     "size": 100,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001300D8",
+    "source": "src/game/unit_001300D8.c",
+    "address": "0x001300D8",
+    "size": 152,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "Natural C reproduces every byte in the complete 304-byte two-function source unit [0x001300D8,0x00130208) under ee-gcc2.95.3-136-O2-G8-ps2as; compiled .text contains both catalog functions in order with no source-owned data sections."
+  },
+  {
+    "function": "func_00130170",
+    "source": "src/game/unit_001300D8.c",
+    "address": "0x00130170",
+    "size": 152,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "Natural C reproduces every byte in the complete 304-byte two-function source unit [0x001300D8,0x00130208) under ee-gcc2.95.3-136-O2-G8-ps2as; compiled .text contains both catalog functions in order with no source-owned data sections."
   },
   {
     "function": "func_00130208",
@@ -4030,6 +4062,14 @@
     "size": 60,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00162140",
+    "source": "src/game/func_00162140.c",
+    "address": "0x00162140",
+    "size": 52,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "Natural volatile global initialization reproduces all 52 catalog function bytes plus the retail 4-byte alignment word in the exact 56-byte range [0x00162140,0x00162178)."
   },
   {
     "function": "func_001632E0",

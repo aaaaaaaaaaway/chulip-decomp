@@ -1361,6 +1361,18 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00113648",
+    "source": "src/game/func_00113648.c",
+    "address": "0x00113648",
+    "size": 40,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "SN Systems GNU C 2.95.3-EE build 1.36 emits the natural packet-header source shape; only the bundled Ps2EeAs assembler reproduces retail's 64-bit constant expansion.",
+    "provenance_note": "The complete function and assembler behavior are proven; the authentic surrounding translation-unit boundary remains unresolved."
+  },
+  {
     "function": "func_00113C10",
     "source": "src/game/unit_00113C10.c",
     "address": "0x00113C10",
@@ -1443,6 +1455,18 @@
     "whole_program_match": true,
     "profile_evidence": "the unit needs compiler -G8 with historical assembler -G0 disabled in favour of -G4: GCC emits a small-data pseudo that the assembler expands absolutely, which reproduces the retail lui $at form beside genuine GP-relative neighbours",
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00115A50",
+    "source": "src/game/func_00115A50.c",
+    "address": "0x00115A50",
+    "size": 40,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "SN Systems GNU C 2.95.3-EE build 1.36 emits the natural packet-header source shape; only the bundled Ps2EeAs assembler reproduces retail's 64-bit constant expansion.",
+    "provenance_note": "The complete function and assembler behavior are proven; the authentic surrounding translation-unit boundary remains unresolved."
   },
   {
     "function": "func_00115EF0",
@@ -2506,6 +2530,34 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001300D8",
+    "source": "src/game/unit_001300D8.c",
+    "address": "0x001300D8",
+    "size": 152,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x001300D8",
+    "unit_end": "0x00130208",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "The historical PS2 assembler route inserts the four required COP1 transfer hazard NOPs in each function and matches the complete unit. Every standard SN assembler route emits a 128-byte function without those NOPs and is rejected.",
+    "provenance_note": "The unit end is 8-byte aligned and meets already reconstructed func_00130208 exactly. The left boundary meets unresolved func_0012FF28 with no linker padding, so the authentic translation-unit start remains unproven beyond this non-overlapping exact island."
+  },
+  {
+    "function": "func_00130170",
+    "source": "src/game/unit_001300D8.c",
+    "address": "0x00130170",
+    "size": 152,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x001300D8",
+    "unit_end": "0x00130208",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "The historical PS2 assembler route inserts the four required COP1 transfer hazard NOPs in each function and matches the complete unit. Every standard SN assembler route emits a 128-byte function without those NOPs and is rejected.",
+    "provenance_note": "The unit end is 8-byte aligned and meets already reconstructed func_00130208 exactly. The left boundary meets unresolved func_0012FF28 with no linker padding, so the authentic translation-unit start remains unproven beyond this non-overlapping exact island."
   },
   {
     "function": "func_00130208",
@@ -5922,6 +5974,21 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00162140",
+    "source": "src/game/func_00162140.c",
+    "address": "0x00162140",
+    "size": 52,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": ["-Wa,-G0"],
+    "unit_start": "0x00162140",
+    "unit_end": "0x00162178",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "The complete source-owned range is exact with SN Systems GNU C 2.95.3-EE build 1.36, compiler -G8, the bundled Ps2EeAs assembler, and assembler -G0. GNU as and nonvolatile source variants choose different base registers, store scheduling, or delay-slot expansion.",
+    "provenance_note": "The source-owned alignment boundary is proven through the next catalog function; the authentic wider translation-unit boundary remains unresolved."
   },
   {
     "function": "func_001632E0",
