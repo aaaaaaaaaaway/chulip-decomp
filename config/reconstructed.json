@@ -1836,6 +1836,23 @@
     "whole_program_match": true
   },
   {
+    "function": "func_0010D040",
+    "source": "src/game/func_0010D040.c",
+    "address": "0x0010D040",
+    "size": 980,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": [
+      "-Wa,-G8"
+    ],
+    "unit_start": "0x0010D040",
+    "unit_end": "0x0010D418",
+    "isolated_match": true,
+    "whole_program_match": true
+  },
+  {
     "function": "func_0010D418",
     "source": "src/game/func_0010D418.c",
     "address": "0x0010D418",
@@ -1907,6 +1924,23 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0010DBF0",
+    "source": "src/game/func_0010DBF0.c",
+    "address": "0x0010DBF0",
+    "size": 124,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": [
+      "-Wa,-G8"
+    ],
+    "unit_start": "0x0010DBF0",
+    "unit_end": "0x0010DC70",
+    "isolated_match": true,
+    "whole_program_match": true
   },
   {
     "function": "func_0010DC70",
@@ -1996,6 +2030,21 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0010E608",
+    "source": "src/game/func_0010E608.c",
+    "address": "0x0010E608",
+    "size": 200,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": [
+      "-Wa,-G8"
+    ],
+    "isolated_match": true,
+    "whole_program_match": true
   },
   {
     "function": "func_0010E6D0",
