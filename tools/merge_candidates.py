@@ -23,6 +23,8 @@ from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 from typing import NoReturn
 
+from source_audit import audit_c_source
+
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "config/functions.json"
 TOOLCHAINS = ROOT / "config/toolchains.json"
@@ -43,27 +45,6 @@ ALLOWED_FIELDS = {
     "evidence",
     "provenance_note",
 }
-# tools/build.py resolves any name ending in an eight-digit address, so an
-# invented data symbol now links silently and can never fail verification. Only
-# the prefixes the disassembly itself produces may name linked data that way.
-# A tag after struct/union/enum is a type name, not a linked symbol, so naming
-# a type after the address it describes is allowed.
-INVENTED_SYMBOL = re.compile(
-    r"(?<!\w)(?<!struct )(?<!union )(?<!enum )"
-    r"(?!D_|func_|jtbl_)[A-Za-z]\w*_[0-9A-Fa-f]{8}\b"
-)
-BRIDGE_PATTERNS = (
-    ("assembly inclusion", re.compile(r"\b(?:INCLUDE_ASM|GLOBAL_ASM|include_asm)\b", re.I)),
-    ("assembly label", re.compile(r"\b(?:glabel|endlabel)\b")),
-    ("binary inclusion", re.compile(r"\.incbin\b", re.I)),
-    ("raw bridge marker", re.compile(r"raw[ -]byte[ -]match[ -]bridge", re.I)),
-    (
-        "inline assembly",
-        re.compile(r"\b(?:__asm__|__asm|asm)\s*(?:volatile\s*)?\(", re.I),
-    ),
-)
-
-
 class CandidateError(Exception):
     """A deterministic validation failure in candidate or repository data."""
 
@@ -263,16 +244,9 @@ def source_has_definition(text: str, function: str) -> bool:
 
 def validate_source(source: str, functions: list[str]) -> None:
     text = (ROOT / source).read_text(errors="replace")
-    for label, pattern in BRIDGE_PATTERNS:
-        if pattern.search(text):
-            fail(f"{source}: prohibited {label} marker")
-    invented = INVENTED_SYMBOL.search(text)
-    if invented:
-        fail(
-            f"{source}: invented address-named symbol {invented.group(0)}; "
-            "only D_, func_ and jtbl_ names come from the disassembly, and the "
-            "whole-image link resolves anything else without ever proving it"
-        )
+    issues = audit_c_source(ROOT / source, repo_root=ROOT)
+    if issues:
+        fail(issues[0].format(ROOT))
     for function in functions:
         if not source_has_definition(text, function):
             fail(f"{source}: missing C definition for {function}")

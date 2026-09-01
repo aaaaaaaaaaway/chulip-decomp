@@ -21,8 +21,9 @@ bytes.
 
 ## Prohibited shortcuts
 
-- Full-function assembly, `.word` instruction transcription, `INCLUDE_ASM`, or
-  binary inclusion presented as decompilation.
+- Inline or full-function assembly, `.word` instruction transcription,
+  `INCLUDE_ASM`, macro-wrapped assembly, or binary inclusion presented as
+  decompilation.
 - Generating C or assembly that simply encodes target bytes.
 - Counting stubs, semantic-only implementations, decompiler output, or a
   booting nonmatching build as completion.
@@ -30,10 +31,9 @@ bytes.
 - Changing the target, ignoring relocation/linker differences, or weakening a
   verifier to accept a mismatch.
 
-Narrow inline assembly may be used for authentic EE/R5900 instructions,
-compiler intrinsics, or a tightly bounded code-generation idiom when normal C
-cannot express it. It must be reviewed and documented; it cannot replace a
-function body.
+There is no generic inline-assembly exception for reconstructed C. Authentic
+EE/R5900, hardware, or original SDK assembly must remain separately classified
+as assembly and is not counted on the C reconstruction ledger.
 
 ## Evidence and workflow
 
@@ -45,3 +45,5 @@ function body.
 - `docs/STATUS.md` separates extraction, analysis, build, and byte-match gates.
 - Every source edit is rechecked locally, then through a clean whole-program
   build before it is counted.
+- `tools/source_audit.py` is the one no-cheat source gate used by candidate
+  ingestion and the standing public-repository audit.

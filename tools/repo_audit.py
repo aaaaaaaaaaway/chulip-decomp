@@ -11,6 +11,7 @@ from pathlib import Path
 
 from progress import markdown, progress_data, replace_readme
 from gen_splat_config import rendered_config
+from source_audit import audit_c_source
 
 ROOT = Path(__file__).resolve().parents[1]
 FORBIDDEN_PREFIXES = (
@@ -36,14 +37,6 @@ FORBIDDEN_SUFFIXES = (
     ".o",
     ".rar",
     ".zip",
-)
-# A matched source can be replaced after it was proven. The build gates all run
-# before that happens, so the ledger can end up recording isolated_match and
-# whole_program_match for a file that contains no decompiled C at all. This is a
-# standing check rather than a one-off review because the corruption arrives
-# after every other gate has already passed.
-ASSEMBLY_BRIDGE = re.compile(
-    r"\b(?:INCLUDE_ASM|GLOBAL_ASM|include_asm)\b|\.incbin\b", re.I
 )
 SECRET_PATTERNS = (
     re.compile(r"ghp_[A-Za-z0-9]{30,}"),
@@ -90,19 +83,27 @@ def load_json(path: str):
 
 
 def matched_sources_are_decompiled(errors: list[str]) -> None:
-    """Every ledgered source must still contain C, not an assembly bridge."""
+    """Every ledgered source must still satisfy the shared strict C audit."""
     ledger = load_json("config/reconstructed.json")
+    audited: set[str] = set()
+    reported: set[tuple[Path, int, str, str]] = set()
     for entry in ledger:
         source = str(entry.get("source", ""))
         path = ROOT / source
         if not path.is_file():
             errors.append(f"matched source is missing: {source}")
             continue
-        found = ASSEMBLY_BRIDGE.search(path.read_text(errors="replace"))
-        if found:
+        if source in audited:
+            continue
+        audited.add(source)
+        for issue in audit_c_source(path, repo_root=ROOT):
+            key = (issue.path, issue.line, issue.kind, issue.detail)
+            if key in reported:
+                continue
+            reported.add(key)
             errors.append(
-                f"matched source is an assembly bridge, not decompiled C: "
-                f"{source} ({entry.get('function')} via {found.group(0)})"
+                "matched source violates the strict reconstructed-C policy: "
+                + issue.format(ROOT)
             )
 
 

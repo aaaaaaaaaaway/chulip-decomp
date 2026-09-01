@@ -4,7 +4,7 @@ FUNCTION ?=
 PROFILE ?= ee-gcc2.95.3-136-O2-G8
 CANDIDATES ?=
 
-.PHONY: setup split baseline verify match merge progress boundaries boundary-verify audit public-check
+.PHONY: setup split baseline verify match merge progress boundaries boundary-verify audit test public-check
 
 setup:
 	$(PYTHON) tools/bootstrap.py
@@ -40,8 +40,12 @@ boundary-verify:
 audit:
 	$(PYTHON) tools/repo_audit.py
 
+test:
+	$(PYTHON) -m unittest discover -s tests -p 'test_*.py'
+
 public-check:
 	$(PYTHON) -m compileall -q configure.py tools
+	$(PYTHON) -m unittest discover -s tests -p 'test_*.py'
 	$(PYTHON) tools/gen_splat_config.py --check
 	$(PYTHON) tools/progress.py --check-readme
 	$(PYTHON) tools/repo_audit.py
