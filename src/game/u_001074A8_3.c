@@ -11,6 +11,8 @@ extern Ripple *D_001ED0B4[1];
 
 extern int func_00192568(void);
 
+void func_001074E8(int index, int mode, float *pos, int *color);
+
 extern int D_001ED0BC;
 
 void func_001074A8(int *p) {
@@ -20,7 +22,7 @@ void func_001074A8(int *p) {
     color[1] = 0x80;
     color[2] = 0x80;
     color[3] = 0x80;
-    func_001074E8(0, p[0], p + 1, color);
+    func_001074E8(0, p[0], (float *)(p + 1), color);
 }
 
 void func_001074E8(int index, int mode, float *pos, int *color) {

@@ -2,11 +2,16 @@
 
 import sys
 import unittest
+from contextlib import redirect_stderr
+from io import StringIO
 from pathlib import Path
+from subprocess import CompletedProcess
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 
 from compiler_diagnostics import dangerous_diagnostics
+import match
 
 
 class CompilerDiagnosticsTests(unittest.TestCase):
@@ -48,6 +53,37 @@ class CompilerDiagnosticsTests(unittest.TestCase):
             dangerous_diagnostics(output),
             ["integer converted to pointer", "pointer/integer assignment"],
         )
+
+    @patch("match.subprocess.run")
+    def test_compiler_runner_rejects_dangerous_warning(self, run: object) -> None:
+        run.return_value = CompletedProcess(
+            ["cc1"],
+            0,
+            "",
+            "warning: implicit declaration of function `callee'\n",
+        )
+        with redirect_stderr(StringIO()):
+            with self.assertRaisesRegex(
+                SystemExit, "ABI-DANGEROUS COMPILER DIAGNOSTICS"
+            ):
+                match.run_compiler(["cc1"])
+
+    @patch("match.subprocess.run")
+    def test_compiler_runner_accepts_benign_warning(self, run: object) -> None:
+        run.return_value = CompletedProcess(
+            ["cc1"],
+            0,
+            "",
+            "warning: unused variable `value'\n",
+        )
+        with redirect_stderr(StringIO()):
+            match.run_compiler(["cc1"])
+
+    @patch("match.subprocess.run")
+    def test_generic_runner_does_not_classify_linker_warning(self, run: object) -> None:
+        run.return_value = CompletedProcess(["ld"], 0, "", "warning: implicit declaration")
+        match.run(["ld"])
+        run.assert_called_once_with(["ld"], cwd=match.ROOT, check=True)
 
 
 if __name__ == "__main__":

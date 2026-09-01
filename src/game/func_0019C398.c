@@ -18,5 +18,4 @@ void func_0019C398(void) {
         param.unk4 = 1;
         D_001E5B84[0] = func_001987A0(&param);
     }
-    return D_001E5B84[0];
 }

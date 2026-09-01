@@ -9,8 +9,10 @@ import json
 import re
 import struct
 import subprocess
+import sys
 from pathlib import Path
 
+from compiler_diagnostics import dangerous_diagnostics
 from normalize_asm import normalize
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -26,6 +28,36 @@ SDATA_VRAM = 0x001EC880
 
 def run(command: list[str]) -> None:
     subprocess.run(command, cwd=ROOT, check=True)
+
+
+def run_compiler(command: list[str]) -> None:
+    """Run a C compiler and reject successful output with unsafe diagnostics.
+
+    Linkers and assemblers still use :func:`run`: their warnings describe
+    different constraints and must not be mistaken for C ABI defects.
+    """
+    result = subprocess.run(
+        command,
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    if result.stdout:
+        print(result.stdout, end="", file=sys.stdout)
+    if result.stderr:
+        print(result.stderr, end="", file=sys.stderr)
+    if result.returncode:
+        raise subprocess.CalledProcessError(
+            result.returncode,
+            command,
+            output=result.stdout,
+            stderr=result.stderr,
+        )
+    dangerous = dangerous_diagnostics(result.stdout + "\n" + result.stderr)
+    if dangerous:
+        raise SystemExit(
+            "ABI-DANGEROUS COMPILER DIAGNOSTICS: " + ", ".join(dangerous)
+        )
 
 
 def linux32_command(executable: str, *arguments: str) -> list[str]:
@@ -103,7 +135,7 @@ def assemble_with_bundled_assembler(
     this assembler is authoritative wherever both forms appear for one symbol.
     """
     assembly = raw.with_suffix(".driver.s")
-    run(
+    run_compiler(
         [
             str(ROOT / "tools/compilers/wibo"),
             str(ROOT / str(profile["compiler"])),
@@ -137,7 +169,7 @@ def compile_historical_object(
     if profile["runner"] == "linux32-cc1" and profile.get("assembler"):
         assembly = raw.with_suffix(".driver.s")
         normalized = raw.with_suffix(".normalized.s")
-        run(profile_command(profile, source, assembly))
+        run_compiler(profile_command(profile, source, assembly))
         normalized.write_text(normalize(assembly.read_text()))
         assembler = str(ROOT / str(profile["assembler"]))
         assembler_runner = profile.get("assembler_runner")
@@ -170,7 +202,7 @@ def compile_historical_object(
         command = profile_object_command(profile, source, raw, object_flags)
         if command is None:
             return False
-        run(command)
+        run_compiler(command)
     run(["mipsel-linux-gnu-objcopy", "--remove-section=.mdebug", str(raw), str(output)])
     return True
 
@@ -475,7 +507,7 @@ def main() -> int:
         script = work / "function.ld"
         derived = work / "derived_symbols.ld"
 
-        run(profile_command(profile, source, assembly))
+        run_compiler(profile_command(profile, source, assembly))
         normalized.write_text(normalize(assembly.read_text()))
         if not compile_historical_object(profile, source, obj, object_flags):
             run(

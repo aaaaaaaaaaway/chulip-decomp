@@ -7,7 +7,7 @@ typedef struct {
 
 extern void func_001859D8(long *value, int *out);
 
-extern void func_001858A8(int *out);
+extern void func_001858A8(void *out);
 
 void func_001864E0(long value) {
     int out[8];

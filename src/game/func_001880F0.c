@@ -11,7 +11,7 @@ typedef struct {
     short mode;
 } DisplayInfo;
 
-extern DisplayInfo *func_00187498(GsRegs *regs);
+extern DisplayInfo *func_00187498(void);
 
 #define GS_PMODE    (*(volatile long *)0x12000000)
 #define GS_SMODE2   (*(volatile long *)0x12000020)
@@ -23,7 +23,7 @@ extern DisplayInfo *func_00187498(GsRegs *regs);
 #define GS_BGCOLOR2 (*(volatile long *)0x120000E0)
 
 void func_001880F0(GsRegs *regs) {
-    if (func_00187498(regs)->mode == 1) {
+    if (func_00187498()->mode == 1) {
         GS_PMODE = regs->unk0;
         GS_DISPFB1 = regs->unk10;
         GS_DISPLAY1 = regs->unk18;

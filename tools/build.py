@@ -16,6 +16,7 @@ from match import (
     jump_table_address,
     parse_address,
     profile_command,
+    run_compiler,
 )
 from normalize_asm import normalize
 
@@ -366,7 +367,7 @@ def main() -> int:
         object_flags = list(object_flag_sets.pop())
         generated = ROOT / "build/compiled" / Path(source_name).with_suffix(".s")
         generated.parent.mkdir(parents=True, exist_ok=True)
-        run(profile_command(profile, source, generated))
+        run_compiler(profile_command(profile, source, generated))
         obj = ROOT / "build" / Path(source_name).with_suffix(".o")
         obj.parent.mkdir(parents=True, exist_ok=True)
         if not compile_historical_object(profile, source, obj, object_flags):
