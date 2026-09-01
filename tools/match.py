@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import functools
 import hashlib
 import json
 import re
@@ -228,9 +229,33 @@ def parse_address(value: object) -> int:
 
 
 BASELINE_TEXT = ROOT / "asm-baseline/cod/text.s"
+SPLIT_MATCHINGS = ROOT / "asm/matchings"
 LINE_VRAM = re.compile(r"/\* [0-9A-Fa-f]+ ([0-9A-Fa-f]{8}) ")
 JUMP_TABLE = re.compile(r"\bjtbl_([0-9A-Fa-f]{8})\b")
 SYMBOL_ADDRESS = re.compile(r"_([0-9A-Fa-f]{8})$")
+
+
+@functools.lru_cache(maxsize=1)
+def jump_table_references() -> tuple[tuple[int, int], ...]:
+    """Retail instruction addresses and jump-table references from a split."""
+    paths = (
+        [BASELINE_TEXT]
+        if BASELINE_TEXT.is_file()
+        else sorted(SPLIT_MATCHINGS.rglob("*.s"))
+    )
+    if not paths:
+        raise SystemExit("missing retail instruction split; run make split")
+    references = []
+    for path in paths:
+        for line in path.read_text().splitlines():
+            position = LINE_VRAM.search(line)
+            if position is None:
+                continue
+            references.extend(
+                (int(position.group(1), 16), int(name, 16))
+                for name in JUMP_TABLE.findall(line)
+            )
+    return tuple(references)
 
 
 def jump_table_address(start: int, end: int) -> int | None:
@@ -242,14 +267,7 @@ def jump_table_address(start: int, end: int) -> int | None:
     names every table after its address, so the placement is derivable without
     any new configuration.
     """
-    if not BASELINE_TEXT.is_file():
-        return None
-    tables: list[int] = []
-    for line in BASELINE_TEXT.read_text().splitlines():
-        position = LINE_VRAM.search(line)
-        if position is None or not start <= int(position.group(1), 16) < end:
-            continue
-        tables.extend(int(name, 16) for name in JUMP_TABLE.findall(line))
+    tables = [table for address, table in jump_table_references() if start <= address < end]
     return min(tables) if tables else None
 
 
@@ -333,20 +351,42 @@ SECTIONS
 """
 
 
-def rodata_report(linked: Path, rodata: int | None, target: bytes) -> str | None:
+def compare_rodata(produced: bytes, rodata: int, target: bytes) -> tuple[str, bool]:
+    """Compare one emitted read-only-data image at its retail virtual address."""
+    prefix = f"jump table at 0x{rodata:08X}: "
+    if not produced:
+        return prefix + "MISSING compiled .rodata", False
+    offset = rodata - TEXT_VRAM
+    if offset < 0 or offset + len(produced) > len(target):
+        return prefix + "OUTSIDE retail load image", False
+    expected = target[offset : offset + len(produced)]
+    if produced == expected:
+        return prefix + f"{len(produced)} bytes MATCH", True
+    return prefix + compare(expected, produced, verbose=False), False
+
+
+def rodata_report(
+    linked: Path, rodata: int | None, target: bytes
+) -> tuple[str | None, bool]:
     """Confirm a compiled jump table equals the retail bytes it is placed on."""
     if rodata is None:
-        return None
+        return None, True
     dumped = linked.with_suffix(".rodata.bin")
     run(["mipsel-linux-gnu-objcopy", "-O", "binary", "-j", ".rodata", str(linked), str(dumped)])
     produced = dumped.read_bytes()
-    if not produced:
-        return None
-    offset = rodata - TEXT_VRAM
-    expected = target[offset : offset + len(produced)]
-    if produced == expected:
-        return f"jump table at 0x{rodata:08X}: {len(produced)} bytes MATCH"
-    return f"jump table at 0x{rodata:08X}: {compare(expected, produced, verbose=False)}"
+    return compare_rodata(produced, rodata, target)
+
+
+def object_defines_symbol(obj: Path, symbol: str) -> bool:
+    """Require the candidate object to define the catalog function it claims."""
+    result = subprocess.run(
+        ["mipsel-linux-gnu-nm", "--defined-only", str(obj)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return any(line.split()[-1:] == [symbol] for line in result.stdout.splitlines())
 
 
 def write_derived_symbols(obj: Path, output: Path) -> None:
@@ -526,6 +566,10 @@ def main() -> int:
                     str(normalized),
                 ]
             )
+        if not object_defines_symbol(obj, args.function):
+            raise SystemExit(
+                f"compiled object does not define requested function: {args.function}"
+            )
         notes: list[str] = []
         placement: dict[str, int | None] = {".sdata": sdata, ".sbss": sbss}
         for section in SMALL_SECTIONS:
@@ -569,12 +613,12 @@ def main() -> int:
         actual = binary.read_bytes()
         result = compare(expected, actual, verbose=not args.quiet)
         print(f"{profile_name}: {result}")
-        table = rodata_report(linked, rodata, target)
+        table, table_matches = rodata_report(linked, rodata, target)
         if table:
             print(f"  {table}")
         for note in notes:
             print(f"  {note}")
-        if result == "MATCH":
+        if result == "MATCH" and table_matches:
             matched.append(profile_name)
 
     print(f"verified {len(matched)} / {len(requested)} requested profiles")

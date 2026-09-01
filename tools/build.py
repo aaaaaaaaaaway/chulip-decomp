@@ -267,12 +267,25 @@ def pin_jump_tables(linker: str, tables: dict[Path, int]) -> str:
             raise SystemExit(f"generated linker script does not place {relative} rodata")
         linker = linker.replace(listed, "")
         pinned.append(
-            f"    {section_name(obj)} 0x{address:08X} : {{ {relative}(.rodata*) }}\n"
+            f"    {section_name(obj)} 0x{address:08X} (INFO) : "
+            f"{{ {relative}(.rodata*) }}\n"
         )
     marker = "    /DISCARD/ :"
     if marker not in linker:
         raise SystemExit("unexpected generated linker script: no discard rule")
     return linker.replace(marker, "".join(pinned) + "\n" + marker, 1)
+
+
+def extend_bss_to_memory_end(linker: str, memory_end: int) -> str:
+    """Retain the target PT_LOAD zero-fill extent after the generated BSS."""
+    marker = "        cod_BSS_END = .;"
+    if linker.count(marker) != 1:
+        raise SystemExit("unexpected generated BSS linker section end")
+    return linker.replace(
+        marker,
+        f"        . = 0x{memory_end:08X};\n{marker}",
+        1,
+    )
 
 
 def verify_jump_tables(linked: Path, tables: dict[Path, int], target: bytes) -> None:
@@ -385,6 +398,10 @@ def main() -> int:
     if generated_linker.count(bss_header) != 1:
         raise SystemExit("unexpected generated BSS linker section")
     linker = generated_linker.replace(bss_header, ".cod_bss 0x001ED080 (NOLOAD) :")
+    elf_config = json.loads((ROOT / "config/elf.json").read_text())
+    load = elf_config["load_segment"]
+    memory_end = int(load["vram"], 0) + int(load["memory_size"], 0)
+    linker = extend_bss_to_memory_end(linker, memory_end)
     linker = pin_jump_tables(linker, jump_tables)
     linker_path = output / "chulip.us.ld"
     linker_path.write_text(linker)

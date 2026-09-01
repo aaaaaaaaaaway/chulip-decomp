@@ -18,8 +18,10 @@ assembler referenced by `config/toolchains.json`. This includes the two SN
 Systems releases, Sony EE GNU C 2.9, GNU C 2.96, Wibo 1.2.0, and the pinned
 32-bit glibc runtime needed by the native Linux compilers. Historical
 assemblers bundled with the compiler archives are used where they are known to
-work. Every archive has a URL and SHA-256 in the toolchain configuration; none
-is committed to Git.
+work. Every archive has a URL and SHA-256 in the toolchain configuration, and
+the check compares installed compiler artifacts back to those pinned archives.
+The 32-bit loader and libc have artifact hashes as well. None is committed to
+Git.
 
 The cross-binutils suite remains a checked host dependency. Distribution
 packages are dynamically linked to other host libraries, so pinning only the
@@ -49,6 +51,14 @@ python3 tools/build.py
 The build must report the exact 970,772-byte load-image match. `disc/`,
 `original/`, generated assembly, compiler binaries, and build output are all
 ignored and must remain untracked.
+
+The standard split emits temporary retail matchings used to place compiler
+generated jump tables. A separate baseline split is useful for comparisons but
+is not a hidden prerequisite for `tools/build.py`. Compiled jump-table sections
+are non-loadable proof sections: the loadable image keeps the already verified
+retail bytes at those addresses, so proof data cannot create an overlapping
+segment that changes runtime memory. The linker also extends the final
+zero-filled BSS tail to the executable's declared PT_LOAD memory boundary.
 
 ## ELF completeness
 

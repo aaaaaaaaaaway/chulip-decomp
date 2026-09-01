@@ -49,6 +49,15 @@ class SourceAuditTests(unittest.TestCase):
         )
         self.assertEqual(issues, [])
 
+    def test_asm_word_in_a_string_is_not_a_keyword(self) -> None:
+        self.assertEqual(
+            self.issues(
+                '#define NAME "asm"\n'
+                'const char *name = NAME; int f(void) { return 0; }'
+            ),
+            [],
+        )
+
     def test_every_inline_asm_spelling_is_rejected(self) -> None:
         for spelling in ("asm", "__asm", "__asm__"):
             with self.subTest(spelling=spelling):
@@ -111,6 +120,24 @@ class SourceAuditTests(unittest.TestCase):
             )
         )
 
+    def test_asm_keyword_passed_through_macro_is_rejected(self) -> None:
+        self.assertIn(
+            "inline-assembly",
+            self.kinds(
+                '#define CALL(keyword) keyword("nop")\n'
+                "void f(void) { CALL(__asm__); }\n"
+            ),
+        )
+
+    def test_token_pasting_macro_is_rejected_as_opaque(self) -> None:
+        self.assertIn(
+            "opaque-token-paste",
+            self.kinds(
+                "#define CAT(left, right) left ## right\n"
+                "void f(void) { CAT(__as, m__)(\"nop\"); }\n"
+            ),
+        )
+
     def test_local_header_macros_are_followed(self) -> None:
         header = self.write(
             "include/private_emit.h",
@@ -129,6 +156,43 @@ class SourceAuditTests(unittest.TestCase):
                 for issue in issues
             )
         )
+
+    def test_angle_local_header_macros_are_followed(self) -> None:
+        header = self.write(
+            "include/private_angle_emit.h",
+            '#define EMIT_RETURN() __asm__("nop")\n',
+        )
+        source = self.write(
+            "src/test.c",
+            "#include <private_angle_emit.h>\nvoid f(void) { EMIT_RETURN(); }\n",
+        )
+        issues = audit_c_source(source, repo_root=self.root)
+        self.assertTrue(any(issue.path == header.resolve() for issue in issues))
+
+    def test_macro_computed_include_is_rejected(self) -> None:
+        self.assertIn(
+            "dynamic-include",
+            self.kinds('#define PRIVATE "private.h"\n#include PRIVATE\n'),
+        )
+
+    def test_include_cannot_escape_repository(self) -> None:
+        self.assertIn(
+            "unsafe-include",
+            self.kinds('#include "../../outside.h"\n'),
+        )
+
+    def test_local_include_symlink_cannot_escape_repository(self) -> None:
+        outside = self.root.parent / f"{self.root.name}-outside-audit.h"
+        outside.write_text('#define EMIT() __asm__("nop")\n')
+        link = self.root / "include/escape.h"
+        link.symlink_to(outside)
+        try:
+            self.assertIn(
+                "unsafe-include",
+                self.kinds('#include <escape.h>\n'),
+            )
+        finally:
+            outside.unlink()
 
     def test_suspicious_instruction_and_padding_storage_is_rejected(self) -> None:
         issues = self.issues(

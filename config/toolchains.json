@@ -122,7 +122,9 @@
   "runtime": {
     "wibo_sha256": "13f86a2d618f0dbe67179d349625345eabf9b46450295cb4c904e49f6aff85af",
     "libc6_i386_archive": "tools/compilers/runtime/libc6-i386_2.43-2ubuntu2.3_amd64.deb",
-    "libc6_i386_archive_url": "http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc6-i386_2.43-2ubuntu2.3_amd64.deb",
-    "libc6_i386_archive_sha256": "ba90a203148af52bafea245c779043adf9650b373fbbb2fc9b86e5b3bfe4ced4"
+    "libc6_i386_archive_url": "https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc6-i386_2.43-2ubuntu2.3_amd64.deb",
+    "libc6_i386_archive_sha256": "ba90a203148af52bafea245c779043adf9650b373fbbb2fc9b86e5b3bfe4ced4",
+    "linux32_loader_sha256": "18f975ac13ebfabd64af015e7bb6eba10fa9734db1db1af4e1bc69a71fa8f21a",
+    "linux32_libc_sha256": "d6ef392c0ae123d332cb2d0453230c75f9c1e0954644d46e8715cecab25b62c4"
   }
 }

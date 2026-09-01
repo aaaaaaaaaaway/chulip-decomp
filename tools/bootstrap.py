@@ -107,6 +107,44 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def sha256_stream(stream) -> str:
+    digest = hashlib.sha256()
+    for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+        digest.update(chunk)
+    return digest.hexdigest()
+
+
+def verify_archive_install(archive: Path, spec: dict[str, object]) -> None:
+    """Prove configured installed artifacts still equal the pinned archive."""
+    expected = str(spec["sha256"])
+    if not archive.is_file() or sha256(archive) != expected:
+        raise SystemExit(f"missing or invalid pinned archive: {archive.relative_to(ROOT)}")
+    target = Path(spec["target"])
+    with tarfile.open(archive, "r:*") as bundle:
+        members = {}
+        for member in bundle.getmembers():
+            name = member.name
+            while name.startswith("./"):
+                name = name[2:]
+            members[name] = member
+        for installed in spec["required"]:
+            installed = Path(installed)
+            relative = installed.relative_to(target).as_posix()
+            member = members.get(relative)
+            archived = bundle.extractfile(member) if member is not None else None
+            if archived is None or not installed.is_file():
+                raise SystemExit(
+                    f"pinned archive lacks installed artifact: {installed.relative_to(ROOT)}"
+                )
+            with archived:
+                archived_hash = sha256_stream(archived)
+            if sha256(installed) != archived_hash:
+                raise SystemExit(
+                    f"installed artifact differs from pinned archive: "
+                    f"{installed.relative_to(ROOT)}"
+                )
+
+
 def download(url: str, destination: Path, expected: str) -> None:
     if destination.is_file() and sha256(destination) == expected:
         print(f"verified cached {destination.relative_to(ROOT)}")
@@ -168,19 +206,33 @@ def install_archive(archive: Path, spec: dict[str, object], check_only: bool) ->
         if not present:
             names = ", ".join(sorted(str(Path(path).relative_to(ROOT)) for path in required))
             raise SystemExit(f"missing configured toolchain files: {names}")
+        verify_archive_install(archive, spec)
         return
+    download(str(spec["url"]), archive, str(spec["sha256"]))
     if not present:
         if target.exists():
             raise SystemExit(f"incomplete toolchain directory exists: {target}")
-        download(str(spec["url"]), archive, str(spec["sha256"]))
         COMPILERS.mkdir(parents=True, exist_ok=True)
         with tempfile.TemporaryDirectory(prefix=target.name + "-", dir=COMPILERS) as temp:
             temp_path = Path(temp)
             with tarfile.open(archive, "r:*") as bundle:
                 bundle.extractall(temp_path, filter="data")
+            missing = [
+                path
+                for path in required
+                if not (temp_path / Path(path).relative_to(target)).is_file()
+            ]
+            if missing:
+                names = ", ".join(
+                    sorted(str(Path(path).relative_to(ROOT)) for path in missing)
+                )
+                raise SystemExit(
+                    f"archive does not provide configured toolchain files: {names}"
+                )
             temp_path.rename(target)
     if not all(Path(path).is_file() for path in required):
         raise SystemExit(f"archive did not provide all configured files: {archive.relative_to(ROOT)}")
+    verify_archive_install(archive, spec)
     print(
         f"verified {target.relative_to(COMPILERS)} for profiles: "
         + ", ".join(sorted(spec["profiles"]))
@@ -192,7 +244,13 @@ def setup_linux32_runtime(config: dict[str, object], check_only: bool) -> None:
     if not any(profile.get("runner") == "linux32-cc1" or profile.get("assembler_runner") == "linux32" for profile in profiles.values()):
         return
     runtime = config.get("runtime", {})
-    keys = ("libc6_i386_archive", "libc6_i386_archive_url", "libc6_i386_archive_sha256")
+    keys = (
+        "libc6_i386_archive",
+        "libc6_i386_archive_url",
+        "libc6_i386_archive_sha256",
+        "linux32_loader_sha256",
+        "linux32_libc_sha256",
+    )
     missing = [key for key in keys if not runtime.get(key)]
     if missing:
         raise SystemExit("linux32 profiles require runtime metadata: " + ", ".join(missing))
@@ -203,6 +261,12 @@ def setup_linux32_runtime(config: dict[str, object], check_only: bool) -> None:
     if check_only:
         if not present:
             raise SystemExit("missing pinned linux32 runtime")
+        if not archive.is_file() or sha256(archive) != runtime["libc6_i386_archive_sha256"]:
+            raise SystemExit("missing or invalid pinned linux32 runtime archive")
+        if sha256(required[0]) != runtime["linux32_loader_sha256"]:
+            raise SystemExit("installed linux32 loader differs from pinned runtime")
+        if sha256(required[1]) != runtime["linux32_libc_sha256"]:
+            raise SystemExit("installed linux32 libc differs from pinned runtime")
         return
     if not present:
         if root.exists():
@@ -218,9 +282,17 @@ def setup_linux32_runtime(config: dict[str, object], check_only: bool) -> None:
         with tempfile.TemporaryDirectory(prefix="linux32-runtime-", dir=root.parent) as temp:
             extracted = Path(temp) / "root"
             subprocess.run(["dpkg-deb", "-x", str(archive), str(extracted)], check=True)
+            if not all(
+                (extracted / path.relative_to(root)).is_file() for path in required
+            ):
+                raise SystemExit("pinned linux32 runtime lacks its loader or libc")
             extracted.rename(root)
     if not all(path.is_file() for path in required):
         raise SystemExit("pinned linux32 runtime lacks its loader or libc")
+    if sha256(required[0]) != runtime["linux32_loader_sha256"]:
+        raise SystemExit("installed linux32 loader differs from pinned runtime")
+    if sha256(required[1]) != runtime["linux32_libc_sha256"]:
+        raise SystemExit("installed linux32 libc differs from pinned runtime")
     print("verified pinned linux32 runtime")
 
 
@@ -243,8 +315,11 @@ def check_host_tools() -> None:
     ]
     missing = [command for command in required if not shutil.which(command)]
     if missing:
-        print("warning: missing host tools: " + ", ".join(missing), file=sys.stderr)
-        print("Debian/Ubuntu package: binutils-mipsel-linux-gnu", file=sys.stderr)
+        raise SystemExit(
+            "missing host tools: "
+            + ", ".join(missing)
+            + "; Debian/Ubuntu package: binutils-mipsel-linux-gnu"
+        )
 
 
 def main() -> int:

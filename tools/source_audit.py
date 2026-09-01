@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 
 @dataclass(frozen=True)
@@ -50,16 +50,13 @@ _DEFINE = re.compile(
     r"(?P<body>(?:\\\r?\n|[^\r\n])*)",
     re.M,
 )
-_QUOTED_INCLUDE = re.compile(
-    r'^[ \t]*#[ \t]*include[ \t]+"([^"\n]+)"', re.M
+_INCLUDE = re.compile(
+    r'^[ \t]*#[ \t]*include[ \t]+'
+    r'(?:(?:"(?P<quoted>[^"\n]+)")|(?:<(?P<angled>[^>\n]+)>)|(?P<dynamic>[^\r\n]+))',
+    re.M,
 )
 _IDENTIFIER = re.compile(r"\b[A-Za-z_]\w*\b")
-_INLINE_ASM = re.compile(
-    r"\b(?:__asm__|__asm|asm)\s*"
-    r"(?:(?:__volatile__|__volatile|volatile|inline|goto)\s*)*\(",
-    re.I,
-)
-_ASM_IDENTIFIER = re.compile(r"\b(?:__asm__|__asm|asm)\b", re.I)
+_ASM_IDENTIFIER = re.compile(r"\b(?:__asm__|__asm|asm)\b")
 _ASSEMBLY_INCLUDE = re.compile(
     r"\b(?:INCLUDE_ASM|GLOBAL_ASM|include_asm)\b", re.I
 )
@@ -106,7 +103,10 @@ _WORD_LITERAL = re.compile(
 )
 
 _DIRECT_RULES = (
-    ("inline-assembly", _INLINE_ASM, "inline assembly is not reconstructed C"),
+    # Reject the keyword itself, not only a direct ``asm(...)`` spelling.  A
+    # wrapper can otherwise accept it as an argument and invoke it after macro
+    # substitution (for example ``CALL(__asm__)``).
+    ("inline-assembly", _ASM_IDENTIFIER, "inline assembly is not reconstructed C"),
     (
         "assembly-inclusion",
         _ASSEMBLY_INCLUDE,
@@ -184,6 +184,30 @@ def _strip_comments(text: str) -> str:
     return "".join(result)
 
 
+def _strip_literals(text: str) -> str:
+    """Replace string and character contents while retaining line offsets."""
+    result = list(text)
+    index = 0
+    quote: str | None = None
+    while index < len(text):
+        char = text[index]
+        if quote is None:
+            if char in ('"', "'"):
+                result[index] = " "
+                quote = char
+        else:
+            if char != "\n":
+                result[index] = " "
+            if char == "\\" and index + 1 < len(text):
+                index += 1
+                if text[index] != "\n":
+                    result[index] = " "
+            elif char == quote:
+                quote = None
+        index += 1
+    return "".join(result)
+
+
 def _line(text: str, offset: int) -> int:
     return text.count("\n", 0, offset) + 1
 
@@ -200,6 +224,20 @@ def _resolve_include(name: str, including: Path, root: Path) -> Path | None:
     return None
 
 
+def _unsafe_include(name: str, including: Path, root: Path) -> str | None:
+    pure = PurePosixPath(name)
+    if pure.is_absolute() or ".." in pure.parts or "\\" in name:
+        return "include path escapes the repository"
+    for candidate in (including.parent / name, root / name, root / "include" / name):
+        if not candidate.exists() and not candidate.is_symlink():
+            continue
+        try:
+            candidate.resolve().relative_to(root.resolve())
+        except (OSError, ValueError):
+            return "include resolves outside the repository"
+    return None
+
+
 def _read_graph(source: Path, root: Path) -> dict[Path, str]:
     pending = [source.resolve()]
     files: dict[Path, str] = {}
@@ -213,8 +251,11 @@ def _read_graph(source: Path, root: Path) -> dict[Path, str]:
             continue
         files[path] = text
         clean = _strip_comments(text)
-        for match in _QUOTED_INCLUDE.finditer(clean):
-            included = _resolve_include(match.group(1), path, root)
+        for match in _INCLUDE.finditer(clean):
+            name = match.group("quoted") or match.group("angled")
+            if name is None:
+                continue
+            included = _resolve_include(name, path, root)
             if included is not None and included not in files:
                 pending.append(included)
     return files
@@ -239,13 +280,14 @@ def _macros(files: dict[Path, str]) -> list[_Macro]:
 
 def _primitive_kind(text: str) -> str | None:
     for kind, pattern, _detail in _DIRECT_RULES:
-        if pattern.search(text):
+        subject = _strip_literals(text) if kind == "inline-assembly" else text
+        if pattern.search(subject):
             return kind
     if _RAW_BRIDGE.search(text):
         return "raw-bridge-marker"
     # A macro may alias only the asm keyword and leave the opening parenthesis
     # to an outer wrapper, e.g. `#define EMIT __asm__`.
-    if _ASM_IDENTIFIER.search(text):
+    if _ASM_IDENTIFIER.search(_strip_literals(text)):
         return "inline-assembly"
     if "##" in text and re.search(r"asm", text, re.I):
         return "inline-assembly"
@@ -310,10 +352,34 @@ def audit_c_source(source: Path, *, repo_root: Path) -> list[SourceAuditIssue]:
 
     for path, text in files.items():
         clean = _strip_comments(text)
-        for kind, pattern, detail in _DIRECT_RULES:
-            for match in pattern.finditer(clean):
+        code_only = _strip_literals(clean)
+        for match in _INCLUDE.finditer(clean):
+            if match.group("dynamic") is not None:
                 issues.append(
-                    SourceAuditIssue(path, _line(clean, match.start()), kind, detail)
+                    SourceAuditIssue(
+                        path,
+                        _line(clean, match.start()),
+                        "dynamic-include",
+                        "macro-computed includes cannot be audited statically",
+                    )
+                )
+                continue
+            name = match.group("quoted") or match.group("angled")
+            unsafe = _unsafe_include(name or "", path, root)
+            if unsafe is not None:
+                issues.append(
+                    SourceAuditIssue(
+                        path,
+                        _line(clean, match.start()),
+                        "unsafe-include",
+                        unsafe,
+                    )
+                )
+        for kind, pattern, detail in _DIRECT_RULES:
+            subject = code_only if kind == "inline-assembly" else clean
+            for match in pattern.finditer(subject):
+                issues.append(
+                    SourceAuditIssue(path, _line(subject, match.start()), kind, detail)
                 )
         for match in _RAW_BRIDGE.finditer(text):
             issues.append(
@@ -364,6 +430,15 @@ def audit_c_source(source: Path, *, repo_root: Path) -> list[SourceAuditIssue]:
     macros = _macros(files)
     tainted = _macro_taint(macros)
     for macro in macros:
+        if "##" in macro.body:
+            issues.append(
+                SourceAuditIssue(
+                    macro.path,
+                    macro.line,
+                    "opaque-token-paste",
+                    "token-pasting macros can construct prohibited assembly tokens",
+                )
+            )
         reason = tainted.get(macro.name)
         if reason is None:
             continue

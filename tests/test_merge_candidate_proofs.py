@@ -41,6 +41,20 @@ class CandidateProofTests(unittest.TestCase):
             ("-Wa,-G3", "-mno-split-addresses"), "line 1"
         )
 
+    def test_rejects_conflicting_small_data_flags(self) -> None:
+        with self.assertRaisesRegex(
+            merge_candidates.CandidateError, "conflicting assembler small-data"
+        ):
+            merge_candidates.validate_object_flags(("-Wa,-G0", "-Wa,-G4"), "line 1")
+
+    def test_definition_text_in_a_literal_does_not_count(self) -> None:
+        self.assertFalse(
+            merge_candidates.source_has_definition(
+                'const char *claim = "int func_00100000(void) {";\n',
+                "func_00100000",
+            )
+        )
+
     def test_command_carries_complete_candidate_configuration(self) -> None:
         command = merge_candidates.proof_command(candidate(), "profile-b")
         self.assertEqual(
@@ -71,14 +85,14 @@ class CandidateProofTests(unittest.TestCase):
         self.assertEqual(run.call_count, 2)
 
     @patch("merge_candidates.subprocess.run")
-    def test_reuses_complete_unit_proof(self, run: object) -> None:
+    def test_each_function_gets_its_own_symbol_checked_proof(self, run: object) -> None:
         run.return_value = subprocess.CompletedProcess([], 0, "profile: MATCH\n", "")
         second = candidate(function="func_00100010", line=8)
         summary = merge_candidates.verify_candidate_proofs(
             [candidate(verified_profiles=("profile-a",)), second]
         )
-        self.assertEqual(summary, (3, 2))
-        self.assertEqual(run.call_count, 2)
+        self.assertEqual(summary, (3, 3))
+        self.assertEqual(run.call_count, 3)
 
     @patch("merge_candidates.subprocess.run")
     def test_rejects_failed_match(self, run: object) -> None:

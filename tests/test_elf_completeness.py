@@ -84,6 +84,52 @@ def config_for(path: Path, payload: bytes, memsz: int) -> dict:
 
 
 class ElfCompletenessTest(unittest.TestCase):
+    def test_adjacent_segments_can_cover_one_target_memory_range(self):
+        segments = [
+            {"vaddr": 0x1000, "memsz": 4},
+            {"vaddr": 0x1004, "memsz": 4},
+        ]
+        self.assertTrue(elf_completeness.covers_virtual_memory(segments, 0x1000, 0x1008))
+        self.assertFalse(elf_completeness.covers_virtual_memory(segments, 0x1000, 0x100C))
+
+    def test_overlapping_virtual_load_mappings_follow_header_order(self):
+        candidate = {
+            "blob": b"abcdefghABCDEFGH",
+            "program_headers": [
+                {"type": 1, "vaddr": 0x1000, "offset": 0, "filesz": 8, "memsz": 8},
+                {"type": 1, "vaddr": 0x1004, "offset": 8, "filesz": 8, "memsz": 8},
+            ],
+        }
+        self.assertEqual(
+            elf_completeness.mapped_load_bytes(candidate, 0x1000, 8),
+            b"abcdABCD",
+        )
+
+    def test_memory_tail_zero_fill_participates_in_mapping(self):
+        candidate = {
+            "blob": b"abcd",
+            "program_headers": [
+                {"type": 1, "vaddr": 0x1000, "offset": 0, "filesz": 4, "memsz": 8},
+            ],
+        }
+        self.assertEqual(
+            elf_completeness.mapped_load_bytes(candidate, 0x1000, 8),
+            b"abcd\0\0\0\0",
+        )
+        self.assertEqual(
+            elf_completeness.mapped_load_bytes(candidate, 0x1006, 2),
+            b"\0\0",
+        )
+
+    def test_rejects_load_file_larger_than_memory_image(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "invalid.elf"
+            blob = bytearray(synthetic_elf(b"too long", 0x100, 0x1000, 8, 0x100))
+            struct.pack_into("<I", blob, 52 + 20, 4)
+            path.write_bytes(blob)
+            with self.assertRaisesRegex(SystemExit, "file size exceeds memory size"):
+                elf_completeness.parse_elf(path)
+
     def test_virtual_mapping_separates_load_bytes_from_container(self):
         payload = b"retail payload"
         with tempfile.TemporaryDirectory() as temporary:

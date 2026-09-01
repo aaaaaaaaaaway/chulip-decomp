@@ -172,6 +172,62 @@ def validate_object_flags(flags: tuple[str, ...], where: str) -> None:
             f"{where}: unsanctioned object flags: {', '.join(unknown)}; "
             "extend the reviewed allowlist before using a new build control"
         )
+    small_data = [flag for flag in flags if flag.startswith("-Wa,-G")]
+    if len(small_data) > 1:
+        fail(
+            f"{where}: conflicting assembler small-data controls: "
+            + ", ".join(small_data)
+        )
+
+
+def _code_without_comments_or_literals(text: str) -> str:
+    """Mask comments and quoted literals while preserving line structure."""
+    result = list(text)
+    state = "code"
+    index = 0
+    while index < len(text):
+        char = text[index]
+        following = text[index + 1] if index + 1 < len(text) else ""
+        if state == "code":
+            if char == "/" and following == "/":
+                result[index] = result[index + 1] = " "
+                index += 1
+                state = "line-comment"
+            elif char == "/" and following == "*":
+                result[index] = result[index + 1] = " "
+                index += 1
+                state = "block-comment"
+            elif char == '"':
+                result[index] = " "
+                state = "string"
+            elif char == "'":
+                result[index] = " "
+                state = "character"
+        elif state in ("string", "character"):
+            if char != "\n":
+                result[index] = " "
+            if char == "\\" and following:
+                index += 1
+                if text[index] != "\n":
+                    result[index] = " "
+            elif (state == "string" and char == '"') or (
+                state == "character" and char == "'"
+            ):
+                state = "code"
+        elif state == "line-comment":
+            if char == "\n":
+                state = "code"
+            else:
+                result[index] = " "
+        elif state == "block-comment":
+            if char == "*" and following == "/":
+                result[index] = result[index + 1] = " "
+                index += 1
+                state = "code"
+            elif char != "\n":
+                result[index] = " "
+        index += 1
+    return "".join(result)
 
 
 def parse_candidates(path: Path, profiles: set[str]) -> list[Candidate]:
@@ -259,7 +315,7 @@ def source_has_definition(text: str, function: str) -> bool:
         rf"(?:__attribute__\s*\(\([^;{{}}]*\)\)\s*)?\{{",
         re.S,
     )
-    return pattern.search(text) is not None
+    return pattern.search(_code_without_comments_or_literals(text)) is not None
 
 
 def validate_source(source: str, functions: list[str]) -> None:
@@ -307,6 +363,7 @@ def verify_candidate_proofs(candidates: list[Candidate]) -> tuple[int, int]:
         for profile in candidate.verified_profiles:
             claims += 1
             key = (
+                candidate.function,
                 candidate.source,
                 profile,
                 candidate.object_flags,

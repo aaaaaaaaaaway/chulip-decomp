@@ -118,6 +118,9 @@ def main() -> int:
 
     for name in files:
         lowered = name.lower()
+        if (ROOT / name).is_symlink():
+            errors.append(f"committable symbolic link is prohibited: {name}")
+            continue
         if name.startswith(FORBIDDEN_PREFIXES) or lowered.endswith(FORBIDDEN_SUFFIXES):
             errors.append(f"forbidden tracked path: {name}")
             continue

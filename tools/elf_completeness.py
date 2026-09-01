@@ -52,6 +52,10 @@ def parse_elf(path: Path) -> dict[str, object]:
         raise SystemExit(f"unsupported ELF header layout: {path}")
     if header["shentsize"] not in (0, 40):
         raise SystemExit(f"unsupported ELF section layout: {path}")
+    if header["phnum"] and header["phentsize"] != 32:
+        raise SystemExit(f"ELF has program headers with a zero entry size: {path}")
+    if header["shnum"] and header["shentsize"] != 40:
+        raise SystemExit(f"ELF has section headers with a zero entry size: {path}")
 
     programs = []
     for index in range(header["phnum"]):
@@ -61,6 +65,10 @@ def parse_elf(path: Path) -> dict[str, object]:
         program = dict(zip(names, values))
         program["index"] = index
         if program["type"] == PT_LOAD:
+            if program["filesz"] > program["memsz"]:
+                raise SystemExit(f"PT_LOAD file size exceeds memory size: {path}")
+            if program["vaddr"] + program["memsz"] > 0x100000000:
+                raise SystemExit(f"PT_LOAD virtual range wraps 32-bit space: {path}")
             payload = checked_slice(blob, program["offset"], program["filesz"], "PT_LOAD data")
             program["sha256"] = sha256(payload)
         programs.append(program)
@@ -124,15 +132,54 @@ def layout(record: dict[str, object], fields: tuple[str, ...]) -> dict[str, obje
 
 
 def mapped_load_bytes(candidate: dict[str, object], address: int, size: int) -> bytes | None:
+    requested_end = address + size
+    mapped = bytearray(size)
+    covered = bytearray(size)
+    # Apply segments in program-header order. Later overlapping mappings
+    # replace earlier bytes, and a segment's memory tail is zero-filled.
     for segment in candidate["program_headers"]:
         if segment["type"] != PT_LOAD:
             continue
         start = segment["vaddr"]
-        end = start + segment["filesz"]
-        if start <= address and address + size <= end:
-            file_offset = segment["offset"] + address - start
-            return checked_slice(candidate["blob"], file_offset, size, "candidate mapped load image")
-    return None
+        memory_end = start + segment["memsz"]
+        low = max(address, start)
+        high = min(requested_end, memory_end)
+        if low >= high:
+            continue
+        output_low = low - address
+        output_high = high - address
+        covered[output_low:output_high] = b"\1" * (output_high - output_low)
+        file_end = start + segment["filesz"]
+        file_high = min(high, file_end)
+        if low < file_high:
+            file_offset = segment["offset"] + low - start
+            mapped[output_low : output_low + file_high - low] = checked_slice(
+                candidate["blob"],
+                file_offset,
+                file_high - low,
+                "candidate mapped load image",
+            )
+        zero_start = max(low, file_high)
+        if zero_start < high:
+            zero_low = zero_start - address
+            mapped[zero_low:output_high] = b"\0" * (output_high - zero_low)
+    return bytes(mapped) if all(covered) else None
+
+
+def covers_virtual_memory(segments: list[dict[str, object]], start: int, end: int) -> bool:
+    """Whether the union of PT_LOAD memory ranges covers one target interval."""
+    cursor = start
+    for low, high in sorted(
+        (item["vaddr"], item["vaddr"] + item["memsz"]) for item in segments
+    ):
+        if high <= cursor:
+            continue
+        if low > cursor:
+            return False
+        cursor = max(cursor, high)
+        if cursor >= end:
+            return True
+    return cursor >= end
 
 
 def config_check(target: dict[str, object], config: dict[str, object]) -> dict[str, object]:
@@ -230,10 +277,8 @@ def compare(target: dict[str, object], candidate: dict[str, object], config: dic
 
     target_memory_end = max((item["vaddr"] + item["memsz"] for item in target_loads), default=0)
     candidate_covers_memory = all(
-        any(
-            other["vaddr"] <= item["vaddr"]
-            and other["vaddr"] + other["memsz"] >= item["vaddr"] + item["memsz"]
-            for other in candidate_loads
+        covers_virtual_memory(
+            candidate_loads, item["vaddr"], item["vaddr"] + item["memsz"]
         )
         for item in target_loads
     )
