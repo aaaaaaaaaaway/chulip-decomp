@@ -105,12 +105,12 @@ def markdown(data: dict[str, int | float]) -> str:
             f"| Text bytes | {data['matched_bytes']:,} | {data['total_bytes']:,} | {byte_percent:.4f}% |",
             f"| Functions | {data['matched_functions']:,} | {data['total_functions']:,} | {function_percent:.4f}% |",
             "",
-            "Text bytes is the measure to read. The function count runs ahead of it "
-            "because small functions are matched first. See "
-            "[scope and denominator](docs/scope.md) for what completion can mean here, "
-            "and for how well each match is currently proven.",
+            "Text bytes is the measure to read; small functions are matched first, "
+            "so the function count runs ahead of it. Only readable C that byte-matches "
+            "in isolation and in the complete-image rebuild is counted \u2014 generated "
+            "assembly contributes nothing. See "
+            "[scope and denominator](docs/scope.md).",
             "",
-            "Only readable source that passes isolated byte comparison, compiler-provenance review, and the complete-image rebuild is counted. Generated retail assembly contributes zero progress.",
             END,
         ]
     )

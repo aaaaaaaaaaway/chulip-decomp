@@ -32,9 +32,8 @@ never counted as decompilation progress.
 | Text bytes | 36,536 | 663,704 | 5.5049% |
 | Functions | 717 | 2,189 | 32.7547% |
 
-Text bytes is the measure to read. The function count runs ahead of it because small functions are matched first. See [scope and denominator](docs/scope.md) for what completion can mean here, and for how well each match is currently proven.
+Text bytes is the measure to read; small functions are matched first, so the function count runs ahead of it. Only readable C that byte-matches in isolation and in the complete-image rebuild is counted — generated assembly contributes nothing. See [scope and denominator](docs/scope.md).
 
-Only readable source that passes isolated byte comparison, compiler-provenance review, and the complete-image rebuild is counted. Generated retail assembly contributes zero progress.
 <!-- decomp-progress-end -->
 
 ## Project state
@@ -43,10 +42,11 @@ Only readable source that passes isolated byte comparison, compiler-provenance r
   fingerprinted in `config/`.
 - A zero-C baseline and the current source-plus-assembly project both reproduce
   the complete loaded image exactly.
-- SN Systems GNU C 2.95.3-EE build 1.36, its bundled assembler, and
-  `-O2 -G8` are proven for two address-contiguous neighborhoods.
-  Toolchain claims elsewhere remain local until surrounding functions support
-  them.
+- The executable was built by two compilers. Game code below roughly
+  `0x00185400` is SN Systems GNU C 2.95.3-EE build 1.36 with its bundled
+  assembler at `-O2 -G8`; the runtime and library region above it is Sony EE
+  GNU C 2.9-ee-991111-01. Both are pinned in `config/toolchains.json`.
+- Toolchain claims stay local to the address neighborhood that proves them.
 - `DAT/SYSTEM.BIN`, `DAT/SYSTEX.BIN`, SDK code, data, and linker layout remain
   part of the completion scope.
 
