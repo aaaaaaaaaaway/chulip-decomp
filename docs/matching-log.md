@@ -223,3 +223,22 @@
   Ps2EeAs assembler. The rebased isolated transaction also retained the three
   Sony-compiler runtime matches added in parallel, passed every gate, and raised
   the exact union to 717 functions / 36,536 catalog bytes.
+
+## 2026-09-01 — Sony runtime leaves and assembler correction
+
+- Wired Sony EE GNU C 2.9-ee-991111-01 to the era-correct bundled GNU
+  assembler. Modern GNU `as` encodes the compiler's `move` pseudos as `or`;
+  the historical assembler emits retail `daddu`.
+- Recovered paired cache-range alignment wrappers, three word-copy helpers,
+  three call wrappers, and one six-call runtime initializer. A second pass
+  added a vector transform wrapper, handler swap, error wrapper, job cleanup,
+  and locked queue pop. All fourteen complete ranges match in isolation as
+  readable C.
+- Promoted twenty more natural-C runtime functions that had been stranded in
+  an ignored lane because the public Sony profile used modern GNU `as`. These
+  include varargs wrappers, error adapters, stream helpers, thread setup, and
+  newlib big-integer comparison.
+- The rebased union retained 22 large emitter and display-list functions added
+  in parallel. Its isolated transaction reproduced all 970,772 image bytes and
+  the independent zero-C baseline, raising the exact build to 773 functions /
+  46,600 catalog bytes.

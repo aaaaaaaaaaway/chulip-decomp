@@ -122,7 +122,22 @@ def compile_historical_object(
 ) -> bool:
     """Use the original driver/assembler and repair its obsolete ELF metadata."""
     raw = output.with_name(output.stem + ".historical.o")
-    if profile.get("assembler_runner") == "ps2eeas":
+    if profile["runner"] == "linux32-cc1" and profile.get("assembler"):
+        assembly = raw.with_suffix(".driver.s")
+        normalized = raw.with_suffix(".normalized.s")
+        run(profile_command(profile, source, assembly))
+        normalized.write_text(normalize(assembly.read_text()))
+        run(
+            [
+                str(ROOT / "tools/compilers/wibo"),
+                str(ROOT / str(profile["assembler"])),
+                small_data_flag(object_flags),
+                "-o",
+                str(raw),
+                str(normalized),
+            ]
+        )
+    elif profile.get("assembler_runner") == "ps2eeas":
         assemble_with_bundled_assembler(profile, source, raw, object_flags)
     else:
         command = profile_object_command(profile, source, raw, object_flags)

@@ -146,6 +146,13 @@ that compiler. **Do not patch a historical compiler; identify the right one.**
 Profile: `ee-gcc2.9-991111-01-O2`. Use it for every function above the SDK
 frontier and the SN profiles below it.
 
+Sony `cc1` also depends on the era-correct bundled GNU assembler. It encodes
+the compiler's `move` pseudos as retail `daddu`; modern GNU `as` encodes them
+as `or`. The corrected profile turned the word-copy helpers at `0x001994C0`,
+`0x001A09E8`, and `0x001A0F30` from two-instruction near-matches into exact
+source matches without changing their C. It also promoted twenty previously
+stranded runtime candidates through the normal public verifier.
+
 ## 4. Translation-unit and data lessons
 
 The camera block at `0x001017F0-0x00101CC3` is the first proven multi-function

@@ -8,7 +8,7 @@
 | Disc filesystem reproducibly extracted | complete | `tools/mode2_to_iso.py`, `tools/iso9660_extract.py` |
 | Main executable identified and hashed | complete | `config/elf.json` |
 | ELF/code/data layout mapped | complete | `config/elf.json`, `config/splat.us.yaml` |
-| Original compiler/linker family identified | partial | SN GCC 2.95.3-EE build 1.36, bundled assembler, and `-O2 -G8` proven for first state module |
+| Original compiler/linker family identified | partial | SN GCC 2.95.3-EE build 1.36 below the SDK frontier and Sony EE GNU C 2.9-ee-991111-01 above it, both with historical assemblers |
 | Baseline split and nonmatching rebuild works | complete | 970,772-byte whole-image match |
 | Isolated byte-match verifier works | complete | `tools/match.py` |
 | Batch candidate verifier and ranked queue work | complete | `tools/batch_verify.py`, `tools/candidate_queue.py` |
@@ -19,11 +19,11 @@
 
 Provisional function catalog: **2,189 functions / 663,704 bytes**
 
-Source-reconstructed and matched: **717 functions / 36,536 bytes**
+Source-reconstructed and matched: **773 functions / 46,600 bytes**
 
-Matched functions: **717 / 2,189 (32.7547%)**
+Matched functions: **773 / 2,189 (35.3129%)**
 
-Matched text bytes: **36,536 / 663,704 (5.5049%)**
+Matched text bytes: **46,600 / 663,704 (7.0212%)**
 
 There is one public match tier. Readable source that matches its complete range
 and survives the exact full-image rebuild is counted; unresolved compiler or

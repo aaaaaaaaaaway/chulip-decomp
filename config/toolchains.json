@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "SN Systems GNU C 2.95.3-EE build 1.36 with its bundled GNU assembler 2.9-ee-991111b and -O2 -G8 is proven for two exact source neighborhoods; whole-program translation-unit mapping remains in progress",
+  "status": "SN Systems GNU C 2.95.3-EE build 1.36 and Sony EE GNU C 2.9-ee-991111-01 are proven with historical assemblers in exact source neighborhoods; whole-program translation-unit mapping remains in progress",
   "profiles": {
     "ee-gcc2.96-O2": {
       "family": "GNU C",
@@ -93,6 +93,7 @@
       "version": "2.9-ee-991111-01",
       "runner": "linux32-cc1",
       "compiler": "tools/compilers/ee-gcc2.9-991111-01/lib/gcc-lib/ee/2.9-ee-991111-01/cc1",
+      "assembler": "tools/compilers/ee-gcc2.95.3-136/lib/gcc-lib/ee/2.95.3/as.exe",
       "flags": [
         "-quiet",
         "-O2",
@@ -100,7 +101,9 @@
         "8"
       ],
       "archive": "tools/compilers/downloads/ee-gcc2.9-991111-01.tar.xz",
-      "archive_sha256": "ed684fd98f89d36b0121caab311052089103e3b36241fcef4338cc9ea41c75b8"
+      "archive_sha256": "ed684fd98f89d36b0121caab311052089103e3b36241fcef4338cc9ea41c75b8",
+      "assembler_archive": "tools/compilers/downloads/ee-gcc2.95.3-136.tar.gz",
+      "assembler_archive_sha256": "3b6ae6897229ad005aaf1b0afaa1f3cb46e74b4c21a42e01130c07c0c598067f"
     }
   },
   "runtime": {
