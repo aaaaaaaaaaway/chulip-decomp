@@ -6,3 +6,7 @@ dpdiv = 0x00186020;
 dpcmp = 0x001862A0;
 litodp = 0x001862F0;
 dptoli = 0x001863A8;
+
+/* Sony EE compiler runtime helpers emitted by 64-bit integer operations. */
+__muldi3 = 0x00187180;
+__udivdi3 = 0x001A24E8;

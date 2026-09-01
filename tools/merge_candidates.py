@@ -305,6 +305,16 @@ def parse_candidates(path: Path, profiles: set[str]) -> list[Candidate]:
 def source_has_definition(
     text: str, function: str, source: Path | None = None
 ) -> bool:
+    def conditional_definition(name: str) -> bool:
+        return re.search(
+            rf"^[^\n;]*\b{re.escape(name)}\s*\([^;\n]*\)\s*\n"
+            rf"[ \t]*#[ \t]*else\s*\n"
+            rf"[^\n]*\b{re.escape(name)}\s*\([^;\n]*\)[^;\n]*;\s*\n"
+            rf"[ \t]*#[ \t]*endif\s*\n[ \t]*\{{",
+            clean,
+            re.M,
+        ) is not None
+
     pattern = re.compile(
         rf"\b{re.escape(function)}\s*\([^;{{}}]*\)\s*"
         rf"(?:__attribute__\s*\(\([^;{{}}]*\)\)\s*)?\{{",
@@ -315,6 +325,25 @@ def source_has_definition(
         return True
     if re.search(rf"\b_DEFUN\s*\(\s*{re.escape(function)}\s*,", clean):
         return True
+    if conditional_definition(function):
+        return True
+    aliases = re.findall(
+        rf"^[ \t]*#[ \t]*define[ \t]+([A-Za-z_]\w*)[ \t]+{re.escape(function)}[ \t]*$",
+        text,
+        re.M,
+    )
+    for alias in aliases:
+        alias_pattern = re.compile(
+            rf"\b{re.escape(alias)}\s*\([^;{{}}]*\)\s*"
+            rf"(?:__attribute__\s*\(\([^;{{}}]*\)\)\s*)?\{{",
+            re.S,
+        )
+        if alias_pattern.search(clean) is not None:
+            return True
+        if re.search(rf"\b_DEFUN\s*\(\s*{re.escape(alias)}\s*,", clean):
+            return True
+        if conditional_definition(alias):
+            return True
     if source is None:
         return False
 
@@ -323,11 +352,6 @@ def source_has_definition(
     # Accept that narrow form when the quoted C include really defines the
     # macro's source-side function; the compiled-object proof still checks the
     # requested public symbol and all retail bytes.
-    aliases = re.findall(
-        rf"^[ \t]*#[ \t]*define[ \t]+([A-Za-z_]\w*)[ \t]+{re.escape(function)}[ \t]*$",
-        text,
-        re.M,
-    )
     includes = re.findall(
         r'^[ \t]*#[ \t]*include[ \t]+"([^"\n]+\.c)"', text, re.M
     )

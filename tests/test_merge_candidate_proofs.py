@@ -71,6 +71,28 @@ class CandidateProofTests(unittest.TestCase):
                 )
             )
 
+    def test_legacy_conditional_macro_definition_counts(self) -> None:
+        with tempfile.TemporaryDirectory(dir=merge_candidates.ROOT) as temporary:
+            directory = Path(temporary)
+            included = directory / "upstream.c"
+            wrapper = directory / "wrapper.c"
+            included.write_text(
+                "#define internal_name upstream_name\n"
+                "#if __STDC__\n"
+                "int internal_name(int value)\n"
+                "#else\n"
+                "int internal_name(value) int value;\n"
+                "#endif\n"
+                "{ return value; }\n"
+            )
+            text = '#define upstream_name func_00100000\n#include "upstream.c"\n'
+            wrapper.write_text(text)
+            self.assertTrue(
+                merge_candidates.source_has_definition(
+                    text, "func_00100000", wrapper
+                )
+            )
+
     def test_command_carries_complete_candidate_configuration(self) -> None:
         command = merge_candidates.proof_command(candidate(), "profile-b")
         self.assertEqual(
