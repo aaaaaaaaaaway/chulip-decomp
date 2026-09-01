@@ -387,9 +387,22 @@ def main() -> int:
             assemble(generated, obj)
         objects.append(obj)
         if has_rodata(obj):
-            table = jump_table_address(*unit_range(entries, catalog))
+            origins = {
+                parse_address(entry["rodata_start"])
+                for entry in entries
+                if entry.get("rodata_start") is not None
+            }
+            explicit_origins = sum(
+                entry.get("rodata_start") is not None for entry in entries
+            )
+            if len(origins) > 1 or (origins and explicit_origins != len(entries)):
+                functions = ", ".join(str(entry["function"]) for entry in entries)
+                raise SystemExit(f"inconsistent shared translation-unit rodata_start: {functions}")
+            table = next(iter(origins), None)
             if table is None:
-                raise SystemExit(f"{source_name} emits rodata with no retail jump table to pin it on")
+                table = jump_table_address(*unit_range(entries, catalog))
+            if table is None:
+                raise SystemExit(f"{source_name} emits rodata with no retail origin to pin it on")
             jump_tables[obj] = table
 
     output = ROOT / "build/current"
@@ -408,7 +421,11 @@ def main() -> int:
     derived = output / "derived_syms.ld"
     derived_symbols(
         objects,
-        [ROOT / "build/undefined_funcs_auto.txt", ROOT / "build/undefined_syms_auto.txt"],
+        [
+            ROOT / "config/linker_aliases.ld",
+            ROOT / "build/undefined_funcs_auto.txt",
+            ROOT / "build/undefined_syms_auto.txt",
+        ],
         derived,
     )
     linked = output / "chulip.us.elf"
@@ -423,6 +440,8 @@ def main() -> int:
             "_start",
             "-T",
             str(linker_path),
+            "-T",
+            "config/linker_aliases.ld",
             "-T",
             "build/undefined_funcs_auto.txt",
             "-T",

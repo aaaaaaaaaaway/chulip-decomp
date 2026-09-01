@@ -212,10 +212,13 @@ def main() -> int:
         unit_ranges = {
             (entry.get("unit_start"), entry.get("unit_end")) for entry in entries
         }
+        rodata_origins = {entry.get("rodata_start") for entry in entries}
         if len(profiles_for_source) != 1 or len(object_flags_for_source) != 1:
             errors.append(f"inconsistent shared translation-unit settings: {source}")
         if len(entries) > 1 and (len(unit_ranges) != 1 or None in next(iter(unit_ranges))):
             errors.append(f"shared source lacks one exact translation-unit range: {source}")
+        if len(rodata_origins) != 1:
+            errors.append(f"inconsistent shared translation-unit rodata_start: {source}")
 
     if set(reconstructed_by_name) != set(matched_names):
         errors.append("exact reconstructed functions differ from config/matched.json")

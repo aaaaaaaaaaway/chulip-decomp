@@ -154,12 +154,14 @@ class CampaignTests(unittest.TestCase):
                 "object_flags": ["-Wa,-G8"],
                 "range_start": "0x1000",
                 "range_end": "0x1010",
+                "rodata_start": "0x2000",
             },
         }
         manifest = campaign.promotion_manifest(record, "src/game/func_a.c")
         self.assertEqual(manifest["build_profile"], "profile-b")
         self.assertEqual(manifest["verified_profiles"], ["profile-b", "profile-a"])
         self.assertEqual(manifest["unit_start"], "0x1000")
+        self.assertEqual(manifest["rodata_start"], "0x2000")
         self.assertEqual(manifest["object_flags"], ["-Wa,-G8"])
 
     def test_ambiguous_match_requires_reviewed_build_profile(self):

@@ -97,6 +97,32 @@
       "archive_url": "https://github.com/decompme/compilers/releases/download/compilers/ee-gcc2.95.3-136.tar.gz",
       "archive_sha256": "3b6ae6897229ad005aaf1b0afaa1f3cb46e74b4c21a42e01130c07c0c598067f"
     },
+    "ee-gcc2.9-991111-01-O2-G0": {
+      "family": "Sony EE GNU C",
+      "version": "2.9-ee-991111-01",
+      "runner": "linux32-cc1",
+      "compiler": "tools/compilers/ee-gcc2.9-991111-01/lib/gcc-lib/ee/2.9-ee-991111-01/cc1",
+      "assembler": "tools/compilers/ee-gcc2.95.3-136/lib/gcc-lib/ee/2.95.3/as.exe",
+      "assembler_runner": "wibo",
+      "flags": [
+        "-quiet",
+        "-O2",
+        "-G",
+        "0",
+        "-D__MIPSEL__",
+        "-I.",
+        "-Itools/vendor/newlib-20000221/compat",
+        "-Itools/vendor/newlib-20000221/include",
+        "-Itools/vendor/newlib-20000221/stdlib",
+        "-Iinclude"
+      ],
+      "archive": "tools/compilers/downloads/ee-gcc2.9-991111-01.tar.xz",
+      "archive_url": "https://github.com/decompme/compilers/releases/download/compilers/ee-gcc2.9-991111-01.tar.xz",
+      "archive_sha256": "ed684fd98f89d36b0121caab311052089103e3b36241fcef4338cc9ea41c75b8",
+      "assembler_archive": "tools/compilers/downloads/ee-gcc2.95.3-136.tar.gz",
+      "assembler_archive_url": "https://github.com/decompme/compilers/releases/download/compilers/ee-gcc2.95.3-136.tar.gz",
+      "assembler_archive_sha256": "3b6ae6897229ad005aaf1b0afaa1f3cb46e74b4c21a42e01130c07c0c598067f"
+    },
     "ee-gcc2.9-991111-01-O2": {
       "family": "Sony EE GNU C",
       "version": "2.9-ee-991111-01",

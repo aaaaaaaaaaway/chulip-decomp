@@ -13,6 +13,7 @@ an optional note without creating a second public progress tier.
 from __future__ import annotations
 
 import argparse
+import fcntl
 import json
 import os
 import re
@@ -34,6 +35,7 @@ RECONSTRUCTED = ROOT / "config/reconstructed.json"
 MATCHED = ROOT / "config/matched.json"
 SPLAT = ROOT / "config/splat.us.yaml"
 README = ROOT / "README.md"
+PROMOTION_LOCK = ROOT / "work/promotion.lock"
 
 ALLOWED_FIELDS = {
     "function",
@@ -43,6 +45,7 @@ ALLOWED_FIELDS = {
     "object_flags",
     "unit_start",
     "unit_end",
+    "rodata_start",
     "profile_evidence",
     "evidence",
     "provenance_note",
@@ -60,6 +63,7 @@ class Candidate:
     object_flags: tuple[str, ...]
     unit_start: str | None
     unit_end: str | None
+    rodata_start: str | None
     profile_evidence: str | None
     evidence: str
     provenance_note: str | None
@@ -265,6 +269,11 @@ def parse_candidates(path: Path, profiles: set[str]) -> list[Candidate]:
         if has_start:
             unit_start = hex_address(address(record["unit_start"], f"{where}: unit_start"))
             unit_end = hex_address(address(record["unit_end"], f"{where}: unit_end"))
+        rodata_start = None
+        if "rodata_start" in record:
+            rodata_start = hex_address(
+                address(record["rodata_start"], f"{where}: rodata_start")
+            )
 
         profile_evidence = optional_string(record, "profile_evidence", where)
         evidence = optional_string(record, "evidence", where)
@@ -281,6 +290,7 @@ def parse_candidates(path: Path, profiles: set[str]) -> list[Candidate]:
                 object_flags=object_flags,
                 unit_start=unit_start,
                 unit_end=unit_end,
+                rodata_start=rodata_start,
                 profile_evidence=profile_evidence,
                 evidence=evidence,
                 provenance_note=provenance_note,
@@ -292,22 +302,58 @@ def parse_candidates(path: Path, profiles: set[str]) -> list[Candidate]:
     return candidates
 
 
-def source_has_definition(text: str, function: str) -> bool:
+def source_has_definition(
+    text: str, function: str, source: Path | None = None
+) -> bool:
     pattern = re.compile(
         rf"\b{re.escape(function)}\s*\([^;{{}}]*\)\s*"
         rf"(?:__attribute__\s*\(\([^;{{}}]*\)\)\s*)?\{{",
         re.S,
     )
-    return pattern.search(_code_without_comments_or_literals(text)) is not None
+    clean = _code_without_comments_or_literals(text)
+    if pattern.search(clean) is not None:
+        return True
+    if re.search(rf"\b_DEFUN\s*\(\s*{re.escape(function)}\s*,", clean):
+        return True
+    if source is None:
+        return False
+
+    # An authentic vendored translation unit may be wrapped only to rename its
+    # original symbols to the address-based public names used by this project.
+    # Accept that narrow form when the quoted C include really defines the
+    # macro's source-side function; the compiled-object proof still checks the
+    # requested public symbol and all retail bytes.
+    aliases = re.findall(
+        rf"^[ \t]*#[ \t]*define[ \t]+([A-Za-z_]\w*)[ \t]+{re.escape(function)}[ \t]*$",
+        text,
+        re.M,
+    )
+    includes = re.findall(
+        r'^[ \t]*#[ \t]*include[ \t]+"([^"\n]+\.c)"', text, re.M
+    )
+    for include in includes:
+        for candidate in (source.parent / include, ROOT / include):
+            candidate = candidate.resolve()
+            try:
+                candidate.relative_to(ROOT.resolve())
+            except ValueError:
+                continue
+            if not candidate.is_file():
+                continue
+            included_text = candidate.read_text(errors="replace")
+            if any(source_has_definition(included_text, alias) for alias in aliases):
+                return True
+    return False
 
 
 def validate_source(source: str, functions: list[str]) -> None:
-    text = (ROOT / source).read_text(errors="replace")
-    issues = audit_c_source(ROOT / source, repo_root=ROOT)
+    path = ROOT / source
+    text = path.read_text(errors="replace")
+    issues = audit_c_source(path, repo_root=ROOT)
     if issues:
         fail(issues[0].format(ROOT))
     for function in functions:
-        if not source_has_definition(text, function):
+        if not source_has_definition(text, function, path):
             fail(f"{source}: missing C definition for {function}")
 
 
@@ -332,6 +378,8 @@ def proof_command(candidate: Candidate, profile: str) -> list[str]:
                 candidate.unit_end,
             ]
         )
+    if candidate.rodata_start is not None:
+        command.extend(["--rodata-start", candidate.rodata_start])
     for flag in candidate.object_flags:
         command.append(f"--object-flag={flag}")
     return command
@@ -352,6 +400,7 @@ def verify_candidate_proofs(candidates: list[Candidate]) -> tuple[int, int]:
                 candidate.object_flags,
                 candidate.unit_start,
                 candidate.unit_end,
+                candidate.rodata_start,
             )
             if key in replayed:
                 continue
@@ -465,12 +514,18 @@ def validate_combined(
         }
         ranges = {record_range(entry, catalog)[:2] for entry in entries}
         explicit = {record_range(entry, catalog)[2] for entry in entries}
+        rodata_origins = {entry.get("rodata_start") for entry in entries}
         if len(profile_values) != 1:
             fail(f"shared source has inconsistent build_profile: {source}")
         if len(flag_values) != 1:
             fail(f"shared source has inconsistent object_flags: {source}")
         if len(ranges) != 1 or (len(entries) > 1 and explicit != {True}):
             fail(f"shared source lacks one explicit, consistent unit range: {source}")
+        if len(rodata_origins) != 1:
+            fail(f"shared source has inconsistent rodata_start: {source}")
+        rodata_origin = next(iter(rodata_origins))
+        if rodata_origin is not None:
+            address(rodata_origin, f"shared source {source} rodata_start")
         start, end = next(iter(ranges))
         if not text_start <= start < end <= text_end:
             fail(f"source unit is outside catalog text: {source}: {start:#x}-{end:#x}")
@@ -555,6 +610,8 @@ def planned_entries(
         if candidate.unit_start is not None and candidate.unit_end is not None:
             entry["unit_start"] = candidate.unit_start
             entry["unit_end"] = candidate.unit_end
+        if candidate.rodata_start is not None:
+            entry["rodata_start"] = candidate.rodata_start
         entry.update(
             {
                 "isolated_match": True,
@@ -671,6 +728,13 @@ def main() -> int:
         help="apply the plan and retain it only after every repository gate passes",
     )
     args = parser.parse_args()
+
+    # Keep the ledger snapshot, generated Splat config, and all verification
+    # gates in one generation even when independent campaign workers promote
+    # at the same time. The descriptor remains live until this process exits.
+    PROMOTION_LOCK.parent.mkdir(parents=True, exist_ok=True)
+    promotion_lock = PROMOTION_LOCK.open("a+")
+    fcntl.flock(promotion_lock, fcntl.LOCK_EX)
 
     try:
         catalog_document = load_json(CATALOG, dict)

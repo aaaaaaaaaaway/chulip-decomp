@@ -421,7 +421,7 @@ def candidate_spec(source: Path) -> dict[str, object]:
         raise SystemExit(f"candidate metadata must be a JSON object: {sidecar}")
     allowed = {
         "function", "profiles", "build_profile", "object_flags", "range_start", "range_end",
-        "sdata_start", "sbss_start", "destination",
+        "rodata_start", "sdata_start", "sbss_start", "destination",
     }
     unknown = sorted(set(value) - allowed)
     if unknown:
@@ -472,6 +472,7 @@ def candidate_spec(source: Path) -> dict[str, object]:
         "object_flags": list(flags),
         "range_start": value.get("range_start"),
         "range_end": value.get("range_end"),
+        "rodata_start": value.get("rodata_start"),
         "sdata_start": value.get("sdata_start"),
         "sbss_start": value.get("sbss_start"),
         "destination": destination,
@@ -490,6 +491,7 @@ def match_command(source: Path, spec: dict[str, object], profile: str) -> list[s
         "object_flags": spec["object_flags"],
         "range_start": spec["range_start"],
         "range_end": spec["range_end"],
+        "rodata_start": spec["rodata_start"],
         "sdata_start": spec["sdata_start"],
         "sbss_start": spec["sbss_start"],
     }
@@ -514,7 +516,7 @@ def verify_source(
     issues = audit_c_source(source, repo_root=ROOT)
     if issues:
         raise SystemExit(issues[0].format(ROOT))
-    if not source_has_definition(text, function):
+    if not source_has_definition(text, function, source):
         raise SystemExit(f"candidate does not define {function}: {source}")
     if batch_verify.FORBIDDEN_BRIDGES.search(text):
         found = batch_verify.FORBIDDEN_BRIDGES.search(text)
@@ -625,6 +627,8 @@ def promotion_manifest(record: dict[str, object], destination: str) -> dict[str,
     if spec.get("range_start") is not None:
         candidate["unit_start"] = spec["range_start"]
         candidate["unit_end"] = spec["range_end"]
+    if spec.get("rodata_start") is not None:
+        candidate["rodata_start"] = spec["rodata_start"]
     return candidate
 
 

@@ -2,6 +2,7 @@
 
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -20,6 +21,7 @@ def candidate(**overrides: object) -> merge_candidates.Candidate:
         "object_flags": ("-Wa,-G0",),
         "unit_start": "0x00100000",
         "unit_end": "0x00100020",
+        "rodata_start": "0x001E1000",
         "profile_evidence": None,
         "evidence": "exact retail bytes",
         "provenance_note": None,
@@ -55,6 +57,20 @@ class CandidateProofTests(unittest.TestCase):
             )
         )
 
+    def test_vendored_c_alias_definition_counts(self) -> None:
+        with tempfile.TemporaryDirectory(dir=merge_candidates.ROOT) as temporary:
+            directory = Path(temporary)
+            included = directory / "upstream.c"
+            wrapper = directory / "wrapper.c"
+            included.write_text("int original_name(void) { return 1; }\n")
+            text = '#define original_name func_00100000\n#include "upstream.c"\n'
+            wrapper.write_text(text)
+            self.assertTrue(
+                merge_candidates.source_has_definition(
+                    text, "func_00100000", wrapper
+                )
+            )
+
     def test_command_carries_complete_candidate_configuration(self) -> None:
         command = merge_candidates.proof_command(candidate(), "profile-b")
         self.assertEqual(
@@ -72,6 +88,8 @@ class CandidateProofTests(unittest.TestCase):
                 "0x00100000",
                 "--range-end",
                 "0x00100020",
+                "--rodata-start",
+                "0x001E1000",
                 "--object-flag=-Wa,-G0",
             ],
         )

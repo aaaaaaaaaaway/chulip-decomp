@@ -1104,6 +1104,21 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_001076F0",
+    "source": "src/game/func_001076F0.c",
+    "address": "0x001076F0",
+    "size": 860,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x001076F0",
+    "unit_end": "0x00107A50",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
     "function": "func_00107A50",
     "source": "src/game/func_00107A50.c",
     "address": "0x00107A50",
@@ -8697,6 +8712,20 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_001539E8",
+    "source": "src/game/func_001539E8.c",
+    "address": "0x001539E8",
+    "size": 892,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2",
+      "ee-gcc2.95.3-136-O2-G8"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
     "function": "func_00154310",
     "source": "src/game/func_00154310.c",
     "address": "0x00154310",
@@ -13011,6 +13040,32 @@
     "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched"
   },
   {
+    "function": "func_001803D0",
+    "source": "src/game/func_001803D0.c",
+    "address": "0x001803D0",
+    "size": 888,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
+    "function": "func_00180748",
+    "source": "src/game/func_00180748.c",
+    "address": "0x00180748",
+    "size": 896,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
     "function": "func_00181DB8",
     "source": "src/game/u_00181DB8_2.c",
     "address": "0x00181DB8",
@@ -14840,6 +14895,53 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001946C0",
+    "source": "src/game/func_001946C0.c",
+    "address": "0x001946C0",
+    "size": 432,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
+    "function": "func_00194A60",
+    "source": "src/game/newlib_dtoa.c",
+    "address": "0x00194A60",
+    "size": 532,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x00194A60",
+    "unit_end": "0x00195E44",
+    "rodata_start": "0x001EBF30",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Exact Sony EE GCC 2.9 build profile and G0 setting recovered by whole upstream-object comparison.",
+    "provenance_note": "Authentic newlib dtoa.c translation unit at sourceware commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
+  },
+  {
+    "function": "func_00194C78",
+    "source": "src/game/newlib_dtoa.c",
+    "address": "0x00194C78",
+    "size": 4556,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x00194A60",
+    "unit_end": "0x00195E44",
+    "rodata_start": "0x001EBF30",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Exact Sony EE GCC 2.9 build profile and G0 setting recovered by whole upstream-object comparison.",
+    "provenance_note": "Authentic newlib dtoa.c translation unit at sourceware commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
   },
   {
     "function": "func_00195F50",

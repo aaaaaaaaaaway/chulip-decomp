@@ -49,6 +49,7 @@ class Claim:
     object_flags: tuple[str, ...]
     address: int
     size: int
+    rodata_start: int | None = None
 
 
 @dataclass(frozen=True)
@@ -59,6 +60,7 @@ class Proof:
     end: int
     object_flags: tuple[str, ...]
     claims: tuple[Claim, ...]
+    rodata_start: int | None = None
 
     @property
     def representative(self) -> Claim:
@@ -71,6 +73,9 @@ class Proof:
             "range_start": f"0x{self.start:08X}",
             "range_end": f"0x{self.end:08X}",
             "object_flags": list(self.object_flags),
+            "rodata_start": (
+                f"0x{self.rodata_start:08X}" if self.rodata_start is not None else None
+            ),
         }
 
 
@@ -106,7 +111,7 @@ def build_proofs(
     if len(catalog) != len(catalog_entries):
         raise LedgerError("duplicate function in config/functions.json")
 
-    source_units: dict[str, tuple[int, int, tuple[str, ...]]] = {}
+    source_units: dict[str, tuple[int, int, tuple[str, ...], int | None]] = {}
     grouped: dict[tuple[object, ...], list[Claim]] = {}
     seen_functions: set[str] = set()
     for index, entry in enumerate(ledger):
@@ -165,7 +170,12 @@ def build_proofs(
             raise LedgerError(f"{where} unit range does not contain the complete function")
 
         object_flags = tuple(flags)
-        unit = (start, end, object_flags)
+        rodata_start = (
+            parse_address(entry["rodata_start"], f"{where} rodata_start")
+            if entry.get("rodata_start") is not None
+            else None
+        )
+        unit = (start, end, object_flags, rodata_start)
         previous = source_units.setdefault(source, unit)
         if previous != unit:
             raise LedgerError(
@@ -179,10 +189,11 @@ def build_proofs(
                 start=start,
                 end=end,
                 object_flags=object_flags,
+                rodata_start=rodata_start,
                 address=address,
                 size=size,
             )
-            key = (source, profile, start, end, object_flags)
+            key = (source, profile, start, end, object_flags, rodata_start)
             grouped.setdefault(key, []).append(claim)
 
     proofs = [
@@ -192,6 +203,7 @@ def build_proofs(
             start=int(key[2]),
             end=int(key[3]),
             object_flags=key[4],
+            rodata_start=key[5],
             claims=tuple(sorted(claims, key=lambda claim: (claim.address, claim.function))),
         )
         for key, claims in grouped.items()
@@ -234,6 +246,7 @@ def dependency_fingerprint(toolchains: dict[str, object]) -> str:
         "tools/normalize_asm.py",
         "tools/compiler_diagnostics.py",
         "config/toolchains.json",
+        "config/linker_aliases.ld",
         "asm-baseline/cod/text.s",
         "build/undefined_funcs_auto.txt",
         "build/undefined_syms_auto.txt",
@@ -244,6 +257,9 @@ def dependency_fingerprint(toolchains: dict[str, object]) -> str:
             raise LedgerError(f"required proof input is missing: {relative}")
         hash_file(path, digest)
     hash_tree(ROOT / "include", digest)
+    vendor = ROOT / "tools/vendor"
+    if vendor.is_dir():
+        hash_tree(vendor, digest)
 
     toolchain_trees: set[Path] = set()
     needs_wibo = False
@@ -315,6 +331,8 @@ def command(proof: Proof) -> list[str]:
         "--quiet",
     ]
     result.extend(f"--object-flag={flag}" for flag in proof.object_flags)
+    if proof.rodata_start is not None:
+        result.extend(["--rodata-start", f"0x{proof.rodata_start:08X}"])
     return result
 
 

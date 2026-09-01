@@ -601,6 +601,8 @@ def main() -> int:
                 "-T",
                 str(derived),
                 "-T",
+                "config/linker_aliases.ld",
+                "-T",
                 "build/undefined_funcs_auto.txt",
                 "-T",
                 "build/undefined_syms_auto.txt",
