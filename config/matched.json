@@ -64,6 +64,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_00101020",
+    "source": "src/game/func_00101020.c",
+    "address": "0x00101020",
+    "size": 152,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match from the preserved second pending batch"
+  },
+  {
     "function": "func_00101490",
     "source": "src/game/func_00101490.c",
     "address": "0x00101490",
@@ -264,6 +272,14 @@
     "evidence": "exact GP-relative camera update; compiler -G0 and SN build 2.73a reject"
   },
   {
+    "function": "func_001039D8",
+    "source": "src/game/func_001039D8.c",
+    "address": "0x001039D8",
+    "size": 244,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match from the preserved second pending batch"
+  },
+  {
     "function": "func_00103AD0",
     "source": "src/game/camera_snapshot.c",
     "address": "0x00103AD0",
@@ -352,12 +368,28 @@
     "evidence": "the complete unit range is reproduced by one source compiled once with one configuration"
   },
   {
+    "function": "func_00105B08",
+    "source": "src/game/func_00105B08.c",
+    "address": "0x00105B08",
+    "size": 300,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match from the preserved second pending batch"
+  },
+  {
     "function": "func_00105C38",
     "source": "src/game/func_00105C38.c",
     "address": "0x00105C38",
     "size": 52,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00105C70",
+    "source": "src/game/func_00105C70.c",
+    "address": "0x00105C70",
+    "size": 540,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match from the preserved second pending batch"
   },
   {
     "function": "func_00105E90",
@@ -384,12 +416,28 @@
     "evidence": "the complete unit range is reproduced by one source compiled once with one configuration"
   },
   {
+    "function": "func_00106280",
+    "source": "src/game/func_00106280.c",
+    "address": "0x00106280",
+    "size": 124,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match from the preserved second pending batch"
+  },
+  {
     "function": "func_00106300",
     "source": "src/game/func_00106300.c",
     "address": "0x00106300",
     "size": 56,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00106338",
+    "source": "src/game/func_00106338.c",
+    "address": "0x00106338",
+    "size": 480,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match from the preserved second pending batch"
   },
   {
     "function": "func_00106518",
@@ -784,6 +832,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_0010BA98",
+    "source": "src/game/func_0010BA98.c",
+    "address": "0x0010BA98",
+    "size": 376,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match from the preserved second pending batch"
+  },
+  {
     "function": "func_0010BC10",
     "source": "src/game/func_0010BC10.c",
     "address": "0x0010BC10",
@@ -872,6 +928,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_0010C7E0",
+    "source": "src/game/func_0010C7E0.c",
+    "address": "0x0010C7E0",
+    "size": 492,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match from the preserved second pending batch"
+  },
+  {
     "function": "func_0010C9D0",
     "source": "src/game/func_0010C9D0.c",
     "address": "0x0010C9D0",
@@ -894,6 +958,14 @@
     "size": 152,
     "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0010CF80",
+    "source": "src/game/func_0010CF80.c",
+    "address": "0x0010CF80",
+    "size": 192,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match from the preserved second pending batch"
   },
   {
     "function": "func_0010D418",

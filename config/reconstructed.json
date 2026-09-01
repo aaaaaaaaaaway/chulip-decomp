@@ -121,6 +121,21 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00101020",
+    "source": "src/game/func_00101020.c",
+    "address": "0x00101020",
+    "size": 152,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": [
+      "-Wa,-G8"
+    ],
+    "isolated_match": true,
+    "whole_program_match": true
+  },
+  {
     "function": "func_00101490",
     "source": "src/game/func_00101490.c",
     "address": "0x00101490",
@@ -530,6 +545,23 @@
     "profile_evidence": "retail GP-relative camera globals reject compiler -G0; SN build 2.73a also rejects"
   },
   {
+    "function": "func_001039D8",
+    "source": "src/game/func_001039D8.c",
+    "address": "0x001039D8",
+    "size": 244,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": [
+      "-Wa,-G8"
+    ],
+    "unit_start": "0x001039D8",
+    "unit_end": "0x00103AD0",
+    "isolated_match": true,
+    "whole_program_match": true
+  },
+  {
     "function": "func_00103AD0",
     "source": "src/game/camera_snapshot.c",
     "address": "0x00103AD0",
@@ -703,6 +735,23 @@
     "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched"
   },
   {
+    "function": "func_00105B08",
+    "source": "src/game/func_00105B08.c",
+    "address": "0x00105B08",
+    "size": 300,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": [
+      "-Wa,-G8"
+    ],
+    "unit_start": "0x00105B08",
+    "unit_end": "0x00105C38",
+    "isolated_match": true,
+    "whole_program_match": true
+  },
+  {
     "function": "func_00105C38",
     "source": "src/game/func_00105C38.c",
     "address": "0x00105C38",
@@ -714,6 +763,23 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00105C70",
+    "source": "src/game/func_00105C70.c",
+    "address": "0x00105C70",
+    "size": 540,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": [
+      "-Wa,-G8"
+    ],
+    "unit_start": "0x00105C70",
+    "unit_end": "0x00105E90",
+    "isolated_match": true,
+    "whole_program_match": true
   },
   {
     "function": "func_00105E90",
@@ -761,6 +827,23 @@
     "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched"
   },
   {
+    "function": "func_00106280",
+    "source": "src/game/func_00106280.c",
+    "address": "0x00106280",
+    "size": 124,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": [
+      "-Wa,-G8"
+    ],
+    "unit_start": "0x00106280",
+    "unit_end": "0x00106300",
+    "isolated_match": true,
+    "whole_program_match": true
+  },
+  {
     "function": "func_00106300",
     "source": "src/game/func_00106300.c",
     "address": "0x00106300",
@@ -772,6 +855,21 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00106338",
+    "source": "src/game/func_00106338.c",
+    "address": "0x00106338",
+    "size": 480,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": [
+      "-Wa,-G8"
+    ],
+    "isolated_match": true,
+    "whole_program_match": true
   },
   {
     "function": "func_00106518",
@@ -1491,6 +1589,21 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0010BA98",
+    "source": "src/game/func_0010BA98.c",
+    "address": "0x0010BA98",
+    "size": 376,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": [
+      "-Wa,-G0"
+    ],
+    "isolated_match": true,
+    "whole_program_match": true
+  },
+  {
     "function": "func_0010BC10",
     "source": "src/game/func_0010BC10.c",
     "address": "0x0010BC10",
@@ -1650,6 +1763,23 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0010C7E0",
+    "source": "src/game/func_0010C7E0.c",
+    "address": "0x0010C7E0",
+    "size": 492,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": [
+      "-Wa,-G8"
+    ],
+    "unit_start": "0x0010C7E0",
+    "unit_end": "0x0010C9D0",
+    "isolated_match": true,
+    "whole_program_match": true
+  },
+  {
     "function": "func_0010C9D0",
     "source": "src/game/func_0010C9D0.c",
     "address": "0x0010C9D0",
@@ -1689,6 +1819,21 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0010CF80",
+    "source": "src/game/func_0010CF80.c",
+    "address": "0x0010CF80",
+    "size": 192,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": [
+      "-Wa,-G8"
+    ],
+    "isolated_match": true,
+    "whole_program_match": true
   },
   {
     "function": "func_0010D418",
