@@ -5,7 +5,7 @@ PROFILE ?= ee-gcc2.95.3-136-O2-G8
 CANDIDATES ?=
 CANDIDATE_ELF ?= build/current/chulip.us.elf
 
-.PHONY: setup split baseline verify match merge progress boundaries boundary-verify audit elf-report test public-check
+.PHONY: setup split baseline verify match merge reverify-ledger progress boundaries boundary-verify audit elf-report test public-check
 
 setup:
 	$(PYTHON) tools/bootstrap.py
@@ -28,6 +28,9 @@ match:
 merge:
 	@test -n "$(CANDIDATES)" || (echo "usage: make merge CANDIDATES=work/candidates.jsonl" && exit 2)
 	$(PYTHON) tools/merge_candidates.py "$(CANDIDATES)"
+
+reverify-ledger:
+	$(PYTHON) tools/reverify_ledger.py
 
 progress:
 	$(PYTHON) tools/progress.py --write-readme

@@ -362,6 +362,7 @@ limit, not a missing insight.
 | ELF repair/linking | GNU MIPS binutils | Removes obsolete metadata, resolves relocations, links, and extracts images. |
 | Isolated proof | `tools/match.py` | Compares a complete function or shared source-unit byte range. |
 | Batch proof | `tools/batch_verify.py` | Re-verifies a JSONL candidate manifest with complete ranges and compact, restartable results. |
+| Whole-ledger proof | `tools/reverify_ledger.py` | Restartably replays every promoted profile claim from current source and rejects mismatches or ABI-dangerous diagnostics. |
 | Candidate ranking | `tools/candidate_queue.py` | Ranks untouched functions by size and instruction features without changing proof state. |
 | Split generation | `tools/gen_splat_config.py` | Derives source islands from the reconstruction ledger and rejects stale manual boundaries. |
 | Transactional integration | `tools/merge_candidates.py` | Replays every claimed profile, rejects ABI-dangerous diagnostics, updates ledgers and source islands, and rolls back unless the full image, baseline, progress, and public audit all pass. |

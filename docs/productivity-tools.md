@@ -27,3 +27,29 @@ ignored `work/cache/dup_guard.jsonl`.
 Exit codes are composable in worker loops: 0 means match/success/new candidate,
 1 means a byte mismatch, 2 means an input or tool failure, and duplicate checks
 use 3 for a previously recorded attempt.
+
+## Whole-ledger re-verification
+
+```sh
+# Replay every promoted function/profile claim. Interrupted runs resume.
+python3 tools/reverify_ledger.py
+
+# Divide unique source-unit/profile proofs between isolated workers.
+python3 tools/reverify_ledger.py --shard-count 4 --shard-index 0
+
+# Run a bounded or targeted audit.
+python3 tools/reverify_ledger.py --limit 10
+python3 tools/reverify_ledger.py --function 'func_0010*' --profile ee-gcc2.95.3-136-O2-G8
+```
+
+This audit does not accept `isolated_match` or `whole_program_match` ledger
+fields as proof. It compiles current source over each complete unit range with
+the recorded object flags for every claimed profile. Shared units are compiled
+once per profile only when their range and flags agree. A byte mismatch or an
+ABI-dangerous compiler diagnostic makes the command fail.
+
+Proofs are appended to ignored `work/ledger-reverify/proofs.jsonl`; the current
+run summary is `work/ledger-reverify/proofs.summary.json`. Sharded runs default
+to separate, shard-named reports. Resume keys include the source, headers,
+retail image, toolchains, runtime, host MIPS binutils, and verifier code, so
+changing any proof input forces a fresh compilation.
