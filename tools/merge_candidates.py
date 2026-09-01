@@ -23,8 +23,9 @@ from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 from typing import NoReturn
 
-from source_audit import audit_c_source
+from build_controls import object_flag_errors
 from compiler_diagnostics import dangerous_diagnostics
+from source_audit import audit_c_source
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "config/functions.json"
@@ -45,15 +46,6 @@ ALLOWED_FIELDS = {
     "profile_evidence",
     "evidence",
     "provenance_note",
-}
-ALLOWED_OBJECT_FLAGS = {
-    "-Wa,-G0",
-    "-Wa,-G1",
-    "-Wa,-G3",
-    "-Wa,-G4",
-    "-Wa,-G8",
-    "-Wa,-mcpu=4000",
-    "-mno-split-addresses",
 }
 class CandidateError(Exception):
     """A deterministic validation failure in candidate or repository data."""
@@ -166,18 +158,9 @@ def normalized_source(value: str, where: str) -> str:
 
 
 def validate_object_flags(flags: tuple[str, ...], where: str) -> None:
-    unknown = sorted(set(flags) - ALLOWED_OBJECT_FLAGS)
-    if unknown:
-        fail(
-            f"{where}: unsanctioned object flags: {', '.join(unknown)}; "
-            "extend the reviewed allowlist before using a new build control"
-        )
-    small_data = [flag for flag in flags if flag.startswith("-Wa,-G")]
-    if len(small_data) > 1:
-        fail(
-            f"{where}: conflicting assembler small-data controls: "
-            + ", ".join(small_data)
-        )
+    errors = object_flag_errors(list(flags))
+    if errors:
+        fail(f"{where}: " + "; ".join(errors))
 
 
 def _code_without_comments_or_literals(text: str) -> str:

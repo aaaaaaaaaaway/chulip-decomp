@@ -28,6 +28,7 @@ class CompilerDiagnosticsTests(unittest.TestCase):
                 "warning: implicit declaration of function `load_actor'",
                 "warning: passing arg 2 of `draw' from incompatible pointer type",
                 "warning: return with a value, in function returning void",
+                "warning: `return' with a value, in function returning void",
                 "warning: control reaches end of non-void function",
             )
         )

@@ -38,7 +38,7 @@ class CandidateProofTests(unittest.TestCase):
 
     def test_accepts_reviewed_object_flags(self) -> None:
         merge_candidates.validate_object_flags(
-            ("-Wa,-G3", "-mno-split-addresses"), "line 1"
+            ("-Wa,-G8", "-mno-split-addresses"), "line 1"
         )
 
     def test_rejects_conflicting_small_data_flags(self) -> None:

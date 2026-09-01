@@ -4,6 +4,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -46,7 +47,8 @@ class SimilarityTests(unittest.TestCase):
 
 class MatchArtifactTests(unittest.TestCase):
     def test_reconstruction_defaults_are_authoritative(self):
-        spec = match_artifacts.resolve_spec("func_00100488")
+        with patch.object(match_artifacts.match, "jump_table_address", return_value=None):
+            spec = match_artifacts.resolve_spec("func_00100488")
         self.assertEqual(spec.address, 0x00100488)
         self.assertEqual(spec.end, 0x00100490)
         self.assertEqual(spec.profile_name, "ee-gcc2.95.3-136-O2-G8")

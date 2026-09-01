@@ -31,7 +31,7 @@ _DANGEROUS = (
     ),
     (
         "value returned from void function",
-        re.compile(r"return with a value.*function returning void", re.I),
+        re.compile(r"return(?:['` ]+)? with a value.*function returning void", re.I),
     ),
     (
         "pointer/integer assignment",

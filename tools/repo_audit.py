@@ -9,6 +9,7 @@ import re
 import subprocess
 from pathlib import Path
 
+from build_controls import object_flag_errors
 from progress import markdown, progress_data, replace_readme
 from gen_splat_config import rendered_config
 from source_audit import audit_c_source
@@ -197,6 +198,8 @@ def main() -> int:
             errors.append(f"invalid verified profile evidence for {name}")
         if not entry.get("isolated_match") or not entry.get("whole_program_match"):
             errors.append(f"reconstructed entry lacks exact verification: {name}")
+        for error in object_flag_errors(entry.get("object_flags", [])):
+            errors.append(f"invalid object flags for {name}: {error}")
 
     entries_by_source: dict[str, list[dict[str, object]]] = {}
     for entry in reconstructed:
