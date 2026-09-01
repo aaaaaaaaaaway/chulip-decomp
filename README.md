@@ -32,17 +32,7 @@ never counted as decompilation progress.
 | Text bytes | 36,536 | 663,704 | 5.5049% |
 | Functions | 717 | 2,189 | 32.7547% |
 
-Text bytes is the honest measure. The function count runs well ahead of it because small functions are matched first, so it overstates how much of the executable is reconstructed.
-
-### Provenance
-
-| Provenance | Count |
-| --- | ---: |
-| Recovered inside a multi-function source unit | 159 of 717 (22.2%) |
-| Compiled alone in a single-function object | 558 |
-| Distinct compiler and assembler configurations in use | 10 |
-
-A retail translation unit was compiled once, with one set of flags. A function matched alone in its own object, free to choose its own flags, has the right bytes but not yet a proven reason for them. Raising the first row and lowering the last is what turns a byte match into a reconstruction. See [scope and denominator](docs/scope.md).
+Text bytes is the measure to read. The function count runs ahead of it because small functions are matched first. See [scope and denominator](docs/scope.md) for what completion can mean here, and for how well each match is currently proven.
 
 Only readable source that passes isolated byte comparison, compiler-provenance review, and the complete-image rebuild is counted. Generated retail assembly contributes zero progress.
 <!-- decomp-progress-end -->

@@ -15,7 +15,8 @@ python3 tools/progress.py       # what is matched, and how well it is proven
 ## What the executable is made of
 
 `tools/scope_scan.py` classifies all 2,189 catalog functions from the zero-C
-baseline disassembly:
+baseline disassembly. The figures below are a snapshot; the tools are the
+source of truth and will disagree with this page as work lands.
 
 | Class | Functions | Bytes | Share |
 | --- | ---: | ---: | ---: |
@@ -70,12 +71,20 @@ first, so 32% of functions is 5.5% of bytes. Text bytes is the honest measure.
 **Most matched functions are not yet in proven translation units.** A retail
 translation unit was compiled once, with one set of flags. Today most matched
 functions sit alone in their own object, each free to choose its own compiler
-and assembler flags, and the ledger currently carries ten distinct
-configurations. Those functions have the right bytes, confirmed by the
+and assembler flags. Those functions have the right bytes, confirmed by the
 whole-image rebuild, but not yet a proven reason for them: neighbouring
 functions sometimes require flag combinations that could not all have been true
 of one real object.
 
+`tools/progress.py` reports the ratio on every run, so it cannot drift
+unnoticed:
+
+```
+in proven units:   159 / 714 (22.3%); 555 compiled alone
+build configurations in use: 10
+```
+
 Consolidating adjacent functions into single source units, compiled once with
-one configuration, is what converts a byte match into a reconstruction. The
-progress block reports that ratio so it cannot be quietly ignored.
+one configuration, is what converts a byte match into a reconstruction. Until
+that ratio rises, treat the matched count as bytes proven rather than
+translation units understood.

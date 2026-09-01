@@ -105,23 +105,10 @@ def markdown(data: dict[str, int | float]) -> str:
             f"| Text bytes | {data['matched_bytes']:,} | {data['total_bytes']:,} | {byte_percent:.4f}% |",
             f"| Functions | {data['matched_functions']:,} | {data['total_functions']:,} | {function_percent:.4f}% |",
             "",
-            "Text bytes is the honest measure. The function count runs well ahead of it "
-            "because small functions are matched first, so it overstates how much of the "
-            "executable is reconstructed.",
-            "",
-            "### Provenance",
-            "",
-            "| Provenance | Count |",
-            "| --- | ---: |",
-            f"| Recovered inside a multi-function source unit | {data['unit_functions']:,} of {data['matched_functions']:,} ({data['unit_percent']:.1f}%) |",
-            f"| Compiled alone in a single-function object | {data['isolated_functions']:,} |",
-            f"| Distinct compiler and assembler configurations in use | {data['build_configurations']} |",
-            "",
-            "A retail translation unit was compiled once, with one set of flags. A function "
-            "matched alone in its own object, free to choose its own flags, has the right "
-            "bytes but not yet a proven reason for them. Raising the first row and lowering "
-            "the last is what turns a byte match into a reconstruction. See "
-            "[scope and denominator](docs/scope.md).",
+            "Text bytes is the measure to read. The function count runs ahead of it "
+            "because small functions are matched first. See "
+            "[scope and denominator](docs/scope.md) for what completion can mean here, "
+            "and for how well each match is currently proven.",
             "",
             "Only readable source that passes isolated byte comparison, compiler-provenance review, and the complete-image rebuild is counted. Generated retail assembly contributes zero progress.",
             END,
