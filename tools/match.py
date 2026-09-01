@@ -28,21 +28,28 @@ def run(command: list[str]) -> None:
     subprocess.run(command, cwd=ROOT, check=True)
 
 
+def linux32_command(executable: str, *arguments: str) -> list[str]:
+    runtime = ROOT / "tools/compilers/runtime/root/usr/lib32"
+    return [
+        str(runtime / "ld-linux.so.2"),
+        "--library-path",
+        str(runtime),
+        executable,
+        *arguments,
+    ]
+
+
 def profile_command(profile: dict[str, object], source: Path, output: Path) -> list[str]:
     compiler = str(ROOT / str(profile["compiler"]))
     flags = [str(flag) for flag in profile["flags"]]
     if profile["runner"] == "linux32-cc1":
-        runtime = ROOT / "tools/compilers/runtime/root/usr/lib32"
-        return [
-            str(runtime / "ld-linux.so.2"),
-            "--library-path",
-            str(runtime),
+        return linux32_command(
             compiler,
             str(source),
             *flags,
             "-o",
             str(output),
-        ]
+        )
     if profile["runner"] == "wibo-driver":
         return [
             str(ROOT / "tools/compilers/wibo"),
@@ -132,16 +139,31 @@ def compile_historical_object(
         normalized = raw.with_suffix(".normalized.s")
         run(profile_command(profile, source, assembly))
         normalized.write_text(normalize(assembly.read_text()))
-        run(
-            [
+        assembler = str(ROOT / str(profile["assembler"]))
+        assembler_runner = profile.get("assembler_runner")
+        if assembler_runner == "linux32":
+            run(
+                linux32_command(
+                    assembler,
+                    small_data_flag(object_flags),
+                    "-o",
+                    str(raw),
+                    str(normalized),
+                )
+            )
+        elif assembler_runner == "wibo":
+            run([
                 str(ROOT / "tools/compilers/wibo"),
-                str(ROOT / str(profile["assembler"])),
+                assembler,
                 small_data_flag(object_flags),
                 "-o",
                 str(raw),
                 str(normalized),
-            ]
-        )
+            ])
+        else:
+            raise SystemExit(
+                f"linux32 profile has unknown assembler runner: {assembler_runner!r}"
+            )
     elif profile.get("assembler_runner") == "ps2eeas":
         assemble_with_bundled_assembler(profile, source, raw, object_flags)
     else:

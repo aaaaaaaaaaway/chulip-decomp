@@ -3,8 +3,9 @@ VENV_PYTHON := .venv/bin/python
 FUNCTION ?=
 PROFILE ?= ee-gcc2.95.3-136-O2-G8
 CANDIDATES ?=
+CANDIDATE_ELF ?= build/current/chulip.us.elf
 
-.PHONY: setup split baseline verify match merge progress boundaries boundary-verify audit test public-check
+.PHONY: setup split baseline verify match merge progress boundaries boundary-verify audit elf-report test public-check
 
 setup:
 	$(PYTHON) tools/bootstrap.py
@@ -39,6 +40,9 @@ boundary-verify:
 
 audit:
 	$(PYTHON) tools/repo_audit.py
+
+elf-report:
+	$(PYTHON) tools/elf_completeness.py --candidate "$(CANDIDATE_ELF)"
 
 test:
 	$(PYTHON) -m unittest discover -s tests -p 'test_*.py'

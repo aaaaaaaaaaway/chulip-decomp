@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import os
 import platform
 import shutil
@@ -17,20 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 COMPILERS = ROOT / "tools/compilers"
-COMPILER_URL = (
-    "https://github.com/decompme/compilers/releases/download/compilers/"
-    "ee-gcc2.95.3-136.tar.gz"
-)
-COMPILER_SHA256 = "3b6ae6897229ad005aaf1b0afaa1f3cb46e74b4c21a42e01130c07c0c598067f"
-# The executable was not built by one compiler. Game code below the SDK
-# frontier is SN Systems GNU C; the runtime and libraries above it are Sony's
-# own EE GNU C, which spills callee-saved registers 64 bits wide at the same
-# sixteen-byte slot stride.
-SDK_COMPILER_URL = (
-    "https://github.com/decompme/compilers/releases/download/compilers/"
-    "ee-gcc2.9-991111-01.tar.xz"
-)
-SDK_COMPILER_SHA256 = "ed684fd98f89d36b0121caab311052089103e3b36241fcef4338cc9ea41c75b8"
+TOOLCHAINS = ROOT / "config/toolchains.json"
 WIBO_ASSETS = {
     ("Linux", "x86_64"): (
         "https://github.com/decompals/wibo/releases/download/1.2.0/wibo-x86_64",
@@ -45,6 +33,70 @@ WIBO_ASSETS = {
         "2b3000ef6a7a490c24ccd71967735ae0005e218922e51806cca1b8d77fd3cf7c",
     ),
 }
+
+
+def configuration() -> dict[str, object]:
+    return json.loads(TOOLCHAINS.read_text())
+
+
+def relative_tool_path(value: object) -> Path:
+    path = Path(str(value))
+    try:
+        return path.relative_to("tools/compilers")
+    except ValueError as error:
+        raise SystemExit(f"toolchain path is outside tools/compilers: {path}") from error
+
+
+def archive_specs(config: dict[str, object]) -> dict[Path, dict[str, object]]:
+    """Return every unique configured archive and the files it must provide."""
+    result: dict[Path, dict[str, object]] = {}
+    profiles = config.get("profiles")
+    if not isinstance(profiles, dict) or not profiles:
+        raise SystemExit("config/toolchains.json has no profiles")
+    for profile_name, raw_profile in profiles.items():
+        if not isinstance(raw_profile, dict):
+            raise SystemExit(f"invalid toolchain profile: {profile_name}")
+        for prefix, artifact_key in (("", "compiler"), ("assembler_", "assembler")):
+            archive_key = prefix + "archive"
+            if archive_key not in raw_profile:
+                continue
+            url_key = prefix + "archive_url"
+            hash_key = prefix + "archive_sha256"
+            missing = [key for key in (url_key, hash_key, artifact_key) if not raw_profile.get(key)]
+            if missing:
+                raise SystemExit(
+                    f"profile {profile_name} lacks {', '.join(missing)} for {archive_key}"
+                )
+            archive = ROOT / str(raw_profile[archive_key])
+            artifact = ROOT / str(raw_profile[artifact_key])
+            relative = relative_tool_path(raw_profile[artifact_key])
+            target = COMPILERS / relative.parts[0]
+            spec = result.setdefault(
+                archive,
+                {
+                    "url": str(raw_profile[url_key]),
+                    "sha256": str(raw_profile[hash_key]),
+                    "target": target,
+                    "required": set(),
+                    "profiles": set(),
+                },
+            )
+            identity = (spec["url"], spec["sha256"], spec["target"])
+            requested = (str(raw_profile[url_key]), str(raw_profile[hash_key]), target)
+            if identity != requested:
+                raise SystemExit(f"conflicting metadata for archive {archive.relative_to(ROOT)}")
+            spec["required"].add(artifact)
+            spec["profiles"].add(str(profile_name))
+        if raw_profile.get("assembler") and not raw_profile.get("assembler_archive"):
+            archive = ROOT / str(raw_profile["archive"])
+            artifact = ROOT / str(raw_profile["assembler"])
+            target = COMPILERS / relative_tool_path(raw_profile["assembler"]).parts[0]
+            if target != result[archive]["target"]:
+                raise SystemExit(
+                    f"profile {profile_name} assembler needs separate archive metadata"
+                )
+            result[archive]["required"].add(artifact)
+    return result
 
 
 def sha256(path: Path) -> str:
@@ -88,44 +140,96 @@ def setup_python() -> None:
         subprocess.run([str(python), "-m", "pip", "install", "-r", str(ROOT / "requirements.txt")], check=True)
 
 
-def setup_toolchain() -> None:
+def setup_wibo(config: dict[str, object], check_only: bool) -> None:
+    profiles = config["profiles"]
+    if not any(profile.get("runner") == "wibo-driver" or profile.get("assembler_runner") == "wibo" for profile in profiles.values()):
+        return
     system = (platform.system(), platform.machine())
     if system not in WIBO_ASSETS:
         raise SystemExit(f"no pinned Wibo bootstrap asset for {system[0]} {system[1]}")
     wibo_url, wibo_hash = WIBO_ASSETS[system]
+    configured_hash = str(config["runtime"].get("wibo_sha256", ""))
+    if configured_hash != wibo_hash:
+        raise SystemExit("Wibo asset hash disagrees with config/toolchains.json")
     wibo = COMPILERS / "wibo"
-    download(wibo_url, wibo, wibo_hash)
-    wibo.chmod(wibo.stat().st_mode | 0o111)
+    if check_only:
+        if not wibo.is_file() or sha256(wibo) != wibo_hash:
+            raise SystemExit("missing or invalid pinned Wibo executable")
+    else:
+        download(wibo_url, wibo, wibo_hash)
+        wibo.chmod(wibo.stat().st_mode | 0o111)
 
-    target = COMPILERS / "ee-gcc2.95.3-136"
-    compiler = target / "bin/ee-gcc.exe"
-    assembler = target / "lib/gcc-lib/ee/2.95.3/as.exe"
-    if not compiler.is_file() or not assembler.is_file():
+
+def install_archive(archive: Path, spec: dict[str, object], check_only: bool) -> None:
+    target = Path(spec["target"])
+    required = set(spec["required"])
+    present = target.is_dir() and all(Path(path).is_file() for path in required)
+    if check_only:
+        if not present:
+            names = ", ".join(sorted(str(Path(path).relative_to(ROOT)) for path in required))
+            raise SystemExit(f"missing configured toolchain files: {names}")
+        return
+    if not present:
         if target.exists():
             raise SystemExit(f"incomplete toolchain directory exists: {target}")
-        archive = COMPILERS / "downloads/ee-gcc2.95.3-136.tar.gz"
-        download(COMPILER_URL, archive, COMPILER_SHA256)
+        download(str(spec["url"]), archive, str(spec["sha256"]))
         COMPILERS.mkdir(parents=True, exist_ok=True)
-        with tempfile.TemporaryDirectory(prefix="ee-gcc2.95.3-136-", dir=COMPILERS) as temp:
+        with tempfile.TemporaryDirectory(prefix=target.name + "-", dir=COMPILERS) as temp:
             temp_path = Path(temp)
-            with tarfile.open(archive, "r:gz") as bundle:
+            with tarfile.open(archive, "r:*") as bundle:
                 bundle.extractall(temp_path, filter="data")
             temp_path.rename(target)
-    print("verified required compiler and assembler: ee-gcc2.95.3-136")
+    if not all(Path(path).is_file() for path in required):
+        raise SystemExit(f"archive did not provide all configured files: {archive.relative_to(ROOT)}")
+    print(
+        f"verified {target.relative_to(COMPILERS)} for profiles: "
+        + ", ".join(sorted(spec["profiles"]))
+    )
 
-    sdk_target = COMPILERS / "ee-gcc2.9-991111-01"
-    sdk_compiler = sdk_target / "lib/gcc-lib/ee/2.9-ee-991111-01/cc1"
-    if not sdk_compiler.is_file():
-        if sdk_target.exists():
-            raise SystemExit(f"incomplete toolchain directory exists: {sdk_target}")
-        archive = COMPILERS / "downloads/ee-gcc2.9-991111-01.tar.xz"
-        download(SDK_COMPILER_URL, archive, SDK_COMPILER_SHA256)
-        with tempfile.TemporaryDirectory(prefix="ee-gcc2.9-991111-01-", dir=COMPILERS) as temp:
-            temp_path = Path(temp)
-            with tarfile.open(archive, "r:xz") as bundle:
-                bundle.extractall(temp_path, filter="data")
-            temp_path.rename(sdk_target)
-    print("verified required compiler: ee-gcc2.9-991111-01")
+
+def setup_linux32_runtime(config: dict[str, object], check_only: bool) -> None:
+    profiles = config["profiles"]
+    if not any(profile.get("runner") == "linux32-cc1" or profile.get("assembler_runner") == "linux32" for profile in profiles.values()):
+        return
+    runtime = config.get("runtime", {})
+    keys = ("libc6_i386_archive", "libc6_i386_archive_url", "libc6_i386_archive_sha256")
+    missing = [key for key in keys if not runtime.get(key)]
+    if missing:
+        raise SystemExit("linux32 profiles require runtime metadata: " + ", ".join(missing))
+    archive = ROOT / str(runtime["libc6_i386_archive"])
+    root = COMPILERS / "runtime/root"
+    required = (root / "usr/lib32/ld-linux.so.2", root / "usr/lib32/libc.so.6")
+    present = root.is_dir() and all(path.is_file() for path in required)
+    if check_only:
+        if not present:
+            raise SystemExit("missing pinned linux32 runtime")
+        return
+    if not present:
+        if root.exists():
+            raise SystemExit(f"incomplete linux32 runtime exists: {root}")
+        if shutil.which("dpkg-deb") is None:
+            raise SystemExit("dpkg-deb is required to extract the pinned linux32 runtime")
+        download(
+            str(runtime["libc6_i386_archive_url"]),
+            archive,
+            str(runtime["libc6_i386_archive_sha256"]),
+        )
+        root.parent.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix="linux32-runtime-", dir=root.parent) as temp:
+            extracted = Path(temp) / "root"
+            subprocess.run(["dpkg-deb", "-x", str(archive), str(extracted)], check=True)
+            extracted.rename(root)
+    if not all(path.is_file() for path in required):
+        raise SystemExit("pinned linux32 runtime lacks its loader or libc")
+    print("verified pinned linux32 runtime")
+
+
+def setup_toolchain(check_only: bool = False) -> None:
+    config = configuration()
+    setup_wibo(config, check_only)
+    for archive, spec in archive_specs(config).items():
+        install_archive(archive, spec, check_only)
+    setup_linux32_runtime(config, check_only)
 
 
 def check_host_tools() -> None:
@@ -134,6 +238,8 @@ def check_host_tools() -> None:
         "mipsel-linux-gnu-ld",
         "mipsel-linux-gnu-nm",
         "mipsel-linux-gnu-objcopy",
+        "mipsel-linux-gnu-readelf",
+        "mipsel-linux-gnu-size",
     ]
     missing = [command for command in required if not shutil.which(command)]
     if missing:
@@ -145,14 +251,15 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--skip-python", action="store_true")
     parser.add_argument("--skip-toolchain", action="store_true")
+    parser.add_argument("--check", action="store_true", help="verify without downloading or installing")
     args = parser.parse_args()
     os.chdir(ROOT)
     check_host_tools()
-    if not args.skip_python:
+    if not args.skip_python and not args.check:
         setup_python()
     if not args.skip_toolchain:
-        setup_toolchain()
-    print("bootstrap complete")
+        setup_toolchain(check_only=args.check)
+    print("bootstrap check complete" if args.check else "bootstrap complete")
     return 0
 
 

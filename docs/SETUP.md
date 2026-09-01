@@ -9,14 +9,29 @@ accepted. Windows contributors can work through WSL2.
 Required host packages on Debian or Ubuntu:
 
 ```sh
-sudo apt install python3 python3-venv binutils-mipsel-linux-gnu
+sudo apt install python3 python3-venv binutils-mipsel-linux-gnu dpkg
 ```
 
 Then run `python3 tools/bootstrap.py`. It creates the ignored `.venv`, installs
-the Python versions from `requirements.txt`, downloads Wibo 1.2.0, and
-downloads SN Systems GNU C 2.95.3-EE build 1.36 with its bundled assembler.
-Every download is checked against `config/toolchains.json`; none is committed
-to Git.
+the Python versions from `requirements.txt`, and installs every compiler and
+assembler referenced by `config/toolchains.json`. This includes the two SN
+Systems releases, Sony EE GNU C 2.9, GNU C 2.96, Wibo 1.2.0, and the pinned
+32-bit glibc runtime needed by the native Linux compilers. Historical
+assemblers bundled with the compiler archives are used where they are known to
+work. Every archive has a URL and SHA-256 in the toolchain configuration; none
+is committed to Git.
+
+The cross-binutils suite remains a checked host dependency. Distribution
+packages are dynamically linked to other host libraries, so pinning only the
+cross-binutils package would not create a hermetic toolchain. The bootstrap
+therefore checks every required command and leaves the exact load-image gate as
+the authority instead of claiming a false binutils pin.
+
+To audit an existing installation without downloading or modifying it:
+
+```sh
+python3 tools/bootstrap.py --check --skip-python
+```
 
 ## Supplying the target
 
@@ -34,6 +49,26 @@ python3 tools/build.py
 The build must report the exact 970,772-byte load-image match. `disc/`,
 `original/`, generated assembly, compiler binaries, and build output are all
 ignored and must remain untracked.
+
+## ELF completeness
+
+An exact load image is not the same claim as an identical ELF file. The normal
+build proves the bytes loaded by the game, while modern linking can still
+produce different ELF offsets, section tables, or BSS metadata.
+
+After a build, inspect both levels explicitly:
+
+```sh
+make elf-report
+make elf-report CANDIDATE_ELF=build/baseline/chulip.us.elf
+```
+
+`tools/elf_completeness.py` is read-only. It hashes target and candidate bytes
+in memory and reports full-container identity, PT_LOAD bytes mapped by virtual
+address, ELF and program headers, allocated sections, and NOBITS/BSS layout as
+separate results. It never writes or embeds bytes from the target executable.
+Use `--json` for machine-readable output. Optional gates are
+`--require-load-image`, `--require-layout`, and `--require-container`.
 
 ## Working without a disc
 
