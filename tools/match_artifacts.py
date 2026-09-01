@@ -147,7 +147,9 @@ def compile_bytes(spec: MatchSpec) -> bytes:
                     str(normalized),
                 ]
             )
-        script.write_text(match.linker_script(spec.address, spec.rodata))
+        script.write_text(
+            match.linker_script(spec.address, spec.rodata, match.SDATA_VRAM)
+        )
         match.write_derived_symbols(obj, derived)
         match.run(
             [
