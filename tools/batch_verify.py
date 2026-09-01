@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -12,7 +13,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 TOOLCHAINS = ROOT / "config/toolchains.json"
 FUNCTIONS = ROOT / "config/functions.json"
-FORBIDDEN_BRIDGES = ("include_asm", "glabel ", "endlabel ", ".globl ", ".word")
+# Assembly bridges, matched as directives rather than as substrings: a C source
+# may legitimately contain `.word` inside an identifier such as newlib's
+# `u.word.hi`, and rejecting that hides real work.
+FORBIDDEN_BRIDGES = re.compile(
+    r"\binclude_asm\b|^\s*(?:glabel|endlabel)\s|^\s*\.(?:globl|word)\b",
+    re.IGNORECASE | re.MULTILINE,
+)
 
 
 def entries(path: Path) -> list[dict[str, object]]:
@@ -36,8 +43,11 @@ def candidate_source(entry: dict[str, object]) -> Path:
     if not path.is_file():
         raise SystemExit(f"missing candidate source: {path}")
     text = path.read_text(errors="replace")
-    if any(marker in text for marker in FORBIDDEN_BRIDGES):
-        raise SystemExit(f"raw/full-function assembly bridge rejected: {path}")
+    found = FORBIDDEN_BRIDGES.search(text)
+    if found:
+        raise SystemExit(
+            f"raw/full-function assembly bridge rejected: {path} ({found.group(0).strip()})"
+        )
     if str(entry["function"]) not in text:
         raise SystemExit(f"candidate source does not define {entry['function']}: {path}")
     return path
@@ -87,6 +97,13 @@ def command(entry: dict[str, object], source: Path, profile: str) -> list[str]:
         result.extend(["--range-start", str(entry["range_start"])])
     if entry.get("range_end") is not None:
         result.extend(["--range-end", str(entry["range_end"])])
+    # Small-data placement is normally derived from the address-named symbols a
+    # source defines, so these keys are only for a unit whose ownership cannot
+    # be read off its own object.
+    if entry.get("sdata_start") is not None:
+        result.extend(["--sdata-start", str(entry["sdata_start"])])
+    if entry.get("sbss_start") is not None:
+        result.extend(["--sbss-start", str(entry["sbss_start"])])
     return result
 
 
@@ -130,6 +147,8 @@ def main() -> int:
                 tuple(entry.get("object_flags", [])),
                 entry.get("range_start"),
                 entry.get("range_end"),
+                entry.get("sdata_start"),
+                entry.get("sbss_start"),
                 None if explicit_range else entry["function"],
             )
             proof = proof_cache.get(key)

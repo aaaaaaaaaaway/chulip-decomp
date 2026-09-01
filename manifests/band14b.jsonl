@@ -1,0 +1,5 @@
+{"function": "func_00145810", "source": "work/lanes/claude_band14/func_00145810.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_0014A818", "source": "work/lanes/claude_band14/func_0014A818.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_0014A950", "source": "work/lanes/claude_band14/func_0014A950.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"], "object_flags": ["-Wa,-G4"], "range_start": "0x0014A950", "range_end": "0x0014A9E8"}
+{"function": "func_0014AC08", "source": "work/lanes/claude_band14/func_0014AC08.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"], "range_start": "0x0014AC08", "range_end": "0x0014AC40"}
+{"function": "func_0014B1C8", "source": "work/lanes/claude_band14/func_0014B1C8.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"], "object_flags": ["-Wa,-G4"]}

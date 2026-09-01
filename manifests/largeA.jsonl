@@ -1,0 +1,15 @@
+{"function":"func_0010BF20","source":"work/lanes/claude_largeA/func_0010BF20.c","profiles":["ee-gcc2.95.3-136-O2-G8"],"object_flags":["-Wa,-G0"]}
+{"function":"func_001286B0","source":"work/lanes/claude_largeA/func_001286B0.c","profiles":["ee-gcc2.95.3-136-O2-G8"]}
+{"function":"func_00158018","source":"work/lanes/claude_largeA/func_00158018.c","profiles":["ee-gcc2.95.3-136-O2-G8"],"object_flags":["-Wa,-G0"]}
+{"function":"func_0011E540","source":"work/lanes/claude_largeA/func_0011E540.c","profiles":["ee-gcc2.95.3-136-O2-G8"],"object_flags":["-Wa,-G0"]}
+{"function":"func_00109B28","source":"work/lanes/claude_largeA/func_00109B28.c","profiles":["ee-gcc2.95.3-136-O2-G8"],"object_flags":["-Wa,-G0"]}
+{"function":"func_00159370","source":"work/lanes/claude_largeA/func_00159370.c","profiles":["ee-gcc2.95.3-136-O2-G8"],"object_flags":["-Wa,-G0"]}
+{"function":"func_00111300","source":"work/lanes/claude_largeA/func_00111300.c","profiles":["ee-gcc2.95.3-136-O2-G8"],"object_flags":["-Wa,-G0"]}
+{"function":"func_00108FB0","source":"work/lanes/claude_largeA/func_00108FB0.c","profiles":["ee-gcc2.95.3-136-O2-G8"],"object_flags":["-Wa,-G0"]}
+{"function":"func_001074E8","source":"work/lanes/claude_largeA/func_001074E8.c","profiles":["ee-gcc2.95.3-136-O2-G8"],"object_flags":["-Wa,-G0"]}
+{"function":"func_00172918","source":"work/lanes/claude_largeA/func_00172918.c","profiles":["ee-gcc2.95.3-136-O2-G8"],"object_flags":["-Wa,-G0"]}
+{"function":"func_001364B8","source":"work/lanes/claude_largeA/func_001364B8.c","profiles":["ee-gcc2.95.3-136-O2-G8"]}
+{"function":"func_0015DFC0","source":"work/lanes/claude_largeA/func_0015DFC0.c","profiles":["ee-gcc2.95.3-136-O2-G8"],"object_flags":["-Wa,-G4"]}
+{"function":"func_001597B8","source":"work/lanes/claude_largeA/func_001597B8.c","profiles":["ee-gcc2.95.3-136-O2-G8"],"object_flags":["-Wa,-G0"]}
+{"function":"func_001069A0","source":"work/lanes/claude_largeA/func_001069A0.c","profiles":["ee-gcc2.95.3-136-O2-G8"],"object_flags":["-Wa,-G4"]}
+{"function":"func_00182490","source":"work/lanes/claude_largeA/func_00182490.c","profiles":["ee-gcc2.95.3-136-O2-G8"],"object_flags":["-Wa,-G4"]}

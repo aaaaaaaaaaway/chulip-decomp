@@ -1,0 +1,27 @@
+{"function": "func_001710D0", "source": "work/lanes/claude_w2_17/func_001710D0.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_00171118", "source": "work/lanes/claude_w2_17/func_00171118.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_00172030", "source": "work/lanes/claude_w2_17/func_00172030.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_001720B0", "source": "work/lanes/claude_w2_17/func_001720B0.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_00172C38", "source": "work/lanes/claude_w2_17/func_00172C38.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_00172FE8", "source": "work/lanes/claude_w2_17/func_00172FE8.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_00173088", "source": "work/lanes/claude_w2_17/func_00173088.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_001730E8", "source": "work/lanes/claude_w2_17/func_001730E8.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_00173148", "source": "work/lanes/claude_w2_17/func_00173148.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_001731A8", "source": "work/lanes/claude_w2_17/func_001731A8.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_00174F88", "source": "work/lanes/claude_w2_17/func_00174F88.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_00177F50", "source": "work/lanes/claude_w2_17/func_00177F50.c", "profiles": ["ee-gcc2.95.3-136-O2-G8"]}
+{"function": "func_00178010", "source": "work/lanes/claude_w2_17/func_00178010.c", "profiles": ["ee-gcc2.95.3-136-O2-G8"]}
+{"function": "func_00178270", "source": "work/lanes/claude_w2_17/func_00178270.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_001782E0", "source": "work/lanes/claude_w2_17/func_001782E0.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_001783D0", "source": "work/lanes/claude_w2_17/func_001783D0.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_001791D8", "source": "work/lanes/claude_w2_17/func_001791D8.c", "profiles": ["ee-gcc2.95.3-136-O2-G8"]}
+{"function": "func_0017A9E0", "source": "work/lanes/claude_w2_17/func_0017A9E0.c", "profiles": ["ee-gcc2.95.3-136-O2-G8"]}
+{"function": "func_0017AA90", "source": "work/lanes/claude_w2_17/func_0017AA90.c", "profiles": ["ee-gcc2.95.3-136-O2-G8"]}
+{"function": "func_0017ABE8", "source": "work/lanes/claude_w2_17/func_0017ABE8.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_0017ABF8", "source": "work/lanes/claude_w2_17/func_0017ABF8.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"]}
+{"function": "func_0017C6A8", "source": "work/lanes/claude_w2_17/func_0017C6A8.c", "profiles": ["ee-gcc2.95.3-136-O2-G8"]}
+{"function": "func_0017C830", "source": "work/lanes/claude_w2_17/func_0017C830.c", "profiles": ["ee-gcc2.95.3-136-O2-G8"]}
+{"function": "func_0017C9F0", "source": "work/lanes/claude_w2_17/func_0017C9F0.c", "profiles": ["ee-gcc2.95.3-136-O2-G8"]}
+{"function": "func_0017F2C0", "source": "work/lanes/claude_w2_17/func_0017F2C0.c", "profiles": ["ee-gcc2.95.3-136-O2-G8"]}
+{"function": "func_0017F768", "source": "work/lanes/claude_w2_17/func_0017F768.c", "profiles": ["ee-gcc2.95.3-136-O2-G8"], "object_flags": ["-Wa,-G3"]}
+{"function": "func_0017FA28", "source": "work/lanes/claude_w2_17/func_0017FA28.c", "profiles": ["ee-gcc2.95.3-136-O2-G8"]}

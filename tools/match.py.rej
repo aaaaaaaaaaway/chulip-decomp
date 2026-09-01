@@ -1,0 +1,182 @@
+--- tools/match.py	2026-09-01 15:27:21.537507593 +0200
++++ tools/match.py	2026-09-01 18:43:47.180724730 +0200
+@@ -17,6 +17,10 @@
+ TOOLCHAINS = ROOT / "config/toolchains.json"
+ TARGET = ROOT / "original/SLUS_207.42.rom"
+ TEXT_VRAM = 0x00100000
++# Retail `.sdata` begins here, and the camera translation unit owns its first
++# aligned block. Nothing below 0x001EC880 is small data, so this is the origin
++# to fall back on when a source defines no small data of its own.
++SDATA_VRAM = 0x001EC880
+ 
+ 
+ def run(command: list[str]) -> None:
+@@ -171,6 +175,7 @@
+ BASELINE_TEXT = ROOT / "asm-baseline/cod/text.s"
+ LINE_VRAM = re.compile(r"/\* [0-9A-Fa-f]+ ([0-9A-Fa-f]{8}) ")
+ JUMP_TABLE = re.compile(r"\bjtbl_([0-9A-Fa-f]{8})\b")
++SYMBOL_ADDRESS = re.compile(r"_([0-9A-Fa-f]{8})$")
+ 
+ 
+ def jump_table_address(start: int, end: int) -> int | None:
+@@ -193,20 +198,82 @@
+     return min(tables) if tables else None
+ 
+ 
+-def linker_script(address: int, rodata: int | None) -> str:
++SMALL_SECTIONS = {".sdata": "*(.sdata) *(.sdata.*)", ".sbss": "*(.sbss) *(.sbss.*) *(.scommon)"}
++
++
++def defined_section_symbols(obj: Path, section: str) -> list[tuple[str, int, int]]:
++    """Address-named symbols an object defines in `section`, as (name, offset, address)."""
++    listing = subprocess.run(
++        ["mipsel-linux-gnu-objdump", "-t", str(obj)],
++        cwd=ROOT,
++        check=True,
++        capture_output=True,
++        text=True,
++    ).stdout
++    found: list[tuple[str, int, int]] = []
++    for line in listing.splitlines():
++        fields = line.replace("\t", " ").split()
++        # objdump prints `<value> <flags> <section> <size> <name>`; the flag
++        # column varies in width, so anchor on the ends rather than on it.
++        if len(fields) < 4 or fields[-3] != section:
++            continue
++        name = fields[-1]
++        named = SYMBOL_ADDRESS.search(name)
++        if named:
++            found.append((name, int(fields[0], 16), int(named.group(1), 16)))
++    return found
++
++
++def small_data_origin(obj: Path, section: str) -> tuple[int | None, list[str]]:
++    """Retail origin implied by the small data an object defines.
++
++    A `.sdata`/`.sbss` symbol is defined exactly once in the whole image, so a
++    source that defines one claims the object that owns it -- the strongest
++    translation-unit evidence available, because the definition cannot be moved
++    elsewhere without moving the symbol. The retail address is already recorded
++    in the symbol's name and the object records the offset the compiler chose
++    for it inside the section, so the section's retail origin is
++    `name address - section offset`. That makes the placement derivable the same
++    way `jump_table_address` derives a table's, with no new configuration.
++
++    Every defined symbol implies the same origin when the source models the
++    layout correctly, so a disagreement is a finding about the source (usually a
++    declared type whose alignment or size is not retail's) and is reported.
++    """
++    defined = defined_section_symbols(obj, section)
++    if not defined:
++        return None, []
++    origins = {address - offset for _, offset, address in defined}
++    origin = min(origins)
++    notes = []
++    if len(origins) > 1:
++        for name, offset, address in sorted(defined, key=lambda item: item[1]):
++            if origin + offset != address:
++                notes.append(
++                    f"{section} symbol {name} lands at 0x{origin + offset:08X}, "
++                    f"not the address its name records"
++                )
++    return origin, notes
++
++
++def linker_script(
++    address: int, rodata: int | None, sdata: int, sbss: int | None = None
++) -> str:
+     placement = (
+         f"  .rodata 0x{rodata:08X} : {{ *(.rodata) *(.rodata.*) *(.rdata) }}\n"
+         if rodata is not None
+         else ""
+     )
++    small = f"  .sdata 0x{sdata:08X} : {{ {SMALL_SECTIONS['.sdata']} }}\n"
++    if sbss is not None:
++        small += f"  .sbss 0x{sbss:08X} : {{ {SMALL_SECTIONS['.sbss']} }}\n"
+     return f"""OUTPUT_ARCH(mips)
+ SECTIONS
+ {{
+   _gp = 0x001F4870;
+   . = 0x{address:08X};
+   .text : {{ *(.text) *(.text.*) }}
+-  .sdata 0x001EC880 : {{ *(.sdata) *(.sdata.*) }}
+-{placement}  /DISCARD/ : {{ *(.reginfo) *(.MIPS.abiflags) *(.pdr) *(.comment) *(.gnu.attributes) }}
++{small}{placement}  /DISCARD/ : {{ *(.reginfo) *(.MIPS.abiflags) *(.pdr) *(.comment) *(.gnu.attributes) }}
+ }}
+ """
+ 
+@@ -239,7 +306,7 @@
+     definitions: list[str] = []
+     for line in result.stdout.splitlines():
+         name = line.split()[-1]
+-        match = re.search(r"_([0-9A-Fa-f]{8})$", name)
++        match = SYMBOL_ADDRESS.search(name)
+         if match:
+             definitions.append(f"{name} = 0x{match.group(1)};")
+     output.write_text("\n".join(sorted(set(definitions))) + "\n")
+@@ -286,6 +353,16 @@
+         help="place compiled .rodata here; default: the range's lowest jtbl_ address",
+     )
+     parser.add_argument("--no-rodata", action="store_true", help="ignore any derived jump table")
++    parser.add_argument(
++        "--sdata-start",
++        type=lambda value: int(value, 0),
++        help="place compiled .sdata here; default: derived from the D_ symbols the source defines",
++    )
++    parser.add_argument(
++        "--sbss-start",
++        type=lambda value: int(value, 0),
++        help="place compiled .sbss here; default: derived from the D_ symbols the source defines",
++    )
+     parser.add_argument("--quiet", action="store_true", help="omit complete word dumps on mismatch")
+     args = parser.parse_args()
+ 
+@@ -323,6 +400,13 @@
+     if args.no_rodata:
+         rodata = None
+ 
++    sdata = args.sdata_start
++    if sdata is None and reconstructed and reconstructed.get("sdata_start"):
++        sdata = parse_address(reconstructed["sdata_start"])
++    sbss = args.sbss_start
++    if sbss is None and reconstructed and reconstructed.get("sbss_start"):
++        sbss = parse_address(reconstructed["sbss_start"])
++
+     configuration = json.loads(TOOLCHAINS.read_text())
+     profiles = configuration["profiles"]
+     requested = args.profile or (
+@@ -367,7 +451,24 @@
+                     str(normalized),
+                 ]
+             )
+-        script.write_text(linker_script(address, rodata))
++        notes: list[str] = []
++        placement: dict[str, int | None] = {".sdata": sdata, ".sbss": sbss}
++        for section in SMALL_SECTIONS:
++            if placement[section] is not None:
++                continue
++            derived_origin, disagreements = small_data_origin(obj, section)
++            placement[section] = derived_origin
++            notes.extend(disagreements)
++            if derived_origin is not None:
++                notes.append(f"{section} placed at 0x{derived_origin:08X} (derived)")
++        script.write_text(
++            linker_script(
++                address,
++                rodata,
++                placement[".sdata"] if placement[".sdata"] is not None else SDATA_VRAM,
++                placement[".sbss"],
++            )
++        )
+         write_derived_symbols(obj, derived)
+         run(
+             [
+@@ -396,6 +497,8 @@
+         table = rodata_report(linked, rodata, target)
+         if table:
+             print(f"  {table}")
++        for note in notes:
++            print(f"  {note}")
+         if result == "MATCH":
+             matched.append(profile_name)
+ 

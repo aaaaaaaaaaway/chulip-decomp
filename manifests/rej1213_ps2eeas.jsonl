@@ -1,0 +1,4 @@
+{"function": "func_001205D0", "source": "work/lanes/claude_rej1213/func_001205D0.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"], "note": "requires the SN Ps2EeAs.exe assembler; verify with work/lanes/claude_rej1213/m2.py"}
+{"function": "func_00120ED0", "source": "work/lanes/claude_rej1213/func_00120ED0.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"], "note": "requires the SN Ps2EeAs.exe assembler; verify with work/lanes/claude_rej1213/m2.py"}
+{"function": "func_00127198", "source": "work/lanes/claude_rej1213/func_00127198.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"], "note": "requires the SN Ps2EeAs.exe assembler; verify with work/lanes/claude_rej1213/m2.py"}
+{"function": "func_001272A8", "source": "work/lanes/claude_rej1213/func_001272A8.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"], "note": "requires the SN Ps2EeAs.exe assembler; verify with work/lanes/claude_rej1213/m2.py"}

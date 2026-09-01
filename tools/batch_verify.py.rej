@@ -1,0 +1,25 @@
+--- tools/batch_verify.py	2026-09-01 18:27:53.874412164 +0200
++++ tools/batch_verify.py	2026-09-01 18:53:34.406966012 +0200
+@@ -97,6 +97,13 @@
+         result.extend(["--range-start", str(entry["range_start"])])
+     if entry.get("range_end") is not None:
+         result.extend(["--range-end", str(entry["range_end"])])
++    # Small-data placement is normally derived from the address-named symbols a
++    # source defines, so these keys are only for a unit whose ownership cannot
++    # be read off its own object.
++    if entry.get("sdata_start") is not None:
++        result.extend(["--sdata-start", str(entry["sdata_start"])])
++    if entry.get("sbss_start") is not None:
++        result.extend(["--sbss-start", str(entry["sbss_start"])])
+     return result
+ 
+ 
+@@ -140,6 +147,8 @@
+                 tuple(entry.get("object_flags", [])),
+                 entry.get("range_start"),
+                 entry.get("range_end"),
++                entry.get("sdata_start"),
++                entry.get("sbss_start"),
+                 None if explicit_range else entry["function"],
+             )
+             proof = proof_cache.get(key)

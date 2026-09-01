@@ -1,0 +1,5 @@
+{"function": "func_00144FD8", "source": "work/lanes/claude_jt3/func_00144FD8.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"], "range_start": "0x00144FD8", "range_end": "0x00145438"}
+{"function": "func_00148CE0", "source": "work/lanes/claude_jt3/func_00148CE0.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"], "range_start": "0x00148CE0", "range_end": "0x00148F88"}
+{"function": "func_0011AE00", "source": "work/lanes/claude_jt3/func_0011AE00.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"], "range_start": "0x0011AE00", "range_end": "0x0011B020"}
+{"function": "func_0013A120", "source": "work/lanes/claude_jt3/func_0013A120.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"], "range_start": "0x0013A120", "range_end": "0x0013A6A0"}
+{"function": "func_001513E0", "source": "work/lanes/claude_jt3/func_001513E0.c", "profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"], "range_start": "0x001513E0", "range_end": "0x00151810"}

@@ -69,6 +69,16 @@ address-local discriminator. It matches build 1.36 `-G8` and rejects build
 2.73a even when that compiler is also run with `-G8`; this separates compiler
 generation from the small-data threshold.
 
+### A trap in the verifier
+
+`tools/match.py` falls back to the reconstruction ledger's `object_flags` when
+`--object-flag` is not given. Passing `--profile` alone therefore does not test
+that profile in isolation: it tests that profile with whatever flags the
+function was landed with. At least one recorded conclusion -- that the camera
+source could not be built with `Ps2EeAs` -- came from a run that silently
+inherited `-Wa,-G0` and so tested the wrong configuration. **Always pass the
+flags you mean explicitly when comparing profiles.**
+
 ### Choosing the small-data addressing form
 
 Retail's `lui`/`%lo` form for a small-BSS symbol is produced by the assembler,
@@ -81,11 +91,15 @@ expansion to the assembler. Declare the true size and choose the assembler.
   neighbours stay GP-relative; `-Wa,-G1` does the same for a two-byte object
   beside a one-byte one. A symbol the unit *defines* in `.sdata`/`.sbss` stays
   GP-relative at every `-G`, including `-G0`.
-- **Bundled `Ps2EeAs`** ignores `-G` completely. It expands every small-data
-  pseudo absolutely except inside a branch delay slot, where it emits the
-  one-instruction GP-relative form. Prefer it whenever one symbol shows both
-  modes and the GP-relative sites are exactly the delay slots. It pads `.text`
-  to eight bytes, so probe the trailing word with `--range-end`.
+- **Bundled `Ps2EeAs`** honours `-G`, and the opposite way round from GNU `as`.
+  At `-G8` it emits the one-instruction GP-relative form for a symbol the unit
+  defines in `.sdata`; at `-G0` it emits the two-instruction absolute form.
+  Outside a branch delay slot at `-G0` it expands absolutely, which is the
+  behaviour an earlier version of this section mistook for "ignores `-G`".
+  Prefer it whenever one symbol shows both modes and the GP-relative sites are
+  exactly the delay slots. It also emits the `mtc1`/`cvt.s.w` hazard nops GNU
+  `as` omits, and pads `.text` to eight bytes, so probe the trailing word with
+  `--range-end`.
 - An incomplete extern (`extern T X[];`) emits no `.extern` and makes the
   *compiler* split the address, giving `lui $rN` and `%lo($rM)` in different
   registers. That is never the retail `$at` or same-register form.
@@ -275,6 +289,34 @@ the resulting full-image layout.
   exists. A search result must still pass the ordinary isolated verifier and
   full-image rebuild; score improvements alone are not evidence.
 
+### What counts as a blocker
+
+A blocker is a claim that something cannot be done, and this project has been
+wrong about that repeatedly. In a single day five recorded dead ends fell:
+`func_001016A0` and `func_00101748`, listed here as permanently blocked on
+missing hazard nops after volatile, union, punning, scheduler, CPU and
+compiler-version variants had all been tried, needed only a different
+assembler; "sixty-four-bit bitwise arithmetic is rejected" was false for
+shifts; "hazard nops are unrecoverable" was false; "a translation unit cannot
+own its small data" was false, the origin being derivable from the source's own
+declarations; and "no switch reaches 64-bit register precision" was a correct
+analysis of the wrong compiler.
+
+The pattern is identical every time. The investigator exhausted the space they
+were searching and the answer lay outside it. **A list of failed source
+spellings is evidence about the search, not about the problem.**
+
+So a blocker may only be recorded here with a mechanism-level proof: point at
+what the compiler or assembler actually does and show the required output
+cannot arise from it. The register-precision investigation is the model — it
+disassembled `override_options`, found the global forced unconditionally, and
+showed that no entry in the option table clears the deciding bit. That is a
+proof. Anything weaker belongs in a lane's notes as "not yet solved", not here.
+
+**Re-test every recorded blocker whenever a toolchain fact changes.** A single
+re-sweep after four such changes converted 181 parked functions and 31,888
+bytes, and sixty of those needed nothing but being tried again.
+
 ### Structural blockers with no natural-C expression
 
 These are recorded so they are not re-attempted. Each is a toolchain or ISA
@@ -284,10 +326,13 @@ limit, not a missing insight.
   are hand-written assembly and cannot be produced from C.
 - VU0 macro-mode code (`lqc2`, `vadd.xyzw`, `vdiv`, `qmtc2`), roughly
   `0x0018A3D0-0x0018AFC8`, is reachable only through inline assembly.
-- Sixty-four-bit bitwise arithmetic is rejected by the proven profile with
-  "unsupported wide integer operation", which blocks every function that builds
-  GS or DMA qword tags. A `volatile long long` bitfield is the one recovered
-  way to read such a word.
+- Sixty-four-bit *arithmetic* on a `long long` is rejected with "unsupported
+  wide integer operation", but shifts and bitwise operations on `long` are not.
+  Under `-ps2as`, `(long)(int_expr) | ((long)hi << 32)` reproduces retail's
+  `sll`/`or` chain plus `dsll32 rX,rX,0`, and `(int)(X >> P) & 1` gives
+  `dsll`/`dsra32`/`andi`. The `volatile long long` bitfield workaround is
+  unnecessary for bit tests. Note `long` is eight bytes and `long long` sixteen
+  in the SN band, while `long long` is eight under the Sony compiler.
 - The second EE multiply pipe (`mult1`) is never emitted; the compiler issues
   two plain `mult` instructions where retail pairs `mult1` with `mult`.
 - Neither SN build accepts `-foptimize-sibling-calls`, so retail frameless tail
