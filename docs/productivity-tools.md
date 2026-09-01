@@ -28,6 +28,21 @@ Exit codes are composable in worker loops: 0 means match/success/new candidate,
 1 means a byte mismatch, 2 means an input or tool failure, and duplicate checks
 use 3 for a previously recorded attempt.
 
+## Parallel campaigns
+
+```sh
+python3 tools/campaign.py plan --limit 20
+python3 tools/campaign.py packet --next --owner NAME
+python3 tools/campaign.py harvest work/campaign/packets/FUNCTION/candidates
+python3 tools/campaign.py status
+```
+
+The campaign tool adds expiring ownership, focused packets, content-addressed
+attempt caching, and exact-candidate intake. All mutable state stays under
+ignored `work/campaign/`. `tools/match.py` remains the isolated byte authority;
+`tools/merge_candidates.py` independently replays successful claims and owns
+the serialized public-tree transaction. See `docs/campaign-workflow.md`.
+
 ## Whole-ledger re-verification
 
 ```sh

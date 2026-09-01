@@ -86,21 +86,24 @@ python3 tools/build_baseline.py
 ## Matching workflow
 
 ```sh
-# Rank untouched functions by static tractability.
-python3 tools/candidate_queue.py --limit 50 --json work/candidate-queue.json
+# Rank unclaimed functions and create a leased work packet.
+python3 tools/campaign.py plan --limit 20
+python3 tools/campaign.py packet --next --owner NAME
 
-# Recheck a JSONL lane manifest without changing proof ledgers.
-python3 tools/batch_verify.py work/candidates.jsonl
+# Check new or changed packet candidates across the compiler matrix.
+python3 tools/campaign.py harvest work/campaign/packets/FUNCTION/candidates
 
-# Validate an integration plan, then apply it through every rollback-protected gate.
-python3 tools/merge_candidates.py work/candidates.jsonl
-python3 tools/merge_candidates.py work/candidates.jsonl --write
+# Validate an exact candidate, then apply it through every protected gate.
+python3 tools/campaign.py promote FUNCTION
+python3 tools/campaign.py promote FUNCTION --write
 ```
 
 Candidate manifests and lane artifacts stay under ignored `work/`; accepted C,
 proof metadata, and reusable conclusions move into `src/`, `config/`, and
 `docs/`. Integration independently replays every claimed profile and rejects
 ABI-dangerous compiler diagnostics before it records a match.
+See [docs/campaign-workflow.md](docs/campaign-workflow.md) for packet metadata,
+lease behavior, resumable harvesting, and the promotion boundary.
 
 ## Contributing
 

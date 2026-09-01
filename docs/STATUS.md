@@ -11,7 +11,7 @@
 | Original compiler/linker family identified | partial | SN GCC 2.95.3-EE build 1.36 below the SDK frontier and Sony EE GNU C 2.9-ee-991111-01 above it, both with historical assemblers |
 | Baseline split and nonmatching rebuild works | complete | 970,772-byte whole-image match |
 | Isolated byte-match verifier works | complete | `tools/match.py` |
-| Batch candidate verifier and ranked queue work | complete | `tools/batch_verify.py`, `tools/candidate_queue.py` |
+| Parallel candidate campaign works | complete | leased packets and restartable exact-candidate intake in `tools/campaign.py` |
 | Transactional candidate integration works | complete | `tools/merge_candidates.py` with automatic rollback across all gates |
 | First source neighborhood matched | complete | `0x00101490-0x001014DC`, isolated and full-image exact |
 | All game code/data byte-matches | pending | — |

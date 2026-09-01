@@ -4,8 +4,9 @@ FUNCTION ?=
 PROFILE ?= ee-gcc2.95.3-136-O2-G8
 CANDIDATES ?=
 CANDIDATE_ELF ?= build/current/chulip.us.elf
+OWNER ?= local
 
-.PHONY: setup split baseline verify match merge reverify-ledger progress boundaries boundary-verify audit elf-report test public-check
+.PHONY: setup split baseline verify match merge reverify-ledger progress boundaries boundary-verify audit elf-report campaign-plan campaign-packet campaign-status campaign-harvest campaign-promote test public-check
 
 setup:
 	$(PYTHON) tools/bootstrap.py
@@ -46,6 +47,23 @@ audit:
 
 elf-report:
 	$(PYTHON) tools/elf_completeness.py --candidate "$(CANDIDATE_ELF)"
+
+campaign-plan:
+	$(PYTHON) tools/campaign.py plan
+
+campaign-packet:
+	@test -n "$(FUNCTION)" || (echo "usage: make campaign-packet FUNCTION=func_00101490 OWNER=name" && exit 2)
+	$(PYTHON) tools/campaign.py packet "$(FUNCTION)" --owner "$(OWNER)"
+
+campaign-status:
+	$(PYTHON) tools/campaign.py status
+
+campaign-harvest:
+	$(PYTHON) tools/campaign.py harvest $(CANDIDATES)
+
+campaign-promote:
+	@test -n "$(FUNCTION)" || (echo "usage: make campaign-promote FUNCTION=func_00101490" && exit 2)
+	$(PYTHON) tools/campaign.py promote "$(FUNCTION)"
 
 test:
 	$(PYTHON) -m unittest discover -s tests -p 'test_*.py'
