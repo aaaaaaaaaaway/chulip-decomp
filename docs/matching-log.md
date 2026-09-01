@@ -242,3 +242,15 @@
   in parallel. Its isolated transaction reproduced all 970,772 image bytes and
   the independent zero-C baseline, raising the exact build to 773 functions /
   46,600 catalog bytes.
+
+## 2026-09-01 — Sony runtime library pass two
+
+- Revalidated the remaining exact Sony-runtime lane against the corrected
+  public compiler and assembler profile. Twenty-five complete functions /
+  3,680 bytes now match through the ordinary isolated verifier.
+- The batch covers allocator callbacks, thread setup, stream and formatting
+  helpers, error adapters, search routines, and small kernel-library wrappers.
+  The sources contain no assembly bridges or target-byte transcription.
+- The rollback-protected transaction retained the twenty functions integrated
+  in parallel, reproduced the complete image and independent baseline, and
+  brought the rebased exact build to 818 functions / 52,804 catalog bytes.

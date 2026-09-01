@@ -150,8 +150,9 @@ Sony `cc1` also depends on the era-correct bundled GNU assembler. It encodes
 the compiler's `move` pseudos as retail `daddu`; modern GNU `as` encodes them
 as `or`. The corrected profile turned the word-copy helpers at `0x001994C0`,
 `0x001A09E8`, and `0x001A0F30` from two-instruction near-matches into exact
-source matches without changing their C. It also promoted twenty previously
-stranded runtime candidates through the normal public verifier.
+source matches without changing their C. Rechecking ignored runtime lanes with
+the corrected public profile has since promoted forty-five additional exact
+functions.
 
 ## 4. Translation-unit and data lessons
 
@@ -328,7 +329,7 @@ run the independent zero-C baseline, and audit the public tree before a commit.
   compiler evidence through `0x001041D7`.
 - The ten-function resource-record unit is the second compiler-
   discriminating neighborhood.
-- Seven hundred and seventeen readable source functions / 36,536 catalog bytes are
+- Eight hundred and eighteen readable source functions / 52,804 catalog bytes are
   exact over their complete ranges and in the full-image build. Every one
   counts as matched; ambiguous compiler or historical source-file provenance
   remains attached as evidence.

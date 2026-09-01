@@ -56,10 +56,11 @@ helper appears at `0x00187180`.
 
 So the frontier is provisionally `0x00185400`, in the gap between the last
 `sq` function and the first `sd` function: game code below, SDK and runtime
-above. This remains provisional because the compiler setting that selects
-64-bit register precision has not been recovered, so no upper-region function
-has yet been matched byte-for-byte through its own regime. Subsystem names are
-still not assigned in the function catalog.
+above. Sony EE GNU C 2.9-ee-991111-01 now reproduces the upper register regime;
+173 functions at or above the frontier match exactly under that profile. The
+boundary remains provisional because the two spill-width exceptions and the
+historical source-unit ownership around the cut are not yet resolved.
+Subsystem names are still not assigned in the function catalog.
 
 ## View/camera state frontier
 

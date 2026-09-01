@@ -7776,6 +7776,18 @@
     "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_001880F0",
+    "source": "src/game/func_001880F0.c",
+    "address": "0x001880F0",
+    "size": 188,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_00188568",
     "source": "src/game/func_00188568.c",
     "address": "0x00188568",
@@ -7832,6 +7844,18 @@
     "provenance_note": "The original translation-unit and compiler-build provenance remain unresolved."
   },
   {
+    "function": "func_00189290",
+    "source": "src/game/func_00189290.c",
+    "address": "0x00189290",
+    "size": 156,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_00189330",
     "source": "src/game/func_00189330.c",
     "address": "0x00189330",
@@ -7841,6 +7865,18 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001897F8",
+    "source": "src/game/func_001897F8.c",
+    "address": "0x001897F8",
+    "size": 52,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
     "function": "func_001898E8",
@@ -7863,6 +7899,18 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00189FA0",
+    "source": "src/game/func_00189FA0.c",
+    "address": "0x00189FA0",
+    "size": 176,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
     "function": "func_0018A160",
@@ -8002,6 +8050,18 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0018EE10",
+    "source": "src/game/func_0018EE10.c",
+    "address": "0x0018EE10",
+    "size": 160,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_0018EFC8",
     "source": "src/game/func_0018EFC8.c",
     "address": "0x0018EFC8",
@@ -8061,6 +8121,18 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0018F688",
+    "source": "src/game/func_0018F688.c",
+    "address": "0x0018F688",
+    "size": 108,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_0018FFC0",
     "source": "src/game/func_0018FFC0.c",
     "address": "0x0018FFC0",
@@ -8084,6 +8156,18 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00190030",
+    "source": "src/game/func_00190030.c",
+    "address": "0x00190030",
+    "size": 180,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_001900E8",
     "source": "src/game/func_001900E8.c",
     "address": "0x001900E8",
@@ -8093,6 +8177,18 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001901A8",
+    "source": "src/game/func_001901A8.c",
+    "address": "0x001901A8",
+    "size": 308,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
     "function": "func_001902E0",
@@ -8160,6 +8256,30 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00191098",
+    "source": "src/game/func_00191098.c",
+    "address": "0x00191098",
+    "size": 180,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00191558",
+    "source": "src/game/func_00191558.c",
+    "address": "0x00191558",
+    "size": 280,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
     "function": "func_00191670",
@@ -8310,6 +8430,18 @@
     "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00192D50",
+    "source": "src/game/func_00192D50.c",
+    "address": "0x00192D50",
+    "size": 108,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_00192FF8",
     "source": "src/game/func_00192FF8.c",
     "address": "0x00192FF8",
@@ -8344,6 +8476,18 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00195FA8",
+    "source": "src/game/func_00195FA8.c",
+    "address": "0x00195FA8",
+    "size": 112,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_001960F8",
     "source": "src/game/func_001960F8.c",
     "address": "0x001960F8",
@@ -8365,6 +8509,42 @@
     "isolated_match": true,
     "whole_program_match": true,
     "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 produces the retail runtime schedule, and its era-correct bundled GNU assembler preserves the retail instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00196118",
+    "source": "src/game/func_00196118.c",
+    "address": "0x00196118",
+    "size": 140,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00196A10",
+    "source": "src/game/func_00196A10.c",
+    "address": "0x00196A10",
+    "size": 148,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00196AA8",
+    "source": "src/game/func_00196AA8.c",
+    "address": "0x00196AA8",
+    "size": 132,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
     "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
@@ -8478,6 +8658,18 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00198200",
+    "source": "src/game/func_00198200.c",
+    "address": "0x00198200",
+    "size": 88,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
     "function": "func_00198258",
@@ -8678,6 +8870,18 @@
     "isolated_match": true,
     "whole_program_match": true,
     "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 produces the retail runtime schedule, and its era-correct bundled GNU assembler preserves the retail instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00199828",
+    "source": "src/game/func_00199828.c",
+    "address": "0x00199828",
+    "size": 124,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
     "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
@@ -8913,6 +9117,18 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0019BAF8",
+    "source": "src/game/func_0019BAF8.c",
+    "address": "0x0019BAF8",
+    "size": 148,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_0019BC20",
     "source": "src/game/func_0019BC20.c",
     "address": "0x0019BC20",
@@ -8945,6 +9161,18 @@
     "isolated_match": true,
     "whole_program_match": true,
     "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 produces the retail runtime schedule, and its era-correct bundled GNU assembler preserves the retail instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0019C6B0",
+    "source": "src/game/func_0019C6B0.c",
+    "address": "0x0019C6B0",
+    "size": 140,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
     "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
@@ -9014,6 +9242,30 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0019F610",
+    "source": "src/game/func_0019F610.c",
+    "address": "0x0019F610",
+    "size": 128,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0019F690",
+    "source": "src/game/func_0019F690.c",
+    "address": "0x0019F690",
+    "size": 120,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_0019F708",
     "source": "src/game/func_0019F708.c",
     "address": "0x0019F708",
@@ -9034,6 +9286,30 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0019FE80",
+    "source": "src/game/func_0019FE80.c",
+    "address": "0x0019FE80",
+    "size": 160,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0019FF20",
+    "source": "src/game/func_0019FF20.c",
+    "address": "0x0019FF20",
+    "size": 144,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
     "function": "func_0019FFB0",
@@ -9167,6 +9443,18 @@
     "isolated_match": true,
     "whole_program_match": true,
     "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 produces the retail runtime schedule, and its era-correct bundled GNU assembler preserves the retail instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001A0A30",
+    "source": "src/game/func_001A0A30.c",
+    "address": "0x001A0A30",
+    "size": 104,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
     "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
@@ -9323,6 +9611,18 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001A0E38",
+    "source": "src/game/func_001A0E38.c",
+    "address": "0x001A0E38",
+    "size": 96,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
     "function": "func_001A0F30",
