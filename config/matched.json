@@ -4424,6 +4424,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_0017B140",
+    "source": "src/game/func_0017B140.c",
+    "address": "0x0017B140",
+    "size": 64,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "Readable DMA/GIF packet initialization reproduces every byte in the complete 64-byte retail function range [0x0017B140,0x0017B180)."
+  },
+  {
     "function": "func_0017C220",
     "source": "src/game/func_0017C220.c",
     "address": "0x0017C220",
@@ -4832,6 +4840,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_00182210",
+    "source": "src/game/func_00182210.c",
+    "address": "0x00182210",
+    "size": 64,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "Readable DMA/GIF packet initialization reproduces every byte in the complete 64-byte retail function range [0x00182210,0x00182250)."
+  },
+  {
     "function": "func_00182410",
     "source": "src/game/func_00182410.c",
     "address": "0x00182410",
@@ -4910,6 +4926,14 @@
     "size": 36,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00184160",
+    "source": "src/game/func_00184160.c",
+    "address": "0x00184160",
+    "size": 64,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "Readable DMA/GIF packet initialization reproduces every byte in the complete 64-byte retail function range [0x00184160,0x001841A0)."
   },
   {
     "function": "func_001841A0",

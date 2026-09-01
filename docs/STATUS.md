@@ -19,11 +19,11 @@
 
 Provisional function catalog: **2,189 functions / 663,704 bytes**
 
-Source-reconstructed and matched: **711 functions / 36,196 bytes**
+Source-reconstructed and matched: **717 functions / 36,536 bytes**
 
-Matched functions: **711 / 2,189 (32.4806%)**
+Matched functions: **717 / 2,189 (32.7547%)**
 
-Matched text bytes: **36,196 / 663,704 (5.4536%)**
+Matched text bytes: **36,536 / 663,704 (5.5049%)**
 
 There is one public match tier. Readable source that matches its complete range
 and survives the exact full-image rebuild is counted; unresolved compiler or

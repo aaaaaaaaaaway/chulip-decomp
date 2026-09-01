@@ -6526,6 +6526,18 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0017B140",
+    "source": "src/game/func_0017B140.c",
+    "address": "0x0017B140",
+    "size": 64,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "SN Systems GNU C 2.95.3-EE build 1.36 emits the recovered natural packet-prefix and GIF-header source shape. The bundled Ps2EeAs assembler reproduces retail's 64-bit constant expansion; all four standard SN assembler routes reject at that expansion.",
+    "provenance_note": "The function is one of three byte-identical subsystem-local copies. Its complete range and assembler behavior are proven; the authentic surrounding translation-unit boundary remains unresolved."
+  },
+  {
     "function": "func_0017C220",
     "source": "src/game/func_0017C220.c",
     "address": "0x0017C220",
@@ -7149,6 +7161,18 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00182210",
+    "source": "src/game/func_00182210.c",
+    "address": "0x00182210",
+    "size": 64,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "SN Systems GNU C 2.95.3-EE build 1.36 emits the recovered natural packet-prefix and GIF-header source shape. The bundled Ps2EeAs assembler reproduces retail's 64-bit constant expansion; all four standard SN assembler routes reject at that expansion.",
+    "provenance_note": "The function is one of three byte-identical subsystem-local copies. Its complete range and assembler behavior are proven; the authentic surrounding translation-unit boundary remains unresolved."
+  },
+  {
     "function": "func_00182410",
     "source": "src/game/func_00182410.c",
     "address": "0x00182410",
@@ -7266,6 +7290,18 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00184160",
+    "source": "src/game/func_00184160.c",
+    "address": "0x00184160",
+    "size": 64,
+    "verified_profiles": ["ee-gcc2.95.3-136-O2-G8-ps2as"],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "SN Systems GNU C 2.95.3-EE build 1.36 emits the recovered natural packet-prefix and GIF-header source shape. The bundled Ps2EeAs assembler reproduces retail's 64-bit constant expansion; all four standard SN assembler routes reject at that expansion.",
+    "provenance_note": "The function is one of three byte-identical subsystem-local copies. Its complete range and assembler behavior are proven; the authentic surrounding translation-unit boundary remains unresolved."
   },
   {
     "function": "func_001841A0",

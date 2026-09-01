@@ -23,14 +23,14 @@ never counted as decompilation progress.
 <!-- decomp-progress-start -->
 ## Decompilation progress
 
-![Matched functions](https://img.shields.io/badge/functions-714%20%2F%202189-2f81f7) ![Matched text bytes](https://img.shields.io/badge/text%20bytes-36344%20%2F%20663704-2f81f7)
+![Matched functions](https://img.shields.io/badge/functions-717%20%2F%202189-2f81f7) ![Matched text bytes](https://img.shields.io/badge/text%20bytes-36536%20%2F%20663704-2f81f7)
 
-`██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░` **5.4759%** of provisional text bytes matched
+`██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░` **5.5049%** of provisional text bytes matched
 
 | Metric | Matched | Total | Progress |
 | --- | ---: | ---: | ---: |
-| Text bytes | 36,344 | 663,704 | 5.4759% |
-| Functions | 714 | 2,189 | 32.6176% |
+| Text bytes | 36,536 | 663,704 | 5.5049% |
+| Functions | 717 | 2,189 | 32.7547% |
 
 Text bytes is the honest measure. The function count runs well ahead of it because small functions are matched first, so it overstates how much of the executable is reconstructed.
 
@@ -38,8 +38,8 @@ Text bytes is the honest measure. The function count runs well ahead of it becau
 
 | Provenance | Count |
 | --- | ---: |
-| Recovered inside a multi-function source unit | 159 of 714 (22.3%) |
-| Compiled alone in a single-function object | 555 |
+| Recovered inside a multi-function source unit | 159 of 717 (22.2%) |
+| Compiled alone in a single-function object | 558 |
 | Distinct compiler and assembler configurations in use | 10 |
 
 A retail translation unit was compiled once, with one set of flags. A function matched alone in its own object, free to choose its own flags, has the right bytes but not yet a proven reason for them. Raising the first row and lowering the last is what turns a byte match into a reconstruction. See [scope and denominator](docs/scope.md).

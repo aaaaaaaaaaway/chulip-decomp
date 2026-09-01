@@ -101,6 +101,20 @@ Four later source islands extend the same subsystem evidence:
 These islands support a local camera-area compiler model; they do not prove
 that the entire executable used one compiler profile or source layout.
 
+## DMA/GIF packet initializer family
+
+Five matched helpers build the same two-quadword GIF-style header and payload.
+`func_00113648` and `func_00115A50` emit the 32-byte form and return two.
+`func_0017B140`, `func_00182210`, and `func_00184160` prepend a 16-byte
+DMA-style prefix and return three. Reconstructed callers advance their output
+pointer by the return value multiplied by 16, confirming that the result is a
+quadword count.
+
+The three longer helpers are byte-identical subsystem-local copies. Their
+natural C requires a post-incremented 16-byte prefix structure and the bundled
+Ps2EeAs assembler. The standard assembler expands the shared 64-bit header
+constant differently and does not match retail.
+
 ## Resource-record frontier
 
 Ten contiguous functions at `0x00137EA0-0x00137FCB` manage three indexed

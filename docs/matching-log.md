@@ -210,3 +210,16 @@
   float setter unit, and one aligned volatile-global initializer. All require
   the bundled PS2 assembler behavior and passed one isolated full transaction,
   bringing the exact build to 711 functions / 36,196 catalog bytes.
+
+## 2026-09-01 — DMA/GIF packet initializer family
+
+- Recovered three byte-identical 64-byte helpers at `0x0017B140`,
+  `0x00182210`, and `0x00184160`. Each prepends a 16-byte DMA-style prefix to
+  the two-quadword header shape already established by two smaller builders.
+- A bounded 96-variant search over independent readable assignment order and
+  argument placement found the exact compiler schedule after 74 attempts. No
+  opcode source, assembly bridge, or relaxed comparison was used.
+- All three complete ranges require SN GCC 2.95.3 build 1.36 with the bundled
+  Ps2EeAs assembler. The rebased isolated transaction also retained the three
+  Sony-compiler runtime matches added in parallel, passed every gate, and raised
+  the exact union to 717 functions / 36,536 catalog bytes.
