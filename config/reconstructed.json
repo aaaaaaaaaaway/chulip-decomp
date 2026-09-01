@@ -276,7 +276,6 @@
     "address": "0x001018E8",
     "size": 32,
     "verified_profiles": [
-      "ee-gcc2.95.3-136-O2",
       "ee-gcc2.95.3-136-O2-G8"
     ],
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
@@ -287,7 +286,7 @@
     "unit_end": "0x00101CC4",
     "isolated_match": true,
     "whole_program_match": true,
-    "profile_evidence": "build 1.36 matches with the historical assembler; build 2.73a rejects on return-address save width"
+    "profile_evidence": "the complete camera translation unit matches build 1.36 only under the verified -G8 profile and historical assembler flags"
   },
   {
     "function": "func_00101908",
