@@ -394,6 +394,20 @@ def compare(expected: bytes, actual: bytes, verbose: bool = True) -> str:
     )
 
 
+def work_variant(
+    source: Path,
+    object_flags: list[str],
+    start: int,
+    end: int,
+    rodata: int | None,
+    sdata: int | None,
+    sbss: int | None,
+) -> str:
+    """Identify every input that changes isolated compiler/linker output."""
+    inputs = (str(source), tuple(object_flags), start, end, rodata, sdata, sbss)
+    return hashlib.sha256(repr(inputs).encode()).hexdigest()[:12]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("function")
@@ -485,18 +499,7 @@ def main() -> int:
         # must not share a directory: a parallel sweep would otherwise read a
         # sibling's linked output and report the wrong answer for the flags it
         # thinks it tested.
-        variant = hashlib.sha256(
-            repr(
-                (
-                    str(source),
-                    tuple(object_flags),
-                    address,
-                    end,
-                    rodata,
-                    sdata_origin if "sdata_origin" in dir() else None,
-                )
-            ).encode()
-        ).hexdigest()[:12]
+        variant = work_variant(source, object_flags, address, end, rodata, sdata, sbss)
         work = ROOT / "build/match" / args.function / f"{profile_name}.{variant}"
         work.mkdir(parents=True, exist_ok=True)
         assembly = work / "compiled.s"

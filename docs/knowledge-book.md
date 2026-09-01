@@ -299,31 +299,10 @@ the resulting full-image layout.
 
 ### What counts as a blocker
 
-A blocker is a claim that something cannot be done, and this project has been
-wrong about that repeatedly. In a single day five recorded dead ends fell:
-`func_001016A0` and `func_00101748`, listed here as permanently blocked on
-missing hazard nops after volatile, union, punning, scheduler, CPU and
-compiler-version variants had all been tried, needed only a different
-assembler; "sixty-four-bit bitwise arithmetic is rejected" was false for
-shifts; "hazard nops are unrecoverable" was false; "a translation unit cannot
-own its small data" was false, the origin being derivable from the source's own
-declarations; and "no switch reaches 64-bit register precision" was a correct
-analysis of the wrong compiler.
-
-The pattern is identical every time. The investigator exhausted the space they
-were searching and the answer lay outside it. **A list of failed source
-spellings is evidence about the search, not about the problem.**
-
-So a blocker may only be recorded here with a mechanism-level proof: point at
-what the compiler or assembler actually does and show the required output
-cannot arise from it. The register-precision investigation is the model — it
-disassembled `override_options`, found the global forced unconditionally, and
-showed that no entry in the option table clears the deciding bit. That is a
-proof. Anything weaker belongs in a lane's notes as "not yet solved", not here.
-
-**Re-test every recorded blocker whenever a toolchain fact changes.** A single
-re-sweep after four such changes converted 181 parked functions and 31,888
-bytes, and sixty of those needed nothing but being tried again.
+A blocker requires mechanism-level evidence from the compiler, assembler, ABI,
+or linker. Failed source spellings establish only that a particular search was
+exhausted. Record weaker results as unsolved, and retest them whenever a
+toolchain fact changes.
 
 ### Structural blockers with no natural-C expression
 
@@ -408,10 +387,8 @@ run the independent zero-C baseline, and audit the public tree before a commit.
   compiler evidence through `0x001041D7`.
 - The ten-function resource-record unit is the second compiler-
   discriminating neighborhood.
-- Eight hundred and eighteen readable source functions / 52,804 catalog bytes are
-  exact over their complete ranges and in the full-image build. Every one
-  counts as matched; ambiguous compiler or historical source-file provenance
-  remains attached as evidence.
+- Current exact function and byte totals are generated in `README.md`; compiler
+  or historical source-file ambiguity remains attached as evidence.
 - A bounded symbolic pass recovered 112 branch-free leaves without emitting
   target bytes as source: it derived readable statements from retail
   instructions, compiled the finite declaration and independent-statement
@@ -424,8 +401,6 @@ run the independent zero-C baseline, and audit the public tree before a commit.
   `0x0014B4A0-0x0014B4C0`, `0x00178248-0x0017826C`,
   `0x0017F9A0-0x0017F9B8`, and `0x0019A7D8-0x0019A83C` preserve their
   internal alignment and now build as combined readable C.
-- The adjacent `func_001016A0` and `func_00101748` near-matches remain blocked on
-  authentic hazard scheduling, not semantics.
 - Small exact functions elsewhere in the executable remain useful throughput
   candidates, but they increase public metrics only after complete-range
   verification, full-image reconstruction, independent baseline, and public

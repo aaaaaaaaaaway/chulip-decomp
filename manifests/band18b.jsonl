@@ -1,4 +1,0 @@
-{"function": "func_00182490", "source": "work/lanes/claude_band18b/func_00182490.c", "profiles": ["ee-gcc2.95.3-136-O2-G8"], "object_flags": ["-Wa,-G4"]}
-{"function": "func_00182DD0", "source": "work/lanes/claude_band18b/func_00182DD0.c", "profiles": ["ee-gcc2.95.3-136-O2-G8"], "object_flags": ["-Wa,-G4"]}
-{"function": "func_001863A8", "source": "work/lanes/claude_band18b/func_001863A8.c", "profiles": ["ee-gcc2.95.3-136-O2-G8"]}
-{"function": "func_00186FB0", "source": "work/lanes/claude_band18b/func_00186FB0.c", "profiles": ["ee-gcc2.95.3-136-O2-G8"]}

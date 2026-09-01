@@ -51,6 +51,7 @@ ALLOWED_OBJECT_FLAGS = {
     "-Wa,-G1",
     "-Wa,-G3",
     "-Wa,-G4",
+    "-Wa,-G8",
     "-Wa,-mcpu=4000",
     "-mno-split-addresses",
 }

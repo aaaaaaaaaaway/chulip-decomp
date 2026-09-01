@@ -9,6 +9,8 @@ asm-baseline/
 assets/
 build/
 work/
+manifests/
+*.rej
 *.elf
 *.map
 *.o

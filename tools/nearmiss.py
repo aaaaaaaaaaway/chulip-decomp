@@ -1,16 +1,5 @@
 #!/usr/bin/env python3
-"""Record how close an unmatched candidate is, and keep only improvements.
-
-A candidate that no longer matches is not worthless: the distance between it
-and the retail function is the project's real measure of partial progress. A
-lane that drives a function from thirty differing words to three has done most
-of the work, and without a durable record the next lane starts from nothing.
-One re-sweep of candidates parked as prose notes recovered 181 functions that
-were already correct or nearly so, which is the cost of not recording this.
-
-The ledger is append-only and monotone: a worse distance for a candidate is
-kept for history but never replaces a better one.
-"""
+"""Track local near-match distances without changing public proof state."""
 
 from __future__ import annotations
 
@@ -24,7 +13,7 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-LEDGER = ROOT / "docs/nearmiss.jsonl"
+LEDGER = ROOT / "work/nearmiss.jsonl"
 CATALOG = ROOT / "config/functions.json"
 TARGET = ROOT / "original/SLUS_207.42.rom"
 TEXT_VRAM = 0x00100000
@@ -118,6 +107,7 @@ def main() -> int:
     if best is not None and best["words"] <= words:
         print(f"not an improvement: {words} words, best recorded is {best['words']}")
         return 0
+    LEDGER.parent.mkdir(parents=True, exist_ok=True)
     with LEDGER.open("a") as handle:
         handle.write(json.dumps(record) + "\n")
     previous = f" (was {best['words']})" if best else ""
