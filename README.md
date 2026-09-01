@@ -29,8 +29,20 @@ never counted as decompilation progress.
 
 | Metric | Matched | Total | Progress |
 | --- | ---: | ---: | ---: |
-| Functions | 714 | 2,189 | 32.6176% |
 | Text bytes | 36,344 | 663,704 | 5.4759% |
+| Functions | 714 | 2,189 | 32.6176% |
+
+Text bytes is the honest measure. The function count runs well ahead of it because small functions are matched first, so it overstates how much of the executable is reconstructed.
+
+### Provenance
+
+| Provenance | Count |
+| --- | ---: |
+| Recovered inside a multi-function source unit | 159 of 714 (22.3%) |
+| Compiled alone in a single-function object | 555 |
+| Distinct compiler and assembler configurations in use | 10 |
+
+A retail translation unit was compiled once, with one set of flags. A function matched alone in its own object, free to choose its own flags, has the right bytes but not yet a proven reason for them. Raising the first row and lowering the last is what turns a byte match into a reconstruction. See [scope and denominator](docs/scope.md).
 
 Only readable source that passes isolated byte comparison, compiler-provenance review, and the complete-image rebuild is counted. Generated retail assembly contributes zero progress.
 <!-- decomp-progress-end -->
@@ -47,6 +59,9 @@ Only readable source that passes isolated byte comparison, compiler-provenance r
   them.
 - `DAT/SYSTEM.BIN`, `DAT/SYSTEX.BIN`, SDK code, data, and linker layout remain
   part of the completion scope.
+
+See [scope and denominator](docs/scope.md) for what completion can mean and
+which parts of the executable no C compiler can produce.
 
 See [project status](docs/STATUS.md), [architecture notes](docs/architecture.md),
 the curated [knowledge book](docs/knowledge-book.md), and the append-only

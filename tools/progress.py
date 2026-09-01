@@ -49,7 +49,22 @@ def progress_data() -> dict[str, int | float]:
         raise SystemExit(
             "exact reconstructed functions differ from config/matched.json"
         )
+    sources: dict[str, int] = {}
+    for entry in ledger:
+        sources[str(entry["source"])] = sources.get(str(entry["source"]), 0) + 1
+    in_units = sum(count for count in sources.values() if count > 1)
+    profiles = {
+        (
+            str(entry.get("build_profile", "")),
+            tuple(str(flag) for flag in entry.get("object_flags", [])),
+        )
+        for entry in reconstructed
+    }
     return {
+        "unit_functions": in_units,
+        "isolated_functions": len(names) - in_units,
+        "unit_percent": 100 * in_units / len(names) if names else 0.0,
+        "build_configurations": len(profiles),
         "matched_functions": len(names),
         "total_functions": len(catalog),
         "function_percent": 100 * len(names) / len(catalog),
@@ -87,8 +102,26 @@ def markdown(data: dict[str, int | float]) -> str:
             "",
             "| Metric | Matched | Total | Progress |",
             "| --- | ---: | ---: | ---: |",
-            f"| Functions | {data['matched_functions']:,} | {data['total_functions']:,} | {function_percent:.4f}% |",
             f"| Text bytes | {data['matched_bytes']:,} | {data['total_bytes']:,} | {byte_percent:.4f}% |",
+            f"| Functions | {data['matched_functions']:,} | {data['total_functions']:,} | {function_percent:.4f}% |",
+            "",
+            "Text bytes is the honest measure. The function count runs well ahead of it "
+            "because small functions are matched first, so it overstates how much of the "
+            "executable is reconstructed.",
+            "",
+            "### Provenance",
+            "",
+            "| Provenance | Count |",
+            "| --- | ---: |",
+            f"| Recovered inside a multi-function source unit | {data['unit_functions']:,} of {data['matched_functions']:,} ({data['unit_percent']:.1f}%) |",
+            f"| Compiled alone in a single-function object | {data['isolated_functions']:,} |",
+            f"| Distinct compiler and assembler configurations in use | {data['build_configurations']} |",
+            "",
+            "A retail translation unit was compiled once, with one set of flags. A function "
+            "matched alone in its own object, free to choose its own flags, has the right "
+            "bytes but not yet a proven reason for them. Raising the first row and lowering "
+            "the last is what turns a byte match into a reconstruction. See "
+            "[scope and denominator](docs/scope.md).",
             "",
             "Only readable source that passes isolated byte comparison, compiler-provenance review, and the complete-image rebuild is counted. Generated retail assembly contributes zero progress.",
             END,
@@ -130,14 +163,20 @@ def main() -> int:
         return 0
 
     print(
+        f"matched bytes:     {data['matched_bytes']} / {data['total_bytes']} "
+        f"({data['byte_percent']:.4f}%)"
+    )
+    print(
         f"matched functions: {data['matched_functions']} / {data['total_functions']} "
         f"({data['function_percent']:.4f}%)"
     )
     print(
-        f"matched bytes:     {data['matched_bytes']} / {data['total_bytes']} "
-        f"({data['byte_percent']:.4f}%)"
+        f"in proven units:   {data['unit_functions']} / {data['matched_functions']} "
+        f"({data['unit_percent']:.1f}%); "
+        f"{data['isolated_functions']} compiled alone"
     )
-    print("ownership:        provisional; game-vs-SDK boundaries are not yet proven")
+    print(f"build configurations in use: {data['build_configurations']}")
+    print("ownership:        SDK frontier at 0x00185400; see docs/scope.md")
     return 0
 
 
