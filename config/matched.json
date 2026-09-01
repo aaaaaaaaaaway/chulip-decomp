@@ -8304,6 +8304,14 @@
     "evidence": "Exact full translation-unit text match against retail for newlib freer.o at commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
   },
   {
+    "function": "func_00196638",
+    "source": "src/game/newlib_fvwrite.c",
+    "address": "0x00196638",
+    "size": 984,
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "Exact full translation-unit text match against retail for newlib fvwrite.o at commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
+  },
+  {
     "function": "func_00196A10",
     "source": "src/game/func_00196A10.c",
     "address": "0x00196A10",

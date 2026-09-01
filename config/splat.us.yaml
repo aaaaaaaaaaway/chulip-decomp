@@ -1296,7 +1296,7 @@ segments:
       - [0x096108, c, game/func_00196108]
       - [0x096118, c, game/func_00196118]
       - [0x0961A8, c, game/newlib_freer]
-      - [0x096638, asm, cod/text_00196638]
+      - [0x096638, c, game/newlib_fvwrite]
       - [0x096A10, c, game/func_00196A10]
       - [0x096AA8, c, game/func_00196AA8]
       - [0x096B30, c, game/u_00196B30_2]

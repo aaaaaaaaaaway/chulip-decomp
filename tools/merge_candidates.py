@@ -315,6 +315,14 @@ def source_has_definition(
             re.M,
         ) is not None
 
+    def knr_definition(name: str) -> bool:
+        return re.search(
+            rf"^[ \t]*{re.escape(name)}\s*\([^;\n]*\)\s*\n"
+            rf"(?:[ \t]+[^;\n]+;\s*\n)+[ \t]*\{{",
+            clean,
+            re.M,
+        ) is not None
+
     pattern = re.compile(
         rf"\b{re.escape(function)}\s*\([^;{{}}]*\)\s*"
         rf"(?:__attribute__\s*\(\([^;{{}}]*\)\)\s*)?\{{",
@@ -326,6 +334,8 @@ def source_has_definition(
     if re.search(rf"\b_DEFUN\s*\(\s*{re.escape(function)}\s*,", clean):
         return True
     if conditional_definition(function):
+        return True
+    if knr_definition(function):
         return True
     aliases = re.findall(
         rf"^[ \t]*#[ \t]*define[ \t]+([A-Za-z_]\w*)[ \t]+{re.escape(function)}[ \t]*$",
@@ -343,6 +353,8 @@ def source_has_definition(
         if re.search(rf"\b_DEFUN\s*\(\s*{re.escape(alias)}\s*,", clean):
             return True
         if conditional_definition(alias):
+            return True
+        if knr_definition(alias):
             return True
     if source is None:
         return False

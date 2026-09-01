@@ -1,7 +1,7 @@
 # newlib source snapshot
 
 This directory contains the minimal source and header subset needed to build
-Chulip's `dtoa.c` and allocator translation units.
+Chulip's `dtoa.c`, allocator, and stdio translation units.
 
 - Upstream: `https://sourceware.org/git/newlib-cygwin.git`
 - Commit: `b0ba0ac21747fef4f150f2632aedf0f59e0ae03a`
