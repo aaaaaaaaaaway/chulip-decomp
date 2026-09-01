@@ -12,7 +12,8 @@
         "-O2",
         "-G",
         "0",
-        "-fno-optimize-sibling-calls"
+        "-fno-optimize-sibling-calls",
+        "-Iinclude"
       ],
       "archive": "tools/compilers/downloads/ee-gcc2.96.tar.xz",
       "archive_sha256": "0590d2ca9da8f5903889d66761220d14b47a8d14ba987ca53db84a1650a1fd0a"
@@ -98,7 +99,8 @@
         "-quiet",
         "-O2",
         "-G",
-        "8"
+        "8",
+        "-Iinclude"
       ],
       "archive": "tools/compilers/downloads/ee-gcc2.9-991111-01.tar.xz",
       "archive_sha256": "ed684fd98f89d36b0121caab311052089103e3b36241fcef4338cc9ea41c75b8",

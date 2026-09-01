@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "configuration_matrices": [
+    {
+      "boundary": "0x001017F0",
+      "left": {
+        "function": "func_001016A0",
+        "range_start": "0x001016A0",
+        "range_end": "0x001017F0",
+        "source": "src/game/unit_001016A0.c"
+      },
+      "right": {
+        "function": "func_001017F0",
+        "range_start": "0x001017F0",
+        "range_end": "0x00101CC4",
+        "source": "src/game/camera_motion.c"
+      },
+      "tested_on": "2026-09-01",
+      "assembler_thresholds": ["-Wa,-G0", "-Wa,-G8"],
+      "results": [
+        {"profile": "ee-gcc2.96-O2", "object_flag": "-Wa,-G0", "left": "layout_error", "right": "mismatch"},
+        {"profile": "ee-gcc2.96-O2", "object_flag": "-Wa,-G8", "left": "layout_error", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.2-273a-O2", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.2-273a-O2", "object_flag": "-Wa,-G8", "left": "layout_error", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.2-273a-O2-G8", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.2-273a-O2-G8", "object_flag": "-Wa,-G8", "left": "layout_error", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.3-136-O2", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.3-136-O2", "object_flag": "-Wa,-G8", "left": "layout_error", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.3-136-O2-G8", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "match"},
+        {"profile": "ee-gcc2.95.3-136-O2-G8", "object_flag": "-Wa,-G8", "left": "layout_error", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.3-136-O2-G8-ps2as", "object_flag": "-Wa,-G0", "left": "match", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.3-136-O2-G8-ps2as", "object_flag": "-Wa,-G8", "left": "match", "right": "mismatch"},
+        {"profile": "ee-gcc2.9-991111-01-O2", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.9-991111-01-O2", "object_flag": "-Wa,-G8", "left": "layout_error", "right": "mismatch"}
+      ],
+      "conclusion": "mandatory_source_boundary_within_recovered_configuration_set",
+      "note": "Every tested configuration is excluded by a byte mismatch on at least one side. Link-layout failures on the left do not weaken the exclusion because the right side byte-mismatches those same configurations."
+    }
+  ]
+}
