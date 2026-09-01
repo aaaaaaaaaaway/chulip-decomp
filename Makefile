@@ -43,9 +43,8 @@ audit:
 test:
 	$(PYTHON) -m unittest discover -s tests -p 'test_*.py'
 
-public-check:
+public-check: test
 	$(PYTHON) -m compileall -q configure.py tools
-	$(PYTHON) -m unittest discover -s tests -p 'test_*.py'
 	$(PYTHON) tools/gen_splat_config.py --check
 	$(PYTHON) tools/progress.py --check-readme
 	$(PYTHON) tools/repo_audit.py

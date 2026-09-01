@@ -364,7 +364,7 @@ limit, not a missing insight.
 | Batch proof | `tools/batch_verify.py` | Re-verifies a JSONL candidate manifest with complete ranges and compact, restartable results. |
 | Candidate ranking | `tools/candidate_queue.py` | Ranks untouched functions by size and instruction features without changing proof state. |
 | Split generation | `tools/gen_splat_config.py` | Derives source islands from the reconstruction ledger and rejects stale manual boundaries. |
-| Transactional integration | `tools/merge_candidates.py` | Validates candidate provenance, updates ledgers and source islands, and rolls back unless the full image, baseline, progress, and public audit all pass. |
+| Transactional integration | `tools/merge_candidates.py` | Replays every claimed profile, rejects ABI-dangerous diagnostics, updates ledgers and source islands, and rolls back unless the full image, baseline, progress, and public audit all pass. |
 | Full-image proof | `tools/build.py` | Requires the reconstructed 970,772-byte image and SHA-256 to match. |
 | Independent coverage proof | `tools/build_baseline.py` | Proves that generated assembly still covers the untouched image exactly. |
 | Progress and hygiene | `tools/progress.py`, `tools/repo_audit.py` | Derives public metrics and rejects missing evidence, local paths, secrets, or generated inputs. |

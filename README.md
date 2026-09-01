@@ -99,7 +99,8 @@ python3 tools/merge_candidates.py work/candidates.jsonl --write
 
 Candidate manifests and lane artifacts stay under ignored `work/`; accepted C,
 proof metadata, and reusable conclusions move into `src/`, `config/`, and
-`docs/`.
+`docs/`. Integration independently replays every claimed profile and rejects
+ABI-dangerous compiler diagnostics before it records a match.
 
 ## Contributing
 

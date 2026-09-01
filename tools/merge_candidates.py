@@ -24,6 +24,7 @@ from pathlib import Path, PurePosixPath
 from typing import NoReturn
 
 from source_audit import audit_c_source
+from compiler_diagnostics import dangerous_diagnostics
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "config/functions.json"
@@ -44,6 +45,14 @@ ALLOWED_FIELDS = {
     "profile_evidence",
     "evidence",
     "provenance_note",
+}
+ALLOWED_OBJECT_FLAGS = {
+    "-Wa,-G0",
+    "-Wa,-G1",
+    "-Wa,-G3",
+    "-Wa,-G4",
+    "-Wa,-mcpu=4000",
+    "-mno-split-addresses",
 }
 class CandidateError(Exception):
     """A deterministic validation failure in candidate or repository data."""
@@ -155,6 +164,15 @@ def normalized_source(value: str, where: str) -> str:
     return value
 
 
+def validate_object_flags(flags: tuple[str, ...], where: str) -> None:
+    unknown = sorted(set(flags) - ALLOWED_OBJECT_FLAGS)
+    if unknown:
+        fail(
+            f"{where}: unsanctioned object flags: {', '.join(unknown)}; "
+            "extend the reviewed allowlist before using a new build control"
+        )
+
+
 def parse_candidates(path: Path, profiles: set[str]) -> list[Candidate]:
     try:
         lines = path.read_text().splitlines()
@@ -189,6 +207,7 @@ def parse_candidates(path: Path, profiles: set[str]) -> list[Candidate]:
             record, "verified_profiles", where, required=True
         )
         object_flags = string_list(record, "object_flags", where, required=False)
+        validate_object_flags(object_flags, where)
         unknown_profiles = sorted(
             set((build_profile, *verified_profiles)) - profiles
         )
@@ -252,6 +271,77 @@ def validate_source(source: str, functions: list[str]) -> None:
             fail(f"{source}: missing C definition for {function}")
 
 
+def proof_command(candidate: Candidate, profile: str) -> list[str]:
+    """Build the exact, independently replayable proof for one claimed profile."""
+    command = [
+        sys.executable,
+        "tools/match.py",
+        candidate.function,
+        "--source",
+        candidate.source,
+        "--profile",
+        profile,
+        "--quiet",
+    ]
+    if candidate.unit_start is not None and candidate.unit_end is not None:
+        command.extend(
+            [
+                "--range-start",
+                candidate.unit_start,
+                "--range-end",
+                candidate.unit_end,
+            ]
+        )
+    for flag in candidate.object_flags:
+        command.extend(["--object-flag", flag])
+    return command
+
+
+def verify_candidate_proofs(candidates: list[Candidate]) -> tuple[int, int]:
+    """Re-run every profile claim and reject unsafe compiler diagnostics."""
+    claims = 0
+    replays = 0
+    replayed: set[tuple[object, ...]] = set()
+    for candidate in candidates:
+        for profile in candidate.verified_profiles:
+            claims += 1
+            key = (
+                candidate.source,
+                profile,
+                candidate.object_flags,
+                candidate.unit_start,
+                candidate.unit_end,
+            )
+            if key in replayed:
+                continue
+            command = proof_command(candidate, profile)
+            print("+ " + " ".join(command), flush=True)
+            result = subprocess.run(
+                command,
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+            )
+            output = result.stdout + result.stderr
+            if result.returncode != 0:
+                detail = output.strip()
+                suffix = f"\n{detail}" if detail else ""
+                fail(
+                    f"candidate line {candidate.line}: independent proof failed for "
+                    f"{candidate.function} with {profile} (exit {result.returncode})"
+                    f"{suffix}"
+                )
+            dangerous = dangerous_diagnostics(output)
+            if dangerous:
+                fail(
+                    f"candidate line {candidate.line}: unsafe compiler diagnostics for "
+                    f"{candidate.function} with {profile}: {', '.join(dangerous)}"
+                )
+            replayed.add(key)
+            replays += 1
+    return claims, replays
+
+
 def record_range(
     entry: dict[str, object], catalog: dict[str, dict[str, object]]
 ) -> tuple[int, int, bool]:
@@ -306,6 +396,7 @@ def validate_combined(
         flags = entry.get("object_flags", [])
         if not isinstance(flags, list) or not all(isinstance(flag, str) for flag in flags):
             fail(f"{where} has invalid object_flags")
+        validate_object_flags(tuple(flags), where)
         verified = entry.get("verified_profiles")
         if (
             not isinstance(verified, list)
@@ -574,8 +665,11 @@ def main() -> int:
             catalog_document,  # type: ignore[arg-type]
             profiles,
         )
+        proof_claims, proof_replays = verify_candidate_proofs(candidates)
         print(
-            f"VALID PLAN: {len(candidates)} exact reconstruction(s)"
+            f"VALID PLAN: {len(candidates)} exact reconstruction(s); "
+            f"{proof_claims} profile claim(s) covered by "
+            f"{proof_replays} independent compiler replay(s)"
         )
         for candidate in candidates:
             print(
