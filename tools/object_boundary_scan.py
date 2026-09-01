@@ -195,7 +195,12 @@ def classify_match_run(proof: subprocess.CompletedProcess[str]) -> str:
         return "match"
     if ": MISMATCH" in output:
         return "mismatch"
-    return "layout_error"
+    if (
+        "relocation truncated to fit: R_MIPS_LITERAL" in output
+        or "small-data section too large" in output
+    ):
+        return "layout_error"
+    return "infrastructure_error"
 
 
 def verify_matrices() -> bool:
@@ -225,6 +230,30 @@ def verify_matrices() -> bool:
                     f"{row['profile']} {row['object_flag']}: {actual}"
                 )
                 if actual != expected:
+                    ok = False
+    for observation in document.get("compatibility_observations", []):
+        for configuration in observation["shared_matches"]:
+            for side in ("left", "right"):
+                command = [
+                    sys.executable,
+                    "tools/match.py",
+                    str(observation[f"{side}_function"]),
+                    "--profile",
+                    str(configuration["profile"]),
+                    f"--object-flag={configuration['object_flag']}",
+                    "--quiet",
+                ]
+                proof = subprocess.run(
+                    command, cwd=ROOT, capture_output=True, text=True
+                )
+                actual = classify_match_run(proof)
+                state = "OK" if actual == "match" else "DRIFT"
+                print(
+                    f"{state:5} {observation['boundary']} {side:5} "
+                    f"{configuration['profile']} {configuration['object_flag']}: "
+                    f"{actual}"
+                )
+                if actual != "match":
                     ok = False
     return ok
 
@@ -259,6 +288,9 @@ def report() -> dict[str, object]:
             ],
         },
         "mandatory_boundaries": matrix_boundaries(),
+        "compatibility_observations": json.loads(
+            BOUNDARY_EVIDENCE.read_text()
+        ).get("compatibility_observations", []),
         "sdk_version_markers": sdk_markers(elf, layout),
         "syscall_stub_runs": syscall_runs(ROM.read_bytes(), functions),
         "jump_table_order": jump_table_order(),
@@ -287,6 +319,11 @@ def main() -> int:
             f"mandatory source boundary: {boundary['boundary']} "
             f"({boundary['configurations']} configurations; "
             f"all excluded={boundary['all_configurations_excluded']})"
+        )
+    for observation in data["compatibility_observations"]:
+        print(
+            f"unproven current split: {observation['boundary']} "
+            f"({len(observation['shared_matches'])} shared configurations)"
         )
     for marker in data["sdk_version_markers"]:
         print(f"SDK marker: {marker['marker']} at {marker['vram'] or marker['file_offset']}")

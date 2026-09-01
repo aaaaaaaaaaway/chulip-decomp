@@ -35,12 +35,19 @@ eight-byte-aligned address are useful search hints only.
 
 ## Findings reproduced today
 
-### Mandatory boundary at `0x001017F0`
+### Mandatory boundaries
 
-`0x001016A0-0x001017F0` and `0x001017F0-0x00101CC4` are both complete exact
-ranges. The former matches the historical `Ps2EeAs` route. The camera range
-matches SN GCC 2.95.3 build 1.36 with the standard historical assembler and
-assembler threshold `G0`, and rejects `Ps2EeAs`.
+Three source boundaries are mandatory within the recovered configuration set:
+
+| Boundary | Left range | Right range |
+| --- | --- | --- |
+| `0x001017F0` | `0x001016A0-0x001017F0` | `0x001017F0-0x00101CC4` |
+| `0x00130208` | `0x001300D8-0x00130208` | `0x00130208-0x0013024C` |
+| `0x0014E550` | `0x0014E500-0x0014E550` | `0x0014E550-0x0014E64C` |
+
+At each edge, the left range matches the historical `Ps2EeAs` route and the
+right range matches the standard historical assembler. Neither assembler
+route reproduces both sides.
 
 The recorded matrix covers all seven project profiles with both `-Wa,-G0` and
 `-Wa,-G8`, fourteen configurations in total. Every configuration has a byte
@@ -51,6 +58,13 @@ shared configuration. The two ranges therefore require a source-compilation
 boundary at `0x001017F0` within the recovered toolchain universe.
 
 The complete matrix is in `config/object-boundary-evidence.json`.
+
+### Current splits that are not proven
+
+The same test rejects four tempting claims. Both sides of the current splits at
+`0x00103C10`, `0x00103CF8`, `0x0010BF10`, and `0x00110000` match a shared
+`Ps2EeAs` configuration. Those edges may still be authentic, but compiler
+incompatibility cannot establish them. They remain compatibility observations.
 
 ### SDK generation anchors
 

@@ -35,6 +35,114 @@
       ],
       "conclusion": "mandatory_source_boundary_within_recovered_configuration_set",
       "note": "Every tested configuration is excluded by a byte mismatch on at least one side. Link-layout failures on the left do not weaken the exclusion because the right side byte-mismatches those same configurations."
+    },
+    {
+      "boundary": "0x00130208",
+      "left": {
+        "function": "func_001300D8",
+        "range_start": "0x001300D8",
+        "range_end": "0x00130208",
+        "source": "src/game/unit_001300D8.c"
+      },
+      "right": {
+        "function": "func_00130208",
+        "range_start": "0x00130208",
+        "range_end": "0x0013024C",
+        "source": "src/game/func_00130208.c"
+      },
+      "tested_on": "2026-09-01",
+      "assembler_thresholds": ["-Wa,-G0", "-Wa,-G8"],
+      "results": [
+        {"profile": "ee-gcc2.96-O2", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.96-O2", "object_flag": "-Wa,-G8", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.2-273a-O2", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.2-273a-O2", "object_flag": "-Wa,-G8", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.2-273a-O2-G8", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.2-273a-O2-G8", "object_flag": "-Wa,-G8", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.3-136-O2", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "match"},
+        {"profile": "ee-gcc2.95.3-136-O2", "object_flag": "-Wa,-G8", "left": "mismatch", "right": "match"},
+        {"profile": "ee-gcc2.95.3-136-O2-G8", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "match"},
+        {"profile": "ee-gcc2.95.3-136-O2-G8", "object_flag": "-Wa,-G8", "left": "mismatch", "right": "match"},
+        {"profile": "ee-gcc2.95.3-136-O2-G8-ps2as", "object_flag": "-Wa,-G0", "left": "match", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.3-136-O2-G8-ps2as", "object_flag": "-Wa,-G8", "left": "match", "right": "mismatch"},
+        {"profile": "ee-gcc2.9-991111-01-O2", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.9-991111-01-O2", "object_flag": "-Wa,-G8", "left": "mismatch", "right": "mismatch"}
+      ],
+      "conclusion": "mandatory_source_boundary_within_recovered_configuration_set",
+      "note": "The left range matches only Ps2EeAs configurations; the right range matches only standard historical assembler configurations."
+    },
+    {
+      "boundary": "0x0014E550",
+      "left": {
+        "function": "func_0014E500",
+        "range_start": "0x0014E500",
+        "range_end": "0x0014E550",
+        "source": "src/game/u_0014E500_2.c"
+      },
+      "right": {
+        "function": "func_0014E550",
+        "range_start": "0x0014E550",
+        "range_end": "0x0014E64C",
+        "source": "src/game/func_0014E550.c"
+      },
+      "tested_on": "2026-09-01",
+      "assembler_thresholds": ["-Wa,-G0", "-Wa,-G8"],
+      "results": [
+        {"profile": "ee-gcc2.96-O2", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.96-O2", "object_flag": "-Wa,-G8", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.2-273a-O2", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.2-273a-O2", "object_flag": "-Wa,-G8", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.2-273a-O2-G8", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.2-273a-O2-G8", "object_flag": "-Wa,-G8", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.3-136-O2", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "match"},
+        {"profile": "ee-gcc2.95.3-136-O2", "object_flag": "-Wa,-G8", "left": "mismatch", "right": "match"},
+        {"profile": "ee-gcc2.95.3-136-O2-G8", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "match"},
+        {"profile": "ee-gcc2.95.3-136-O2-G8", "object_flag": "-Wa,-G8", "left": "mismatch", "right": "match"},
+        {"profile": "ee-gcc2.95.3-136-O2-G8-ps2as", "object_flag": "-Wa,-G0", "left": "match", "right": "mismatch"},
+        {"profile": "ee-gcc2.95.3-136-O2-G8-ps2as", "object_flag": "-Wa,-G8", "left": "match", "right": "mismatch"},
+        {"profile": "ee-gcc2.9-991111-01-O2", "object_flag": "-Wa,-G0", "left": "mismatch", "right": "mismatch"},
+        {"profile": "ee-gcc2.9-991111-01-O2", "object_flag": "-Wa,-G8", "left": "mismatch", "right": "mismatch"}
+      ],
+      "conclusion": "mandatory_source_boundary_within_recovered_configuration_set",
+      "note": "The left range matches only Ps2EeAs configurations; the right range matches only standard historical assembler configurations."
+    }
+  ],
+  "compatibility_observations": [
+    {
+      "boundary": "0x00103C10",
+      "left_function": "func_00103AD0",
+      "right_function": "func_00103C10",
+      "shared_matches": [
+        {"profile": "ee-gcc2.95.3-136-O2-G8-ps2as", "object_flag": "-Wa,-G0"},
+        {"profile": "ee-gcc2.95.3-136-O2-G8-ps2as", "object_flag": "-Wa,-G8"}
+      ]
+    },
+    {
+      "boundary": "0x00103CF8",
+      "left_function": "func_00103C10",
+      "right_function": "func_00103CF8",
+      "shared_matches": [
+        {"profile": "ee-gcc2.95.3-136-O2-G8-ps2as", "object_flag": "-Wa,-G0"},
+        {"profile": "ee-gcc2.95.3-136-O2-G8-ps2as", "object_flag": "-Wa,-G8"}
+      ]
+    },
+    {
+      "boundary": "0x0010BF10",
+      "left_function": "func_0010BE28",
+      "right_function": "func_0010BF10",
+      "shared_matches": [
+        {"profile": "ee-gcc2.95.3-136-O2-G8-ps2as", "object_flag": "-Wa,-G0"},
+        {"profile": "ee-gcc2.95.3-136-O2-G8-ps2as", "object_flag": "-Wa,-G8"}
+      ]
+    },
+    {
+      "boundary": "0x00110000",
+      "left_function": "func_0010FF08",
+      "right_function": "func_0010FFF0",
+      "shared_matches": [
+        {"profile": "ee-gcc2.95.3-136-O2-G8-ps2as", "object_flag": "-Wa,-G0"},
+        {"profile": "ee-gcc2.95.3-136-O2-G8-ps2as", "object_flag": "-Wa,-G8"}
+      ]
     }
   ]
 }
