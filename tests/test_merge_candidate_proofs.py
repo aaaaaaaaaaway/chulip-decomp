@@ -72,8 +72,7 @@ class CandidateProofTests(unittest.TestCase):
                 "0x00100000",
                 "--range-end",
                 "0x00100020",
-                "--object-flag",
-                "-Wa,-G0",
+                "--object-flag=-Wa,-G0",
             ],
         )
 

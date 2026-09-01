@@ -333,7 +333,7 @@ def proof_command(candidate: Candidate, profile: str) -> list[str]:
             ]
         )
     for flag in candidate.object_flags:
-        command.extend(["--object-flag", flag])
+        command.append(f"--object-flag={flag}")
     return command
 
 
@@ -590,19 +590,7 @@ def planned_entries(
 
 
 def json_bytes(value: object) -> bytes:
-    text = json.dumps(value, indent=2) + "\n"
-    for key in ("verified_profiles", "object_flags"):
-        pattern = re.compile(
-            rf'(\"{key}\": )\[\n'
-            r'((?:\s+\"(?:[^\"\\]|\\.)*\"(?:,\n|\n))+)\s+\]'
-        )
-
-        def compact(match: re.Match[str]) -> str:
-            values = re.findall(r'\"(?:[^\"\\]|\\.)*\"', match.group(2))
-            return match.group(1) + "[" + ", ".join(values) + "]"
-
-        text = pattern.sub(compact, text)
-    return text.encode()
+    return (json.dumps(value, indent=2) + "\n").encode()
 
 
 def atomic_write(path: Path, data: bytes, mode: int) -> None:
