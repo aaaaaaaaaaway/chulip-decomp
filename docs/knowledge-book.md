@@ -180,6 +180,13 @@ evidenced. Most individual profile attributions are not.
 
 ## 4. Translation-unit and data lessons
 
+Authentic source-object recovery is tracked separately in
+[`object-boundary-recovery.md`](object-boundary-recovery.md). A combined exact
+compile proves that a grouping is possible, not that the retail build used it.
+The first configuration-exclusion proof places a mandatory source boundary at
+`0x001017F0`: the preceding exact unit requires the historical `Ps2EeAs` route,
+while the camera unit requires the standard historical assembler.
+
 The camera block at `0x001017F0-0x00101CC3` is the first proven multi-function
 source unit. Its seventeen functions produce 1,236 exact object-text bytes together;
 the linker then contributes four bytes of input alignment before the following
