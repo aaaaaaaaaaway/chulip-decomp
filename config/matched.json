@@ -4968,6 +4968,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_001856F8",
+    "source": "src/game/func_001856F8.c",
+    "address": "0x001856F8",
+    "size": 32,
+    "profile": "ee-gcc2.9-991111-01-O2",
+    "evidence": "isolated exact match under the stock Sony EE compiler that built the runtime and library region"
+  },
+  {
     "function": "func_001863A8",
     "source": "src/game/func_001863A8.c",
     "address": "0x001863A8",
@@ -5024,6 +5032,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_00188568",
+    "source": "src/game/func_00188568.c",
+    "address": "0x00188568",
+    "size": 52,
+    "profile": "ee-gcc2.9-991111-01-O2",
+    "evidence": "isolated exact match under the stock Sony EE compiler that built the runtime and library region"
+  },
+  {
     "function": "func_001885A0",
     "source": "src/game/func_001885A0.c",
     "address": "0x001885A0",
@@ -5078,6 +5094,14 @@
     "size": 60,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0018FFC0",
+    "source": "src/game/func_0018FFC0.c",
+    "address": "0x0018FFC0",
+    "size": 64,
+    "profile": "ee-gcc2.9-991111-01-O2",
+    "evidence": "isolated exact match under the stock Sony EE compiler that built the runtime and library region"
   },
   {
     "function": "func_00190000",

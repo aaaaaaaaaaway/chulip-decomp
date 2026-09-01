@@ -7354,6 +7354,18 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_001856F8",
+    "source": "src/game/func_001856F8.c",
+    "address": "0x001856F8",
+    "size": 32,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "this range lies above the SDK frontier, where retail spills callee-saved registers 64 bits wide at a sixteen-byte slot stride. Sony EE GNU C 2.9-ee-991111-01 reproduces that natively; both SN builds spill 128 bits and cannot",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_001863A8",
     "source": "src/game/func_001863A8.c",
     "address": "0x001863A8",
@@ -7435,6 +7447,18 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00188568",
+    "source": "src/game/func_00188568.c",
+    "address": "0x00188568",
+    "size": 52,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "this range lies above the SDK frontier, where retail spills callee-saved registers 64 bits wide at a sixteen-byte slot stride. Sony EE GNU C 2.9-ee-991111-01 reproduces that natively; both SN builds spill 128 bits and cannot",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
     "function": "func_001885A0",
     "source": "src/game/func_001885A0.c",
     "address": "0x001885A0",
@@ -7510,6 +7534,18 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0018FFC0",
+    "source": "src/game/func_0018FFC0.c",
+    "address": "0x0018FFC0",
+    "size": 64,
+    "verified_profiles": ["ee-gcc2.9-991111-01-O2"],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "this range lies above the SDK frontier, where retail spills callee-saved registers 64 bits wide at a sixteen-byte slot stride. Sony EE GNU C 2.9-ee-991111-01 reproduces that natively; both SN builds spill 128 bits and cannot",
+    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
     "function": "func_00190000",

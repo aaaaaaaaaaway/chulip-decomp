@@ -117,24 +117,34 @@ to retail, and only the assembler choice decides whether the bytes match.
 The `ee-gcc2.95.3-136-O2-G8-ps2as` profile selects this path. Prefer it
 wherever a function shows a symbol in both addressing modes.
 
-### Register-precision evidence for a second build
+### The executable was built by two compilers
 
 Retail spills callee-saved registers two different ways. Below roughly
-`0x00184918` it uses `sq`/`lq` on sixteen-byte slots, which is what SN GCC
-2.95.2 build 2.73a and 2.95.3 build 1.36 both emit. From roughly `0x001855F0`
-upward it uses `sd`/`ld` while keeping the same sixteen-byte slot stride.
+`0x00185400` it uses `sq`/`lq` on sixteen-byte slots; above it, `sd`/`ld` at the
+same sixteen-byte stride. `tools/regime_scan.py` derives the split from the
+zero-C baseline: 705 `sq` functions all but two below the boundary, 255 `sd`
+functions all above it.
 
-For `func_0018FFC0` build 2.73a at `-O2 -G8` reproduces retail exactly except
-that its spills are `sq`/`lq` rather than `sd`/`ld`, together with one
-downstream register-allocation difference. Frame size, slot offsets,
-instruction selection, scheduling and branch forms all already agree. Both SN
-`cc1.exe` binaries contain a `register_precision` token and the diagnostic
-"Register precision must be 32, 64, or 128", so the setting exists; no `-m`
-option or pragma spelling tried so far reaches it. `ee-gcc2.96` emits `sd` but
-gets frame layout and scheduling wrong, so it is not the same build.
+The two regimes are two compilers, not one compiler with a setting we had to
+find. Game code below the frontier is SN Systems GNU C. The runtime and library
+region above it is **Sony EE GNU C 2.9-ee-991111-01**, which spills 64 bits wide
+at a sixteen-byte stride natively. Both SN builds spill 128 bits and cannot
+reproduce it; Sony's later 3.2 builds use an eight-byte stride and cannot
+either. `func_0018FFC0` is the proof.
 
-This is currently the largest single structural blocker: it accounts for
-roughly 240 otherwise-tractable functions in the upper bands.
+This also retires two supposed blockers. Sony's compiler emits frameless sibling
+calls, which neither SN build will do at any flag (`func_001856F8`), and it
+moves float literals into `.lit4` where SN builds materialise them inline.
+
+An earlier investigation concluded that no stock switch could reach 64-bit
+register precision, and proposed a binary patch to SN `cc1.exe`. That analysis
+of the SN compiler was correct — `override_options` does force 128-bit
+precision whenever the R5900 bit is set, and this `cc1` has no pragma handler
+at all — but the conclusion was wrong, because the region was never built by
+that compiler. **Do not patch a historical compiler; identify the right one.**
+
+Profile: `ee-gcc2.9-991111-01-O2`. Use it for every function above the SDK
+frontier and the SN profiles below it.
 
 ## 4. Translation-unit and data lessons
 

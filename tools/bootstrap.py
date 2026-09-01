@@ -22,6 +22,15 @@ COMPILER_URL = (
     "ee-gcc2.95.3-136.tar.gz"
 )
 COMPILER_SHA256 = "3b6ae6897229ad005aaf1b0afaa1f3cb46e74b4c21a42e01130c07c0c598067f"
+# The executable was not built by one compiler. Game code below the SDK
+# frontier is SN Systems GNU C; the runtime and libraries above it are Sony's
+# own EE GNU C, which spills callee-saved registers 64 bits wide at the same
+# sixteen-byte slot stride.
+SDK_COMPILER_URL = (
+    "https://github.com/decompme/compilers/releases/download/compilers/"
+    "ee-gcc2.9-991111-01.tar.xz"
+)
+SDK_COMPILER_SHA256 = "ed684fd98f89d36b0121caab311052089103e3b36241fcef4338cc9ea41c75b8"
 WIBO_ASSETS = {
     ("Linux", "x86_64"): (
         "https://github.com/decompals/wibo/releases/download/1.2.0/wibo-x86_64",
@@ -103,6 +112,20 @@ def setup_toolchain() -> None:
                 bundle.extractall(temp_path, filter="data")
             temp_path.rename(target)
     print("verified required compiler and assembler: ee-gcc2.95.3-136")
+
+    sdk_target = COMPILERS / "ee-gcc2.9-991111-01"
+    sdk_compiler = sdk_target / "lib/gcc-lib/ee/2.9-ee-991111-01/cc1"
+    if not sdk_compiler.is_file():
+        if sdk_target.exists():
+            raise SystemExit(f"incomplete toolchain directory exists: {sdk_target}")
+        archive = COMPILERS / "downloads/ee-gcc2.9-991111-01.tar.xz"
+        download(SDK_COMPILER_URL, archive, SDK_COMPILER_SHA256)
+        with tempfile.TemporaryDirectory(prefix="ee-gcc2.9-991111-01-", dir=COMPILERS) as temp:
+            temp_path = Path(temp)
+            with tarfile.open(archive, "r:xz") as bundle:
+                bundle.extractall(temp_path, filter="data")
+            temp_path.rename(sdk_target)
+    print("verified required compiler: ee-gcc2.9-991111-01")
 
 
 def check_host_tools() -> None:

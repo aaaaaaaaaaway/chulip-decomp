@@ -23,14 +23,14 @@ never counted as decompilation progress.
 <!-- decomp-progress-start -->
 ## Decompilation progress
 
-![Matched functions](https://img.shields.io/badge/functions-711%20%2F%202189-2f81f7) ![Matched text bytes](https://img.shields.io/badge/text%20bytes-36196%20%2F%20663704-2f81f7)
+![Matched functions](https://img.shields.io/badge/functions-714%20%2F%202189-2f81f7) ![Matched text bytes](https://img.shields.io/badge/text%20bytes-36344%20%2F%20663704-2f81f7)
 
-`██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░` **5.4536%** of provisional text bytes matched
+`██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░` **5.4759%** of provisional text bytes matched
 
 | Metric | Matched | Total | Progress |
 | --- | ---: | ---: | ---: |
-| Functions | 711 | 2,189 | 32.4806% |
-| Text bytes | 36,196 | 663,704 | 5.4536% |
+| Functions | 714 | 2,189 | 32.6176% |
+| Text bytes | 36,344 | 663,704 | 5.4759% |
 
 Only readable source that passes isolated byte comparison, compiler-provenance review, and the complete-image rebuild is counted. Generated retail assembly contributes zero progress.
 <!-- decomp-progress-end -->
