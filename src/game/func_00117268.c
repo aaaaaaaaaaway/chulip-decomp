@@ -1,7 +1,7 @@
-struct S8_char { char a; char pad[7]; };
+struct S8_char_3 { char a; char pad[2]; };
 
 extern char D_001ED1E0;
-extern struct S8_char D_001ED1E1;
+extern struct S8_char_3 D_001ED1E1;
 extern int D_001ED1E8;
 
 void func_00117268(int arg0, int arg1) {

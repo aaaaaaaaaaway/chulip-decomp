@@ -16,9 +16,9 @@ typedef struct {
     PoolItem items[100];
 } Pool;
 
-extern Pool *D_001ED0A8[2];
+extern Pool *D_001ED0A8[1];
 extern int D_001ED0AC;
-extern int D_001ED0B0[2];
+extern int D_001ED0B0;
 
 extern void *func_00151A00(int);
 extern void func_00112EB0(void *, int, int);
@@ -29,7 +29,7 @@ void func_001069A0(int count) {
     int j;
 
     D_001ED0A8[0] = func_00151A00(count * 0x1940);
-    D_001ED0B0[0] = 1;
+    D_001ED0B0 = 1;
     D_001ED0AC = count;
     for (i = 0; i < count; i++) {
         D_001ED0A8[0][i].unk08 = 0;

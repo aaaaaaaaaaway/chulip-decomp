@@ -11,15 +11,13 @@ struct Item_001FC450 {
     int field_0x14;
 };
 
-struct Count_001ED270 { int value; int unused; };
-
 extern struct Item_001FC450 D_001FC450[];
-extern struct Count_001ED270 D_001ED270;
+extern int D_001ED270;
 
 void func_00126440(void) {
     int i;
 
-    D_001ED270.value = 0;
+    D_001ED270 = 0;
     for (i = 0; i < 100; i++) {
         D_001FC450[i].field_0x0 = 0;
         D_001FC450[i].field_0x14 = 0;
