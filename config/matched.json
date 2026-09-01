@@ -7560,6 +7560,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_001903D0",
+    "source": "src/game/func_001903D0.c",
+    "address": "0x001903D0",
+    "size": 212,
+    "profile": "ee-gcc2.9-991111-01-O2",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
     "function": "func_001904A8",
     "source": "src/game/func_001904A8.c",
     "address": "0x001904A8",

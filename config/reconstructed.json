@@ -13799,6 +13799,19 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_001903D0",
+    "source": "src/game/func_001903D0.c",
+    "address": "0x001903D0",
+    "size": 212,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
     "function": "func_001904A8",
     "source": "src/game/func_001904A8.c",
     "address": "0x001904A8",
