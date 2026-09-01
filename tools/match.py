@@ -168,7 +168,37 @@ def parse_address(value: object) -> int:
     return value if isinstance(value, int) else int(str(value), 16)
 
 
-def linker_script(address: int) -> str:
+BASELINE_TEXT = ROOT / "asm-baseline/cod/text.s"
+LINE_VRAM = re.compile(r"/\* [0-9A-Fa-f]+ ([0-9A-Fa-f]{8}) ")
+JUMP_TABLE = re.compile(r"\bjtbl_([0-9A-Fa-f]{8})\b")
+
+
+def jump_table_address(start: int, end: int) -> int | None:
+    """Lowest retail jump-table address referenced inside a verification range.
+
+    A `switch` puts its table in `.rodata`, and the compiler addresses that
+    table with `%hi`/`%lo` against the section, so the immediates only match
+    once the section sits where retail put it. The baseline disassembly already
+    names every table after its address, so the placement is derivable without
+    any new configuration.
+    """
+    if not BASELINE_TEXT.is_file():
+        return None
+    tables: list[int] = []
+    for line in BASELINE_TEXT.read_text().splitlines():
+        position = LINE_VRAM.search(line)
+        if position is None or not start <= int(position.group(1), 16) < end:
+            continue
+        tables.extend(int(name, 16) for name in JUMP_TABLE.findall(line))
+    return min(tables) if tables else None
+
+
+def linker_script(address: int, rodata: int | None) -> str:
+    placement = (
+        f"  .rodata 0x{rodata:08X} : {{ *(.rodata) *(.rodata.*) *(.rdata) }}\n"
+        if rodata is not None
+        else ""
+    )
     return f"""OUTPUT_ARCH(mips)
 SECTIONS
 {{
@@ -176,9 +206,25 @@ SECTIONS
   . = 0x{address:08X};
   .text : {{ *(.text) *(.text.*) }}
   .sdata 0x001EC880 : {{ *(.sdata) *(.sdata.*) }}
-  /DISCARD/ : {{ *(.reginfo) *(.MIPS.abiflags) *(.pdr) *(.comment) *(.gnu.attributes) }}
+{placement}  /DISCARD/ : {{ *(.reginfo) *(.MIPS.abiflags) *(.pdr) *(.comment) *(.gnu.attributes) }}
 }}
 """
+
+
+def rodata_report(linked: Path, rodata: int | None, target: bytes) -> str | None:
+    """Confirm a compiled jump table equals the retail bytes it is placed on."""
+    if rodata is None:
+        return None
+    dumped = linked.with_suffix(".rodata.bin")
+    run(["mipsel-linux-gnu-objcopy", "-O", "binary", "-j", ".rodata", str(linked), str(dumped)])
+    produced = dumped.read_bytes()
+    if not produced:
+        return None
+    offset = rodata - TEXT_VRAM
+    expected = target[offset : offset + len(produced)]
+    if produced == expected:
+        return f"jump table at 0x{rodata:08X}: {len(produced)} bytes MATCH"
+    return f"jump table at 0x{rodata:08X}: {compare(expected, produced, verbose=False)}"
 
 
 def write_derived_symbols(obj: Path, output: Path) -> None:
@@ -234,6 +280,12 @@ def main() -> int:
     parser.add_argument("--range-start", type=lambda value: int(value, 0))
     parser.add_argument("--range-end", type=lambda value: int(value, 0))
     parser.add_argument("--object-flag", action="append", default=[])
+    parser.add_argument(
+        "--rodata-start",
+        type=lambda value: int(value, 0),
+        help="place compiled .rodata here; default: the range's lowest jtbl_ address",
+    )
+    parser.add_argument("--no-rodata", action="store_true", help="ignore any derived jump table")
     parser.add_argument("--quiet", action="store_true", help="omit complete word dumps on mismatch")
     args = parser.parse_args()
 
@@ -262,6 +314,14 @@ def main() -> int:
     object_flags = args.object_flag
     if not object_flags and reconstructed:
         object_flags = [str(flag) for flag in reconstructed.get("object_flags", [])]
+
+    rodata = args.rodata_start
+    if rodata is None and reconstructed and reconstructed.get("rodata_start"):
+        rodata = parse_address(reconstructed["rodata_start"])
+    if rodata is None:
+        rodata = jump_table_address(address, end)
+    if args.no_rodata:
+        rodata = None
 
     configuration = json.loads(TOOLCHAINS.read_text())
     profiles = configuration["profiles"]
@@ -307,7 +367,7 @@ def main() -> int:
                     str(normalized),
                 ]
             )
-        script.write_text(linker_script(address))
+        script.write_text(linker_script(address, rodata))
         write_derived_symbols(obj, derived)
         run(
             [
@@ -333,6 +393,9 @@ def main() -> int:
         actual = binary.read_bytes()
         result = compare(expected, actual, verbose=not args.quiet)
         print(f"{profile_name}: {result}")
+        table = rodata_report(linked, rodata, target)
+        if table:
+            print(f"  {table}")
         if result == "MATCH":
             matched.append(profile_name)
 
