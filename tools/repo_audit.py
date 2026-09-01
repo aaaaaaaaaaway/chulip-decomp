@@ -37,6 +37,14 @@ FORBIDDEN_SUFFIXES = (
     ".rar",
     ".zip",
 )
+# A matched source can be replaced after it was proven. The build gates all run
+# before that happens, so the ledger can end up recording isolated_match and
+# whole_program_match for a file that contains no decompiled C at all. This is a
+# standing check rather than a one-off review because the corruption arrives
+# after every other gate has already passed.
+ASSEMBLY_BRIDGE = re.compile(
+    r"\b(?:INCLUDE_ASM|GLOBAL_ASM|include_asm)\b|\.incbin\b", re.I
+)
 SECRET_PATTERNS = (
     re.compile(r"ghp_[A-Za-z0-9]{30,}"),
     re.compile(r"github_pat_[A-Za-z0-9_]{30,}"),
@@ -81,8 +89,26 @@ def load_json(path: str):
     return json.loads((ROOT / path).read_text())
 
 
+def matched_sources_are_decompiled(errors: list[str]) -> None:
+    """Every ledgered source must still contain C, not an assembly bridge."""
+    ledger = load_json("config/reconstructed.json")
+    for entry in ledger:
+        source = str(entry.get("source", ""))
+        path = ROOT / source
+        if not path.is_file():
+            errors.append(f"matched source is missing: {source}")
+            continue
+        found = ASSEMBLY_BRIDGE.search(path.read_text(errors="replace"))
+        if found:
+            errors.append(
+                f"matched source is an assembly bridge, not decompiled C: "
+                f"{source} ({entry.get('function')} via {found.group(0)})"
+            )
+
+
 def main() -> int:
     errors: list[str] = []
+    matched_sources_are_decompiled(errors)
     files = committable_files()
     file_set = set(files)
     for required in REQUIRED:

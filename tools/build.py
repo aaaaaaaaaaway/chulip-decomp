@@ -6,6 +6,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import struct
 import subprocess
 from pathlib import Path
 
@@ -26,7 +27,64 @@ def run(command: list[str]) -> None:
     subprocess.run(command, cwd=ROOT, check=True)
 
 
-ADDRESS_SUFFIX = re.compile(r"(?:_|^\.L)([0-9A-Fa-f]{8})$")
+ADDRESS_SUFFIX = re.compile(r"_([0-9A-Fa-f]{8})$")
+BRANCH_LABEL = re.compile(r"^\.L([0-9A-Fa-f]{8})$")
+RELOCATION_SECTION = re.compile(r"^Relocation section '(\S+)'")
+
+
+def data_referenced_labels(obj: Path) -> set[str]:
+    """Branch labels this object reaches from data rather than from code.
+
+    A disassembled `.rodata` blob holds a `switch` table whose entries relocate
+    against the labels of the function the table belongs to. Those are the only
+    references that may be answered from the label's own name, and the test is
+    the relocation section they live in, not where the object sits on disk.
+    """
+    listing = subprocess.run(
+        ["mipsel-linux-gnu-readelf", "-rW", str(obj)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout
+    labels: set[str] = set()
+    from_data = False
+    for line in listing.splitlines():
+        section = RELOCATION_SECTION.match(line)
+        if section:
+            from_data = not section.group(1).startswith(".rel.text")
+            continue
+        if not from_data:
+            continue
+        fields = line.split()
+        if len(fields) >= 5 and BRANCH_LABEL.match(fields[-1]):
+            labels.add(fields[-1])
+    return labels
+
+
+def symbols(obj: Path) -> tuple[set[str], set[str]]:
+    """Defined and undefined symbol names in one object.
+
+    `--special-syms` is required: GNU nm hides `.L` local labels by default, so
+    without it the branch labels a data blob still needs look like nothing at
+    all and the link fails with unresolved references instead.
+    """
+    listing = subprocess.run(
+        ["mipsel-linux-gnu-nm", "--special-syms", str(obj)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout
+    defined: set[str] = set()
+    undefined: set[str] = set()
+    for line in listing.splitlines():
+        fields = line.split()
+        if len(fields) < 2:
+            continue
+        kind, name = fields[-2], fields[-1]
+        (undefined if kind == "U" else defined).add(name)
+    return defined, undefined
 
 
 def derived_symbols(objects: list[Path], provided: list[Path], output: Path) -> None:
@@ -38,44 +96,103 @@ def derived_symbols(objects: list[Path], provided: list[Path], output: Path) -> 
     whose name ends in an eight-digit address; the whole-image link needs the
     same rule for the aliases that only C sources introduce.
 
-    The same rule covers `.LXXXXXXXX` branch labels. The disassembled `.rodata`
+    `.LXXXXXXXX` branch labels get a separate, deliberately narrow rule. Only a
+    reference from a data relocation may claim one: a disassembled `.rodata`
     blob reaches a `switch` table's targets by label, and those labels stop
-    being defined the moment the function around them becomes C, so the blob
-    needs the address its own label name already records.
+    being defined the moment the function around them becomes C. Scoping the
+    rule to data references keeps it from quietly supplying a label that a text
+    object should have defined, and `check_branch_labels` then proves after the
+    link that every such label -- whoever defined it -- sits at the address its
+    own name records, so the resolution is a function of the label name and of
+    nothing else.
     """
     defined: set[str] = set()
     undefined: set[str] = set()
+    from_data: set[str] = set()
     for obj in objects:
-        listing = subprocess.run(
-            ["mipsel-linux-gnu-nm", "--special-syms", str(obj)],
-            cwd=ROOT,
-            check=True,
-            capture_output=True,
-            text=True,
-        ).stdout
-        for line in listing.splitlines():
-            fields = line.split()
-            if len(fields) < 2:
-                continue
-            kind, name = fields[-2], fields[-1]
-            (undefined if kind == "U" else defined).add(name)
+        found, missing = symbols(obj)
+        defined |= found
+        undefined |= missing
+        if any(BRANCH_LABEL.match(name) for name in missing):
+            from_data |= data_referenced_labels(obj)
     already = set()
     for script in provided:
         for line in script.read_text().splitlines():
             head = line.split("=", 1)[0].strip()
             if head:
                 already.add(head)
-    missing = sorted(
-        name
+    definitions = {
+        name: ADDRESS_SUFFIX.search(name).group(1)
         for name in undefined - defined - already
         if ADDRESS_SUFFIX.search(name)
+    }
+    definitions.update(
+        {
+            name: BRANCH_LABEL.match(name).group(1)
+            for name in from_data - defined - already
+            if BRANCH_LABEL.match(name)
+        }
     )
     output.write_text(
-        "\n".join(
-            f"{name} = 0x{ADDRESS_SUFFIX.search(name).group(1)};" for name in missing
-        )
+        "\n".join(f"{name} = 0x{address};" for name, address in sorted(definitions.items()))
         + "\n"
     )
+
+
+def check_branch_labels(linked: Path) -> int:
+    """Prove every `.LXXXXXXXX` in the link sits at the address it is named for.
+
+    Whether a label comes from an assembly object or from `derived_symbols`
+    depends on how sources happen to be grouped into translation units. This
+    makes that irrelevant: both spellings must agree with the name, so no
+    consolidation can change what a label resolves to without failing here.
+    """
+    listing = subprocess.run(
+        ["mipsel-linux-gnu-nm", "--special-syms", str(linked)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout
+    checked = 0
+    for line in listing.splitlines():
+        fields = line.split()
+        if len(fields) != 3:
+            continue
+        value, _, name = fields
+        named = BRANCH_LABEL.match(name)
+        if not named:
+            continue
+        checked += 1
+        if int(value, 16) != int(named.group(1), 16):
+            raise SystemExit(
+                f"branch label {name} resolved to 0x{int(value, 16):08X}, "
+                "not the address its name records"
+            )
+    return checked
+
+
+def check_ledger_agrees(linker: str, reconstructed: list[dict[str, object]]) -> None:
+    """Refuse to link a generated script and a ledger from different generations.
+
+    `build/chulip.us.ld` comes from `config/splat.us.yaml` via configure.py and
+    the source list comes from `config/reconstructed.json`. Nothing tied the two
+    together, so a consolidation pass that reached one before the other silently
+    dropped an object from the link and moved every address after it. Every
+    byte-level check downstream then reports that shift as its own failure.
+    """
+    listed = set(re.findall(r"build/(src/\S+?\.o)\(\.text\*\)", linker))
+    expected = {
+        "src/" + Path(str(entry["source"])).relative_to("src").with_suffix(".o").as_posix()
+        for entry in reconstructed
+    }
+    if listed != expected:
+        raise SystemExit(
+            "generated linker script and reconstruction ledger disagree; "
+            "re-run configure.py --split. "
+            f"script only: {sorted(listed - expected)[:4]}; "
+            f"ledger only: {sorted(expected - listed)[:4]}"
+        )
 
 
 def assemble(source: Path, obj: Path) -> None:
@@ -173,11 +290,31 @@ def verify_jump_tables(linked: Path, tables: dict[Path, int], target: bytes) -> 
         )
         produced = dumped.read_bytes()
         offset = address - TEXT_VRAM
-        if produced != target[offset : offset + len(produced)]:
+        expected = target[offset : offset + len(produced)]
+        if produced != expected:
             raise SystemExit(
                 f"jump table mismatch for {obj.relative_to(ROOT)} at 0x{address:08X}: "
-                + first_difference(target[offset : offset + len(produced)], produced)
+                + first_difference(expected, produced)
+                + uniform_shift(expected, produced)
             )
+
+
+def uniform_shift(expected: bytes, produced: bytes) -> str:
+    """Name the usual cause when every table entry is wrong by the same amount."""
+    if len(expected) != len(produced) or len(produced) % 4:
+        return ""
+    deltas = {
+        after - before
+        for (before,), (after,) in zip(
+            struct.iter_unpack("<I", expected), struct.iter_unpack("<I", produced)
+        )
+    }
+    if len(deltas) != 1:
+        return ""
+    return (
+        f"; every entry is offset by {deltas.pop():+d}, so the object's text did not"
+        " land at its retail address -- this is a layout fault, not a table fault"
+    )
 
 
 def first_difference(expected: bytes, actual: bytes) -> str:
@@ -193,6 +330,7 @@ def main() -> int:
     reconstructed = json.loads((ROOT / "config/reconstructed.json").read_text())
 
     generated_linker = (ROOT / "build/chulip.us.ld").read_text()
+    check_ledger_agrees(generated_linker, reconstructed)
     object_paths = sorted(set(re.findall(r"build/asm/([^\s(]+\.o)", generated_linker)))
     assembly_sources = [ROOT / "asm" / Path(path).with_suffix(".s") for path in object_paths]
     objects: list[Path] = []
@@ -281,17 +419,20 @@ def main() -> int:
     run(["mipsel-linux-gnu-objcopy", "-O", "binary", "-j", ".cod", str(linked), str(image)])
 
     expected = (ROOT / "original/SLUS_207.42.rom").read_bytes()
-    verify_jump_tables(linked, jump_tables, expected)
     actual = image.read_bytes()
     digest = hashlib.sha256(actual).hexdigest()
     if actual != expected or digest != EXPECTED_SHA256:
         raise SystemExit(f"FULL IMAGE MISMATCH: {first_difference(expected, actual)}; sha256 {digest}")
+    # Only once the image is proven can a table disagreement mean the table.
+    labels = check_branch_labels(linked)
+    verify_jump_tables(linked, jump_tables, expected)
 
     matched = json.loads((ROOT / "config/matched.json").read_text())
     print(f"FULL IMAGE MATCH: {len(actual)} bytes")
     print(f"sha256: {digest}")
     print(f"source-reconstructed functions in build: {len(reconstructed)}")
     print(f"compiled jump tables pinned at their retail addresses: {len(jump_tables)}")
+    print(f"branch labels proven to sit at their named address: {labels}")
     print(f"exact matching functions: {len(matched)}")
     return 0
 

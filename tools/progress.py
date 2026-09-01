@@ -61,9 +61,9 @@ def progress_data() -> dict[str, int | float]:
         for entry in reconstructed
     }
     return {
-        "unit_functions": in_units,
+        "co_compiled_functions": in_units,
         "isolated_functions": len(names) - in_units,
-        "unit_percent": 100 * in_units / len(names) if names else 0.0,
+        "co_compiled_percent": 100 * in_units / len(names) if names else 0.0,
         "build_configurations": len(profiles),
         "matched_functions": len(names),
         "total_functions": len(catalog),
@@ -158,10 +158,11 @@ def main() -> int:
         f"({data['function_percent']:.4f}%)"
     )
     print(
-        f"in proven units:   {data['unit_functions']} / {data['matched_functions']} "
-        f"({data['unit_percent']:.1f}%); "
+        f"co-compiled:       {data['co_compiled_functions']} / {data['matched_functions']} "
+        f"({data['co_compiled_percent']:.1f}%); "
         f"{data['isolated_functions']} compiled alone"
     )
+    print("  (sharing a source file, NOT a proven object boundary)")
     print(f"build configurations in use: {data['build_configurations']}")
     print("ownership:        SDK frontier at 0x00185400; see docs/scope.md")
     return 0
