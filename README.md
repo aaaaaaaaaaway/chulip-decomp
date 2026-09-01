@@ -23,14 +23,14 @@ never counted as decompilation progress.
 <!-- decomp-progress-start -->
 ## Decompilation progress
 
-![Matched functions](https://img.shields.io/badge/functions-1109%20%2F%202189-2f81f7) ![Matched text bytes](https://img.shields.io/badge/text%20bytes-106500%20%2F%20663704-2f81f7)
+![Matched functions](https://img.shields.io/badge/functions-1188%20%2F%202189-2f81f7) ![Matched text bytes](https://img.shields.io/badge/text%20bytes-129000%20%2F%20663704-2f81f7)
 
-`██████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░` **16.0463%** of provisional text bytes matched
+`███████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░` **19.4364%** of provisional text bytes matched
 
 | Metric | Matched | Total | Progress |
 | --- | ---: | ---: | ---: |
-| Text bytes | 106,500 | 663,704 | 16.0463% |
-| Functions | 1,109 | 2,189 | 50.6624% |
+| Text bytes | 129,000 | 663,704 | 19.4364% |
+| Functions | 1,188 | 2,189 | 54.2714% |
 
 Text bytes is the measure to read; small functions are matched first, so the function count runs ahead of it. Only readable C that byte-matches in isolation and in the complete-image rebuild is counted — generated assembly contributes nothing. See [scope and denominator](docs/scope.md).
 
