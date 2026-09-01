@@ -54,6 +54,13 @@ but two are below the line, and all 255 `sd` functions are above it.
 - Below: game code, SN Systems GNU C (`ee-gcc2.95.3-136-O2-G8`).
 - Above: the C runtime and libraries, Sony EE GNU C (`ee-gcc2.9-991111-01-O2`).
 
+The full profile grid supports this and quantifies it: 271 functions below the
+line discriminate SN with no counter-examples, and 78 above it are Sony-only,
+including several 200-300 byte bodies. Ninety-three functions above the line
+are ledgered with the SN profile, but none of them discriminates it and 73 also
+match Sony outright, so their label is arbitrary rather than evidence of the
+regimes interleaving.
+
 The upper region holds libm kernels, IEEE float and double pack/unpack, a VU0
 vector library, stdio with a `FILE`-like structure and a read/write/seek/close
 vtable, the string and memory routines, a linear-congruential `rand`, an errno
@@ -67,6 +74,12 @@ Two caveats, both visible in `tools/progress.py`:
 
 **The function count runs ahead of the byte count.** Small functions are matched
 first, so 32% of functions is 5.5% of bytes. Text bytes is the honest measure.
+
+**Most matched functions carry a compiler attribution nothing discriminated.**
+Of 820 entries only 178 match exactly one profile; 621 are ambiguous and 45
+reproduce under all seven. With object flags included, 32 are discriminated by
+a full configuration. `tools/progress.py` reports the count of configurations
+in use, but that count is a description of the ledger, not of the evidence.
 
 **Most matched functions are not yet in proven translation units.** A retail
 translation unit was compiled once, with one set of flags. Today most matched

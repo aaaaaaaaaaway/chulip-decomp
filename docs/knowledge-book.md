@@ -69,33 +69,41 @@ address-local discriminator. It matches build 1.36 `-G8` and rejects build
 2.73a even when that compiler is also run with `-G8`; this separates compiler
 generation from the small-data threshold.
 
-### The two-sided small-data threshold
+### Choosing the small-data addressing form
 
-How a global is spelled in C decides its addressing mode, and the decision has
-two independent halves. The compiler emits `.extern sym, N` and chooses between
-a one-instruction pseudo and an explicit `lui`/`%lo` pair by comparing `N` with
-its own `-G`. The assembler then chooses between a GP-relative access and an
-absolute `%hi`/`%lo` expansion by comparing the same `N` with *its* `-G`. Two
-different thresholds therefore produce three distinguishable retail forms:
+Retail's `lui`/`%lo` form for a small-BSS symbol is produced by the assembler,
+not by the declared size. The compiler at `-G8` marks an external small when
+`0 < size <= 8`, emits a bare pseudo and `.extern sym, N`, and leaves the
+expansion to the assembler. Declare the true size and choose the assembler.
 
-| Retail form | Object | Spelling |
-| --- | --- | --- |
-| `lw $v0, %gp_rel(X)($gp)` | at most four bytes | `extern int X;` |
-| `lui $rN,%hi(X)` then `%lo(X)($rN)`, same register | exactly eight bytes, assembled `-G4` | `struct S8 { int a; char pad[4]; }; extern struct S8 X;` |
-| `lui $rN,%hi(X)` then `%lo(X)($rM)`, different registers | larger than eight bytes | `extern int X[];` |
+- **Bundled GNU `as`** expands absolutely iff `N > -G`, and `-G` is continuous.
+  `-Wa,-G3` makes a genuine four-byte object absolute while two- and one-byte
+  neighbours stay GP-relative; `-Wa,-G1` does the same for a two-byte object
+  beside a one-byte one. A symbol the unit *defines* in `.sdata`/`.sbss` stays
+  GP-relative at every `-G`, including `-G0`.
+- **Bundled `Ps2EeAs`** ignores `-G` completely. It expands every small-data
+  pseudo absolutely except inside a branch delay slot, where it emits the
+  one-instruction GP-relative form. Prefer it whenever one symbol shows both
+  modes and the GP-relative sites are exactly the delay slots. It pads `.text`
+  to eight bytes, so probe the trailing word with `--range-end`.
+- An incomplete extern (`extern T X[];`) emits no `.extern` and makes the
+  *compiler* split the address, giving `lui $rN` and `%lo($rM)` in different
+  registers. That is never the retail `$at` or same-register form.
 
-The middle row is the one that cannot be reached by any single-threshold
-spelling. The compiler believes the eight-byte object is small and emits the
-pseudo; the assembler at `-G4` believes it is large and expands it absolutely,
-which is exactly the retail `lui $at` store form and the same-register load
-form. Genuine four-byte neighbours in the same function stay GP-relative, so
-one function can legitimately carry both modes. First proved on `func_0014FF10`
-and now carried by a large family of state accessors.
+**A declaration may never claim more bytes than `asm/data/cod` records between
+its label and the next.** Claiming fewer is fine: the recorded size is label
+spacing, an upper bound on the object rather than its size. When retail forms
+one base register and reaches several words by immediate offset, that is one
+object and the split labels are a disassembler artifact; when retail emits a
+separate `lui %hi` per word, those are separate objects and need separate
+externs.
 
-Do not reach for an object larger than eight bytes to force absolute
-addressing. Above eight bytes the compiler splits the address itself and shares
-the base register across accesses, which never matches retail
-(`func_00181EB8`).
+An earlier version of this section said to declare an eight-byte object and
+assemble at `-Wa,-G4` so that the compiler and the assembler would disagree
+about its size. That is **retracted**. It produced the right bytes from a false
+data model: it over-declared at 97 sites, overlapped the next recorded symbol
+at 94 of them, and left 60 addresses carrying mutually exclusive sizes in
+different files. Every one of those sites is reachable with the true size.
 
 ### The bundled PS2 assembler is authoritative for delay-slot pseudos
 
@@ -153,6 +161,22 @@ as `or`. The corrected profile turned the word-copy helpers at `0x001994C0`,
 source matches without changing their C. Rechecking ignored runtime lanes with
 the corrected public profile has since promoted forty-five additional exact
 functions.
+
+### What a profile record does and does not prove
+
+A ledger entry lists the profiles that were *tested*, not the profiles that
+uniquely reproduce it. Recompiling every matched function under every profile
+shows how weak that is: of 820 entries only **178 (21.7%) match exactly one
+profile**, 621 are ambiguous, and 45 reproduce under all seven. Adding the
+object-flag axis leaves only **32 of 820** discriminated by a full
+configuration, and none of the 643 entries landed without object flags is
+discriminated by the `-G8` default.
+
+Cite a function as compiler evidence only when it discriminates. The regional
+claims that survive are the important ones: below `0x00185400`, 271 functions
+discriminate SN with zero counter-examples; above it, 78 are Sony-only,
+including several 200-300 byte bodies. The two-compiler model is well
+evidenced. Most individual profile attributions are not.
 
 ## 4. Translation-unit and data lessons
 
@@ -234,12 +258,13 @@ the resulting full-image layout.
 
 - Modern assembly of historical compiler output is not authoritative for
   `move`; always use the bundled assembler when the driver supports it.
-- `func_001016A0` and `func_00101748` have readable 156-byte semantic
-  reconstructions against 168-byte retail functions. The substantive
-  instructions and registers agree, but each is missing three hazard nops after
-  float-literal materialization. Volatile, union, punning, scheduler, CPU, and
-  local compiler-version variants did not recover them. Synthetic nops would be
-  a shortcut, so these remain unmatched near-matches.
+- `func_001016A0` and `func_00101748` were recorded here as a permanent dead
+  end, missing three hazard nops after float-literal materialization that no
+  source variant recovered. **Retired.** Both match under
+  `ee-gcc2.95.3-136-O2-G8-ps2as`: the bundled assembler emits those nops and
+  GNU `as` does not. The C had been correct all along; only the assembler was
+  wrong. Retest any other near-match blocked on hazard nops before recording it
+  as a blocker.
 - An exact standalone function is not automatically a proven source unit.
   `func_00101BF0` only reproduced retail symbol expansion after it was compiled
   with its real neighboring camera functions and source-owned small data.
