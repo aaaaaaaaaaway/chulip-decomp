@@ -432,6 +432,14 @@
     "evidence": "the complete unit range is reproduced by one source compiled once with one configuration"
   },
   {
+    "function": "func_00105F28",
+    "source": "src/game/func_00105F28.c",
+    "address": "0x00105F28",
+    "size": 856,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
     "function": "func_00106280",
     "source": "src/game/func_00106280.c",
     "address": "0x00106280",

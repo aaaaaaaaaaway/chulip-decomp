@@ -108,7 +108,7 @@ segments:
       - [0x005C38, c, game/func_00105C38]
       - [0x005C70, c, game/func_00105C70]
       - [0x005E90, c, game/hand_00105E90]
-      - [0x005F28, asm, cod/text_00105F28]
+      - [0x005F28, c, game/func_00105F28]
       - [0x006280, c, game/func_00106280]
       - [0x006300, c, game/func_00106300]
       - [0x006338, c, game/func_00106338]
