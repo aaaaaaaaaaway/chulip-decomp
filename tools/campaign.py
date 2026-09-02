@@ -702,6 +702,35 @@ def promote_transaction_lock():
         handle.close()
 
 
+def resync_generated_split() -> None:
+    """Leave a buildable tree behind a promotion that did not land.
+
+    merge_candidates rolls config/splat.us.yaml back, but the linker script it
+    generates lives under build/, is not tracked, and keeps the withdrawn
+    object. A later plain build.py then stops with "generated linker script and
+    reconstruction ledger disagree" and stays stopped until someone re-runs the
+    split by hand, which reads as a broken repository rather than a withdrawn
+    candidate.
+    """
+    interpreter = ROOT / ".venv/bin/python"
+    result = subprocess.run(
+        [
+            str(interpreter) if interpreter.is_file() else sys.executable,
+            "configure.py",
+            "--split",
+        ],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode:
+        print(
+            "warning: could not regenerate the split after a failed promotion; "
+            "run configure.py --split",
+            file=sys.stderr,
+        )
+
+
 def promote(function: str, *, record_path: Path | None, write: bool) -> int:
     records = verified_records(function)
     if record_path is not None:
@@ -735,6 +764,7 @@ def promote(function: str, *, record_path: Path | None, write: bool) -> int:
             raise SystemExit(f"promotion destination already exists: {destination}")
         target.parent.mkdir(parents=True, exist_ok=True)
         copied = False
+        landed = False
         try:
             shutil.copyfile(source, target)
             copied = True
@@ -765,6 +795,7 @@ def promote(function: str, *, record_path: Path | None, write: bool) -> int:
                 raise
             if returncode:
                 return returncode
+            landed = True
             if write:
                 copied = False
                 try:
@@ -776,6 +807,8 @@ def promote(function: str, *, record_path: Path | None, write: bool) -> int:
         finally:
             if copied and target.exists():
                 target.unlink()
+            if not landed:
+                resync_generated_split()
 
 
 def show_plan(limit: int, as_json: bool) -> None:
