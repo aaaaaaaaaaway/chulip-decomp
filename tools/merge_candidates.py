@@ -620,13 +620,44 @@ def planned_entries(
     catalog_document: dict[str, object],
     existing_reconstructed: list[dict[str, object]],
     existing_matched: list[dict[str, object]],
+    *,
+    replace_existing: bool = False,
 ) -> tuple[list[dict[str, object]], list[dict[str, object]]]:
     catalog = {
         str(entry["name"]): entry
         for entry in catalog_document["functions"]  # type: ignore[index]
     }
-    existing_names = {str(entry["function"]) for entry in existing_reconstructed}
-    existing_matched_names = {str(entry["function"]) for entry in existing_matched}
+    candidate_names = {candidate.function for candidate in candidates}
+    reconstructed_names = {
+        str(entry["function"]) for entry in existing_reconstructed
+    }
+    matched_names = {str(entry["function"]) for entry in existing_matched}
+    replacements = candidate_names & (reconstructed_names | matched_names)
+    if replacements and not replace_existing:
+        first = next(
+            candidate for candidate in candidates if candidate.function in replacements
+        )
+        fail(
+            f"candidate line {first.line}: function already exists in a ledger: "
+            f"{first.function}"
+        )
+    for function in sorted(replacements):
+        if function not in reconstructed_names or function not in matched_names:
+            fail(
+                "cannot replace inconsistent ledger entry; function must exist in both "
+                f"config/reconstructed.json and config/matched.json: {function}"
+            )
+
+    retained_reconstructed = [
+        entry
+        for entry in existing_reconstructed
+        if not replace_existing or str(entry["function"]) not in candidate_names
+    ]
+    retained_matched = [
+        entry
+        for entry in existing_matched
+        if not replace_existing or str(entry["function"]) not in candidate_names
+    ]
     additions: list[dict[str, object]] = []
     matches: list[dict[str, object]] = []
     for candidate in candidates:
@@ -634,8 +665,6 @@ def planned_entries(
         known = catalog.get(candidate.function)
         if known is None:
             fail(f"{where}: function absent from catalog: {candidate.function}")
-        if candidate.function in existing_names or candidate.function in existing_matched_names:
-            fail(f"{where}: function already exists in a ledger: {candidate.function}")
         function_start = address(known["address"], f"catalog {candidate.function} address")
         function_end = function_start + int(known["size"])
         if candidate.unit_start is not None and candidate.unit_end is not None:
@@ -682,8 +711,8 @@ def planned_entries(
             }
         )
 
-    combined_reconstructed = [*existing_reconstructed, *additions]
-    combined_matched = [*existing_matched, *matches]
+    combined_reconstructed = [*retained_reconstructed, *additions]
+    combined_matched = [*retained_matched, *matches]
     combined_reconstructed.sort(
         key=lambda entry: address(entry["address"], f"{entry['function']} address")
     )
@@ -724,6 +753,27 @@ def backups(paths: tuple[Path, ...]) -> dict[Path, Backup]:
     }
 
 
+def obsolete_replaced_sources(
+    candidates: list[Candidate],
+    existing_reconstructed: list[dict[str, object]],
+    planned_reconstructed: list[dict[str, object]],
+    *,
+    replace_existing: bool,
+) -> tuple[Path, ...]:
+    """Return superseded source files that the transaction must remove safely."""
+    if not replace_existing:
+        return ()
+    candidate_names = {candidate.function for candidate in candidates}
+    retained_sources = {str(entry["source"]) for entry in planned_reconstructed}
+    obsolete = {
+        ROOT / str(entry["source"])
+        for entry in existing_reconstructed
+        if str(entry["function"]) in candidate_names
+        and str(entry["source"]) not in retained_sources
+    }
+    return tuple(sorted(obsolete))
+
+
 def restore(saved: dict[Path, Backup]) -> None:
     errors: list[str] = []
     for path, backup in saved.items():
@@ -741,9 +791,19 @@ def run(command: list[str]) -> None:
 
 
 def write_transaction(
-    reconstructed: list[dict[str, object]], matched: list[dict[str, object]]
+    reconstructed: list[dict[str, object]],
+    matched: list[dict[str, object]],
+    obsolete_sources: tuple[Path, ...] = (),
 ) -> None:
-    paths = (RECONSTRUCTED, MATCHED, SPLAT, README, STATUS, SCOPE)
+    paths = (
+        RECONSTRUCTED,
+        MATCHED,
+        SPLAT,
+        README,
+        STATUS,
+        SCOPE,
+        *obsolete_sources,
+    )
     saved = backups(paths)
     try:
         atomic_write(
@@ -752,6 +812,8 @@ def write_transaction(
             saved[RECONSTRUCTED].mode,
         )
         atomic_write(MATCHED, json_bytes(matched), saved[MATCHED].mode)
+        for source in obsolete_sources:
+            source.unlink()
         run([sys.executable, "tools/gen_splat_config.py", "--write"])
         run(["make", "verify"])
         run(["make", "baseline"])
@@ -775,6 +837,14 @@ def main() -> int:
         "--write",
         action="store_true",
         help="apply the plan and retain it only after every repository gate passes",
+    )
+    parser.add_argument(
+        "--replace-existing",
+        action="store_true",
+        help=(
+            "transactionally re-verify and replace named exact ledger entries; "
+            "used when authentic source-unit boundaries require a shared source"
+        ),
     )
     args = parser.parse_args()
 
@@ -800,6 +870,7 @@ def main() -> int:
             catalog_document,  # type: ignore[arg-type]
             existing_reconstructed,  # type: ignore[arg-type]
             existing_matched,  # type: ignore[arg-type]
+            replace_existing=args.replace_existing,
         )
         validate_combined(
             reconstructed,
@@ -821,7 +892,13 @@ def main() -> int:
         if not args.write:
             print("DRY RUN: no files changed; pass --write to execute the gated transaction")
             return 0
-        write_transaction(reconstructed, matched)
+        obsolete_sources = obsolete_replaced_sources(
+            candidates,
+            existing_reconstructed,  # type: ignore[arg-type]
+            reconstructed,
+            replace_existing=args.replace_existing,
+        )
+        write_transaction(reconstructed, matched, obsolete_sources)
         print("TRANSACTION COMPLETE: every gate passed")
         return 0
     except CandidateError as error:

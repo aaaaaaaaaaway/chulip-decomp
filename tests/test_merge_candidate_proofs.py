@@ -32,6 +32,42 @@ def candidate(**overrides: object) -> merge_candidates.Candidate:
 
 
 class CandidateProofTests(unittest.TestCase):
+    @staticmethod
+    def catalog() -> dict[str, object]:
+        return {
+            "functions": [
+                {
+                    "name": "func_00100000",
+                    "address": "0x00100000",
+                    "size": 32,
+                }
+            ]
+        }
+
+    @staticmethod
+    def reconstructed_entry() -> dict[str, object]:
+        return {
+            "function": "func_00100000",
+            "source": "src/game/old.c",
+            "address": "0x00100000",
+            "size": 32,
+            "verified_profiles": ["profile-a"],
+            "build_profile": "profile-a",
+            "isolated_match": True,
+            "whole_program_match": True,
+        }
+
+    @staticmethod
+    def matched_entry() -> dict[str, object]:
+        return {
+            "function": "func_00100000",
+            "source": "src/game/old.c",
+            "address": "0x00100000",
+            "size": 32,
+            "profile": "profile-a",
+            "evidence": "old exact proof",
+        }
+
     def test_rejects_unreviewed_object_flag(self) -> None:
         with self.assertRaisesRegex(
             merge_candidates.CandidateError, "unsanctioned object flags"
@@ -42,6 +78,66 @@ class CandidateProofTests(unittest.TestCase):
         merge_candidates.validate_object_flags(
             ("-Wa,-G8", "-mno-split-addresses"), "line 1"
         )
+
+    def test_existing_entry_requires_explicit_replacement(self) -> None:
+        with self.assertRaisesRegex(
+            merge_candidates.CandidateError, "function already exists in a ledger"
+        ):
+            merge_candidates.planned_entries(
+                [candidate(verified_profiles=("profile-a",), object_flags=())],
+                self.catalog(),
+                [self.reconstructed_entry()],
+                [self.matched_entry()],
+            )
+
+    def test_explicit_replacement_updates_both_ledgers(self) -> None:
+        reconstructed, matched = merge_candidates.planned_entries(
+            [candidate(verified_profiles=("profile-a",), object_flags=())],
+            self.catalog(),
+            [self.reconstructed_entry()],
+            [self.matched_entry()],
+            replace_existing=True,
+        )
+        self.assertEqual(len(reconstructed), 1)
+        self.assertEqual(len(matched), 1)
+        self.assertEqual(reconstructed[0]["source"], "src/game/func_00100000.c")
+        self.assertEqual(matched[0]["source"], "src/game/func_00100000.c")
+
+    def test_replacement_rejects_one_sided_ledger_entry(self) -> None:
+        with self.assertRaisesRegex(
+            merge_candidates.CandidateError, "inconsistent ledger entry"
+        ):
+            merge_candidates.planned_entries(
+                [candidate(verified_profiles=("profile-a",), object_flags=())],
+                self.catalog(),
+                [self.reconstructed_entry()],
+                [],
+                replace_existing=True,
+            )
+
+    def test_replacement_identifies_only_superseded_sources(self) -> None:
+        existing = [
+            self.reconstructed_entry(),
+            {
+                **self.reconstructed_entry(),
+                "function": "func_00100020",
+                "source": "src/game/kept.c",
+            },
+        ]
+        planned = [
+            {
+                **self.reconstructed_entry(),
+                "source": "src/game/unit_00100000.c",
+            },
+            existing[1],
+        ]
+        obsolete = merge_candidates.obsolete_replaced_sources(
+            [candidate(verified_profiles=("profile-a",), object_flags=())],
+            existing,
+            planned,
+            replace_existing=True,
+        )
+        self.assertEqual(obsolete, (merge_candidates.ROOT / "src/game/old.c",))
 
     def test_rejects_conflicting_small_data_flags(self) -> None:
         with self.assertRaisesRegex(

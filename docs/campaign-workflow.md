@@ -89,3 +89,9 @@ only after the full image, baseline, progress, and public repository gates all
 pass. A failed or dry-run promotion removes the temporary public source.
 
 Only reviewed source, proof metadata, and durable findings belong in Git.
+
+When authentic object evidence expands a provisional one-function source into
+a shared source unit, prepare one manifest record for every function in that
+unit and run `tools/merge_candidates.py --replace-existing`. The importer
+replays every function proof, updates both exact ledgers together, and removes
+superseded source files inside the same rollback-protected transaction.

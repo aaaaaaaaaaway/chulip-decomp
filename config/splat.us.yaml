@@ -1174,8 +1174,7 @@ segments:
       - [0x085CB8, c, game/func_00185CB8]
       - [0x085D10, c, game/func_00185D10]
       - [0x085D78, asm, cod/text_00185D78]
-      - [0x0862A0, c, game/func_001862A0]
-      - [0x0862F0, c, game/func_001862F0]
+      - [0x086188, c, game/unit_00186188]
       - [0x0863A8, c, game/func_001863A8]
       - [0x086440, c, game/func_00186440]
       - [0x0864E0, c, game/unit_001864E0]
@@ -1183,8 +1182,7 @@ segments:
       - [0x086978, c, game/func_00186978]
       - [0x0869D0, c, game/func_001869D0]
       - [0x086A38, asm, cod/text_00186A38]
-      - [0x086EA8, c, game/func_00186EA8]
-      - [0x086EF8, asm, cod/text_00186EF8]
+      - [0x086D90, c, game/unit_00186D90]
       - [0x086FB0, c, game/func_00186FB0]
       - [0x087040, c, game/func_00187040]
       - [0x0870D8, c, game/unit_001870D8]
@@ -1485,6 +1483,8 @@ segments:
       - [0x0A10A0, asm, cod/text_001A10A0]
       - [0x0A1100, c, game/func_001A1100]
       - [0x0A1140, asm, cod/text_001A1140]
+      - [0x0A1D90, c, game/func_001A1D90]
+      - [0x0A1E80, asm, cod/text_001A1E80]
       # generated-text-subsegments-end
       - [0x0A3000, textbin, cod/vutext] # .vutext plus 0x30-byte loaded gap
       - [0x0A3980, data, cod/data_001A3980]

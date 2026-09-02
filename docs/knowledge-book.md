@@ -202,6 +202,23 @@ Configuration-exclusion matrices place mandatory source boundaries at
 require the historical `Ps2EeAs` route, while the ranges on the other side
 require the standard historical assembler.
 
+### Preserved libgcc objects as boundary evidence
+
+A preserved ProDG for PS2 3.01 `libgcc.a` identifies the runtime objects more
+strongly than adjacency alone. The archive has SHA-256
+`8e7b39e41372e1692e0e0e2675614d47314d27f54d2da0bbd26e8e27bad60667`.
+After normalizing obsolete symbol-table metadata, `_divdi3.o`, `_moddi3.o`,
+`_udivdi3.o`, and `_umoddi3.o` have text bytes identical to retail, and the
+`dp-bit.o` and `fp-bit.o` layouts place the soft-float routines at their retail
+addresses.
+
+This evidence establishes exact shared units at
+`0x00186188-0x001863A8` and `0x00186D90-0x00186FB0`. Their readable C follows
+GCC 2.95.3 `fp-bit.c` and reproduces every byte under the Sony EE GCC 2.9
+profile. `func_001A1D90` similarly follows `libgcc2.c` and matches the complete
+`_fixunsdfdi.o` text extent. The preserved archive is fingerprint and boundary
+evidence only. It is not committed, linked, or counted as source progress.
+
 The camera block at `0x001017F0-0x00101CC3` is the first proven multi-function
 source unit. Its seventeen functions produce 1,236 exact object-text bytes together;
 the linker then contributes four bytes of input alignment before the following

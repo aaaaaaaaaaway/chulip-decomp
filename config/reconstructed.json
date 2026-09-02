@@ -13803,30 +13803,49 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00186188",
+    "source": "src/game/unit_00186188.c",
+    "address": "0x00186188",
+    "size": 276,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "unit_start": "0x00186188",
+    "unit_end": "0x001863A8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "logic recovered from GCC 2.95.3 fp-bit.c; source-unit ownership is supported by exact preserved libgcc object and retail layout evidence"
+  },
+  {
     "function": "func_001862A0",
-    "source": "src/game/func_001862A0.c",
+    "source": "src/game/unit_00186188.c",
     "address": "0x001862A0",
     "size": 76,
     "verified_profiles": [
       "ee-gcc2.9-991111-01-O2"
     ],
     "build_profile": "ee-gcc2.9-991111-01-O2",
+    "unit_start": "0x00186188",
+    "unit_end": "0x001863A8",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "logic recovered from GCC 2.95.3 fp-bit.c; source-unit ownership is supported by exact preserved libgcc object and retail layout evidence"
   },
   {
     "function": "func_001862F0",
-    "source": "src/game/func_001862F0.c",
+    "source": "src/game/unit_00186188.c",
     "address": "0x001862F0",
     "size": 184,
     "verified_profiles": [
       "ee-gcc2.9-991111-01-O2"
     ],
     "build_profile": "ee-gcc2.9-991111-01-O2",
+    "unit_start": "0x00186188",
+    "unit_end": "0x001863A8",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "logic recovered from GCC 2.95.3 fp-bit.c; source-unit ownership is supported by exact preserved libgcc object and retail layout evidence"
   },
   {
     "function": "func_001863A8",
@@ -13911,17 +13930,49 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00186D90",
+    "source": "src/game/unit_00186D90.c",
+    "address": "0x00186D90",
+    "size": 276,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "unit_start": "0x00186D90",
+    "unit_end": "0x00186FB0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "logic recovered from GCC 2.95.3 fp-bit.c; source-unit ownership is supported by exact preserved libgcc object and retail layout evidence"
+  },
+  {
     "function": "func_00186EA8",
-    "source": "src/game/func_00186EA8.c",
+    "source": "src/game/unit_00186D90.c",
     "address": "0x00186EA8",
     "size": 76,
     "verified_profiles": [
       "ee-gcc2.9-991111-01-O2"
     ],
     "build_profile": "ee-gcc2.9-991111-01-O2",
+    "unit_start": "0x00186D90",
+    "unit_end": "0x00186FB0",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "logic recovered from GCC 2.95.3 fp-bit.c; source-unit ownership is supported by exact preserved libgcc object and retail layout evidence"
+  },
+  {
+    "function": "func_00186EF8",
+    "source": "src/game/unit_00186D90.c",
+    "address": "0x00186EF8",
+    "size": 184,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "unit_start": "0x00186D90",
+    "unit_end": "0x00186FB0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "logic recovered from GCC 2.95.3 fp-bit.c; source-unit ownership is supported by exact preserved libgcc object and retail layout evidence"
   },
   {
     "function": "func_00186FB0",
@@ -17653,5 +17704,20 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001A1D90",
+    "source": "src/game/func_001A1D90.c",
+    "address": "0x001A1D90",
+    "size": 236,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "unit_start": "0x001A1D90",
+    "unit_end": "0x001A1E7C",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "logic recovered from GCC 2.95.3 libgcc2.c; source-unit ownership is supported by exact preserved libgcc object and retail layout evidence"
   }
 ]

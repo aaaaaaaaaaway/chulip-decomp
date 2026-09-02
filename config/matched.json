@@ -7560,20 +7560,28 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_00186188",
+    "source": "src/game/unit_00186188.c",
+    "address": "0x00186188",
+    "size": 276,
+    "profile": "ee-gcc2.9-991111-01-O2",
+    "evidence": "complete source-unit bytes match retail and the unit boundary agrees with the preserved SN Systems libgcc dp-bit.o text layout"
+  },
+  {
     "function": "func_001862A0",
-    "source": "src/game/func_001862A0.c",
+    "source": "src/game/unit_00186188.c",
     "address": "0x001862A0",
     "size": 76,
     "profile": "ee-gcc2.9-991111-01-O2",
-    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+    "evidence": "complete source-unit bytes match retail and the unit boundary agrees with the preserved SN Systems libgcc dp-bit.o text layout"
   },
   {
     "function": "func_001862F0",
-    "source": "src/game/func_001862F0.c",
+    "source": "src/game/unit_00186188.c",
     "address": "0x001862F0",
     "size": 184,
     "profile": "ee-gcc2.9-991111-01-O2",
-    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+    "evidence": "complete source-unit bytes match retail and the unit boundary agrees with the preserved SN Systems libgcc dp-bit.o text layout"
   },
   {
     "function": "func_001863A8",
@@ -7624,12 +7632,28 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_00186D90",
+    "source": "src/game/unit_00186D90.c",
+    "address": "0x00186D90",
+    "size": 276,
+    "profile": "ee-gcc2.9-991111-01-O2",
+    "evidence": "complete source-unit bytes match retail and the unit boundary agrees with the preserved SN Systems libgcc fp-bit.o text layout"
+  },
+  {
     "function": "func_00186EA8",
-    "source": "src/game/func_00186EA8.c",
+    "source": "src/game/unit_00186D90.c",
     "address": "0x00186EA8",
     "size": 76,
     "profile": "ee-gcc2.9-991111-01-O2",
-    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+    "evidence": "complete source-unit bytes match retail and the unit boundary agrees with the preserved SN Systems libgcc fp-bit.o text layout"
+  },
+  {
+    "function": "func_00186EF8",
+    "source": "src/game/unit_00186D90.c",
+    "address": "0x00186EF8",
+    "size": 184,
+    "profile": "ee-gcc2.9-991111-01-O2",
+    "evidence": "complete source-unit bytes match retail and the unit boundary agrees with the preserved SN Systems libgcc fp-bit.o text layout"
   },
   {
     "function": "func_00186FB0",
@@ -9774,5 +9798,13 @@
     "size": 64,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001A1D90",
+    "source": "src/game/func_001A1D90.c",
+    "address": "0x001A1D90",
+    "size": 236,
+    "profile": "ee-gcc2.9-991111-01-O2",
+    "evidence": "complete function and object text bytes match retail; boundary agrees with preserved SN Systems libgcc _fixunsdfdi.o"
   }
 ]
