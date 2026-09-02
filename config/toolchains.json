@@ -97,6 +97,23 @@
       "archive_url": "https://github.com/decompme/compilers/releases/download/compilers/ee-gcc2.95.3-136.tar.gz",
       "archive_sha256": "3b6ae6897229ad005aaf1b0afaa1f3cb46e74b4c21a42e01130c07c0c598067f"
     },
+    "ee-gcc2.95.3-136-O2-G8-ps2as-g": {
+      "family": "SN Systems GNU C",
+      "version": "2.95.3-EE build 1.36",
+      "runner": "wibo-driver",
+      "compiler": "tools/compilers/ee-gcc2.95.3-136/bin/ee-gcc.exe",
+      "assembler": "tools/compilers/ee-gcc2.95.3-136/lib/gcc-lib/ee/2.95.3/Ps2EeAs.exe",
+      "assembler_runner": "ps2eeas",
+      "flags": [
+        "-O2",
+        "-G8",
+        "-Iinclude",
+        "-g"
+      ],
+      "archive": "tools/compilers/downloads/ee-gcc2.95.3-136.tar.gz",
+      "archive_url": "https://github.com/decompme/compilers/releases/download/compilers/ee-gcc2.95.3-136.tar.gz",
+      "archive_sha256": "3b6ae6897229ad005aaf1b0afaa1f3cb46e74b4c21a42e01130c07c0c598067f"
+    },
     "ee-gcc2.9-991111-01-O2-G0": {
       "family": "Sony EE GNU C",
       "version": "2.9-ee-991111-01",
