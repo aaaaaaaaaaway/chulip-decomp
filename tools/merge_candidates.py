@@ -309,7 +309,7 @@ def source_has_definition(
         return re.search(
             rf"^[^\n;]*\b{re.escape(name)}\s*\([^;\n]*\)\s*\n"
             rf"[ \t]*#[ \t]*else\s*\n"
-            rf"[^\n]*\b{re.escape(name)}\s*\([^;\n]*\)[^;\n]*;\s*\n"
+            rf"[^\n]*\b{re.escape(name)}\s*\([^;\n]*\)[^\n]*\n"
             rf"[ \t]*#[ \t]*endif\s*\n[ \t]*\{{",
             clean,
             re.M,

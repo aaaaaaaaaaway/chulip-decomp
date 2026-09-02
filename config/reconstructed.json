@@ -2945,6 +2945,24 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00115830",
+    "source": "src/game/func_00115830.c",
+    "address": "0x00115830",
+    "size": 364,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as-g"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "object_flags": [
+      "-Wa,-G0"
+    ],
+    "unit_start": "0x00115830",
+    "unit_end": "0x001159A0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
     "function": "func_001159A0",
     "source": "src/game/unit_001159A0.c",
     "address": "0x001159A0",
@@ -13454,6 +13472,21 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00182F00",
+    "source": "src/game/func_00182F00.c",
+    "address": "0x00182F00",
+    "size": 540,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as-g"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "unit_start": "0x00182F00",
+    "unit_end": "0x00183120",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
     "function": "func_00184160",
     "source": "src/game/func_00184160.c",
     "address": "0x00184160",
@@ -15391,6 +15424,21 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00197EB8",
+    "source": "src/game/func_00197EB8.c",
+    "address": "0x00197EB8",
+    "size": 108,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2",
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Exact Sony EE GCC 2.9 O2 build under both G8 and G0 profiles.",
+    "provenance_note": "The source identity is authentic newlib mprec.c. The function is proved independently; the outer mprec.o translation-unit boundary remains provisional."
+  },
+  {
     "function": "func_00197F28",
     "source": "src/game/func_00197F28.c",
     "address": "0x00197F28",
@@ -15468,6 +15516,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00198140",
+    "source": "src/game/newlib_callocr.c",
+    "address": "0x00198140",
+    "size": 188,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x00198140",
+    "unit_end": "0x001981FC",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Exact Sony EE GCC 2.9 O2 G0 build of newlib callocr.o with MORECORE_CLEARS=0.",
+    "provenance_note": "Authentic newlib callocr.o archive member, built with INTERNAL_NEWLIB, DEFINE_CALLOC, and the recovered MORECORE_CLEARS=0 setting."
   },
   {
     "function": "func_00198200",

@@ -1552,6 +1552,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_00115830",
+    "source": "src/game/func_00115830.c",
+    "address": "0x00115830",
+    "size": 364,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
     "function": "func_001159A0",
     "source": "src/game/unit_001159A0.c",
     "address": "0x001159A0",
@@ -7368,6 +7376,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_00182F00",
+    "source": "src/game/func_00182F00.c",
+    "address": "0x00182F00",
+    "size": 540,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
     "function": "func_00184160",
     "source": "src/game/func_00184160.c",
     "address": "0x00184160",
@@ -8496,6 +8512,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_00197EB8",
+    "source": "src/game/func_00197EB8.c",
+    "address": "0x00197EB8",
+    "size": 108,
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "Exact 108-byte function match against retail from newlib _mprec_log10 at sourceware commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
+  },
+  {
     "function": "func_00197F28",
     "source": "src/game/func_00197F28.c",
     "address": "0x00197F28",
@@ -8542,6 +8566,14 @@
     "size": 96,
     "profile": "ee-gcc2.9-991111-01-O2",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00198140",
+    "source": "src/game/newlib_callocr.c",
+    "address": "0x00198140",
+    "size": 188,
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "Exact complete 188-byte callocr.o text match against retail from newlib mallocr.c at sourceware commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
   },
   {
     "function": "func_00198200",

@@ -93,6 +93,19 @@ class CandidateProofTests(unittest.TestCase):
                 )
             )
 
+    def test_legacy_conditional_definition_with_two_knr_parameters_counts(self) -> None:
+        text = (
+            "#if __STDC__\n"
+            "void *upstream_name(unsigned int count, unsigned int size)\n"
+            "#else\n"
+            "void *upstream_name(count, size) unsigned int count; unsigned int size;\n"
+            "#endif\n"
+            "{ return 0; }\n"
+        )
+        self.assertTrue(
+            merge_candidates.source_has_definition(text, "upstream_name")
+        )
+
     def test_legacy_knr_macro_definition_counts(self) -> None:
         with tempfile.TemporaryDirectory(dir=merge_candidates.ROOT) as temporary:
             directory = Path(temporary)
