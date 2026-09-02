@@ -30,6 +30,10 @@ def disassemble(blob: bytes, vram: int) -> list[tuple[int, str, str]]:
             [
                 OBJDUMP,
                 "-D",
+                # Without -z objdump folds a run of zero words into "...",
+                # which INSN_RE skips. Padding nops are zero words, so the
+                # diff silently lost them and reported a false match.
+                "-z",
                 "-b",
                 "binary",
                 "-m",
