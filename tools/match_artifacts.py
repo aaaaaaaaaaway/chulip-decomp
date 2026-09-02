@@ -147,8 +147,16 @@ def compile_bytes(spec: MatchSpec) -> bytes:
                     str(normalized),
                 ]
             )
+        placement: dict[str, int | None] = {".sdata": None, ".sbss": None}
+        for section in match.SMALL_SECTIONS:
+            placement[section] = match.small_data_origin(obj, section)[0]
         script.write_text(
-            match.linker_script(spec.address, spec.rodata, match.SDATA_VRAM)
+            match.linker_script(
+                spec.address,
+                spec.rodata,
+                placement[".sdata"] if placement[".sdata"] is not None else match.SDATA_VRAM,
+                placement[".sbss"],
+            )
         )
         match.write_derived_symbols(obj, derived)
         match.run(
@@ -162,6 +170,8 @@ def compile_bytes(spec: MatchSpec) -> bytes:
                 str(script),
                 "-T",
                 str(derived),
+                "-T",
+                "config/linker_aliases.ld",
                 "-T",
                 "build/undefined_funcs_auto.txt",
                 "-T",
