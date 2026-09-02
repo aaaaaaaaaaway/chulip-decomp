@@ -1184,6 +1184,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_0010F0F0",
+    "source": "src/game/func_0010F0F0.c",
+    "address": "0x0010F0F0",
+    "size": 348,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "The complete 352-byte source-unit extent matches retail exactly under both historical Ps2EeAs profiles."
+  },
+  {
     "function": "func_0010F250",
     "source": "src/game/func_0010F250.c",
     "address": "0x0010F250",

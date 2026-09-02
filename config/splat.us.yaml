@@ -212,7 +212,7 @@ segments:
       - [0x00E938, c, game/func_0010E938]
       - [0x00E978, asm, cod/text_0010E978]
       - [0x00F008, c, game/unit_0010F008]
-      - [0x00F0F0, asm, cod/text_0010F0F0]
+      - [0x00F0F0, c, game/func_0010F0F0]
       - [0x00F250, c, game/func_0010F250]
       - [0x00F258, asm, cod/text_0010F258]
       - [0x00F5E8, c, game/func_0010F5E8]

@@ -2247,6 +2247,26 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0010F0F0",
+    "source": "src/game/func_0010F0F0.c",
+    "address": "0x0010F0F0",
+    "size": 348,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as",
+      "ee-gcc2.95.3-136-O2-G8-ps2as-g"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": [
+      "-Wa,-G8"
+    ],
+    "unit_start": "0x0010F0F0",
+    "unit_end": "0x0010F250",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "SN Systems GCC 2.95.3-136 at -O2 -G8 with Ps2EeAs reproduces the complete range with or without debug statement labels when the assembler small-data threshold remains eight.",
+    "provenance_note": "Recovered as readable C from retail control flow; the exact combined extent is proven while the original source filename remains unknown."
+  },
+  {
     "function": "func_0010F250",
     "source": "src/game/func_0010F250.c",
     "address": "0x0010F250",
