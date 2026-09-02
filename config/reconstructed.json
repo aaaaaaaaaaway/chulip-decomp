@@ -14983,43 +14983,105 @@
   },
   {
     "function": "func_00193030",
-    "source": "src/game/func_00193030.c",
+    "source": "src/game/newlib_vfprintf.c",
     "address": "0x00193030",
     "size": 68,
     "verified_profiles": [
-      "ee-gcc2.9-991111-01-O2"
+      "ee-gcc2.9-991111-01-O2-G0"
     ],
-    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x00193030",
+    "unit_end": "0x00194950",
+    "rodata_start": "0x001EBC20",
     "isolated_match": true,
     "whole_program_match": true,
-    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 produces the retail runtime schedule, and its era-correct bundled GNU assembler preserves the retail instruction encodings",
-    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "profile_evidence": "Exact Sony EE GCC 2.9 O2 G0 build of newlib vfprintf.o with long-long printf support.",
+    "provenance_note": "Authentic newlib vfprintf.c translation unit at sourceware commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
   },
   {
     "function": "func_00193078",
-    "source": "src/game/func_00193078.c",
+    "source": "src/game/newlib_vfprintf.c",
     "address": "0x00193078",
     "size": 180,
     "verified_profiles": [
-      "ee-gcc2.9-991111-01-O2"
+      "ee-gcc2.9-991111-01-O2-G0"
     ],
-    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x00193030",
+    "unit_end": "0x00194950",
+    "rodata_start": "0x001EBC20",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "profile_evidence": "Exact Sony EE GCC 2.9 O2 G0 build of newlib vfprintf.o with long-long printf support.",
+    "provenance_note": "Authentic newlib vfprintf.c translation unit at sourceware commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
+  },
+  {
+    "function": "func_00193130",
+    "source": "src/game/newlib_vfprintf.c",
+    "address": "0x00193130",
+    "size": 120,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x00193030",
+    "unit_end": "0x00194950",
+    "rodata_start": "0x001EBC20",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Exact Sony EE GCC 2.9 O2 G0 build of newlib vfprintf.o with long-long printf support.",
+    "provenance_note": "Authentic newlib vfprintf.c translation unit at sourceware commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
+  },
+  {
+    "function": "func_001931A8",
+    "source": "src/game/newlib_vfprintf.c",
+    "address": "0x001931A8",
+    "size": 5400,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x00193030",
+    "unit_end": "0x00194950",
+    "rodata_start": "0x001EBC20",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Exact Sony EE GCC 2.9 O2 G0 build of newlib vfprintf.o with long-long printf support.",
+    "provenance_note": "Authentic newlib vfprintf.c translation unit at sourceware commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
   },
   {
     "function": "func_001946C0",
-    "source": "src/game/func_001946C0.c",
+    "source": "src/game/newlib_vfprintf.c",
     "address": "0x001946C0",
     "size": 432,
     "verified_profiles": [
-      "ee-gcc2.9-991111-01-O2"
+      "ee-gcc2.9-991111-01-O2-G0"
     ],
-    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x00193030",
+    "unit_end": "0x00194950",
+    "rodata_start": "0x001EBC20",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+    "profile_evidence": "Exact Sony EE GCC 2.9 O2 G0 build of newlib vfprintf.o with long-long printf support.",
+    "provenance_note": "Authentic newlib vfprintf.c translation unit at sourceware commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
+  },
+  {
+    "function": "func_00194870",
+    "source": "src/game/newlib_vfprintf.c",
+    "address": "0x00194870",
+    "size": 224,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x00193030",
+    "unit_end": "0x00194950",
+    "rodata_start": "0x001EBC20",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Exact Sony EE GCC 2.9 O2 G0 build of newlib vfprintf.o with long-long printf support.",
+    "provenance_note": "Authentic newlib vfprintf.c translation unit at sourceware commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
   },
   {
     "function": "func_00194950",

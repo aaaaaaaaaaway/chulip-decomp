@@ -8257,27 +8257,51 @@
   },
   {
     "function": "func_00193030",
-    "source": "src/game/func_00193030.c",
+    "source": "src/game/newlib_vfprintf.c",
     "address": "0x00193030",
     "size": 68,
-    "profile": "ee-gcc2.9-991111-01-O2",
-    "evidence": "complete isolated function range matches exactly under the stock Sony EE compiler and era-correct bundled GNU assembler"
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "Exact complete vfprintf.o text and rodata reproduced from the dated upstream newlib source with the recovered Sony EE GCC profile and EE variadic ABI."
   },
   {
     "function": "func_00193078",
-    "source": "src/game/func_00193078.c",
+    "source": "src/game/newlib_vfprintf.c",
     "address": "0x00193078",
     "size": 180,
-    "profile": "ee-gcc2.9-991111-01-O2",
-    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "Exact complete vfprintf.o text and rodata reproduced from the dated upstream newlib source with the recovered Sony EE GCC profile and EE variadic ABI."
+  },
+  {
+    "function": "func_00193130",
+    "source": "src/game/newlib_vfprintf.c",
+    "address": "0x00193130",
+    "size": 120,
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "Exact complete vfprintf.o text and rodata reproduced from the dated upstream newlib source with the recovered Sony EE GCC profile and EE variadic ABI."
+  },
+  {
+    "function": "func_001931A8",
+    "source": "src/game/newlib_vfprintf.c",
+    "address": "0x001931A8",
+    "size": 5400,
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "Exact complete vfprintf.o text and rodata reproduced from the dated upstream newlib source with the recovered Sony EE GCC profile and EE variadic ABI."
   },
   {
     "function": "func_001946C0",
-    "source": "src/game/func_001946C0.c",
+    "source": "src/game/newlib_vfprintf.c",
     "address": "0x001946C0",
     "size": 432,
-    "profile": "ee-gcc2.9-991111-01-O2",
-    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "Exact complete vfprintf.o text and rodata reproduced from the dated upstream newlib source with the recovered Sony EE GCC profile and EE variadic ABI."
+  },
+  {
+    "function": "func_00194870",
+    "source": "src/game/newlib_vfprintf.c",
+    "address": "0x00194870",
+    "size": 224,
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "Exact complete vfprintf.o text and rodata reproduced from the dated upstream newlib source with the recovered Sony EE GCC profile and EE variadic ABI."
   },
   {
     "function": "func_00194950",

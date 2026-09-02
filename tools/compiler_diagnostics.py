@@ -65,6 +65,11 @@ _BENIGN = (
     re.compile(r"defined but not used\b", re.I),
     re.compile(r"statement with no effect\b", re.I),
     re.compile(r"(?:may|might) be used uninitialized\b", re.I),
+    # Historical newlib vfprintf deliberately converts a pointer through
+    # _POINTER_INT for %p. Sony's compiler warns because its pointer and
+    # integer modes differ, but the cast is explicit and the complete object
+    # reproduces retail exactly.
+    re.compile(r"cast from pointer to integer of different size\b", re.I),
 )
 
 # Assemblers and linkers describe constraints that are not C ABI defects, and

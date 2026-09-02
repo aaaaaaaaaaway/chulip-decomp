@@ -66,6 +66,11 @@ class CompilerDiagnosticsTests(unittest.TestCase):
         )
         self.assertEqual(unexpected_diagnostics(output), [])
 
+    def test_explicit_pointer_width_cast_is_known_benign(self) -> None:
+        output = "vfprintf.c:639: warning: cast from pointer to integer of different size"
+        self.assertEqual(dangerous_diagnostics(output), [])
+        self.assertEqual(unexpected_diagnostics(output), [])
+
     def test_assembler_and_linker_lines_are_not_c_diagnostics(self) -> None:
         output = "\n".join(
             (
