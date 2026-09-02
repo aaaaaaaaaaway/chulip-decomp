@@ -15271,6 +15271,21 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_001973C0",
+    "source": "src/game/func_001973C0.c",
+    "address": "0x001973C0",
+    "size": 556,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2",
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Exact Sony EE GCC 2.9 O2 build under both G8 and G0 profiles.",
+    "provenance_note": "The source identity is authentic newlib mprec.c. The function is proved independently; the outer mprec.o translation-unit boundary remains provisional."
+  },
+  {
     "function": "func_001975F0",
     "source": "src/game/func_001975F0.c",
     "address": "0x001975F0",

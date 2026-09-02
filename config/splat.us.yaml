@@ -1309,7 +1309,7 @@ segments:
       - [0x0970F8, c, game/func_001970F8]
       - [0x097240, c, game/u_00197240_2]
       - [0x097388, c, game/func_00197388]
-      - [0x0973C0, asm, cod/text_001973C0]
+      - [0x0973C0, c, game/func_001973C0]
       - [0x0975F0, c, game/func_001975F0]
       - [0x0976F0, c, game/func_001976F0]
       - [0x097868, c, game/func_00197868]

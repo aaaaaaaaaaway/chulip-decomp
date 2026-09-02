@@ -8424,6 +8424,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_001973C0",
+    "source": "src/game/func_001973C0.c",
+    "address": "0x001973C0",
+    "size": 556,
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "Exact 556-byte function match against retail from the David M. Gay newlib mprec.c multiplication algorithm at sourceware commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
+  },
+  {
     "function": "func_001975F0",
     "source": "src/game/func_001975F0.c",
     "address": "0x001975F0",
