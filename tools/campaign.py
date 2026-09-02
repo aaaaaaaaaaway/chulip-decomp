@@ -233,8 +233,11 @@ def ranked_targets() -> list[dict[str, object]]:
     catalog = list(catalog_by_name().values())
     excluded = reconstructed_names() | set(active_claims())
     assembly = candidate_queue.assembly_functions()
+    reconstructed = reconstructed_names()
     rows = [
-        candidate_queue.features(entry, assembly.get(str(entry["name"]), ""))
+        candidate_queue.features(
+            entry, assembly.get(str(entry["name"]), ""), reconstructed
+        )
         for entry in catalog
         if str(entry["name"]) not in excluded and int(entry["size"]) >= 8
     ]
@@ -768,13 +771,13 @@ def show_plan(limit: int, as_json: bool) -> None:
     if as_json:
         print(json.dumps(rows, indent=2))
         return
-    print("rank score bytes call br glob gp fp ee raw function")
+    print("rank  cost/B bytes call br glob gp fp ee raw dep function")
     for rank, row in enumerate(rows, 1):
         print(
-            f"{rank:4} {row['score']:5.1f} {row['size']:5} {row['calls']:4} "
+            f"{rank:4} {row['score']:7.2f} {row['size']:5} {row['calls']:4} "
             f"{row['branches']:2} {row['globals']:4} {row['gp_refs']:2} "
             f"{row['float_ops']:2} {row['ee_ops']:2} {row['unknown_words']:3} "
-            f"{row['function']}"
+            f"{row['pending_callees']:3} {row['function']}"
         )
 
 

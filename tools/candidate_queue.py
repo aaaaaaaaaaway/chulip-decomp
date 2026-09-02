@@ -23,6 +23,7 @@ EE = re.compile(r"\b(?:lq|sq|por|pcpy|pext|padd|psub|pmul|qfsrv|mtsab|mtsah)\w*\
 GLOBAL = re.compile(r"\b(?:D|jtbl)_[0-9A-Fa-f]{8}\b")
 GP_REL = re.compile(r"%gp_rel\(")
 WORD = re.compile(r"\s\.word\s")
+CALLEE = re.compile(r"\bjal\s+([A-Za-z_][\w.]*)")
 
 
 def assembly_functions() -> dict[str, str]:
@@ -49,7 +50,11 @@ def assembly_functions() -> dict[str, str]:
     return result
 
 
-def features(entry: dict[str, object], assembly: str) -> dict[str, object]:
+def features(
+    entry: dict[str, object],
+    assembly: str,
+    reconstructed: frozenset[str] | set[str] | None = None,
+) -> dict[str, object]:
     size = int(entry["size"])
     calls = len(CALL.findall(assembly))
     branches = len(BRANCH.findall(assembly))
@@ -60,17 +65,32 @@ def features(entry: dict[str, object], assembly: str) -> dict[str, object]:
     unknown_words = len(WORD.findall(assembly))
     gp_refs = len(GP_REL.findall(assembly))
     handwritten = bool(entry.get("handwritten"))
-    score = (
-        size / 4
-        + calls * 18
-        + branches * 12
-        + globals_count * 5
-        + float_ops * 5
+    callees = set(CALLEE.findall(assembly))
+    pending_callees = (
+        len(callees - set(reconstructed)) if reconstructed is not None else 0
+    )
+    # Cost of one attempt, then divided by the bytes it recovers. Ranking the
+    # quotient ascending asks for the cheapest byte rather than the smallest
+    # function: the old sum grew with size, so it always handed out the tail of
+    # tiny leaves first, and 224 unmatched functions of 64 bytes or less are
+    # worth 5 KB between them.
+    cost = (
+        60.0
+        + calls * 6
+        + branches * 4
+        + globals_count * 3
+        + float_ops * 2
         + ee_ops * 16
         + unknown_words * 25
-        + jump_table * 300
-        + handwritten * 500
+        # Switch tables are routine now that build.py pins 36 of them; the old
+        # 300 treated them as near-impossible and buried the largest functions.
+        + jump_table * 120
+        + handwritten * 5000
+        # A caller whose callees are still assembly needs their prototypes
+        # guessed, and a wrong return type moves registers at every call site.
+        + pending_callees * 45
     )
+    score = cost / max(size, 1)
     return {
         "function": entry["name"],
         "address": entry["address"],
@@ -84,6 +104,7 @@ def features(entry: dict[str, object], assembly: str) -> dict[str, object]:
         "unknown_words": unknown_words,
         "jump_table": jump_table,
         "handwritten": handwritten,
+        "pending_callees": pending_callees,
         "assembly_available": bool(assembly),
         "score": round(score, 2),
     }
@@ -128,19 +149,19 @@ def main() -> int:
     excluded = reconstructed | manifest_functions(args.exclude_manifest)
     assembly = assembly_functions()
     queue = [
-        features(entry, assembly.get(str(entry["name"]), ""))
+        features(entry, assembly.get(str(entry["name"]), ""), reconstructed)
         for entry in catalog
         if entry["name"] not in excluded and int(entry["size"]) >= args.min_size
     ]
     queue.sort(key=lambda row: (row["score"], row["size"], row["address"]))
 
-    print("rank score bytes call br glob gp fp ee raw function")
+    print("rank  cost/B bytes call br glob gp fp ee raw dep function")
     for rank, row in enumerate(queue[: args.limit], 1):
         print(
-            f"{rank:4} {row['score']:5.1f} {row['size']:5} {row['calls']:4} "
+            f"{rank:4} {row['score']:7.2f} {row['size']:5} {row['calls']:4} "
             f"{row['branches']:2} {row['globals']:4} {row['gp_refs']:2} "
             f"{row['float_ops']:2} {row['ee_ops']:2} {row['unknown_words']:3} "
-            f"{row['function']}"
+            f"{row['pending_callees']:3} {row['function']}"
         )
     print(f"ranked {len(queue)} unmatched functions")
     if args.json:
