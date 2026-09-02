@@ -4024,6 +4024,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_001429A8",
+    "source": "src/game/func_001429A8.c",
+    "address": "0x001429A8",
+    "size": 2868,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
     "function": "func_00143FB8",
     "source": "src/game/func_00143FB8.c",
     "address": "0x00143FB8",
@@ -6304,6 +6312,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_001721A8",
+    "source": "src/game/func_001721A8.c",
+    "address": "0x001721A8",
+    "size": 196,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "The complete 196-byte function range matches retail exactly under both recorded SN Systems EE compiler builds and the era-correct bundled GNU assembler."
+  },
+  {
     "function": "func_00172270",
     "source": "src/game/func_00172270.c",
     "address": "0x00172270",
@@ -7520,12 +7536,28 @@
     "evidence": "the complete unit range is reproduced by one source compiled once with one configuration"
   },
   {
+    "function": "func_001855F0",
+    "source": "src/game/unit_001855F0.c",
+    "address": "0x001855F0",
+    "size": 84,
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "The complete 296-byte __main.o text extent, including the four-byte alignment gap between the destructor and constructor, matches retail exactly under Sony EE GNU C 2.9 and the era-correct bundled GNU assembler."
+  },
+  {
+    "function": "func_00185648",
+    "source": "src/game/unit_001855F0.c",
+    "address": "0x00185648",
+    "size": 176,
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "The complete 296-byte __main.o text extent, including the four-byte alignment gap between the destructor and constructor, matches retail exactly under Sony EE GNU C 2.9 and the era-correct bundled GNU assembler."
+  },
+  {
     "function": "func_001856F8",
-    "source": "src/game/func_001856F8.c",
+    "source": "src/game/unit_001855F0.c",
     "address": "0x001856F8",
     "size": 32,
-    "profile": "ee-gcc2.9-991111-01-O2",
-    "evidence": "isolated exact match under the stock Sony EE compiler that built the runtime and library region"
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "The complete 296-byte __main.o text extent, including the four-byte alignment gap between the destructor and constructor, matches retail exactly under Sony EE GNU C 2.9 and the era-correct bundled GNU assembler."
   },
   {
     "function": "func_00185718",

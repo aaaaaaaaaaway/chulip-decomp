@@ -7458,6 +7458,21 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_001429A8",
+    "source": "src/game/func_001429A8.c",
+    "address": "0x001429A8",
+    "size": 2868,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as-g"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "unit_start": "0x001429A8",
+    "unit_end": "0x001434E0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
     "function": "func_00143FB8",
     "source": "src/game/func_00143FB8.c",
     "address": "0x00143FB8",
@@ -11492,6 +11507,24 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_001721A8",
+    "source": "src/game/func_001721A8.c",
+    "address": "0x001721A8",
+    "size": 196,
+    "verified_profiles": [
+      "ee-gcc2.95.2-273a-O2-G8",
+      "ee-gcc2.95.3-136-O2-G8"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "object_flags": [
+      "-Wa,-G0"
+    ],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Both SN Systems GCC 2.95.2-273a and 2.95.3-136 at -O2 -G8 with assembler small-data threshold zero reproduce the complete range.",
+    "provenance_note": "Recovered from retail control flow and independently replayed after the parallel-session handoff; authentic translation-unit ownership remains provisional."
+  },
+  {
     "function": "func_00172270",
     "source": "src/game/func_00172270.c",
     "address": "0x00172270",
@@ -13737,18 +13770,52 @@
     "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched"
   },
   {
+    "function": "func_001855F0",
+    "source": "src/game/unit_001855F0.c",
+    "address": "0x001855F0",
+    "size": 84,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x001855F0",
+    "unit_end": "0x00185718",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9 with -O2 -G0 reproduces the preserved archive object and retail register schedule; nonzero small-data settings change the destructor-list access.",
+    "provenance_note": "Logic follows GCC 2.95.3 libgcc2.c and gbl-ctors.h. The preserved ProDG for PS2 3.01 libgcc __main.o establishes the authentic source-unit boundary; archive bytes are provenance evidence only and are not build inputs."
+  },
+  {
+    "function": "func_00185648",
+    "source": "src/game/unit_001855F0.c",
+    "address": "0x00185648",
+    "size": 176,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x001855F0",
+    "unit_end": "0x00185718",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9 with -O2 -G0 reproduces the preserved archive object and retail register schedule; the canonical do-while macro scope is required for the constructor's register allocation.",
+    "provenance_note": "Logic follows GCC 2.95.3 libgcc2.c and gbl-ctors.h. The preserved ProDG for PS2 3.01 libgcc __main.o establishes the authentic source-unit boundary; archive bytes are provenance evidence only and are not build inputs."
+  },
+  {
     "function": "func_001856F8",
-    "source": "src/game/func_001856F8.c",
+    "source": "src/game/unit_001855F0.c",
     "address": "0x001856F8",
     "size": 32,
     "verified_profiles": [
-      "ee-gcc2.9-991111-01-O2"
+      "ee-gcc2.9-991111-01-O2-G0"
     ],
-    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x001855F0",
+    "unit_end": "0x00185718",
     "isolated_match": true,
     "whole_program_match": true,
-    "profile_evidence": "this range lies above the SDK frontier, where retail spills callee-saved registers 64 bits wide at a sixteen-byte slot stride. Sony EE GNU C 2.9-ee-991111-01 reproduces that natively; both SN builds spill 128 bits and cannot",
-    "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "profile_evidence": "Sony EE GNU C 2.9 with -O2 -G0 reproduces the complete preserved object; this supersedes the earlier isolated wrapper-only attribution.",
+    "provenance_note": "Logic follows GCC 2.95.3 libgcc2.c and gbl-ctors.h. The preserved ProDG for PS2 3.01 libgcc __main.o establishes the authentic source-unit boundary; archive bytes are provenance evidence only and are not build inputs."
   },
   {
     "function": "func_00185718",
