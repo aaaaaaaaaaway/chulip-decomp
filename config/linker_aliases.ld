@@ -11,6 +11,11 @@ dptoli = 0x001863A8;
 __muldi3 = 0x00187180;
 __udivdi3 = 0x001A24E8;
 __umoddi3 = 0x001A2AB8;
+/* Float-to-unsigned-64 cast helper. The function at this address is already
+   reconstructed and matched; this name exists only because gcc emits the
+   libcall by name for a (unsigned long)(float) cast, which cannot be written
+   as an address-named symbol. Two independent lanes identified it. */
+__fixunssfdi = 0x00185718;
 
 /* Single-precision sqrt fallback. gcc expands the sqrtf builtin to a hardware
    sqrt.s plus a NaN check that calls this helper by its declared name, so the
