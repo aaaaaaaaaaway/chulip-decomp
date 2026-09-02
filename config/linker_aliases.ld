@@ -11,3 +11,11 @@ dptoli = 0x001863A8;
 __muldi3 = 0x00187180;
 __udivdi3 = 0x001A24E8;
 __umoddi3 = 0x001A2AB8;
+
+/* Single-precision sqrt fallback. gcc expands the sqrtf builtin to a hardware
+   sqrt.s plus a NaN check that calls this helper by its declared name, so the
+   reference cannot be spelled as an address-named symbol. 0x0018B5F8 carries
+   mov.s/lwc1/swc1, i.e. genuine single-precision work, and is reached from 22
+   call sites. The double wrapper at 0x0018B3E8 is a DIFFERENT function with no
+   FPU instructions at all; do not alias sqrtf onto it. */
+sqrtf = 0x0018B5F8;
