@@ -28,6 +28,37 @@ Exit codes are composable in worker loops: 0 means match/success/new candidate,
 1 means a byte mismatch, 2 means an input or tool failure, and duplicate checks
 use 3 for a previously recorded attempt.
 
+## Guided search with the permuter
+
+`tools/permute.py` prepares a decomp-permuter working directory for one
+function. The permuter searches source rewrites that preserve behaviour and
+change register allocation and scheduling, which is the work a lane otherwise
+does by hand: `func_00105F28` landed only after one exhausted roughly 5,040
+declaration orders and 4,000 statement orders to settle a register-allocation
+tie, and 119 unmatched functions are larger than 1 KB.
+
+```sh
+python3 tools/permute.py func_0011AE00
+python3 tools/permute.py func_0011AE00 --source work/lanes/mine/candidate.c \
+    --profile ee-gcc2.95.3-136-O2-G8-ps2as --permuter ../kaze-decomp/tools/decomp-permuter
+```
+
+It writes `base.c`, `target.o`, `compile.sh`, and `settings.toml` under
+`work/permuter/<function>/`, taking the source, profile, and object flags from
+the reconstruction ledger or a verified campaign candidate unless overridden.
+The permuter itself is not vendored; point `--permuter` at a checkout.
+
+The compile is delegated to `tools/permute_compile.py`, which routes through
+`match.compile_historical_object`. That is deliberate: a search optimising
+against a reimplemented driver would drift from the verifier and report
+progress on bytes nothing will ever accept. Verified on `func_0011AE00`, the
+object `compile.sh` produces is byte-identical to the one `tools/match.py`
+judges, and `target.o` carries the retail bytes under the function symbol.
+
+Feed the permuter's `output-*/source.c` candidates back through
+`tools/campaign.py harvest`, which records a per-profile word distance so near
+misses can be ranked.
+
 ## Parallel campaigns
 
 ```sh
