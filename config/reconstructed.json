@@ -15022,6 +15022,22 @@
     "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
   },
   {
+    "function": "func_00194950",
+    "source": "src/game/newlib_wsetup.c",
+    "address": "0x00194950",
+    "size": 268,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x00194950",
+    "unit_end": "0x00194A5C",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Exact Sony EE GCC 2.9 O2 G0 build of newlib wsetup.o.",
+    "provenance_note": "Authentic newlib wsetup.c translation unit at sourceware commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
+  },
+  {
     "function": "func_00194A60",
     "source": "src/game/newlib_dtoa.c",
     "address": "0x00194A60",
@@ -15054,6 +15070,22 @@
     "whole_program_match": true,
     "profile_evidence": "Exact Sony EE GCC 2.9 build profile and G0 setting recovered by whole upstream-object comparison.",
     "provenance_note": "Authentic newlib dtoa.c translation unit at sourceware commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
+  },
+  {
+    "function": "func_00195E48",
+    "source": "src/game/newlib_fflush.c",
+    "address": "0x00195E48",
+    "size": 260,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x00195E48",
+    "unit_end": "0x00195F4C",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Exact Sony EE GCC 2.9 O2 G0 build of newlib fflush.o.",
+    "provenance_note": "Authentic newlib fflush.c translation unit at sourceware commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
   },
   {
     "function": "func_00195F50",

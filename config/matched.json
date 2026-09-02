@@ -8280,6 +8280,14 @@
     "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
   },
   {
+    "function": "func_00194950",
+    "source": "src/game/newlib_wsetup.c",
+    "address": "0x00194950",
+    "size": 268,
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "Exact complete wsetup.o text reproduced from the dated upstream newlib source with the recovered Sony EE GCC profile."
+  },
+  {
     "function": "func_00194A60",
     "source": "src/game/newlib_dtoa.c",
     "address": "0x00194A60",
@@ -8294,6 +8302,14 @@
     "size": 4556,
     "profile": "ee-gcc2.9-991111-01-O2-G0",
     "evidence": "Exact full translation-unit text and rodata match against retail; upstream newlib dtoa.c commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a."
+  },
+  {
+    "function": "func_00195E48",
+    "source": "src/game/newlib_fflush.c",
+    "address": "0x00195E48",
+    "size": 260,
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "Exact complete fflush.o text reproduced from the dated upstream newlib source with the recovered Sony EE GCC profile."
   },
   {
     "function": "func_00195F50",
