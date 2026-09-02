@@ -4,18 +4,30 @@
 from __future__ import annotations
 
 import argparse
+from collections.abc import Callable
 import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 START = "<!-- decomp-progress-start -->"
 END = "<!-- decomp-progress-end -->"
+STATUS_START = "<!-- decomp-status-start -->"
+STATUS_END = "<!-- decomp-status-end -->"
 
 
-def progress_data() -> dict[str, int | float]:
-    catalog = json.loads((ROOT / "config/functions.json").read_text())["functions"]
-    ledger = json.loads((ROOT / "config/matched.json").read_text())
-    reconstructed = json.loads((ROOT / "config/reconstructed.json").read_text())
+def read_worktree(path: str) -> str:
+    return (ROOT / path).read_text()
+
+
+def progress_data(read_text: Callable[[str], str] = read_worktree) -> dict[str, int | float]:
+    """Summarise the ledger, reading through ``read_text``.
+
+    repo_audit --index passes a reader backed by the git index so the counts
+    and the documents they are compared against come from one snapshot.
+    """
+    catalog = json.loads(read_text("config/functions.json"))["functions"]
+    ledger = json.loads(read_text("config/matched.json"))
+    reconstructed = json.loads(read_text("config/reconstructed.json"))
     by_name = {entry["name"]: entry for entry in catalog}
     names = [entry["function"] for entry in ledger]
     if len(names) != len(set(names)):
@@ -116,18 +128,79 @@ def markdown(data: dict[str, int | float]) -> str:
     )
 
 
-def replace_readme(block: str, *, write: bool) -> None:
-    path = ROOT / "README.md"
+def status_markdown(data: dict[str, int | float]) -> str:
+    """The counts docs/STATUS.md used to carry by hand.
+
+    Hand-maintained figures drift the moment a promotion lands, which is why
+    every count in STATUS.md and scope.md contradicted the ledger while the
+    README, which is generated, stayed correct.
+    """
+    return "\n".join(
+        (
+            STATUS_START,
+            "",
+            f"Provisional function catalog: **{data['total_functions']:,} functions "
+            f"/ {data['total_bytes']:,} bytes**",
+            "",
+            f"Source-reconstructed and matched: **{data['matched_functions']:,} functions "
+            f"/ {data['matched_bytes']:,} bytes**",
+            "",
+            f"Matched functions: **{data['matched_functions']:,} / "
+            f"{data['total_functions']:,} ({data['function_percent']:.4f}%)**",
+            "",
+            f"Matched text bytes: **{data['matched_bytes']:,} / "
+            f"{data['total_bytes']:,} ({data['byte_percent']:.4f}%)**",
+            "",
+            STATUS_END,
+        )
+    )
+
+
+def block_error(current: str, block: str, start: str, end: str, label: str) -> str | None:
+    """Why ``current`` does not carry ``block``, or None when it does."""
+    if current.count(start) != 1 or current.count(end) != 1:
+        return f"{label} markers are missing or duplicated"
+    prefix, remainder = current.split(start, 1)
+    _old, suffix = remainder.split(end, 1)
+    if current != prefix + block + suffix:
+        return (
+            f"{label} is stale; run tools/progress.py "
+            f"--write-{label.split()[0].lower()}"
+        )
+    return None
+
+
+def replace_block(
+    path: Path, block: str, start: str, end: str, label: str, *, write: bool
+) -> None:
     current = path.read_text()
-    if current.count(START) != 1 or current.count(END) != 1:
-        raise SystemExit("README progress markers are missing or duplicated")
-    prefix, remainder = current.split(START, 1)
-    _old, suffix = remainder.split(END, 1)
-    expected = prefix + block + suffix
-    if write:
-        path.write_text(expected)
-    elif current != expected:
-        raise SystemExit("README progress block is stale; run tools/progress.py --write-readme")
+    if not write:
+        error = block_error(current, block, start, end, label)
+        if error:
+            raise SystemExit(error)
+        return
+    if current.count(start) != 1 or current.count(end) != 1:
+        raise SystemExit(f"{label} markers are missing or duplicated")
+    prefix, remainder = current.split(start, 1)
+    _old, suffix = remainder.split(end, 1)
+    path.write_text(prefix + block + suffix)
+
+
+def replace_readme(block: str, *, write: bool) -> None:
+    replace_block(
+        ROOT / "README.md", block, START, END, "README progress block", write=write
+    )
+
+
+def replace_status(block: str, *, write: bool) -> None:
+    replace_block(
+        ROOT / "docs/STATUS.md",
+        block,
+        STATUS_START,
+        STATUS_END,
+        "STATUS progress block",
+        write=write,
+    )
 
 
 def main() -> int:
@@ -135,8 +208,18 @@ def main() -> int:
     parser.add_argument("--markdown", action="store_true")
     parser.add_argument("--write-readme", action="store_true")
     parser.add_argument("--check-readme", action="store_true")
+    parser.add_argument("--write-status", action="store_true")
+    parser.add_argument("--check-status", action="store_true")
     args = parser.parse_args()
-    if sum((args.markdown, args.write_readme, args.check_readme)) > 1:
+    if sum(
+        (
+            args.markdown,
+            args.write_readme,
+            args.check_readme,
+            args.write_status,
+            args.check_status,
+        )
+    ) > 1:
         raise SystemExit("select at most one output mode")
 
     data = progress_data()
@@ -147,6 +230,14 @@ def main() -> int:
     if args.write_readme or args.check_readme:
         replace_readme(block, write=args.write_readme)
         print("README progress block updated" if args.write_readme else "README progress block OK")
+        return 0
+    if args.write_status or args.check_status:
+        replace_status(status_markdown(data), write=args.write_status)
+        print(
+            "STATUS progress block updated"
+            if args.write_status
+            else "STATUS progress block OK"
+        )
         return 0
 
     print(

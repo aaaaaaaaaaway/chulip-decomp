@@ -17,13 +17,17 @@
 | All game code/data byte-matches | pending | — |
 | Clean-from-disc reproduction passes | pending | — |
 
+<!-- decomp-status-start -->
+
 Provisional function catalog: **2,189 functions / 663,704 bytes**
 
-Source-reconstructed and matched: **818 functions / 52,804 bytes**
+Source-reconstructed and matched: **1,213 functions / 152,452 bytes**
 
-Matched functions: **818 / 2,189 (37.3687%)**
+Matched functions: **1,213 / 2,189 (55.4134%)**
 
-Matched text bytes: **52,804 / 663,704 (7.9560%)**
+Matched text bytes: **152,452 / 663,704 (22.9699%)**
+
+<!-- decomp-status-end -->
 
 There is one public match tier. Readable source that matches its complete range
 and survives the exact full-image rebuild is counted; unresolved compiler or

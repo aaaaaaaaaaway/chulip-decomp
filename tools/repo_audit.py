@@ -11,7 +11,16 @@ import subprocess
 from pathlib import Path
 
 from build_controls import object_flag_errors
-from progress import markdown, progress_data, replace_readme
+from progress import (
+    END,
+    START,
+    STATUS_END,
+    STATUS_START,
+    block_error,
+    markdown,
+    progress_data,
+    status_markdown,
+)
 from gen_splat_config import rendered_config
 from source_audit import audit_c_source
 
@@ -274,8 +283,23 @@ def main() -> int:
             errors.append(f"unknown matched profile for {name}: {entry.get('profile')}")
 
     try:
-        data = progress_data()
-        replace_readme(markdown(data), write=False)
+        # Read the counts and the documents they describe through the same
+        # reader, so --index never compares a staged file against a working
+        # tree another worker is mid-promotion on.
+        data = progress_data(repository_text)
+        for path_name, block, start, end, label in (
+            ("README.md", markdown(data), START, END, "README progress block"),
+            (
+                "docs/STATUS.md",
+                status_markdown(data),
+                STATUS_START,
+                STATUS_END,
+                "STATUS progress block",
+            ),
+        ):
+            error = block_error(repository_text(path_name), block, start, end, label)
+            if error:
+                errors.append(error)
     except SystemExit as error:
         errors.append(str(error))
     if (ROOT / "config/splat.us.yaml").read_text() != rendered_config():

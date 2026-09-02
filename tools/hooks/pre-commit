@@ -58,6 +58,7 @@ def main() -> int:
         ("unit tests", [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"]),
         ("splat config matches the ledger", [sys.executable, "tools/gen_splat_config.py", "--check"]),
         ("README progress is current", [sys.executable, "tools/progress.py", "--check-readme"]),
+        ("STATUS progress is current", [sys.executable, "tools/progress.py", "--check-status"]),
         ("repository audit", [sys.executable, "tools/repo_audit.py", "--index"]),
     ]
 
