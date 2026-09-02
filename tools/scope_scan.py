@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 import re
 from pathlib import Path
 
@@ -70,23 +71,73 @@ def classify(entry: dict[str, object], body: list[str], matched: set[str]) -> st
     return "reachable, not yet written"
 
 
-# Natural C cannot express these at all.
+# Natural C cannot express these at all. The second multiply pipe was listed
+# here until func_001973C0 reproduced retail's mult1/mult pairing byte-exactly
+# under ee-gcc2.9-991111-01-O2; the Sony compiler emits mult1, so those bytes
+# are reachable and belong in the denominator. Keeping them out understated the
+# work remaining and flattered the matched share.
 INEXPRESSIBLE = {
     "hand-written assembly",
     "kernel syscall stub",
     "VU0 macro mode",
-    "second multiply pipe",
 }
-# These are ordinary C that the reconstruction cannot yet place. A switch
-# compiles to a jump table in .rodata, and the build does not yet lay that
-# table down at its retail address. This is a tooling gap, not a limit of C,
-# and it is the largest single block of unmatched bytes.
-BLOCKED_BY_TOOLING = {"jump-table switch"}
+# Switch functions were once unreachable because the reconstruction could not
+# place their tables. build.py now pins compiled tables at their retail
+# addresses, so these are ordinary unwritten work and stay in the reachable
+# denominator; the class is reported separately only because it is large.
+SWITCH_TABLE = {"jump-table switch"}
+
+
+SCOPE_START = "<!-- decomp-scope-start -->"
+SCOPE_END = "<!-- decomp-scope-end -->"
+
+
+def markdown(
+    order: list[str],
+    groups: dict[str, list[dict[str, object]]],
+    total_bytes: int,
+    inexpressible: int,
+    switch_bytes: int,
+    reachable_bytes: int,
+    matched_bytes: int,
+) -> str:
+    """The scope table docs/scope.md used to carry by hand."""
+    lines = [
+        SCOPE_START,
+        "",
+        "| Class | Functions | Bytes | Share of text |",
+        "| --- | ---: | ---: | ---: |",
+    ]
+    for kind in order:
+        rows = groups.get(kind, [])
+        size = sum(int(entry["size"]) for entry in rows)
+        lines.append(
+            f"| {kind} | {len(rows):,} | {size:,} | {100 * size / total_bytes:.2f}% |"
+        )
+    lines += [
+        "",
+        f"Not expressible in C at all: **{inexpressible:,} bytes "
+        f"({100 * inexpressible / total_bytes:.2f}%)** -- kernel syscall stubs, VU0 "
+        "macro mode, and hand-written assembly.",
+        "",
+        f"Switch functions whose tables are pinned but whose bodies are unwritten: "
+        f"**{switch_bytes:,} bytes ({100 * switch_bytes / total_bytes:.2f}%)**. These "
+        "are reachable work and stay in the denominator.",
+        "",
+        f"Reachable denominator: **{reachable_bytes:,} bytes**, against which "
+        f"**{matched_bytes:,} ({100 * matched_bytes / reachable_bytes:.4f}%)** is "
+        "matched.",
+        "",
+        SCOPE_END,
+    ]
+    return "\n".join(lines)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--json", type=Path, help="optional report path")
+    parser.add_argument("--write-scope", action="store_true")
+    parser.add_argument("--check-scope", action="store_true")
     args = parser.parse_args()
 
     catalog = json.loads(CATALOG.read_text())["functions"]
@@ -123,20 +174,44 @@ def main() -> int:
         )
 
     inexpressible = group_bytes(INEXPRESSIBLE)
-    blocked = group_bytes(BLOCKED_BY_TOOLING)
+    switch_bytes = group_bytes(SWITCH_TABLE)
     reachable_bytes = total_bytes - inexpressible
     matched_bytes = sum(int(entry["size"]) for entry in groups.get("matched", []))
     print()
     print(f"total text                      {total_bytes:9}")
     print(f"  not expressible in C          {inexpressible:9} "
           f"({100 * inexpressible / total_bytes:.2f}%)")
-    print(f"  blocked by the build, not C   {blocked:9} "
-          f"({100 * blocked / total_bytes:.2f}%)")
+    print(f"  switch tables, not written    {switch_bytes:9} "
+          f"({100 * switch_bytes / total_bytes:.2f}%)")
     print(f"reachable denominator           {reachable_bytes:9}")
     print(
         f"matched against it              {matched_bytes:9} "
         f"({100 * matched_bytes / reachable_bytes:.4f}%)"
     )
+    if args.write_scope or args.check_scope:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from progress import block_error
+
+        block = markdown(
+            order, groups, total_bytes, inexpressible, switch_bytes,
+            reachable_bytes, matched_bytes,
+        )
+        path = ROOT / "docs/scope.md"
+        current = path.read_text()
+        if args.check_scope:
+            error = block_error(current, block, SCOPE_START, SCOPE_END, "scope block")
+            if error:
+                raise SystemExit(error.replace("tools/progress.py", "tools/scope_scan.py"))
+            print("scope block OK")
+            return 0
+        if current.count(SCOPE_START) != 1 or current.count(SCOPE_END) != 1:
+            raise SystemExit("scope block markers are missing or duplicated")
+        prefix, remainder = current.split(SCOPE_START, 1)
+        _old, suffix = remainder.split(SCOPE_END, 1)
+        path.write_text(prefix + block + suffix)
+        print("scope block updated")
+        return 0
+
     if args.json:
         out = args.json if args.json.is_absolute() else ROOT / args.json
         out.parent.mkdir(parents=True, exist_ok=True)
@@ -146,7 +221,7 @@ def main() -> int:
                     "total_bytes": total_bytes,
                     "reachable_bytes": reachable_bytes,
                     "inexpressible_bytes": inexpressible,
-                    "blocked_by_tooling_bytes": blocked,
+                    "switch_table_bytes": switch_bytes,
                     "matched_bytes": matched_bytes,
                     "classes": {
                         kind: {

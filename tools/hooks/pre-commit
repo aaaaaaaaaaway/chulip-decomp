@@ -59,6 +59,7 @@ def main() -> int:
         ("splat config matches the ledger", [sys.executable, "tools/gen_splat_config.py", "--check"]),
         ("README progress is current", [sys.executable, "tools/progress.py", "--check-readme"]),
         ("STATUS progress is current", [sys.executable, "tools/progress.py", "--check-status"]),
+        ("scope table is current", [sys.executable, "tools/scope_scan.py", "--check-scope"]),
         ("repository audit", [sys.executable, "tools/repo_audit.py", "--index"]),
     ]
 

@@ -77,4 +77,5 @@ public-check: test
 	$(PYTHON) tools/gen_splat_config.py --check
 	$(PYTHON) tools/progress.py --check-readme
 	$(PYTHON) tools/progress.py --check-status
+	$(PYTHON) tools/scope_scan.py --check-scope
 	$(PYTHON) tools/repo_audit.py

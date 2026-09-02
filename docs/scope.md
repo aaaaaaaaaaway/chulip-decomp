@@ -14,35 +14,41 @@ python3 tools/progress.py       # what is matched, and how well it is proven
 
 ## What the executable is made of
 
-`tools/scope_scan.py` classifies all 2,189 catalog functions from the zero-C
-baseline disassembly. The figures below are a snapshot; the tools are the
-source of truth and will disagree with this page as work lands.
+`tools/scope_scan.py` classifies all catalog functions from the zero-C
+baseline disassembly. The table below is generated; run
+`python3 tools/scope_scan.py --write-scope` after work lands.
 
-| Class | Functions | Bytes | Share |
+<!-- decomp-scope-start -->
+
+| Class | Functions | Bytes | Share of text |
 | --- | ---: | ---: | ---: |
-| Matched | 714 | 36,344 | 5.48% |
-| Reachable, not yet written | 1,141 | 464,808 | 70.03% |
-| Jump-table switch | 85 | 146,188 | 22.03% |
+| matched | 1,213 | 152,452 | 22.97% |
+| reachable, not yet written | 680 | 371,032 | 55.90% |
+| jump-table switch | 48 | 124,412 | 18.75% |
+| kernel syscall stub | 0 | 0 | 0.00% |
 | VU0 macro mode | 41 | 4,976 | 0.75% |
-| Hand-written assembly | 188 | 7,052 | 1.06% |
-| Second multiply pipe | 20 | 4,336 | 0.65% |
+| hand-written assembly | 188 | 7,052 | 1.06% |
+| second multiply pipe | 19 | 3,780 | 0.57% |
 
-Only **16,364 bytes, 2.47% of the image, cannot be expressed in C at all**:
-kernel syscall stubs, VU0 macro-mode vector code, the second EE multiply pipe,
-and the hand-written entry code. Those are the only bytes a complete
-decompilation may legitimately leave as assembly.
+Not expressible in C at all: **12,028 bytes (1.81%)** -- kernel syscall stubs, VU0 macro mode, and hand-written assembly.
 
-That gives a reachable denominator of **647,340 bytes**, against which the
-project has matched **5.61%**.
+Switch functions whose tables are pinned but whose bodies are unwritten: **124,412 bytes (18.75%)**. These are reachable work and stay in the denominator.
 
-## The largest single gap is ours, not the game's
+Reachable denominator: **651,676 bytes**, against which **152,452 (23.3938%)** is matched.
 
-Jump-table switches are 85 functions and 146,188 bytes — 22% of the whole
-executable, and by far the biggest block of unmatched code. They are ordinary C.
-A `switch` compiles to a jump table in `.rodata`, and the reconstruction does
-not yet place that table at its retail address, so the `%hi`/`%lo` immediates
-can never match. **This is a build limitation, not a limit of the language**,
-and closing it is worth more than any other single piece of work available.
+<!-- decomp-scope-end -->
+
+Those inexpressible bytes are the only ones a complete decompilation may
+legitimately leave as assembly.
+
+## The largest single block of unmatched code
+
+Switch functions are by far the biggest block of unmatched bytes, and they are
+ordinary C. A `switch` compiles to a jump table in `.rodata`, and placing that
+table at its retail address was once a build limitation; `tools/build.py` now
+pins compiled tables there, and switch functions have been matched under that
+mechanism. What remains is the size of the bodies rather than any gap in the
+reconstruction, which is why the class stays inside the reachable denominator.
 
 ## Two compilers, one executable
 
@@ -73,13 +79,17 @@ separately so the question stays answerable.
 Two caveats, both visible in `tools/progress.py`:
 
 **The function count runs ahead of the byte count.** Small functions are matched
-first, so 32% of functions is 5.5% of bytes. Text bytes is the honest measure.
+first, so the matched share of functions is more than twice the matched share of
+bytes; compare the two rows `tools/progress.py` prints. Text bytes is the honest
+measure.
 
-**Most matched functions carry a compiler attribution nothing discriminated.**
-Of 820 entries only 178 match exactly one profile; 621 are ambiguous and 45
-reproduce under all seven. With object flags included, 32 are discriminated by
-a full configuration. `tools/progress.py` reports the count of configurations
-in use, but that count is a description of the ledger, not of the evidence.
+**Compiler attribution is now mostly discriminated, but that is not provenance.**
+This page previously recorded the opposite, from a time when 178 of 820 entries
+matched exactly one profile. Measured against the ledger today, 1,134 of 1,213
+entries reproduce under exactly one profile, 79 remain ambiguous, and none
+reproduce under all nine. `tools/reverify_ledger.py` replays every one of those
+claims. What a single verified profile does not establish is that the function
+was compiled in the object the ledger implies, which is the next caveat.
 
 **Most matched functions are not yet in proven translation units.** A retail
 translation unit was compiled once, with one set of flags. Today most matched
@@ -93,9 +103,14 @@ of one real object.
 unnoticed:
 
 ```
-in proven units:   159 / 714 (22.3%); 555 compiled alone
-build configurations in use: 10
+co-compiled:       258 / 1213 (21.3%); 955 compiled alone
+  (sharing a source file, NOT a proven object boundary)
+build configurations in use: 22
 ```
+
+The parenthetical is the point. Co-compilation counts functions that share a
+source file, which is weaker than a proven object boundary, and the
+configuration count is a description of the ledger rather than of the evidence.
 
 Consolidating adjacent functions into single source units, compiled once with
 one configuration, is what converts a byte match into a reconstruction. Until
