@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 import hashlib
 import re
@@ -68,9 +69,18 @@ ALLOWED_BINARY_SHA256 = {
 }
 
 
-def committable_files() -> list[str]:
+def committable_files(index_only: bool = False) -> list[str]:
+    """List the files a commit would publish.
+
+    The standing public audit also considers untracked files, because an
+    unledgered source sitting in ``src`` is a real inconsistency. A
+    pre-commit gate wants the narrower question -- is *this commit*
+    consistent -- so that one worker's in-flight promotion cannot refuse
+    another's unrelated commit.
+    """
+    selection = ["--cached"] if index_only else ["--cached", "--others"]
     result = subprocess.run(
-        ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"],
+        ["git", "ls-files", *selection, "--exclude-standard", "-z"],
         cwd=ROOT,
         check=True,
         capture_output=True,
@@ -79,8 +89,31 @@ def committable_files() -> list[str]:
     return sorted(path for path in files if (ROOT / path).is_file())
 
 
+# Set for --index so every question is asked of one snapshot. Reading the
+# file list from the index while reading the ledger from the working tree
+# compares two different states, and under concurrent promotion they
+# disagree constantly in both directions.
+INDEX_ONLY = False
+
+
+def repository_text(path: str) -> str:
+    """Read a tracked file as this commit would publish it."""
+    if not INDEX_ONLY:
+        return (ROOT / path).read_text()
+    result = subprocess.run(
+        ["git", "show", f":{path}"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode:
+        # Not in the index: the commit publishes HEAD's copy, or nothing.
+        return (ROOT / path).read_text()
+    return result.stdout
+
+
 def load_json(path: str):
-    return json.loads((ROOT / path).read_text())
+    return json.loads(repository_text(path))
 
 
 def matched_sources_are_decompiled(errors: list[str]) -> None:
@@ -109,9 +142,20 @@ def matched_sources_are_decompiled(errors: list[str]) -> None:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--index",
+        action="store_true",
+        help="audit only what is staged, ignoring untracked working-tree files",
+    )
+    arguments = parser.parse_args()
+
+    global INDEX_ONLY
+    INDEX_ONLY = arguments.index
+
     errors: list[str] = []
     matched_sources_are_decompiled(errors)
-    files = committable_files()
+    files = committable_files(index_only=arguments.index)
     file_set = set(files)
     for required in REQUIRED:
         if required not in file_set:
@@ -148,7 +192,9 @@ def main() -> int:
         except json.JSONDecodeError as error:
             errors.append(f"invalid JSON {path.relative_to(ROOT)}: {error}")
     ledger_path = ROOT / "docs/matching-knowledge.jsonl"
-    for line_number, line in enumerate(ledger_path.read_text().splitlines(), 1):
+    for line_number, line in enumerate(
+        repository_text("docs/matching-knowledge.jsonl").splitlines(), 1
+    ):
         try:
             json.loads(line)
         except json.JSONDecodeError as error:

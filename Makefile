@@ -6,10 +6,14 @@ CANDIDATES ?=
 CANDIDATE_ELF ?= build/current/chulip.us.elf
 OWNER ?= local
 
-.PHONY: setup split baseline verify match merge reverify-ledger progress boundaries boundary-verify audit elf-report campaign-plan campaign-packet campaign-status campaign-harvest campaign-promote test public-check
+.PHONY: setup install-hooks split baseline verify match merge reverify-ledger progress boundaries boundary-verify audit elf-report campaign-plan campaign-packet campaign-status campaign-harvest campaign-promote test public-check
 
 setup:
 	$(PYTHON) tools/bootstrap.py
+
+install-hooks:
+	ln -sf ../../tools/hooks/pre-commit .git/hooks/pre-commit
+	@echo "installed .git/hooks/pre-commit"
 
 split:
 	$(PYTHON) tools/gen_splat_config.py --check

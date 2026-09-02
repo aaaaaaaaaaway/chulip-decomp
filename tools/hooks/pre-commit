@@ -1,0 +1,113 @@
+#!/usr/bin/env python3
+"""Refuse a commit whose staged sources no longer prove themselves.
+
+Every integrity failure this project has recorded -- the lost ledger race,
+the working-tree stub corruption, the trusted candidate proofs, the
+type-wrong matches -- was found by a tool nobody was obliged to run. CI
+cannot close that gap: it has neither the retail image nor the historical
+compilers, so it lints and never builds.
+
+This runs the gates that need those inputs, scoped to what is being
+committed so the cost stays in the seconds. Install it with
+``make install-hooks``. ``git commit --no-verify`` skips it.
+
+The audit runs over the index rather than the working tree, so a
+concurrent worker's in-flight promotion cannot refuse an unrelated
+commit. It still reads the ledger from the working tree, so a promotion
+that has written the ledger but not yet staged its source can report
+that source as uncommittable; re-run once that promotion finishes.
+"""
+
+from __future__ import annotations
+
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+LEDGER = ROOT / "config/reconstructed.json"
+COMPILERS = ROOT / "tools/compilers"
+RETAIL = ROOT / "original/SLUS_207.42"
+
+
+def staged() -> list[str]:
+    result = subprocess.run(
+        ["git", "diff", "--cached", "--name-only", "--diff-filter=ACM"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    return [line for line in result.stdout.splitlines() if line.strip()]
+
+
+def step(label: str, command: list[str]) -> bool:
+    print(f"[pre-commit] {label}")
+    if subprocess.run(command, cwd=ROOT).returncode == 0:
+        return True
+    print(f"[pre-commit] FAILED: {label}", file=sys.stderr)
+    return False
+
+
+def main() -> int:
+    paths = staged()
+    if not paths:
+        return 0
+
+    checks: list[tuple[str, list[str]]] = [
+        ("unit tests", [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"]),
+        ("splat config matches the ledger", [sys.executable, "tools/gen_splat_config.py", "--check"]),
+        ("README progress is current", [sys.executable, "tools/progress.py", "--check-readme"]),
+        ("repository audit", [sys.executable, "tools/repo_audit.py", "--index"]),
+    ]
+
+    touches_build = any(
+        path.startswith(("src/", "config/", "include/", "tools/")) for path in paths
+    )
+    have_inputs = COMPILERS.is_dir() and RETAIL.is_file()
+
+    if touches_build and have_inputs:
+        checks.append(("whole-image rebuild", [sys.executable, "tools/build.py"]))
+        ledgered = set()
+        if LEDGER.is_file():
+            import json
+
+            ledgered = {
+                str(entry.get("source", ""))
+                for entry in json.loads(LEDGER.read_text())
+            }
+        sources = sorted({p for p in paths if p.startswith("src/") and p in ledgered})
+        if sources:
+            command = [
+                sys.executable,
+                "tools/reverify_ledger.py",
+                "--no-resume",
+                "--retry-failures",
+                "--report",
+                "work/ledger-reverify/pre-commit.jsonl",
+            ]
+            for source in sources:
+                command += ["--source", source]
+            checks.append(
+                (f"replay ledger proofs for {len(sources)} staged source(s)", command)
+            )
+    elif touches_build:
+        print(
+            "[pre-commit] note: skipping the rebuild and proof replay; "
+            "supply original/SLUS_207.42 and tools/compilers to enable them"
+        )
+
+    for label, command in checks:
+        if not step(label, command):
+            print(
+                "[pre-commit] commit refused. Fix the failure, or use "
+                "git commit --no-verify if you are certain.",
+                file=sys.stderr,
+            )
+            return 1
+    print("[pre-commit] all gates passed")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
