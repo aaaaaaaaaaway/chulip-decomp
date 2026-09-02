@@ -640,6 +640,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_00108C28",
+    "source": "src/game/func_00108C28.c",
+    "address": "0x00108C28",
+    "size": 772,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
     "function": "func_00108F30",
     "source": "src/game/func_00108F30.c",
     "address": "0x00108F30",
@@ -1846,6 +1854,14 @@
     "size": 64,
     "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0011AA88",
+    "source": "src/game/func_0011AA88.c",
+    "address": "0x0011AA88",
+    "size": 832,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
   },
   {
     "function": "func_0011ADC8",
@@ -3408,6 +3424,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_00135FA0",
+    "source": "src/game/func_00135FA0.c",
+    "address": "0x00135FA0",
+    "size": 760,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
     "function": "func_00136298",
     "source": "src/game/func_00136298.c",
     "address": "0x00136298",
@@ -4046,6 +4070,14 @@
     "size": 152,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_001493A8",
+    "source": "src/game/func_001493A8.c",
+    "address": "0x001493A8",
+    "size": 728,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
   },
   {
     "function": "func_0014A818",
@@ -6744,6 +6776,14 @@
     "evidence": "Readable DMA/GIF packet initialization reproduces every byte in the complete 64-byte retail function range [0x0017B140,0x0017B180)."
   },
   {
+    "function": "func_0017B5E0",
+    "source": "src/game/func_0017B5E0.c",
+    "address": "0x0017B5E0",
+    "size": 768,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
     "function": "func_0017C220",
     "source": "src/game/func_0017C220.c",
     "address": "0x0017C220",
@@ -8966,6 +9006,14 @@
     "size": 44,
     "profile": "ee-gcc2.9-991111-01-O2",
     "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
+    "function": "func_0019AB68",
+    "source": "src/game/func_0019AB68.c",
+    "address": "0x0019AB68",
+    "size": 40,
+    "profile": "ee-gcc2.95.3-136-O2",
+    "evidence": "Exact complete-range comparison of the 40-byte indexed-entry reset under two Sony EE GNU C revisions."
   },
   {
     "function": "func_0019ACC8",
