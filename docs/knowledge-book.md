@@ -320,13 +320,19 @@ limit, not a missing insight.
   `dsll`/`dsra32`/`andi`. The `volatile long long` bitfield workaround is
   unnecessary for bit tests. Note `long` is eight bytes and `long long` sixteen
   in the SN band, while `long long` is eight under the Sony compiler.
-- The second EE multiply pipe (`mult1`) is never emitted; the compiler issues
-  two plain `mult` instructions where retail pairs `mult1` with `mult`.
+- The second EE multiply pipe (`mult1`) is emitted, by the Sony compiler:
+  `func_001973C0` reproduces retail's `mult1`/`mult` pairing byte-exactly under
+  `ee-gcc2.9-991111-01-O2-G0`. The earlier reading, that no compiler emits it,
+  came from testing only the SN band. Read an absent `mult1` as the wrong
+  profile rather than a compiler limit.
 - Neither SN build accepts `-foptimize-sibling-calls`, so retail frameless tail
   calls (`j callee` with no prologue) cannot be reproduced.
-- Hazard `nop`s after float-literal materialisation remain unrecoverable, as
-  first recorded for `func_001016A0`. Synthetic `nop`s are not an acceptable
-  shortcut, so these stay unmatched near-matches.
+- Hazard `nop`s after float-literal materialisation are recovered by the
+  bundled Ps2EeAs assembler rather than by synthetic padding. `func_001016A0`,
+  the function that first recorded this blocker, matches byte-exactly in
+  `src/game/unit_001016A0.c` under `ee-gcc2.95.3-136-O2-G8-ps2as`. The
+  assembler supplies the padding, the same class of mechanism the `-g`
+  div-padding profile relies on.
 
 ## 7. Tool map
 
@@ -334,7 +340,7 @@ limit, not a missing insight.
 | --- | --- | --- |
 | Disc conversion | `tools/mode2_to_iso.py` | Deterministically converts the verified Mode2/2352 dump. |
 | Disc extraction | `tools/iso9660_extract.py` | Extracts the filesystem without modifying the source dump. |
-| ELF inventory | `tools/elf_inventory.py` | Records executable sections, segments, entry point, GP, and hashes. |
+| ELF completeness | `tools/elf_completeness.py` | Reports load-image, ELF-container, and memory-layout completeness separately. |
 | Split and linker generation | Splat + spimdisasm | Generates temporary assembly and the reconstruction linker script. |
 | Compiler execution | Wibo + pinned SN GCC driver | Runs the historical Windows-hosted EE compiler reproducibly. |
 | Historical assembly | bundled GNU assembler | Produces authoritative source-object encodings for the proven profile. |
