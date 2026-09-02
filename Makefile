@@ -39,6 +39,8 @@ reverify-ledger:
 
 progress:
 	$(PYTHON) tools/progress.py --write-readme
+	$(PYTHON) tools/progress.py --write-status
+	$(PYTHON) tools/scope_scan.py --write-scope
 
 boundaries:
 	$(PYTHON) tools/object_boundary_scan.py

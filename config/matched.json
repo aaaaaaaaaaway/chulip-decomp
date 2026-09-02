@@ -8696,6 +8696,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_00198DE8",
+    "source": "src/game/func_00198DE8.c",
+    "address": "0x00198DE8",
+    "size": 116,
+    "profile": "ee-gcc2.9-991111-01-O2",
+    "evidence": "Exact complete-range comparison of the 116-byte runtime wrapper under Sony EE GNU C 2.9; the following four zero bytes are linker alignment before the next object at 0x00198E60."
+  },
+  {
     "function": "func_00198E60",
     "source": "src/game/unit_00198E60.c",
     "address": "0x00198E60",

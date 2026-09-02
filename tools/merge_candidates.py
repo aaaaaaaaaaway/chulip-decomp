@@ -3,8 +3,8 @@
 
 The default is a read-only dry run. ``--write`` updates the reconstruction and
 exact-match ledgers, regenerates Splat text boundaries, and retains the changes
-only if the complete build, baseline build, generated README progress, and
-public repository checks pass.
+only if the complete build, baseline build, generated README, STATUS, and scope
+progress, and public repository checks pass.
 Candidate source must already exist below ``src/``; this tool never copies it.
 Every record requires match evidence; unresolved provenance may be recorded as
 an optional note without creating a second public progress tier.
@@ -35,6 +35,8 @@ RECONSTRUCTED = ROOT / "config/reconstructed.json"
 MATCHED = ROOT / "config/matched.json"
 SPLAT = ROOT / "config/splat.us.yaml"
 README = ROOT / "README.md"
+STATUS = ROOT / "docs/STATUS.md"
+SCOPE = ROOT / "docs/scope.md"
 PROMOTION_LOCK = ROOT / "work/promotion.lock"
 
 ALLOWED_FIELDS = {
@@ -741,7 +743,7 @@ def run(command: list[str]) -> None:
 def write_transaction(
     reconstructed: list[dict[str, object]], matched: list[dict[str, object]]
 ) -> None:
-    paths = (RECONSTRUCTED, MATCHED, SPLAT, README)
+    paths = (RECONSTRUCTED, MATCHED, SPLAT, README, STATUS, SCOPE)
     saved = backups(paths)
     try:
         atomic_write(
@@ -754,11 +756,13 @@ def write_transaction(
         run(["make", "verify"])
         run(["make", "baseline"])
         run([sys.executable, "tools/progress.py", "--write-readme"])
+        run([sys.executable, "tools/progress.py", "--write-status"])
+        run([sys.executable, "tools/scope_scan.py", "--write-scope"])
         run(["make", "public-check"])
     except BaseException:
         restore(saved)
         print(
-            "transaction failed; restored ledgers, Splat config, and README",
+            "transaction failed; restored ledgers, Splat config, README, STATUS, and scope",
             file=sys.stderr,
         )
         raise

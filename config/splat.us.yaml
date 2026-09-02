@@ -1334,7 +1334,7 @@ segments:
       - [0x098C20, c, game/func_00198C20]
       - [0x098C30, asm, cod/text_00198C30]
       - [0x098D68, c, game/func_00198D68]
-      - [0x098DE8, asm, cod/text_00198DE8]
+      - [0x098DE8, c, game/func_00198DE8]
       - [0x098E60, c, game/unit_00198E60]
       - [0x098EA0, asm, cod/text_00198EA0]
       - [0x098F50, c, game/unit_00198F50]

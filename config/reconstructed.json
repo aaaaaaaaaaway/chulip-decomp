@@ -15770,6 +15770,22 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00198DE8",
+    "source": "src/game/func_00198DE8.c",
+    "address": "0x00198DE8",
+    "size": 116,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "unit_start": "0x00198DE8",
+    "unit_end": "0x00198E5C",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce every instruction and the complete text size.",
+    "provenance_note": "Recovered from retail and the already-matched sibling func_00198D68. The no-argument initializer signature is proven by the exact register schedule; authentic source names and final archive identity remain unresolved."
+  },
+  {
     "function": "func_00198E60",
     "source": "src/game/unit_00198E60.c",
     "address": "0x00198E60",
