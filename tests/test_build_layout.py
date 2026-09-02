@@ -24,6 +24,16 @@ class BuildLayoutTests(unittest.TestCase):
         rendered = build.extend_bss_to_memory_end(linker, 0x002E53AC)
         self.assertIn(". = 0x002E53AC;", rendered)
 
+    def test_source_owned_data_is_moved_between_split_assembly_spans(self):
+        obj = build.ROOT / "build/src/game/newlib_mallocr.o"
+        listed = "        build/src/game/newlib_mallocr.o(.data*);\n"
+        suffix = "        build/asm/data/cod/data_001E5310.data.o(.data*);\n"
+        rendered = build.pin_source_data(
+            listed + suffix, {obj: (0x001E4EB8, 0x001E5310)}
+        )
+        self.assertEqual(rendered.count(listed), 1)
+        self.assertLess(rendered.index(listed), rendered.index(suffix))
+
 
 if __name__ == "__main__":
     unittest.main()

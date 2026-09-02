@@ -297,10 +297,10 @@ def defined_section_symbols(obj: Path, section: str) -> list[tuple[str, int, int
     return found
 
 
-def small_data_origin(obj: Path, section: str) -> tuple[int | None, list[str]]:
-    """Retail origin implied by the small data an object defines.
+def source_owned_section_origin(obj: Path, section: str) -> tuple[int | None, list[str]]:
+    """Retail origin implied by address-named data an object defines.
 
-    A `.sdata`/`.sbss` symbol is defined exactly once in the whole image, so a
+    A data symbol is defined exactly once in the whole image, so a
     source that defines one claims the object that owns it -- the strongest
     translation-unit evidence available, because the definition cannot be moved
     elsewhere without moving the symbol. The retail address is already recorded
@@ -330,7 +330,11 @@ def small_data_origin(obj: Path, section: str) -> tuple[int | None, list[str]]:
 
 
 def linker_script(
-    address: int, rodata: int | None, sdata: int, sbss: int | None = None
+    address: int,
+    rodata: int | None,
+    sdata: int,
+    sbss: int | None = None,
+    data: int | None = None,
 ) -> str:
     placement = (
         f"  .rodata 0x{rodata:08X} : {{ *(.rodata) *(.rodata.*) *(.rdata) }}\n"
@@ -340,13 +344,14 @@ def linker_script(
     small = f"  .sdata 0x{sdata:08X} : {{ {SMALL_SECTIONS['.sdata']} }}\n"
     if sbss is not None:
         small += f"  .sbss 0x{sbss:08X} : {{ {SMALL_SECTIONS['.sbss']} }}\n"
+    owned_data = f"  .data 0x{data:08X} : {{ *(.data) *(.data.*) }}\n" if data is not None else ""
     return f"""OUTPUT_ARCH(mips)
 SECTIONS
 {{
   _gp = 0x001F4870;
   . = 0x{address:08X};
   .text : {{ *(.text) *(.text.*) }}
-{small}{placement}  /DISCARD/ : {{ *(.reginfo) *(.MIPS.abiflags) *(.pdr) *(.comment) *(.gnu.attributes) }}
+{owned_data}{small}{placement}  /DISCARD/ : {{ *(.reginfo) *(.MIPS.abiflags) *(.pdr) *(.comment) *(.gnu.attributes) }}
 }}
 """
 
@@ -571,11 +576,20 @@ def main() -> int:
                 f"compiled object does not define requested function: {args.function}"
             )
         notes: list[str] = []
-        placement: dict[str, int | None] = {".sdata": sdata, ".sbss": sbss}
+        placement: dict[str, int | None] = {
+            ".data": None,
+            ".sdata": sdata,
+            ".sbss": sbss,
+        }
+        data_origin, data_disagreements = source_owned_section_origin(obj, ".data")
+        placement[".data"] = data_origin
+        notes.extend(data_disagreements)
+        if data_origin is not None:
+            notes.append(f".data placed at 0x{data_origin:08X} (derived)")
         for section in SMALL_SECTIONS:
             if placement[section] is not None:
                 continue
-            derived_origin, disagreements = small_data_origin(obj, section)
+            derived_origin, disagreements = source_owned_section_origin(obj, section)
             placement[section] = derived_origin
             notes.extend(disagreements)
             if derived_origin is not None:
@@ -586,6 +600,7 @@ def main() -> int:
                 rodata,
                 placement[".sdata"] if placement[".sdata"] is not None else SDATA_VRAM,
                 placement[".sbss"],
+                placement[".data"],
             )
         )
         write_derived_symbols(obj, derived)

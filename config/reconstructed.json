@@ -1796,6 +1796,21 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0010C150",
+    "source": "src/game/func_0010C150.c",
+    "address": "0x0010C150",
+    "size": 412,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as-g"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "unit_start": "0x0010C150",
+    "unit_end": "0x0010C2F0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
     "function": "func_0010C730",
     "source": "src/game/func_0010C730.c",
     "address": "0x0010C730",
@@ -9536,6 +9551,22 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_001595F8",
+    "source": "src/game/func_001595F8.c",
+    "address": "0x001595F8",
+    "size": 448,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as-g"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "object_flags": [
+      "-Wa,-G8"
+    ],
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
     "function": "func_001597B8",
     "source": "src/game/func_001597B8.c",
     "address": "0x001597B8",
@@ -14764,6 +14795,36 @@
     "whole_program_match": true,
     "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 produces the retail runtime schedule, and its era-correct bundled GNU assembler preserves the retail instruction encodings",
     "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001918E0",
+    "source": "src/game/newlib_mallocr.c",
+    "address": "0x001918E0",
+    "size": 596,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x001918E0",
+    "unit_end": "0x001922B0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "Authentic newlib mallocr.c DEFINE_MALLOC translation unit at sourceware commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a, with the PS2 EE allocator alignment and size-width configuration restored."
+  },
+  {
+    "function": "func_00191B38",
+    "source": "src/game/newlib_mallocr.c",
+    "address": "0x00191B38",
+    "size": 1912,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x001918E0",
+    "unit_end": "0x001922B0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "Authentic newlib mallocr.c DEFINE_MALLOC translation unit at sourceware commit b0ba0ac21747fef4f150f2632aedf0f59e0ae03a, with the PS2 EE allocator alignment and size-width configuration restored."
   },
   {
     "function": "func_001924B8",

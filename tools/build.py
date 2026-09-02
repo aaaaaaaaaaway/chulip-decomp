@@ -17,6 +17,7 @@ from match import (
     parse_address,
     profile_command,
     run_compiler,
+    source_owned_section_origin,
 )
 from normalize_asm import normalize
 
@@ -247,6 +248,43 @@ def section_name(obj: Path) -> str:
     return ".jtbl_" + obj.stem.replace(".", "_")
 
 
+def section_size(obj: Path, section: str) -> int:
+    listing = subprocess.run(
+        ["mipsel-linux-gnu-size", "-A", str(obj)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout
+    for line in listing.splitlines():
+        fields = line.split()
+        if len(fields) >= 2 and fields[0] == section:
+            return int(fields[1])
+    return 0
+
+
+def pin_source_data(linker: str, owned: dict[Path, tuple[int, int]]) -> str:
+    """Place source-owned `.data` between the matching split assembly spans."""
+    for obj, (start, end) in sorted(owned.items(), key=lambda item: item[1][0]):
+        relative = obj.relative_to(ROOT).as_posix()
+        listed = f"        {relative}(.data*);\n"
+        if linker.count(listed) != 1:
+            raise SystemExit(f"generated linker script does not uniquely place {relative} data")
+        linker = linker.replace(listed, "")
+        suffix = re.compile(
+            rf"^        build/asm/data/\S*_{end:08X}\.data\.o\(\.data\*\);$",
+            re.MULTILINE,
+        )
+        marker = suffix.search(linker)
+        if marker is None:
+            raise SystemExit(
+                f"no split assembly data segment starts after {relative} at 0x{end:08X}"
+            )
+        placement = listed
+        linker = linker[: marker.start()] + placement + linker[marker.start() :]
+    return linker
+
+
 def pin_jump_tables(linker: str, tables: dict[Path, int]) -> str:
     """Give every compiled `switch` table the retail address retail gave it.
 
@@ -366,6 +404,7 @@ def main() -> int:
         for record in json.loads((ROOT / "config/functions.json").read_text())["functions"]
     }
     jump_tables: dict[Path, int] = {}
+    owned_data: dict[Path, tuple[int, int]] = {}
 
     for source_name, entries in source_entries.items():
         source = ROOT / source_name
@@ -386,6 +425,11 @@ def main() -> int:
         if not compile_historical_object(profile, source, obj, object_flags):
             assemble(generated, obj)
         objects.append(obj)
+        data_origin, data_disagreements = source_owned_section_origin(obj, ".data")
+        if data_disagreements:
+            raise SystemExit("; ".join(data_disagreements))
+        if data_origin is not None:
+            owned_data[obj] = (data_origin, data_origin + section_size(obj, ".data"))
         if has_rodata(obj):
             origins = {
                 parse_address(entry["rodata_start"])
@@ -415,6 +459,7 @@ def main() -> int:
     load = elf_config["load_segment"]
     memory_end = int(load["vram"], 0) + int(load["memory_size"], 0)
     linker = extend_bss_to_memory_end(linker, memory_end)
+    linker = pin_source_data(linker, owned_data)
     linker = pin_jump_tables(linker, jump_tables)
     linker_path = output / "chulip.us.ld"
     linker_path.write_text(linker)

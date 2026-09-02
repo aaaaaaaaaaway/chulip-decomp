@@ -179,7 +179,8 @@ segments:
       - [0x00BF10, c, game/unit_0010BF10]
       - [0x00BF20, c, game/func_0010BF20]
       - [0x00C148, c, game/func_0010C148]
-      - [0x00C150, asm, cod/text_0010C150]
+      - [0x00C150, c, game/func_0010C150]
+      - [0x00C2F0, asm, cod/text_0010C2F0]
       - [0x00C730, c, game/func_0010C730]
       - [0x00C7B0, c, game/func_0010C7B0]
       - [0x00C7E0, c, game/func_0010C7E0]
@@ -827,7 +828,7 @@ segments:
       - [0x058EB0, asm, cod/text_00158EB0]
       - [0x059370, c, game/func_00159370]
       - [0x0594E0, c, game/func_001594E0]
-      - [0x0595F8, asm, cod/text_001595F8]
+      - [0x0595F8, c, game/func_001595F8]
       - [0x0597B8, c, game/func_001597B8]
       - [0x0598B8, c, game/func_001598B8]
       - [0x0599B0, asm, cod/text_001599B0]
@@ -1271,7 +1272,8 @@ segments:
       - [0x0916D8, asm, cod/text_001916D8]
       - [0x0918A8, c, game/func_001918A8]
       - [0x0918D0, c, game/func_001918D0]
-      - [0x0918E0, asm, cod/text_001918E0]
+      - [0x0918E0, c, game/newlib_mallocr]
+      - [0x0922B0, asm, cod/text_001922B0]
       - [0x0924B8, c, game/unit_001924B8]
       - [0x0924C8, c, game/func_001924C8]
       - [0x092508, c, game/func_00192508]
@@ -1480,7 +1482,9 @@ segments:
       - [0x0A1140, asm, cod/text_001A1140]
       # generated-text-subsegments-end
       - [0x0A3000, textbin, cod/vutext] # .vutext plus 0x30-byte loaded gap
-      - [0x0A3980, data, cod/data]      # .data plus 0x4c-byte loaded gap
+      - [0x0A3980, data, cod/data_001A3980]
+      - [0x0E4EB8]
+      - [0x0E5310, data, cod/data_001E5310]
       - [0x0E6A00, rodata, cod/rodata]  # .rodata plus 0x60-byte loaded gap
       - [0x0EC880]
       - [0x0EC890, sdata, cod/sdata]    # .sdata after source-owned camera globals

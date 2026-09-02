@@ -944,6 +944,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_0010C150",
+    "source": "src/game/func_0010C150.c",
+    "address": "0x0010C150",
+    "size": 412,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
     "function": "func_0010C730",
     "source": "src/game/func_0010C730.c",
     "address": "0x0010C730",
@@ -5200,6 +5208,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_001595F8",
+    "source": "src/game/func_001595F8.c",
+    "address": "0x001595F8",
+    "size": 448,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
     "function": "func_001597B8",
     "source": "src/game/func_001597B8.c",
     "address": "0x001597B8",
@@ -8134,6 +8150,22 @@
     "size": 16,
     "profile": "ee-gcc2.9-991111-01-O2",
     "evidence": "complete isolated function range matches exactly under the stock Sony EE compiler and era-correct bundled GNU assembler"
+  },
+  {
+    "function": "func_001918E0",
+    "source": "src/game/newlib_mallocr.c",
+    "address": "0x001918E0",
+    "size": 596,
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "Exact whole-object Sony EE GCC 2.9 build; both text functions and the source-owned data layout derive to their retail addresses."
+  },
+  {
+    "function": "func_00191B38",
+    "source": "src/game/newlib_mallocr.c",
+    "address": "0x00191B38",
+    "size": 1912,
+    "profile": "ee-gcc2.9-991111-01-O2-G0",
+    "evidence": "Exact whole-object Sony EE GCC 2.9 build; both text functions and the source-owned data layout derive to their retail addresses."
   },
   {
     "function": "func_001924B8",

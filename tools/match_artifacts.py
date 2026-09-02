@@ -147,15 +147,20 @@ def compile_bytes(spec: MatchSpec) -> bytes:
                     str(normalized),
                 ]
             )
-        placement: dict[str, int | None] = {".sdata": None, ".sbss": None}
+        placement: dict[str, int | None] = {
+            ".data": match.source_owned_section_origin(obj, ".data")[0],
+            ".sdata": None,
+            ".sbss": None,
+        }
         for section in match.SMALL_SECTIONS:
-            placement[section] = match.small_data_origin(obj, section)[0]
+            placement[section] = match.source_owned_section_origin(obj, section)[0]
         script.write_text(
             match.linker_script(
                 spec.address,
                 spec.rodata,
                 placement[".sdata"] if placement[".sdata"] is not None else match.SDATA_VRAM,
                 placement[".sbss"],
+                placement[".data"],
             )
         )
         match.write_derived_symbols(obj, derived)

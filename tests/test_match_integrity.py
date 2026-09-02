@@ -27,6 +27,12 @@ class MatchIntegrityTests(unittest.TestCase):
         self.assertTrue(exact)
         self.assertIn("MATCH", report)
 
+    def test_linker_places_source_owned_data_at_derived_retail_address(self):
+        script = match.linker_script(
+            match.TEXT_VRAM, None, match.SDATA_VRAM, data=0x001E4EB8
+        )
+        self.assertIn(".data 0x001E4EB8", script)
+
     @patch("match.subprocess.run")
     def test_requested_function_must_be_defined_in_object(self, run):
         run.return_value = subprocess.CompletedProcess(
