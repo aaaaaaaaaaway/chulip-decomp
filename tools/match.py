@@ -429,6 +429,16 @@ def compare(expected: bytes, actual: bytes, verbose: bool = True) -> str:
         detail = f"size expected {len(expected)}, actual {len(actual)}"
     else:
         detail = f"first byte +0x{offset:X}: expected {expected[offset]:02X}, actual {actual[offset]:02X}"
+        # A first differing byte says nothing about how close a candidate is,
+        # which is all a --quiet caller such as batch_verify could record. The
+        # word distance costs nothing here and lets a lane rank its near
+        # misses instead of rereading every attempt.
+        expected_words, actual_words = words(expected), words(actual)
+        if len(expected_words) == len(actual_words):
+            differing = sum(
+                1 for left, right in zip(expected_words, actual_words) if left != right
+            )
+            detail += f"; {differing}/{len(expected_words)} words differ"
     summary = f"MISMATCH ({detail})"
     if not verbose:
         return summary

@@ -64,6 +64,24 @@ class CampaignTests(unittest.TestCase):
             json.dumps({"profiles": {"profile-a": {}, "profile-b": {}}})
         )
 
+    def test_word_distance_reads_the_text_line_not_a_nested_comparison(self):
+        table_only = (
+            "ee-gcc2.95.3-136-O2-G8: MISMATCH (first byte +0x4: expected 10, actual 11)\n"
+            "  jump table at 0x001E6C20: MISMATCH (first byte +0x0: expected A8, "
+            "actual A4; 6/6 words differ)"
+        )
+        self.assertIsNone(campaign.WORD_DISTANCE.search(table_only))
+
+        both = (
+            "ee-gcc2.95.3-136-O2-G8: MISMATCH (first byte +0x4: expected 10, "
+            "actual 11; 12/136 words differ)\n"
+            "  jump table at 0x001E6C20: MISMATCH (first byte +0x0: expected A8, "
+            "actual A4; 6/6 words differ)"
+        )
+        found = campaign.WORD_DISTANCE.search(both)
+        self.assertIsNotNone(found)
+        self.assertEqual(found.groups(), ("12", "136"))
+
     def test_promotion_lock_excludes_a_second_worker_until_released(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

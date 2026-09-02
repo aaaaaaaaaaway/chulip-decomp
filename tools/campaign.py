@@ -42,6 +42,11 @@ ATTEMPTS = WORK / "attempts.jsonl"
 LOCK = WORK / ".lock"
 PROMOTE_LOCK = WORK / ".promote.lock"
 CATALOG = ROOT / "config/functions.json"
+# match.py appends this to a mismatch whose candidate is the retail size.
+# Only the unindented profile line describes the function text; the indented
+# lines below it report nested comparisons such as a jump table, whose
+# distance must never be mistaken for the candidate's.
+WORD_DISTANCE = re.compile(r"^\S.*?(\d+)/(\d+) words differ", re.M)
 RECONSTRUCTED = ROOT / "config/reconstructed.json"
 MATCHED = ROOT / "config/matched.json"
 TOOLCHAINS = ROOT / "config/toolchains.json"
@@ -561,6 +566,13 @@ def verify_source(
             "returncode": returncode,
             "summary": output[:1000],
         }
+        # Rank a near miss without rereading its attempt. The truncated summary
+        # only ever showed the first differing byte, which says nothing about
+        # how close a candidate came.
+        distance = WORD_DISTANCE.search(output)
+        if distance:
+            attempts[str(profile)]["words_differing"] = int(distance.group(1))
+            attempts[str(profile)]["words_total"] = int(distance.group(2))
         dangerous = dangerous_diagnostics(output)
         if dangerous:
             attempts[str(profile)]["dangerous_diagnostics"] = dangerous
