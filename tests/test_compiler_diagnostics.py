@@ -10,7 +10,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 
-from compiler_diagnostics import dangerous_diagnostics
+from compiler_diagnostics import dangerous_diagnostics, unexpected_diagnostics
 import match
 
 
@@ -53,6 +53,46 @@ class CompilerDiagnosticsTests(unittest.TestCase):
         self.assertEqual(
             dangerous_diagnostics(output),
             ["integer converted to pointer", "pointer/integer assignment"],
+        )
+
+    def test_benign_compiler_warnings_are_classified(self) -> None:
+        output = "\n".join(
+            (
+                "f.c:1: warning: unused variable `value'",
+                "f.c:2: warning: `helper' defined but not used",
+                "f.c:3: warning: statement with no effect",
+                "f.c:4: warning: `x' might be used uninitialized in this function",
+            )
+        )
+        self.assertEqual(unexpected_diagnostics(output), [])
+
+    def test_assembler_and_linker_lines_are_not_c_diagnostics(self) -> None:
+        output = "\n".join(
+            (
+                "/usr/bin/mipsel-linux-gnu-ld.bfd: warning: missing LOAD segment",
+                "Warning: Setting incorrect section type for .sbss",
+                "ee-gcc2.95.3-136-O2: MATCH",
+            )
+        )
+        self.assertEqual(unexpected_diagnostics(output), [])
+
+    def test_unclassified_compiler_warning_is_reported_once(self) -> None:
+        output = "\n".join(
+            (
+                "f.c:9: warning: cast increases required alignment of target type",
+                "g.c:2: warning: cast increases required alignment of target type",
+                "f.c:1: warning: unused variable `value'",
+            )
+        )
+        self.assertEqual(
+            unexpected_diagnostics(output),
+            ["cast increases required alignment of target type"],
+        )
+
+    def test_dangerous_warning_is_also_unclassified(self) -> None:
+        self.assertEqual(
+            unexpected_diagnostics("f.c:3: warning: implicit declaration of function `go'"),
+            ["implicit declaration of function `go'"],
         )
 
     @patch("match.subprocess.run")

@@ -25,7 +25,7 @@ from pathlib import Path, PurePosixPath
 from typing import NoReturn
 
 from build_controls import object_flag_errors
-from compiler_diagnostics import dangerous_diagnostics
+from compiler_diagnostics import dangerous_diagnostics, unexpected_diagnostics
 from source_audit import audit_c_source
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -462,6 +462,15 @@ def verify_candidate_proofs(candidates: list[Candidate]) -> tuple[int, int]:
                 fail(
                     f"candidate line {candidate.line}: unsafe compiler diagnostics for "
                     f"{candidate.function} with {profile}: {', '.join(dangerous)}"
+                )
+            unclassified = unexpected_diagnostics(output)
+            if unclassified:
+                fail(
+                    f"candidate line {candidate.line}: unclassified compiler "
+                    f"diagnostics for {candidate.function} with {profile}: "
+                    + "; ".join(unclassified)
+                    + ". Classify each in tools/compiler_diagnostics.py as benign "
+                    "or ABI-dangerous before importing this match."
                 )
             replayed.add(key)
             replays += 1
