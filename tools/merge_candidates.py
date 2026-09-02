@@ -820,6 +820,11 @@ def write_transaction(
         run([sys.executable, "tools/progress.py", "--write-readme"])
         run([sys.executable, "tools/progress.py", "--write-status"])
         run([sys.executable, "tools/scope_scan.py", "--write-scope"])
+        # Splat creates a fallback C file when a stale split still names a
+        # source removed by this replacement. The source is already backed up
+        # above, so enforce the planned deletion again before the public audit.
+        for source in obsolete_sources:
+            source.unlink(missing_ok=True)
         run(["make", "public-check"])
     except BaseException:
         restore(saved)

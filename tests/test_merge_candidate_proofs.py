@@ -278,6 +278,32 @@ class CandidateProofTests(unittest.TestCase):
         with self.assertRaisesRegex(merge_candidates.CandidateError, "unsafe compiler diagnostics"):
             merge_candidates.verify_candidate_proofs([candidate(verified_profiles=("profile-a",))])
 
+    def test_transaction_removes_a_regenerated_obsolete_source_before_audit(self) -> None:
+        with tempfile.TemporaryDirectory(dir=merge_candidates.ROOT) as temporary:
+            obsolete = Path(temporary) / "old.c"
+            obsolete.write_text("old source\n")
+
+            def saved(paths: tuple[Path, ...]) -> dict[Path, merge_candidates.Backup]:
+                return {
+                    path: merge_candidates.Backup(b"", 0o644)
+                    for path in paths
+                }
+
+            def run(command: list[str]) -> None:
+                if command == ["make", "verify"]:
+                    obsolete.write_text("generated fallback\n")
+                if command == ["make", "public-check"]:
+                    self.assertFalse(obsolete.exists())
+
+            with (
+                patch("merge_candidates.backups", side_effect=saved),
+                patch("merge_candidates.atomic_write"),
+                patch("merge_candidates.run", side_effect=run),
+            ):
+                merge_candidates.write_transaction([], [], (obsolete,))
+
+            self.assertFalse(obsolete.exists())
+
 
 if __name__ == "__main__":
     unittest.main()

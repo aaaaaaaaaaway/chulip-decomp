@@ -7470,7 +7470,8 @@
     "unit_end": "0x001434E0",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+    "profile_evidence": "SN Systems GCC 2.95.3-136 at -O2 -G8 with debug statement labels and Ps2EeAs reproduces the complete state-machine range, delay-slot padding, and jump table.",
+    "provenance_note": "Recovered as readable structured C from retail control flow and independently replayed after the parallel-session handoff; the exact combined extent is proven while the original source filename remains unknown."
   },
   {
     "function": "func_00143FB8",

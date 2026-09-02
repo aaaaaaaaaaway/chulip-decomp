@@ -219,6 +219,13 @@ profile. `func_001A1D90` similarly follows `libgcc2.c` and matches the complete
 `_fixunsdfdi.o` text extent. The preserved archive is fingerprint and boundary
 evidence only. It is not committed, linked, or counted as source progress.
 
+The same archive establishes `__main.o` at `0x001855F0-0x00185718`. Its
+destructor runner, constructor runner, internal alignment, and one-time wrapper
+match as a single 296-byte unit under Sony EE GCC 2.9 with `-O2 -G0`. The
+constructor must retain the `do { ... } while (0)` scope from GCC's
+`DO_GLOBAL_CTORS_BODY` macro. Flattening that scope changes the two
+saved-register assignments even though the C has the same behavior.
+
 The camera block at `0x001017F0-0x00101CC3` is the first proven multi-function
 source unit. Its seventeen functions produce 1,236 exact object-text bytes together;
 the linker then contributes four bytes of input alignment before the following

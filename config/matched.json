@@ -4029,7 +4029,7 @@
     "address": "0x001429A8",
     "size": 2868,
     "profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
-    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+    "evidence": "The complete 2,872-byte source-unit extent and its 416-byte jump table at 0x001E8BB0 match retail exactly under the historical SN compiler and bundled PS2 assembler."
   },
   {
     "function": "func_00143FB8",
