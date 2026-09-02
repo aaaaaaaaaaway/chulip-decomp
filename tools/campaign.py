@@ -11,11 +11,13 @@ from __future__ import annotations
 import argparse
 import contextlib
 import datetime as dt
+import fcntl
 import hashlib
 import json
 import os
 import re
 import shutil
+import signal
 import subprocess
 import sys
 import tempfile
@@ -38,6 +40,7 @@ VERIFIED = WORK / "verified"
 STATE = WORK / "state.json"
 ATTEMPTS = WORK / "attempts.jsonl"
 LOCK = WORK / ".lock"
+PROMOTE_LOCK = WORK / ".promote.lock"
 CATALOG = ROOT / "config/functions.json"
 RECONSTRUCTED = ROOT / "config/reconstructed.json"
 MATCHED = ROOT / "config/matched.json"
@@ -632,6 +635,58 @@ def promotion_manifest(record: dict[str, object], destination: str) -> dict[str,
     return candidate
 
 
+class PromotionInterrupted(BaseException):
+    """Raised when a signal reaches a promotion so its cleanup still runs."""
+
+
+@contextlib.contextmanager
+def cleanup_on_termination():
+    """Unwind promotions that receive SIGTERM or SIGINT.
+
+    Lanes wrap promotions in ``timeout``.  The default SIGTERM disposition
+    exits without running ``finally`` blocks, which strands the copied
+    candidate in ``src`` as an unledgered public source; every later import
+    then fails its repository audit until the file is removed by hand.
+    """
+
+    def interrupt(number, _frame):
+        raise PromotionInterrupted(f"promotion terminated by signal {number}")
+
+    restore: dict[int, object] = {}
+    for number in (signal.SIGTERM, signal.SIGINT):
+        try:
+            restore[number] = signal.getsignal(number)
+            signal.signal(number, interrupt)
+        except (OSError, ValueError):
+            continue
+    try:
+        yield
+    finally:
+        for number, previous in restore.items():
+            with contextlib.suppress(OSError, ValueError):
+                signal.signal(number, previous)
+
+
+@contextlib.contextmanager
+def promote_transaction_lock():
+    """Serialize whole promotions, the copy into ``src`` included.
+
+    ``merge_candidates.py`` already locks ``work/promotion.lock`` around the
+    ledger generation, but a promotion becomes visible to every other worker
+    the moment the candidate lands in ``src``: a concurrent import reads that
+    unledgered public source and fails.  Hold a campaign-side descriptor
+    across the copy as well.  It is deliberately not the merge lock, which the
+    child acquires for itself and would deadlock against its own parent.
+    """
+    WORK.mkdir(parents=True, exist_ok=True)
+    handle = PROMOTE_LOCK.open("a+")
+    try:
+        fcntl.flock(handle, fcntl.LOCK_EX)
+        yield
+    finally:
+        handle.close()
+
+
 def promote(function: str, *, record_path: Path | None, write: bool) -> int:
     records = verified_records(function)
     if record_path is not None:
@@ -658,41 +713,54 @@ def promote(function: str, *, record_path: Path | None, write: bool) -> int:
     assert isinstance(spec, dict)
     destination = str(spec["destination"])
     target = ROOT / destination
-    if target.exists():
-        raise SystemExit(f"promotion destination already exists: {destination}")
-    target.parent.mkdir(parents=True, exist_ok=True)
     manifest_path = WORK / "promotions" / f"{function}.jsonl"
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
-    copied = False
-    try:
-        shutil.copyfile(source, target)
-        copied = True
-        issues = audit_c_source(target, repo_root=ROOT)
-        if issues:
-            raise SystemExit(issues[0].format(ROOT))
-        manifest = promotion_manifest(record, destination)
-        manifest_path.write_text(json.dumps(manifest, sort_keys=True) + "\n")
-        command = [
-            sys.executable,
-            "tools/merge_candidates.py",
-            str(manifest_path.relative_to(ROOT)),
-        ]
-        if write:
-            command.append("--write")
-        result = subprocess.run(command, cwd=ROOT)
-        if result.returncode:
-            return result.returncode
-        if write:
-            copied = False
+    with cleanup_on_termination(), promote_transaction_lock():
+        if target.exists():
+            raise SystemExit(f"promotion destination already exists: {destination}")
+        target.parent.mkdir(parents=True, exist_ok=True)
+        copied = False
+        try:
+            shutil.copyfile(source, target)
+            copied = True
+            issues = audit_c_source(target, repo_root=ROOT)
+            if issues:
+                raise SystemExit(issues[0].format(ROOT))
+            manifest = promotion_manifest(record, destination)
+            manifest_path.write_text(json.dumps(manifest, sort_keys=True) + "\n")
+            command = [
+                sys.executable,
+                "tools/merge_candidates.py",
+                str(manifest_path.relative_to(ROOT)),
+            ]
+            if write:
+                command.append("--write")
+            merge = subprocess.Popen(command, cwd=ROOT)
             try:
-                owner = str(claim_state(claim_path(function))[0].get("owner", ""))
-                release(function, owner, force=True)
-            except SystemExit:
-                pass
-        return 0
-    finally:
-        if copied and target.exists():
-            target.unlink()
+                returncode = merge.wait()
+            except BaseException:
+                # Never leave the import running against a ledger this
+                # promotion is about to roll back.
+                merge.terminate()
+                with contextlib.suppress(subprocess.TimeoutExpired):
+                    merge.wait(timeout=60)
+                if merge.poll() is None:
+                    merge.kill()
+                    merge.wait()
+                raise
+            if returncode:
+                return returncode
+            if write:
+                copied = False
+                try:
+                    owner = str(claim_state(claim_path(function))[0].get("owner", ""))
+                    release(function, owner, force=True)
+                except SystemExit:
+                    pass
+            return 0
+        finally:
+            if copied and target.exists():
+                target.unlink()
 
 
 def show_plan(limit: int, as_json: bool) -> None:

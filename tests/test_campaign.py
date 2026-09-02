@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import fcntl
 import json
+import os
+import signal
 import subprocess
 import sys
 import tempfile
@@ -32,6 +35,7 @@ class CampaignTests(unittest.TestCase):
                 STATE=work / "state.json",
                 ATTEMPTS=work / "attempts.jsonl",
                 LOCK=work / ".lock",
+                PROMOTE_LOCK=work / ".promote.lock",
                 CATALOG=root / "config/functions.json",
                 RECONSTRUCTED=root / "config/reconstructed.json",
                 MATCHED=root / "config/matched.json",
@@ -59,6 +63,38 @@ class CampaignTests(unittest.TestCase):
         (root / "config/toolchains.json").write_text(
             json.dumps({"profiles": {"profile-a": {}, "profile-b": {}}})
         )
+
+    def test_promotion_lock_excludes_a_second_worker_until_released(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.seed(root)
+            with self.environment(root):
+                with campaign.promote_transaction_lock():
+                    held = campaign.PROMOTE_LOCK.open("a+")
+                    try:
+                        with self.assertRaises(BlockingIOError):
+                            fcntl.flock(held, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                    finally:
+                        held.close()
+                freed = campaign.PROMOTE_LOCK.open("a+")
+                try:
+                    fcntl.flock(freed, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                finally:
+                    freed.close()
+
+    def test_termination_signal_unwinds_promotion_cleanup(self):
+        installed = signal.getsignal(signal.SIGTERM)
+        removed: list[str] = []
+        with self.assertRaises(campaign.PromotionInterrupted):
+            with campaign.cleanup_on_termination():
+                try:
+                    os.kill(os.getpid(), signal.SIGTERM)
+                    for _ in range(10000):
+                        pass
+                finally:
+                    removed.append("candidate")
+        self.assertEqual(removed, ["candidate"])
+        self.assertIs(signal.getsignal(signal.SIGTERM), installed)
 
     def test_claims_are_owned_and_expired_claims_can_be_reclaimed(self):
         with tempfile.TemporaryDirectory() as directory:
