@@ -1193,6 +1193,8 @@ segments:
       - [0x087590, asm, cod/text_00187590]
       - [0x087828, c, game/func_00187828]
       - [0x087888, asm, cod/text_00187888]
+      - [0x087C78, c, game/func_00187C78]
+      - [0x087DF8, asm, cod/text_00187DF8]
       - [0x0880F0, c, game/func_001880F0]
       - [0x0881B0, c, game/func_001881B0]
       - [0x088278, asm, cod/text_00188278]

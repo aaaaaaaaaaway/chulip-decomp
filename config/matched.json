@@ -7720,6 +7720,14 @@
     "evidence": "complete isolated function range matches exactly under the stock Sony EE compiler and era-correct bundled GNU assembler"
   },
   {
+    "function": "func_00187C78",
+    "source": "src/game/func_00187C78.c",
+    "address": "0x00187C78",
+    "size": 380,
+    "profile": "ee-gcc2.9-991111-01-O2",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
     "function": "func_001880F0",
     "source": "src/game/func_001880F0.c",
     "address": "0x001880F0",
