@@ -109,6 +109,30 @@ have the expected `diff`, `ulp`, `b2d`, `d2b`, and `ratio` shapes. This is a
 source-family anchor, not a set of accepted object edges. Historical newlib
 archive membership and full-member signatures are still required.
 
+### Preserved libgcc object boundaries
+
+The preserved ProDG for PS2 3.01 `libgcc.a`, SHA-256
+`8e7b39e41372e1692e0e0e2675614d47314d27f54d2da0bbd26e8e27bad60667`,
+provides direct artifact anchors for three adjacent runtime objects:
+
+| Archive member | Retail text range | Text size |
+| --- | --- | ---: |
+| `dp-bit.o` | `0x001858A8-0x0018659C` | `0xCF4` |
+| `fp-bit.o` | `0x001865A0-0x00187180` | `0xBE0` |
+| `_muldi3.o` | `0x00187180-0x001871E0` | `0x60` |
+
+Every public and file-local symbol offset in `dp-bit.o` and `fp-bit.o` lands on
+the corresponding retail function start. The four bytes between `dp-bit.o`
+and `fp-bit.o` are linker alignment; `fp-bit.o` ends exactly where
+`_muldi3.o` begins. The archive debug records name `dp-bit.c`, `fp-bit.c`, and
+`libgcc2.c` beneath `/usr/local/sce/ee/gcc/build/gcc/`.
+
+These edges are stronger than adjacency or a compatible combined build. They
+do not mean the complete C has been recovered: stock GCC 2.95.3 `fp-bit.c`
+compiled with the recovered Sony toolchain differs in both layout and bytes.
+Only the source ranges listed in `config/reconstructed.json` count as matched
+progress. The archive remains evidence and is never a build input.
+
 ## Next measurements
 
 1. Compare the four identified Sony library versions against lawful local

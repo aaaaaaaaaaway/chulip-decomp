@@ -212,10 +212,15 @@ After normalizing obsolete symbol-table metadata, `_divdi3.o`, `_moddi3.o`,
 `dp-bit.o` and `fp-bit.o` layouts place the soft-float routines at their retail
 addresses.
 
-This evidence establishes exact shared units at
-`0x00186188-0x001863A8` and `0x00186D90-0x00186FB0`. Their readable C follows
-GCC 2.95.3 `fp-bit.c` and reproduces every byte under the Sony EE GCC 2.9
-profile. `func_001A1D90` similarly follows `libgcc2.c` and matches the complete
+The archive symbol layouts establish the complete `dp-bit.o` boundary at
+`0x001858A8-0x0018659C`, the complete `fp-bit.o` boundary at
+`0x001865A0-0x00187180`, and `_muldi3.o` at
+`0x00187180-0x001871E0`. The four-byte gap before `fp-bit.o` is linker
+alignment. This object evidence is broader than the recovered C: exact shared
+source currently covers `0x00186188-0x001863A8` and
+`0x00186D90-0x00186FB0`. Those readable ranges follow GCC 2.95.3 `fp-bit.c`
+logic and reproduce every byte under the Sony EE GCC 2.9 profile.
+`func_001A1D90` similarly follows `libgcc2.c` and matches the complete
 `_fixunsdfdi.o` text extent. The preserved archive is fingerprint and boundary
 evidence only. It is not committed, linked, or counted as source progress.
 
