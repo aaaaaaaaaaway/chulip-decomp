@@ -1490,6 +1490,20 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0010A030",
+    "source": "src/game/func_0010A030.c",
+    "address": "0x0010A030",
+    "size": 352,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Exact SN Systems GCC 2.95.3 build 1.36 O2 G8 build with the authenticated Ps2EeAs route.",
+    "provenance_note": "Recovered from retail behavior and compiler evidence. The authentic outer translation-unit boundary remains unresolved."
+  },
+  {
     "function": "func_0010A190",
     "source": "src/game/func_0010A190.c",
     "address": "0x0010A190",
@@ -2899,6 +2913,25 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00114340",
+    "source": "src/game/func_00114340.c",
+    "address": "0x00114340",
+    "size": 300,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "object_flags": [
+      "-Wa,-G0"
+    ],
+    "unit_start": "0x00114340",
+    "unit_end": "0x00114470",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Exact SN Systems GCC 2.95.3 build 1.36 O2 G8 build through Ps2EeAs with assembler G0.",
+    "provenance_note": "Recovered from retail behavior and compiler evidence. The recorded range includes required trailing alignment and does not by itself prove the authentic outer translation-unit boundary."
   },
   {
     "function": "func_00114730",

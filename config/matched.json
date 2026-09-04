@@ -776,6 +776,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_0010A030",
+    "source": "src/game/func_0010A030.c",
+    "address": "0x0010A030",
+    "size": 352,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "All 352 function bytes match retail exactly; the explicit integer base reload plus indexed stride reproduces the retail loop schedule without assembly or synthetic padding."
+  },
+  {
     "function": "func_0010A190",
     "source": "src/game/func_0010A190.c",
     "address": "0x0010A190",
@@ -1526,6 +1534,14 @@
     "size": 8,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00114340",
+    "source": "src/game/func_00114340.c",
+    "address": "0x00114340",
+    "size": 300,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "All 300 function bytes and the four following alignment bytes match retail exactly; indexed vertex stores preserve the retail outer-loop increment schedule."
   },
   {
     "function": "func_00114730",
