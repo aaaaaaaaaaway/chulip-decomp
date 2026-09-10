@@ -10723,6 +10723,20 @@
     "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
   },
   {
+    "function": "func_001566E0",
+    "source": "src/game/func_001566E0.c",
+    "address": "0x001566E0",
+    "size": 696,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Actual 64-byte actor and linked owner/node contracts; aligned 16-byte vectors justified by 18A5F0 qword consumers. Each of three angles wraps once in each direction and the fourth component retains actual vector addition. See work/parallel_game_family_actor_angles/README.md. Independent root full-object/source audit: work/astra_actor_batch/exact.json. Established compiler profile with no additional flags.",
+    "provenance_note": "Complete readable C; all 696 emitted text bytes independently exact, including native alignment. No emitted data, artificial padding or additional function. Original translation-unit boundaries and exact original source spelling remain provisional."
+  },
+  {
     "function": "func_00156998",
     "source": "src/game/func_00156998.c",
     "address": "0x00156998",
@@ -10813,6 +10827,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00158250",
+    "source": "src/game/func_00158250.c",
+    "address": "0x00158250",
+    "size": 548,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00158250",
+    "unit_end": "0x00158478",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Actual five halfword relation fields with 10-byte stride, 16-entry scan and real six-argument masked ABI. Preserves first-unused insertion, first-owner removal and caller-supplied target for flag clearing. No external table extent or ownership claimed. See work/parallel_game_family_actor_relations/README.md. Independent root full-object/source audit: work/astra_actor_batch/exact.json. Established compiler profile with no additional flags.",
+    "provenance_note": "Complete readable C; all 552 emitted text bytes independently exact, including native alignment. No emitted data, artificial padding or additional function. Original translation-unit boundaries and exact original source spelling remain provisional."
   },
   {
     "function": "func_00158478",
@@ -11343,6 +11373,20 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0015B578",
+    "source": "src/game/func_0015B578.c",
+    "address": "0x0015B578",
+    "size": 384,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Real bank header count and ID byte offset 0x18/stride 0x20; 64-byte actor records with 64-bit flags at 0x20 and resource halfword at 0x36. Reloads ID for three consumed actor access contexts, then processes resources 1..0xFB in actors 0x11C..0x15B and flushes the actual queue. See work/astra_actor_bank_clear/README.md. Independent root full-object/source audit: work/astra_actor_batch/exact.json. Established compiler profile with no additional flags.",
+    "provenance_note": "Complete readable C; all 384 emitted text bytes independently exact, including native alignment. No emitted data, artificial padding or additional function. Original translation-unit boundaries and exact original source spelling remain provisional."
+  },
+  {
     "function": "func_0015B930",
     "source": "src/game/func_0015B930.c",
     "address": "0x0015B930",
@@ -11767,6 +11811,20 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0015DA80",
+    "source": "src/game/func_0015DA80.c",
+    "address": "0x0015DA80",
+    "size": 156,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Actual byte-buffer return, byte selector globals and byte arguments; preserves second argument of 153D68. Loads/stores aligned 64-bit flags, clears bit 2 and sets bit 34. See work/parallel_actor_text_control/README.md. Independent root full-object/source audit: work/astra_actor_batch/exact.json. Established compiler profile with no additional flags.",
+    "provenance_note": "Complete readable C; all 156 emitted text bytes independently exact, including native alignment. No emitted data, artificial padding or additional function. Original translation-unit boundaries and exact original source spelling remain provisional."
   },
   {
     "function": "func_0015DB20",

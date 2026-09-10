@@ -5752,6 +5752,14 @@
     "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
   },
   {
+    "function": "func_001566E0",
+    "source": "src/game/func_001566E0.c",
+    "address": "0x001566E0",
+    "size": 696,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
     "function": "func_00156998",
     "source": "src/game/func_00156998.c",
     "address": "0x00156998",
@@ -5798,6 +5806,14 @@
     "size": 568,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_00158250",
+    "source": "src/game/func_00158250.c",
+    "address": "0x00158250",
+    "size": 548,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
   },
   {
     "function": "func_00158478",
@@ -6104,6 +6120,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_0015B578",
+    "source": "src/game/func_0015B578.c",
+    "address": "0x0015B578",
+    "size": 384,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
     "function": "func_0015B930",
     "source": "src/game/func_0015B930.c",
     "address": "0x0015B930",
@@ -6350,6 +6374,14 @@
     "size": 28,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0015DA80",
+    "source": "src/game/func_0015DA80.c",
+    "address": "0x0015DA80",
+    "size": 156,
+    "profile": "ee-gcc2.95.3-136-O2-G8",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
   },
   {
     "function": "func_0015DB20",
