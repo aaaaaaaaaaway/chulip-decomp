@@ -136,6 +136,38 @@
     "whole_program_match": true
   },
   {
+    "function": "func_001010B8",
+    "source": "src/game/func_001010B8.c",
+    "address": "0x001010B8",
+    "size": 628,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as-g"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "unit_start": "0x001010B8",
+    "unit_end": "0x00101330",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete628-byte projection/clip/viewport matrix builder plus4naturalalignment. Actual four-pointer/nine-float caller contract, real identity/multiply operands, exact floating-point order. Established native debug division-hazard profile; two genuine coefficient locals supply actual statement context, no source padding. Full632B exact/no data. See work/parallel_camera_geometry/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. Every emitted read-only byte independently verified where present; no new mutable ownership."
+  },
+  {
+    "function": "func_00101330",
+    "source": "src/game/func_00101330.c",
+    "address": "0x00101330",
+    "size": 352,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as-g"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "unit_start": "0x00101330",
+    "unit_end": "0x00101490",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete352-byte listener update. Actual64-bit game-state flags, modebyte, homogeneous vector stores and real8-byte four-short event packet with independently verified consumer. Ordinary extracted flag local convention from1584D8 resolves branches. Full352B exact under established debug native profile, no data. See work/parallel_camera_listener/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. Every emitted read-only byte independently verified where present; no new mutable ownership."
+  },
+  {
     "function": "func_00101490",
     "source": "src/game/func_00101490.c",
     "address": "0x00101490",
@@ -2038,6 +2070,36 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
+    "function": "func_0010C2F0",
+    "source": "src/game/func_0010C2F0.c",
+    "address": "0x0010C2F0",
+    "size": 636,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0010C2F0",
+    "unit_end": "0x0010C570",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete ellipse interpolation and emitter family. Actual48-byte endpoints,96-byte emitter, corrected owner-matrix/projection/16-byte copy contracts and matched ellipse helper integer/float/stack argument ABI. All real frame objects consumed; actual4-component vector differences retained. Both first complete source reconstructions exact; all emitted text including natural alignment verified, no data. See work/parallel_game_family_ellipse/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
+    "function": "func_0010C570",
+    "source": "src/game/func_0010C570.c",
+    "address": "0x0010C570",
+    "size": 448,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete ellipse interpolation and emitter family. Actual48-byte endpoints,96-byte emitter, corrected owner-matrix/projection/16-byte copy contracts and matched ellipse helper integer/float/stack argument ABI. All real frame objects consumed; actual4-component vector differences retained. Both first complete source reconstructions exact; all emitted text including natural alignment verified, no data. See work/parallel_game_family_ellipse/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_0010C730",
@@ -9499,6 +9561,20 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001505C0",
+    "source": "src/game/func_001505C0.c",
+    "address": "0x001505C0",
+    "size": 1176,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete1176-byte card menu controller, first complete source exact under establishedSN136-G8 GNUassembler context. Actual controller/device/result/operation/sound contracts and original asymmetric state3/button handling retained. All104 emitted rodata bytes contain three generated switch tables including natural internalgap, fully verified at1E99C0..1E9A28. No mutable data or new aliases. See work/parallel_input_state/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. Every emitted read-only byte independently verified where present; no new mutable ownership."
   },
   {
     "function": "func_00151240",

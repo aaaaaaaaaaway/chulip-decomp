@@ -1468,3 +1468,36 @@ literal colors. An invented unused C object is not accepted to fill those bytes.
 114810 and10B488 retain complete ordinary-C drafts with measured schedule/register
 mismatches. These source and dataflow holds are preserved for new evidence, rather
 than counted because portions of the code or nominal sizes agree.
+
+
+## Ellipse, camera geometry and card-menu family transfer
+
+The ellipse interpolation/renderer pair0010C2F0 and0010C570 matched on their first
+complete reconstructions:1084 function bytes and four natural alignment bytes.
+The actual96-byte emitter produces two aligned48-byte endpoints, whose position,
+color and size fields are consumed by interpolation. Four vector differences are
+part of the real vector loop; all RGBA differences and XYZ drawing values are used.
+The final ellipse helper call uses the existing integer/float/stack argument contract.
+Full promotion passed at1451 functions and253264 function bytes.
+
+Camera projection/clip/viewport builder001010B8 preserves the actual four-pointer,
+nine-float interface and every floating-point evaluation order. Its628 function
+bytes plus4 native alignment use the independently documented debug-statement
+Ps2EeAs division-hazard profile. Two real viewport coefficient locals restore the
+final assembler hazard boundary without any source padding. The352-byte listener
+update00101330 uses the existing extracted-bit convention and a real four-short
+event packet, independently consumed in full by138468. All real matrix/vector and
+short-array objects are used; no dead scratch is introduced.
+
+The1,176-byte card-menu controller001505C0 also matched on its first complete C
+reconstruction under the established GNU-assembler G8 profile. Its entire104-byte
+read-only section contains three generated switch tables and their natural internal
+gap, all independently exact. Device/status/button contracts, signed error cases,
+simultaneous button handling and the state3 reset-without-early-exit asymmetry remain.
+
+Fresh layered-grid renderer00125618 is saved at1600 emitted bytes with40 differing
+words. The remaining UV calculations hoist a row multiplication differently from
+retail. A real four-byte initialized frame counter is independently exact in the
+ignored object, but no public ownership or match is claimed. Independent bounded
+menu-transition0017AC08 arithmetic/reset probes did not improve its eight-word
+register frontier. Both complete drafts and negative results remain available.
