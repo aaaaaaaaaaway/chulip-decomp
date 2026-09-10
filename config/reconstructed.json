@@ -4676,6 +4676,20 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_001230E8",
+    "source": "src/game/func_001230E8.c",
+    "address": "0x001230E8",
+    "size": 1392,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete1392B surface renderer using independently established0x6300 Environment layout. Actual VU projection consumes all four components of aligned real vectors and stores complete projected outputs; three-float origin, four world vectors and four output vectors all used. Complete144B quad payload, actual early projection exits and boundary normal reads retained. Full native text independently exact; no data or new ownership. See work/parallel_game_family_surface_render/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_00123A90",
     "source": "src/game/func_00123A90.c",
     "address": "0x00123A90",
@@ -11298,6 +11312,38 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0015BAD8",
+    "source": "src/game/func_0015BAD8.c",
+    "address": "0x0015BAD8",
+    "size": 196,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0015BAD8",
+    "unit_end": "0x0015BBA0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Fresh actor status/control family. Independently established64B actor/owner,32B fallback snapshot and96x6B link mapping. Actual fallback distinctions, argument widths, actor flags and cache/render-state calls retained.15BE88 uses real word cursor over actual variable-size model headers and two payload lengths; cached header independently corroborated. Full emitted text including natural alignment independently verified; no data, qualifiers or new ownership. See work/parallel_actor_status/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
+    "function": "func_0015BC48",
+    "source": "src/game/func_0015BC48.c",
+    "address": "0x0015BC48",
+    "size": 240,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0015BC48",
+    "unit_end": "0x0015BD38",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Fresh actor status/control family. Independently established64B actor/owner,32B fallback snapshot and96x6B link mapping. Actual fallback distinctions, argument widths, actor flags and cache/render-state calls retained.15BE88 uses real word cursor over actual variable-size model headers and two payload lengths; cached header independently corroborated. Full emitted text including natural alignment independently verified; no data, qualifiers or new ownership. See work/parallel_actor_status/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_0015BD38",
     "source": "src/game/func_0015BD38.c",
     "address": "0x0015BD38",
@@ -11335,6 +11381,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0015BE88",
+    "source": "src/game/func_0015BE88.c",
+    "address": "0x0015BE88",
+    "size": 304,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0015BE88",
+    "unit_end": "0x0015BFB8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Fresh actor status/control family. Independently established64B actor/owner,32B fallback snapshot and96x6B link mapping. Actual fallback distinctions, argument widths, actor flags and cache/render-state calls retained.15BE88 uses real word cursor over actual variable-size model headers and two payload lengths; cached header independently corroborated. Full emitted text including natural alignment independently verified; no data, qualifiers or new ownership. See work/parallel_actor_status/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_0015BFB8",
@@ -11548,6 +11610,22 @@
     "whole_program_match": true,
     "profile_evidence": "Replayed historical profiles on 2026-09-09; SN build 1.36 in the game region, Sony 2.9 in the runtime region. All replayed exact profiles retained; per-function source ownership remains provisional.",
     "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
+    "function": "func_0015D410",
+    "source": "src/game/func_0015D410.c",
+    "address": "0x0015D410",
+    "size": 704,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0015D410",
+    "unit_end": "0x0015D6D0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete704B animation-event scheduler. Matched15D218/15D238 and retail15D280 corroborate12B six-halfword external table. Real two-time array and four-short payload; key49 special actor-zero behavior, key48/49 configured events and full signed sequence comparison preserved. Matched lookup/removal field2 mode consumes only initialized payload1; insertions receive all four initialized fields. No data or native tail. See work/astra_animation_events/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_0015D6D0",

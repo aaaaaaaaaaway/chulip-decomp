@@ -1597,3 +1597,52 @@ The authoritative total is **1,463/2,189 functions and 259,328/663,704 function
 bytes** (39.0728% of function bytes). This is continued progress, not completion.
 The transaction log is
 `work/astra-20260910/environment-actor-controls-promotion.log`.
+
+
+## Surface rendering, actor status and animation events
+
+Five further complete functions add **2,836 function bytes**: surface renderer
+001230E8 (1,392), animation-event scheduler0015D410 (704), actor-status comparison
+0015BAD8 (196), linked-status comparison0015BC48 (240) and actor/model render control
+0015BE88 (304). All use the authenticated SN136 native assembler G8 profile without
+extra flags. Four natural alignment bytes are verified separately. No data is
+emitted and no storage ownership or original translation-unit boundary is claimed.
+
+The surface renderer completes another substantial member of the proved Environment
+family. Its real three-float origin, four world vectors and four projected vectors
+all have consumers. Actual VU projection loads/stores require the vector extent
+and alignment; all four input components are used. Every visible cell emits the
+complete144-byte quad payload. Grouping each vertex's actual XYZ/control fields
+resolved packet register lifetimes while preserving early projection exits and
+the authentic boundary normal-read behavior. No unused stack storage is retained.
+
+The animation-event scheduler matched all704 bytes after one operand-order change
+from its first complete draft. The external twelve-byte event table is corroborated
+by matched setters and its adjacent updater. Its real time array and four-short
+payload preserve special actor-zero sequences, field-specific removal/lookup,
+configured key48/49 events and full signed sequence comparisons. All payload fields
+are initialized before insertion; removal/lookup reads only the initialized field.
+The adjacent396-byte frame-to-time updater now has complete C, but still differs
+and earns no credit. Its conversion and redundant-mask frontier is saved separately.
+
+The actor trio shares the established owner/status, fallback snapshot and six-byte
+link records. It preserves the two distinct fallback rules, first-hit remapping,
+exact argument widths and render-state calls. The model-control branch traverses
+real word headers and two variable payload lengths; it does not invent a fixed
+record stride. Full semantic and independent object evidence is in
+`work/parallel_game_family_surface_render`, `work/parallel_actor_status` and
+`work/astra_animation_events`.
+
+Three additional text/control drafts remain unmatched. The small0015DF60 helper
+isolates the known short-loop assembler discrepancy without layout uncertainty.
+A read-only audit of installed fingerprints, primary release information and prior
+experiments found no new authentic assembler profile. No erratum behavior was
+disabled. Evidence is in `work/parallel_text_helpers` and
+`work/parallel_assembler_audit`; repeat source-loop matrices are not justified.
+
+The full promotion passed187 tests, source and section audits, independent baseline,
+all970,772 loaded-image bytes, loaded layout, repository checks and current treemap.
+The full-image SHA-256 remains
+`77768f0c5d84a92a6d185499b8bb4bb2205779a81fbdb859b15cc1d9ce28f876`.
+Authoritative totals are **1,468/2,189 functions and262,164/663,704 function bytes**.
+The transaction log is `work/astra-20260910/surface-actor-events-promotion.log`.
