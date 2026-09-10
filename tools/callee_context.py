@@ -122,7 +122,7 @@ def empty_call_conflicts(source: str,
         # Local old-style declarations are not calls, including multiline types.
         prefix = re.split(r"[;{}]", source[:found.start()])[-1].strip()
         if (re.fullmatch(r"[A-Za-z_][\w\s*]*", prefix)
-                and prefix not in {"return", "goto", "else"}):
+                and not re.match(r"(?:return|goto|else)\b", prefix)):
             continue
         rows.append({"callee": found[1], "reason": "empty call with required parameters",
                      "candidate_shape": (), "matched_shape": expected,

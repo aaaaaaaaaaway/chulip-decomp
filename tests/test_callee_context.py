@@ -83,6 +83,12 @@ class CalleeContextTests(unittest.TestCase):
         rows = callee_context.empty_call_conflicts(source, {"func_00100000": ("other",)})
         self.assertEqual([r["line"] for r in rows], [4, 5, 6])
 
+    def test_returned_dereference_and_product_are_calls_not_type_prefixes(self):
+        source = ("int first(void) { return *func_00100000(); }\n"
+                  "int second(void) { return scale * func_00100000(); }")
+        rows = callee_context.empty_call_conflicts(source, {"func_00100000": ("other",)})
+        self.assertEqual([r["line"] for r in rows], [1, 2])
+
 
 if __name__ == "__main__":
     unittest.main()

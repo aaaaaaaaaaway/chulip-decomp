@@ -15308,7 +15308,7 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
     "isolated_match": true,
     "whole_program_match": true,
-    "profile_evidence": "Complete 400-byte resource-load dispatcher. Actual 52-byte surface descriptor, 32-byte path buffer consumed by string and loader calls, independently verified resource getter/value contracts and ushort loader resource ID. Flagged storage-2 returns zero; other paths preserve fresh descriptor reloads. Full native text and object sections independently verified; no emitted data or new ownership. See work/parallel_resource_control/README.md and work/astra_resource_dispatch/exact.json.",
+    "profile_evidence": "Complete 400-byte resource-load dispatcher. Actual 52-byte surface descriptor, 32-byte path buffer consumed by string and loader calls, independently verified resource getter/value contracts and ushort loader resource ID. Flagged storage-2 returns zero; other paths preserve fresh descriptor reloads. Full native text and object sections independently verified; no emitted data or new ownership. See work/parallel_resource_control/README.md and work/astra_resource_dispatch/exact.json. Accepts actual passed-but-unused offset and size alongside ID, agreeing with audited three-argument caller sites. No invented consumption or body changes. All400 bytes unchanged. See work/parallel_surface_caller_unit/README.md.",
     "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
@@ -15498,7 +15498,8 @@
     "unit_end": "0x0017F220",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched"
+    "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched",
+    "profile_evidence": " Three actual void thread entries accept unused startup pointer supplied through37FD0 and StartThread.985E0 is void ExitDeleteThread;17E330 is void upload. Real scalarD970/D974 replace overlapping padded wrappers. All176 existing unit bytes unchanged. See work/parallel_surface_caller_unit/README.md."
   },
   {
     "function": "func_0017F1A8",
@@ -15513,7 +15514,8 @@
     "unit_end": "0x0017F220",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched"
+    "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched",
+    "profile_evidence": " Three actual void thread entries accept unused startup pointer supplied through37FD0 and StartThread.985E0 is void ExitDeleteThread;17E330 is void upload. Real scalarD970/D974 replace overlapping padded wrappers. All176 existing unit bytes unchanged. See work/parallel_surface_caller_unit/README.md."
   },
   {
     "function": "func_0017F1D8",
@@ -15528,7 +15530,8 @@
     "unit_end": "0x0017F220",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched"
+    "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched",
+    "profile_evidence": " Three actual void thread entries accept unused startup pointer supplied through37FD0 and StartThread.985E0 is void ExitDeleteThread;17E330 is void upload. Real scalarD970/D974 replace overlapping padded wrappers. All176 existing unit bytes unchanged. See work/parallel_surface_caller_unit/README.md."
   },
   {
     "function": "func_0017F220",
@@ -21279,7 +21282,8 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": " Explicit one-address RPC input and integer result forwarding through actual19F690. IOP heap server/protocol and actual callee stores/results establish contract; no direct alias caller found. All28 bytes unchanged. See work/parallel_sdk_call_repairs/README.md."
   },
   {
     "function": "func_0019F728",
@@ -21426,7 +21430,8 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": " Explicit four-argument module-buffer RPC and integer result forwarding. Actual callee saves allfour inputs and constructs explicit result; primary protocol corroborates semantics, no direct alias caller found. All28 bytes unchanged. See work/parallel_sdk_call_repairs/README.md."
   },
   {
     "function": "func_0019FFF0",
@@ -21689,7 +21694,7 @@
     "build_profile": "ee-gcc2.9-991111-01-O2",
     "isolated_match": true,
     "whole_program_match": true,
-    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 produces the retail runtime schedule, and its era-correct bundled GNU assembler preserves the retail instruction encodings",
+    "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 produces the retail runtime schedule, and its era-correct bundled GNU assembler preserves the retail instruction encodings No-argument TLB initialization wrapper. ActualA1100/198C00/A1140/198C10 and pinned PS2SDK syscall protocols establish no input; four existing empty-call callers are correct. All8 bytes unchanged. See work/parallel_sdk_call_repairs/README.md.",
     "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {

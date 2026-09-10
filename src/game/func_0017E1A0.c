@@ -20,7 +20,7 @@ void func_00137F68(int index, int *out);
 int func_00137F80(int index);
 int func_00125CD8(char *path, int *out, unsigned short resource);
 
-int func_0017E1A0(int id) {
+int func_0017E1A0(int id, int unused_offset, int unused_size) {
     char path[32];
     if (id & 0x1000) {
         func_00192940(path, (char *)func_00137F98());

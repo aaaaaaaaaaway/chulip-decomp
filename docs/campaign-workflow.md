@@ -40,6 +40,8 @@ wrappers that accidentally rely on the compiler retaining the incoming argument
 register. Findings include the call line and matched provider; confirm the
 actual forwarding and return contract in retail before repairing the source.
 This narrow scan ignores macros and does not establish general C call arity.
+It does not evaluate conditional preprocessing or parse declaration lists;
+disabled code and comma-separated local declarations can produce findings.
 
 ```sh
 python3 tools/campaign.py plan --limit 20

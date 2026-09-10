@@ -1,5 +1,5 @@
-extern void func_001A1100(int argument);
+extern void func_001A1100(void);
 
-void func_001A0B48(int argument) {
-    func_001A1100(argument);
+void func_001A0B48(void) {
+    func_001A1100();
 }
