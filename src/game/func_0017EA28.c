@@ -10,10 +10,10 @@ typedef struct {
 } SurfRef;
 
 extern SurfRef D_001ED940;
-Surface *func_0017D040();
+unsigned char *func_0017D040(unsigned int id);
 
-int func_0017EA28(void) {
-    D_001ED940.p = func_0017D040();
+int func_0017EA28(unsigned int id) {
+    D_001ED940.p = (Surface *)func_0017D040(id);
     switch (D_001ED940.p->f22) {
     case 0: case 1: case 2: case 10: case 27: case 36: case 44:
     case 48: case 49: case 50: case 58:

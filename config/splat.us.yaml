@@ -536,7 +536,7 @@ segments:
       - [0x0315A8, c, game/func_001315A8]
       - [0x0315E8, c, game/func_001315E8]
       - [0x031740, c, game/func_00131740]
-      - [0x031780, asm, cod/text_00131780]
+      - [0x031780, c, game/func_00131780]
       - [0x0319A8, c, game/func_001319A8]
       - [0x0319E8, c, game/func_001319E8]
       - [0x031A10, asm, cod/text_00131A10]

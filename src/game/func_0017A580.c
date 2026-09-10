@@ -1,7 +1,9 @@
-int func_0017A888();
-int func_0017A9E0();
+typedef struct Skin Skin;
 
-int func_0017A580(int arg0) {
-    func_0017A9E0();
-    return func_0017A888(arg0);
+void func_0017A9E0(Skin *skin);
+void func_0017A888(Skin *skin);
+
+void func_0017A580(Skin *skin, unsigned short id) {
+    func_0017A9E0(skin);
+    func_0017A888(skin);
 }

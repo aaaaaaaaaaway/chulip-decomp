@@ -34,6 +34,13 @@ drafts had missing float arguments that the compiler could not diagnose because
 their local declarations were wrong too. Fixing these restores semantics; it
 does not establish an exact match by itself.
 
+The checker also flags direct empty calls to matched definitions with required
+parameters, even behind an unspecified `func()` declaration. This catches
+wrappers that accidentally rely on the compiler retaining the incoming argument
+register. Findings include the call line and matched provider; confirm the
+actual forwarding and return contract in retail before repairing the source.
+This narrow scan ignores macros and does not establish general C call arity.
+
 ```sh
 python3 tools/campaign.py plan --limit 20
 python3 tools/campaign.py packet --next --owner NAME

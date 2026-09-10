@@ -9,25 +9,24 @@ typedef struct {
 
 typedef struct {
     Surface *p;
-    int pad;
 } SurfRef;
 
 extern SurfRef D_001ED940;
 
-Surface *func_0017D040();
-int func_0017D830(int a, int b, int c);
-int func_0017E840(int a, int b);
-void func_00187A90(void *buf, short a, int b, short c, int d, int e, short f, short g);
+unsigned char *func_0017D040(unsigned int id);
+unsigned int func_0017D830(unsigned int a, unsigned int b, unsigned int c);
+unsigned int func_0017E840(unsigned int a, unsigned char b);
+int func_00187A90(void *buf, short a, short b, short c, short d, short e, short f, short g);
 void func_00198A20(int a);
-void func_00187C78(void *buf, int addr);
-void func_00187280(int a, int b);
+int func_00187C78(unsigned long *buf, unsigned long *addr);
+int func_00187280(int a, int b);
 
-void func_0017E330(int arg0, int arg1, int arg2) {
+void func_0017E330(unsigned int arg0, int arg1, int arg2) {
     int n;
-    int r;
-    int buf[0x18];
+    unsigned int r;
+    unsigned long buf[12] __attribute__((aligned(16)));
 
-    D_001ED940.p = func_0017D040();
+    D_001ED940.p = (Surface *)func_0017D040(arg0);
     if (D_001ED940.p->f20 == 0) {
         if ((unsigned int)(D_001ED940.p->f22 - 0x13) < 2) {
             n = ((D_001ED940.p->f24 + 127) / 128) * 2;
@@ -39,7 +38,8 @@ void func_0017E330(int arg0, int arg1, int arg2) {
         D_001ED940.p->f20 = r;
         func_00187A90(buf, r, n, D_001ED940.p->f22, 0, 0, D_001ED940.p->f24, D_001ED940.p->f26);
         func_00198A20(0);
-        func_00187C78(buf, D_001ED940.p->f28 + (int)(((unsigned int)(arg1 * arg2) >> 4) << 4));
+        func_00187C78(buf, (unsigned long *)(D_001ED940.p->f28 +
+            (int)(((unsigned int)(arg1 * arg2) >> 4) << 4)));
         func_00187280(0, 0);
     }
 }

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Flag candidate parameter declarations that conflict with matched callees.
+"""Flag candidate declarations and empty calls that conflict with matched callees.
 
 This is a read-only triage aid, not a C parser or a match authority. It compares
-explicit parameter counts and floating-point argument positions. Historical
+explicit parameter counts, floating-point argument positions, and direct empty
+calls to definitions with required parameters. Historical
 declarations can differ; inspect caller and callee assembly before changing C.
 """
 from __future__ import annotations
@@ -14,6 +15,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SIGNATURE = re.compile(r"\b(func_[0-9A-Fa-f]+)\s*\(([^;{}]*?)\)\s*([;{])")
+
+
+def mask_noncode(source: str) -> str:
+    """Preserve offsets and lines; literals must remain nonempty arguments."""
+    def mask(found):
+        value = found[0]
+        blank = "".join("\n" if c == "\n" else " " for c in value)
+        return blank if value.startswith("/") else "0" + blank[1:]
+    return re.sub(r'/\*.*?\*/|//[^\n]*|"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'',
+                  mask, source, flags=re.S)
 
 
 def parameter_shape(parameters: str) -> tuple[str, ...] | None:
@@ -43,8 +54,7 @@ def parameter_shape(parameters: str) -> tuple[str, ...] | None:
 
 def signatures(source: str, terminator: str) -> dict[str, tuple[str, ...]]:
     # Remove comments and literals so examples and messages are not declarations.
-    source = re.sub(r'/\*.*?\*/|//[^\n]*|"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'',
-                    " ", source, flags=re.S)
+    source = mask_noncode(source)
     result = {}
     depth = previous = 0
     for found in SIGNATURE.finditer(source):
@@ -87,6 +97,39 @@ def conflicts(candidate: dict[str, tuple[str, ...]],
     return rows
 
 
+def empty_call_conflicts(source: str,
+                         known: dict[str, tuple[str, ...]]) -> list[dict[str, object]]:
+    """Narrow call-site triage; no macro expansion or general C arity parsing."""
+    source = mask_noncode(source)
+    # Directives may contain braces and calls that are not executed here.
+    lines = []
+    continued = False
+    for line in source.splitlines(keepends=True):
+        directive = continued or line.lstrip().startswith("#")
+        continued = directive and line.rstrip("\r\n").endswith("\\")
+        lines.append("".join("\n" if c == "\n" else " " for c in line)
+                     if directive else line)
+    source = "".join(lines)
+    rows = []
+    depth = previous = 0
+    for found in re.finditer(r"\b(func_[0-9A-Fa-f]+)\s*\(\s*\)", source):
+        between = source[previous:found.start()]
+        depth += between.count("{") - between.count("}")
+        previous = found.start()
+        expected = known.get(found[1])
+        if depth <= 0 or not expected:
+            continue
+        # Local old-style declarations are not calls, including multiline types.
+        prefix = re.split(r"[;{}]", source[:found.start()])[-1].strip()
+        if (re.fullmatch(r"[A-Za-z_][\w\s*]*", prefix)
+                and prefix not in {"return", "goto", "else"}):
+            continue
+        rows.append({"callee": found[1], "reason": "empty call with required parameters",
+                     "candidate_shape": (), "matched_shape": expected,
+                     "line": source.count("\n", 0, found.start()) + 1})
+    return rows
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("sources", type=Path, nargs="+")
@@ -106,10 +149,14 @@ def main() -> int:
             evidence[name] = source
     rows = []
     for source in args.sources:
-        for row in conflicts(signatures(source.read_text(), ";"), known):
+        contents = source.read_text()
+        findings = conflicts(signatures(contents, ";"), known)
+        findings.extend(empty_call_conflicts(contents, known))
+        for row in findings:
             row.update(source=str(source), matched_source=evidence[row["callee"]])
             rows.append(row)
-            print(f"{source}: {row['callee']}: {row['reason']}: "
+            location = f"{source}:{row['line']}" if "line" in row else str(source)
+            print(f"{location}: {row['callee']}: {row['reason']}: "
                   f"{row['candidate_shape']} -> {row['matched_shape']}; "
                   f"evidence {row['matched_source']}")
     report = {"note": "Triage only. Confirm types and actual call arguments against retail before editing.",
@@ -117,7 +164,7 @@ def main() -> int:
     if args.json:
         args.json.parent.mkdir(parents=True, exist_ok=True)
         args.json.write_text(json.dumps(report, indent=2) + "\n")
-    print(f"{len(rows)} declaration conflicts; {len(known)} matched definitions scanned")
+    print(f"{len(rows)} callee context findings; {len(known)} matched definitions scanned")
     return 0
 
 

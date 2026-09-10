@@ -1215,7 +1215,8 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": " Explicit index forwarding and void return, with actual unused second caller input. Sole179258 caller and matched107678 body establish contract. All28 existing bytes exact; independent native32-byte witness also retained. See work/parallel_forward_107658/README.md and work/astra_call_repairs/repairs.json."
   },
   {
     "function": "func_00107678",
@@ -6692,6 +6693,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00131780",
+    "source": "src/game/func_00131780.c",
+    "address": "0x00131780",
+    "size": 548,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00131780",
+    "unit_end": "0x001319A8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "First complete sprite packet reconstruction matches all548 function bytes plus4 native alignment bytes. Actual two-pointer DrawList/capacity prefix proven by1308F8 allocation and54BB0 reset. Retains real113228 returned QWC and every streamed64-bit GS packet word, including sign-extended high-bit constants. No emitted data, fake extent or padding. See work/parallel_renderer_small/README.md and work/astra_renderer_review/exact.json.",
+    "provenance_note": "Complete readable C and every emitted text byte independently verified, including native alignment where emitted. No data or ownership additions. Original translation-unit boundaries remain provisional."
   },
   {
     "function": "func_001319A8",
@@ -14670,7 +14687,8 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": " Explicit opaque Skin pointer forwarding to both actual void helpers, retaining real unused ushort second caller input. All three callers and both helper consumers audited. All44 bytes exact, no storage extent asserted. See work/parallel_game_family_skin_forward/README.md and work/astra_call_repairs/repairs.json."
   },
   {
     "function": "func_0017A5B0",
@@ -15307,7 +15325,8 @@
     ],
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": " Explicit unsigned surface ID forwarding to matched lookup; correct direct helper signatures and real96-byte DMA packet. Removed unused global wrapper pad. All308 existing bytes exact under unchanged profile and flags. See work/parallel_surface_upload_repair/README.md and work/astra_call_repairs/repairs.json."
   },
   {
     "function": "func_0017E468",
@@ -15437,7 +15456,8 @@
     ],
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": " Explicitly forwards incoming unsigned surface ID to the actual17D040(unsigned int) byte-pointer getter. Existing Surface-reference prefix, profile and -Wa,-G0 unchanged; all132 text bytes and236 existing switch-table bytes independently exact. Scalar pointer spelling changed3 text words and was not adopted. No new data ownership. See work/parallel_surface_size_repair/README.md and work/astra_renderer_review/surface_size.json."
   },
   {
     "function": "func_0017EAB0",
