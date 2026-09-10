@@ -1553,3 +1553,47 @@ audits. The loaded-image SHA-256 remains
 The authoritative total is **1,458/2,189 functions and256,756/663,704 function
 bytes** (66.6058% and38.6853%). Eleven small-data claims remain unchanged.
 The transaction log is `work/astra-20260910/actor-rain-sorted-promotion.log`.
+
+
+## Environment updates and actor teardown controls
+
+Five complete functions add **2,572 function bytes**: environment trail update
+00124008 (500), surface update 00123C50 (948), actor teardown 00155920 (400),
+angle-event scheduling 00156998 (356), and group teardown 0015A370 (368).
+Twelve natural alignment bytes are also exact and receive no function credit.
+All five emit no data; the eleven small-data claims remain unchanged.
+
+The environment pair reuses the independently proved 0x6300 allocation layout.
+The trail update advances forty six-vector trails with their actual timer,
+random reset and decay rules. The surface update preserves the retail duplicate
+height stores, signed random arithmetic, ordered eight-neighbor force sum and
+separate integration pass. The established native assembler profile matches the
+trail; its authenticated debug variant matches the surface. No new ownership,
+qualifiers, artificial padding or source-level compiler controls were introduced.
+
+The actor family reuses the established 64-byte actor record and owner overlap.
+Teardown retains individual flag clears and distinct release paths. Angle events
+use the actual integer absolute-value conversions, signed short duration and
+four-short payload; retail leaves the fourth halfword uninitialized, which is
+preserved. Group teardown retains cursor lifetime, unsigned removal count,
+zero-count behavior and the actual cache syscall signature. The evidence is in
+`work/parallel_game_family_trails`, `work/parallel_game_family_surface` and
+`work/parallel_actor_controls_next`.
+
+The fresh 3,004-byte scripted-event handler 00145938 now has complete readable C,
+but emits 3,040 rather than 3,008 bytes including alignment and differs at 670
+word positions. Its 101-entry switch table is analysis evidence only, not verified
+read-only data. Typed M2C output was corrected against actual float call contracts,
+real vector consumers, global reloads and the shared event payload. Pointer-slot
+representation probes remain diagnostics without ownership or source claims.
+The 248-byte hash-chain initializer 001262E0 also remains unmatched at 272 bytes.
+Both bounded frontiers are saved without matching credit.
+
+All promotion gates passed: **187 tests**, 970,772-byte full-image equality,
+independent baseline, source and section checks, loaded layout, repository audits
+and current treemap. The loaded-image SHA-256 remains
+`77768f0c5d84a92a6d185499b8bb4bb2205779a81fbdb859b15cc1d9ce28f876`.
+The authoritative total is **1,463/2,189 functions and 259,328/663,704 function
+bytes** (39.0728% of function bytes). This is continued progress, not completion.
+The transaction log is
+`work/astra-20260910/environment-actor-controls-promotion.log`.

@@ -4692,6 +4692,38 @@
     "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
+    "function": "func_00123C50",
+    "source": "src/game/func_00123C50.c",
+    "address": "0x00123C50",
+    "size": 948,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as-g"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "unit_start": "0x00123C50",
+    "unit_end": "0x00124008",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Shared independently proved0x6300 Environment layout from1217A8/123A90. Complete40x6 trail update or26x23 eight-neighbor surface update; actual signed random arithmetic, duplicate persistent height stores, all real float operation order and integration limits retained. Existing four-byte pointer-slot representation and authentic native/debug profiles, no new data or ownership. All emitted bytes including natural alignment independently exact. See work/parallel_game_family_trails/README.md and work/parallel_game_family_surface/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
+    "function": "func_00124008",
+    "source": "src/game/func_00124008.c",
+    "address": "0x00124008",
+    "size": 500,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00124008",
+    "unit_end": "0x00124200",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Shared independently proved0x6300 Environment layout from1217A8/123A90. Complete40x6 trail update or26x23 eight-neighbor surface update; actual signed random arithmetic, duplicate persistent height stores, all real float operation order and integration limits retained. Existing four-byte pointer-slot representation and authentic native/debug profiles, no new data or ownership. All emitted bytes including natural alignment independently exact. See work/parallel_game_family_trails/README.md and work/parallel_game_family_surface/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_00124200",
     "source": "src/game/func_00124200.c",
     "address": "0x00124200",
@@ -10508,6 +10540,22 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00155920",
+    "source": "src/game/func_00155920.c",
+    "address": "0x00155920",
+    "size": 400,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00155920",
+    "unit_end": "0x00155AB0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete actor/group teardown using independently established64-byte actor state/owner overlay and actual actor-index table/control flag prefix. Exact individual flag clears, loader release paths, loop cursor lifetime, signed bound/unsigned removal count and original zero-count behavior. No new data, qualifiers or padding; every emitted byte verified. See work/parallel_actor_controls_next/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_00155AB0",
     "source": "src/game/func_00155AB0.c",
     "address": "0x00155AB0",
@@ -10579,6 +10627,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
+    "function": "func_00156998",
+    "source": "src/game/func_00156998.c",
+    "address": "0x00156998",
+    "size": 356,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00156998",
+    "unit_end": "0x00156B00",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete356-byte actor angle-event scheduler plus4nativealignment. Actual float angle, integer abs conversions, signed short duration division and two angle-wrap corrections. Real four-short payload independently copied by138468; retail leaves fourth halfword uninitialized, preserved without manufactured values. Fresh full360B exact, no data. See work/parallel_actor_controls_next/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_00156B00",
@@ -11052,6 +11116,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0015A370",
+    "source": "src/game/func_0015A370.c",
+    "address": "0x0015A370",
+    "size": 368,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0015A370",
+    "unit_end": "0x0015A4E0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete actor/group teardown using independently established64-byte actor state/owner overlay and actual actor-index table/control flag prefix. Exact individual flag clears, loader release paths, loop cursor lifetime, signed bound/unsigned removal count and original zero-count behavior. No new data, qualifiers or padding; every emitted byte verified. See work/parallel_actor_controls_next/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_0015A4E0",
