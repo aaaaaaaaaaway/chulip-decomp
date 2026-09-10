@@ -9919,7 +9919,8 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": " Returns actual mode2 availability status0/1, explicitly converting the shared151A60 return representation to int. Retail151C2C/151C34/151C68 establish the nonallocating query behavior; actual151DF8 consumes status and separately allocates via151A00. All28 bytes unchanged. See work/parallel_allocator_query_repair/README.md and work/astra_allocator_repairs/repairs.json."
   },
   {
     "function": "func_00151CA8",
@@ -9932,7 +9933,8 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": " Explicitly forwards the incoming allocation pointer as the real unsigned range key to 1520D8 and returns released size, with null returning zero. Actual matched1520D8 consumes the key; pointer consumers5A4E0/518C0 establish allocated-address input. All44 bytes unchanged. See work/astra_actor_teardown/README.md and work/astra_allocator_repairs/repairs.json."
   },
   {
     "function": "func_00151CD8",

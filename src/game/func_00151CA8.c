@@ -1,8 +1,8 @@
-extern int func_001520D8(void);
+extern unsigned int func_001520D8(unsigned int key);
 
-int func_00151CA8(int handle) {
-    if (handle == 0) {
+unsigned int func_00151CA8(void *address) {
+    if (address == 0) {
         return 0;
     }
-    return func_001520D8();
+    return func_001520D8((unsigned int)address);
 }
