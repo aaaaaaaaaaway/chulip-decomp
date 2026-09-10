@@ -1418,3 +1418,53 @@ bounded root coordinate/packet/callback-declaration probes; its entire switch
 table still matches. The spark renderer and allocator search also remain
 uncredited. All negative sources and measurements are retained for subsequent
 work instead of repeating the same probes.
+
+
+## Spatial sound, jitter sprites and environment layout
+
+Two spatial sound siblings, 00179470 and00179660, matched on their first complete
+reconstructions (864 bytes). Their shared44-byte sound descriptor, camera transform,
+normalization, three-point attenuation and existing truthful sqrtf fallback transfer
+directly; the sole command difference is the extra integer argument. There is no
+new library alias. The jitter sprite renderer001065B0 also matched on its first
+complete reconstruction (1008 bytes); its76-byte control uses the actual0/1/default
+switch and emits four natural alignment bytes. All actual sprite/vector objects are
+consumed, and the persistent age increment and clip-dependent fade behavior remain.
+
+These four functions passed the full transactional import at1445/2189 functions
+and249068/663704 function bytes. Local evidence: work/parallel_spatial_audio_next/
+and work/parallel_game_family_jitter/, with full gate output in
+work/astra-20260910/jitter-spatial-promotion.log.
+
+The one-element pointer declarations in the emitter sources explicitly represent
+one four-byte pointer slot. This is a C storage representation supported by actual
+allocator stores, subsequent pointer loads and neighboring separate globals; it is
+not evidence of the original array spelling or of a larger object/TU. Scalar and
+incomplete-array diagnostic forms are retained with their different compiler
+aliasing/load results. No additional storage, definitions or qualifiers are added.
+
+The1,196-byte environment initializer001217A8 now verifies all1,200 emitted bytes.
+Its actual0x6300 allocation gives40 six-vector trails,200 two-vector particles,
+26x23 height/velocity/normal grids, and five seven-vector columns. Independent
+00123A90 normal reconstruction confirms both grid strides and the25x22 interior
+bounds; direct shared fields give its full448-byte match. The leading16 bytes are
+integer RGBA from14D778, confirmed in the consuming renderer. Actual overwritten
+randomized fields and calls remain in the initializer. No new data provider or
+volatile declaration was introduced. The related123658 renderer does not improve
+with the same bounded storage representation, so its prior frontier stays uncredited.
+
+The96-byte effect-record initializer00133990 also resolves completely (1204 bytes
+plus4 natural alignment). Its actual pointer slot is independently established by
+allocation, destruction and the separate following global. Real chained coordinate
+assignments restore the final three paired store orders. The268-byte sixteen-ring
+initializer0010B338 matched on its first reconstruction using its independently
+allocated256-byte record, actual16-byte vector copies and signed RNG expressions.
+
+Larger related renderers remain uncredited. The121C80 review finds an unsupported
+legacy stack vector with no consumer, plus the unresolved double-wrapper sqrt
+fallback; typed layout transfer does not solve it. In134570, retail initializes
+four stack color words but never reads or passes them; its actual packet uses
+literal colors. An invented unused C object is not accepted to fill those bytes.
+114810 and10B488 retain complete ordinary-C drafts with measured schedule/register
+mismatches. These source and dataflow holds are preserved for new evidence, rather
+than counted because portions of the code or nominal sizes agree.

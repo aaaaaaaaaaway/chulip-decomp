@@ -947,6 +947,22 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00106520",
+    "source": "src/game/func_00106520.c",
+    "address": "0x00106520",
+    "size": 76,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00106520",
+    "unit_end": "0x00106570",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete jitter emitter family using constructor-proven 128-byte records, actual owner matrix output, transformed and projected vector, and Sprite consumer layout. Preserves random scale/color sequencing, real persistent age and fade updates, and 0/1/default control. Full emitted native text including control trailing alignment verified; no data. See work/parallel_game_family_jitter/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_00106570",
     "source": "src/game/func_00106570.c",
     "address": "0x00106570",
@@ -960,6 +976,20 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched"
+  },
+  {
+    "function": "func_001065B0",
+    "source": "src/game/func_001065B0.c",
+    "address": "0x001065B0",
+    "size": 1008,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete jitter emitter family using constructor-proven 128-byte records, actual owner matrix output, transformed and projected vector, and Sprite consumer layout. Preserves random scale/color sequencing, real persistent age and fade updates, and 0/1/default control. Full emitted native text including control trailing alignment verified; no data. See work/parallel_game_family_jitter/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_001069A0",
@@ -1786,6 +1816,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0010B338",
+    "source": "src/game/func_0010B338.c",
+    "address": "0x0010B338",
+    "size": 268,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0010B338",
+    "unit_end": "0x0010B448",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete268-byte ring initializer with4nativealignment. Actual256-byte allocation:16 twelve-byte rings, aligned RGBA, origin and offset. Preserves actual16-byte vector copies, lifetime120, negative random ages and phase division. First complete source exact, no data. See work/parallel_game_family_rings/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_0010B448",
@@ -4509,6 +4555,22 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_001217A8",
+    "source": "src/game/func_001217A8.c",
+    "address": "0x001217A8",
+    "size": 1196,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x001217A8",
+    "unit_end": "0x00121C58",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Real0x6300 Environment allocator/initializer and independently verified25x22 interior normal builder establish26x23 height/velocity/normal grids and true four-word integer color header. Direct typed fields and actual four-byte external pointer slot preserve all native bytes; original declaration and fullTU remain unknown. Actual overwritten fields and random calls retained. All text and natural alignment checked, no data. See work/astra_environment_init/README.md and work/parallel_grid_normals/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_00121C58",
     "source": "src/game/func_00121C58.c",
     "address": "0x00121C58",
@@ -4520,6 +4582,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00123A90",
+    "source": "src/game/func_00123A90.c",
+    "address": "0x00123A90",
+    "size": 444,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00123A90",
+    "unit_end": "0x00123C50",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Real0x6300 Environment allocator/initializer and independently verified25x22 interior normal builder establish26x23 height/velocity/normal grids and true four-word integer color header. Direct typed fields and actual four-byte external pointer slot preserve all native bytes; original declaration and fullTU remain unknown. Actual overwritten fields and random calls retained. All text and natural alignment checked, no data. See work/astra_environment_init/README.md and work/parallel_grid_normals/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_00124200",
@@ -6847,6 +6925,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00133990",
+    "source": "src/game/func_00133990.c",
+    "address": "0x00133990",
+    "size": 1204,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00133990",
+    "unit_end": "0x00133E48",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete1204-byte initializer for96-byte effect records with4nativealignment. Actual four-byte pointer-slot footprint independently proved by allocator/destructor and separate next global. Genuine origin=position=input chained assignments reproduce original paired stores; signed random calls/branches/fields complete. No qualifiers or new storage, original declaration and fullTU unknown. See work/parallel_effect_record/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_00133E48",
@@ -13989,6 +14083,22 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00179470",
+    "source": "src/game/func_00179470.c",
+    "address": "0x00179470",
+    "size": 424,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00179470",
+    "unit_end": "0x00179618",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete spatial sound siblings using actual 44-byte sound descriptor, listener transform, dot product and normalization contracts, ordinary sqrtf with existing authenticated fallback alias, and three-point attenuation. Correct six/seven integer argument sound command calls. First complete reconstructions exact over all emitted text; no data. See work/parallel_spatial_audio_next/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_00179618",
     "source": "src/game/func_00179618.c",
     "address": "0x00179618",
@@ -14003,6 +14113,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00179660",
+    "source": "src/game/func_00179660.c",
+    "address": "0x00179660",
+    "size": 440,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00179660",
+    "unit_end": "0x00179818",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete spatial sound siblings using actual 44-byte sound descriptor, listener transform, dot product and normalization contracts, ordinary sqrtf with existing authenticated fallback alias, and three-point attenuation. Correct six/seven integer argument sound command calls. First complete reconstructions exact over all emitted text; no data. See work/parallel_spatial_audio_next/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_00179930",
