@@ -100,6 +100,13 @@
       "section": "sdata",
       "address": "0x001ECD0C",
       "size": 4
+    },
+    {
+      "symbol": "D_001ECF88",
+      "source": "src/game/func_0017F470.c",
+      "section": "sdata",
+      "address": "0x001ECF88",
+      "size": 2
     }
   ]
 }

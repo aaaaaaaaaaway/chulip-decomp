@@ -18,6 +18,8 @@ jobs:
           python-version: "3.12"
       - name: Install public metadata parser
         run: python3 -m pip install PyYAML==6.0.3
+      - name: Install Rust for the pinned treemap layout engine
+        run: rustup toolchain install 1.96.0 --profile minimal --no-self-update && rustup default 1.96.0
       - name: Compile public Python tools
         run: python3 -m compileall -q configure.py tools
       - name: Verify generated progress and repository policy

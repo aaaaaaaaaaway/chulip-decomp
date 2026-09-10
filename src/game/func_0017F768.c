@@ -3,7 +3,7 @@ extern unsigned short D_001ECF88;
 extern int D_001ED94C;
 extern char D_002D9100[];
 
-int func_0017F470();
+void func_0017F470(void);
 int func_00137FD0();
 
 void func_0017F768(unsigned char mode) {

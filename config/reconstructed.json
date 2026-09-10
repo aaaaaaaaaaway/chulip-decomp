@@ -15289,6 +15289,20 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0017E840",
+    "source": "src/game/func_0017E840.c",
+    "address": "0x0017E840",
+    "size": 364,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Sorted8-byte start/end table and matched17E468 insertion contract; real6-byte local gap stride independently used in construction, fit search and both endpoint allocation branches. Workspace occupies SP+0..2FF before saved RA300; endpoint halfwords feed insertion and returned address. Unused third halfword is neither initialized nor read. Natural shared return preserves exact branch layout; original strict fit/no-fit behavior retained. Full364B native object independently verified with no data or artificial padding. See work/parallel_game_family_ranges/README.md and work/astra_range_review/exact.json.",
+    "provenance_note": "Complete readable C and every364 emitted text bytes independently exact; no emitted data. Four bytes at17E9AC..17E9B0 lie outside this object and remain assembly-provided. Original translation-unit boundaries and exact original local array spelling remain provisional."
+  },
+  {
     "function": "func_0017EA28",
     "source": "src/game/func_0017EA28.c",
     "address": "0x0017EA28",
@@ -15420,6 +15434,20 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0017F470",
+    "source": "src/game/func_0017F470.c",
+    "address": "0x0017F470",
+    "size": 344,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Real alternating two-pointer banks established by indexed consumers and initializer stores; actual32-byte archive paths and read-slice contracts. Twenty retail halfword accesses and explicit zero reset establish unsigned-short CF88 status; sole initialized scalar emits precisely2B alignment2 without attributes or padding. Complete native object and exact2B ownership gap independently reviewed. See work/parallel_game_family_stream/README.md and work/astra_stream_review/exact.json.",
+    "provenance_note": "Complete readable C, all344 emitted text bytes and entire2-byte sdata object independently verified. CF8A..CF8B remain assembly-provided and unclaimed. Original translation-unit boundaries remain provisional."
+  },
+  {
     "function": "func_0017F730",
     "source": "src/game/func_0017F730.c",
     "address": "0x0017F730",
@@ -15459,7 +15487,7 @@
     ],
     "isolated_match": true,
     "whole_program_match": true,
-    "profile_evidence": "Prior lane manifest candidate freshly recovered and independently replayed under its recorded historical SN compiler, assembler and flags. Natural alignment bytes included only where recorded in the verified range; source ownership remains provisional.",
+    "profile_evidence": "Prior lane manifest candidate freshly recovered and independently replayed under its recorded historical SN compiler, assembler and flags. Natural alignment bytes included only where recorded in the verified range; source ownership remains provisional. Thread callback 17F470 declaration repaired to actual void(void) return contract; original 100B profile and flags independently remain exact.",
     "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
   },
   {

@@ -1209,7 +1209,8 @@ segments:
       - [0x07E6C8, asm, cod/text_0017E6C8]
       - [0x07E7F0, c, game/func_0017E7F0]
       - [0x07E7F8, c, game/func_0017E7F8]
-      - [0x07E840, asm, cod/text_0017E840]
+      - [0x07E840, c, game/func_0017E840]
+      - [0x07E9B0, asm, cod/text_0017E9B0]
       - [0x07EA28, c, game/func_0017EA28]
       - [0x07EAB0, c, game/func_0017EAB0]
       - [0x07EAD0, asm, cod/text_0017EAD0]
@@ -1221,7 +1222,8 @@ segments:
       - [0x07F2C0, c, game/func_0017F2C0]
       - [0x07F340, asm, cod/text_0017F340]
       - [0x07F440, c, game/func_0017F440]
-      - [0x07F470, asm, cod/text_0017F470]
+      - [0x07F470, c, game/func_0017F470]
+      - [0x07F5C8, asm, cod/text_0017F5C8]
       - [0x07F730, c, game/func_0017F730]
       - [0x07F738, c, game/func_0017F738]
       - [0x07F768, c, game/func_0017F768]
@@ -1671,6 +1673,9 @@ segments:
       - [0x0ECD10, sdata, cod/sdata_after_0015EE20]
       - [0x0ECD3C] # func_001609E0 complete counter contribution: 4 bytes
       - [0x0ECD40, sdata, cod/sdata_after_001609E0]
+      - [0x0ECF88] # func_0017F470 complete halfword status: 2 bytes
+      - [0x0ECF8A, sdata, cod/sdata_after_0017F470_halfword] # CF8A..CF8B remain unclaimed
+      - [0x0ECF8C, sdata, cod/sdata_after_0017F470]
       - { type: sbss, vram: 0x001ED080, name: cod/sbss }
       - { type: .sbss, vram: 0x001ED4C0, name: game/func_001606A0 } # func_001606A0 complete counter contribution: 4 bytes
       - { type: sbss, vram: 0x001ED4C4, name: cod/sbss_after_001606A0 }

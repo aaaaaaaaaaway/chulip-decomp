@@ -12,6 +12,12 @@ Required host packages on Debian or Ubuntu:
 sudo apt install python3 python3-venv binutils-mipsel-linux-gnu dpkg
 ```
 
+Progress-map generation and `make public-check` also require Rust/Cargo (verified with
+1.96.0). The first run builds the small `tools/treemap-layout` helper using
+locked public dependencies, including the same `streemap` library as decomp.dev.
+See [the progress map guide](progress-map.md). Viewing the generated HTML/SVG
+does not require Rust.
+
 Then run `python3 tools/bootstrap.py`. It creates the ignored `.venv`, installs
 the Python versions from `requirements.txt`, and installs every compiler and
 assembler referenced by `config/toolchains.json`. This includes the two SN

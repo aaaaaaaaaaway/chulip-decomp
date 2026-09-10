@@ -1,0 +1,8 @@
+[package]
+name = "chulip-treemap-layout"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+streemap = "=0.1.0"

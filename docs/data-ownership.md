@@ -153,3 +153,13 @@ checks, all loaded bytes, and the PT_LOAD memory extent. Evidence is in
 work/parallel_raw_fragments and work/astra-20260910/signed-state-promotion.log.
 The signed declaration repair in the existing setter func_00127270 retains
 all of its bytes and earns no new progress credit.
+
+The halfword stream status D_001ECF88 in func_0017F470 uses the same rule:
+the ordinary initialized `unsigned short` emits and owns exactly CF88..CF89.
+Twenty retail halfword accesses and the explicit zero reset establish its type
+and initial state. CF8A..CF8B form a separate two-byte raw fragment; the ordinary
+aligned remainder starts at CF8C. Do not start a large raw segment at CF8A:
+the fragment validator rejects it rather than changing the word grouping.
+Both neighboring bytes remain unclaimed. The full 344-byte function, complete
+two-byte object and loaded image pass independently; evidence is in
+`work/astra_stream_review/exact.json` and `promotion.log`.
