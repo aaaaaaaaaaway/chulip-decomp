@@ -990,6 +990,22 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00106AE8",
+    "source": "src/game/func_00106AE8.c",
+    "address": "0x00106AE8",
+    "size": 708,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00106AE8",
+    "unit_end": "0x00106DB0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete particle initializer/renderer using verified6464-byte emitter and64-byte particle layouts, established one-element external pointer array, and actual matrix-output helper contract. Natural frame, fade and screen-y locals preserve calculation lifetimes and actual float operations. Native SN136 ps2as profile and proven debug variant match complete712/1408-byte ranges. See work/parallel_game_family_particles/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_00106DB0",
     "source": "src/game/hand_00106DB0.c",
     "address": "0x00106DB0",
@@ -1033,6 +1049,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched"
+  },
+  {
+    "function": "func_00106E48",
+    "source": "src/game/func_00106E48.c",
+    "address": "0x00106E48",
+    "size": 1404,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as-g"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "unit_start": "0x00106E48",
+    "unit_end": "0x001073C8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete particle initializer/renderer using verified6464-byte emitter and64-byte particle layouts, established one-element external pointer array, and actual matrix-output helper contract. Natural frame, fade and screen-y locals preserve calculation lifetimes and actual float operations. Native SN136 ps2as profile and proven debug variant match complete712/1408-byte ranges. See work/parallel_game_family_particles/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_001073C8",
@@ -1166,6 +1198,20 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00107BD8",
+    "source": "src/game/func_00107BD8.c",
+    "address": "0x00107BD8",
+    "size": 1360,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Fresh complete1360-byte two-pool particle initializer transfers proven signed random-pair expressions and external pointer-array contract. Actual2928-byte emitter has30+15 particles; retail second-loop writes into first-pool velocities explicitly preserved. SN136 native ps2as first reconstruction exact, no emitted data. See work/parallel_game_family_random/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_00108128",
@@ -4195,6 +4241,22 @@
     "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
   },
   {
+    "function": "func_00120118",
+    "source": "src/game/func_00120118.c",
+    "address": "0x00120118",
+    "size": 468,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00120118",
+    "unit_end": "0x001202F0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete468-byte radial polygon emitter with actual GIF tag, center vertex and integer-degree perimeter sampling. Named scaled radius values preserve loads before real cosine/sine calls, staged tag and packet-pointer initialization preserve original lifetimes, Z/control assignments match actual fields. All472 emitted bytes exact including4 native alignment bytes. See work/astra_polygon/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_00120560",
     "source": "src/game/func_00120560.c",
     "address": "0x00120560",
@@ -4328,6 +4390,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_001251E8",
+    "source": "src/game/func_001251E8.c",
+    "address": "0x001251E8",
+    "size": 684,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x001251E8",
+    "unit_end": "0x00125498",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete684-byte projected-point interpolation helper using shared48-byte Point and aligned polygon parameters. Real radius delta computed before colors and natural interpolation divisor local distinct from loop bound reproduce all688 emitted bytes including4 native alignment bytes. No data; no copied VU helper implementation. See work/astra_point_geometry/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_00125498",
@@ -15923,6 +16001,20 @@
     "provenance_note": "SSXModding ps2-ee-toolchain tree b595ded606227e93b8c4a447446c1d2ac093827d ee/gcc/config/fp-bit.c; historical t-r5900 macro selection; complete preserved libgcc object anchor."
   },
   {
+    "function": "func_00187308",
+    "source": "src/game/func_00187308.c",
+    "address": "0x00187308",
+    "size": 400,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete400-byte GS reset/display-timing switch with real volatile64-bit GS CSR, revision extraction, actual u64(u64) GsPutIMR contract, interrupt cleanup and CRT mode calls. Default unsupported mode does nothing as retail. SonyO2 full text exact/no data. See work/parallel_gs_init/reset-review.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_00187498",
     "source": "src/game/func_00187498.c",
     "address": "0x00187498",
@@ -15964,6 +16056,22 @@
     "whole_program_match": true,
     "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 produces the retail runtime schedule, and its era-correct bundled GNU assembler preserves the retail instruction encodings",
     "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00187888",
+    "source": "src/game/func_00187888.c",
+    "address": "0x00187888",
+    "size": 148,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x00187888",
+    "unit_end": "0x0018791C",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete148-byte vertical-blank field helper uses actual display state, live volatile64-bit GS CSR or64-bit saved VSync status. Both wait paths and non-interlaced return preserved. SonyO2-G0 full text exact, no data. See work/parallel_dma_mmio/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_00187C78",
@@ -16509,6 +16617,54 @@
     "whole_program_match": true,
     "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
     "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0018A050",
+    "source": "src/game/func_0018A050.c",
+    "address": "0x0018A050",
+    "size": 92,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x0018A050",
+    "unit_end": "0x0018A0AC",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete pressure-mode query/enter/exit wrapper transferred from verified28-byte libpad slot layout, actual open checks and matched mask/button setters. SonyO2-G0 first-compile full-range exact, no data. Primary public SDK corroborates API roles; retail open checks retained. See work/parallel_libpad_tail/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
+    "function": "func_0018A0B0",
+    "source": "src/game/func_0018A0B0.c",
+    "address": "0x0018A0B0",
+    "size": 84,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x0018A0B0",
+    "unit_end": "0x0018A104",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete pressure-mode query/enter/exit wrapper transferred from verified28-byte libpad slot layout, actual open checks and matched mask/button setters. SonyO2-G0 first-compile full-range exact, no data. Primary public SDK corroborates API roles; retail open checks retained. See work/parallel_libpad_tail/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
+    "function": "func_0018A108",
+    "source": "src/game/func_0018A108.c",
+    "address": "0x0018A108",
+    "size": 84,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x0018A108",
+    "unit_end": "0x0018A15C",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete pressure-mode query/enter/exit wrapper transferred from verified28-byte libpad slot layout, actual open checks and matched mask/button setters. SonyO2-G0 first-compile full-range exact, no data. Primary public SDK corroborates API roles; retail open checks retained. See work/parallel_libpad_tail/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_0018A160",
@@ -19132,6 +19288,20 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0019A850",
+    "source": "src/game/func_0019A850.c",
+    "address": "0x0019A850",
+    "size": 640,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete640-byte SIF command initializer: genuine uncached32-bit EE address fields, ordinary32-entry handler/register loops, actual interrupt and cache/DMA contracts, volatile hardware MMIO, both IOP handshake branches and native tailcalls. SonyO2 exact without flags or data. Retail cached outgoing address retained. See work/parallel_rpc_family2/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_0019AAD0",
     "source": "src/game/func_0019AAD0.c",
     "address": "0x0019AAD0",
@@ -19358,6 +19528,20 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0019B4E0",
+    "source": "src/game/func_0019B4E0.c",
+    "address": "0x0019B4E0",
+    "size": 176,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete SIF RPC bind handler or client status query with actual packet IDs, encoded32-bit reply addresses and server lookup contracts. Natural request-field snapshots preserve load/store schedule; null/id/record-bit status checks retained. SonyO2 full176/60-byte text exact, no data. See work/parallel_rpc_family2/ready.json and retained section proofs.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_0019B590",
     "source": "src/game/func_0019B590.c",
     "address": "0x0019B590",
@@ -19382,6 +19566,20 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0019B950",
+    "source": "src/game/func_0019B950.c",
+    "address": "0x0019B950",
+    "size": 60,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete SIF RPC bind handler or client status query with actual packet IDs, encoded32-bit reply addresses and server lookup contracts. Natural request-field snapshots preserve load/store schedule; null/id/record-bit status checks retained. SonyO2 full176/60-byte text exact, no data. See work/parallel_rpc_family2/ready.json and retained section proofs.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_0019BAF8",

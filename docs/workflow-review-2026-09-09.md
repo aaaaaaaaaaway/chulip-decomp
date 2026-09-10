@@ -1251,3 +1251,49 @@ transaction passed full-image, baseline and185-test gates again. This
 semantic correction adds no function credit. Evidence is in
 work/parallel_game_family_particles/helper_proof.json and
 work/astra-20260910/matrix-contract-promotion.log.
+
+### September 10: emitter, polygon and GS family checkpoint
+
+Three further full transactions add 13 functions and 6,308 function bytes,
+reaching 1,421 / 2,189 functions and 235,416 / 663,704 function bytes. All
+970,772 image bytes and the PT_LOAD memory extent remain exact. Independent
+baseline, 185 tests and all public gates pass. The source hashes and transaction
+logs are recorded in work/astra-20260910/particles-polygon-sdk-checkpoint.json.
+
+The largest gains come from three complete emitter functions: 00106AE8 adds
+708 bytes, 00106E48 adds 1,404, and 00107BD8 adds 1,360. Established external
+pointer-array declarations preserve real reload behavior without qualifiers.
+The recovered 6,464-byte and 2,928-byte emitter layouts share 64-byte particles.
+Signed random-pair expressions, texture-frame locals, saved screen-y and shared
+fade calculations transfer directly. The second initialization loop in
+00107BD8 actually overwrites velocities in the first pool; the source preserves
+and comments on that behavior. No source-owned data is added.
+
+The geometry chain adds 684-byte 001251E8 and 468-byte 00120118. A natural local
+interpolation divisor, separate from the loop-bound parameter, recovers the
+first function's register and stack lifetimes. The polygon emitter keeps real
+scaled radii before trigonometric calls, constructs actual tag fields in a
+local, and derives its vertex pointer after advancing the packet. Its integer
+degree division and separate single-precision operations match retail exactly.
+The two full ranges include eight verified native alignment bytes, which are
+excluded from function-byte credit. Proofs are in work/astra_point_geometry
+and work/astra_polygon.
+
+SDK family transfer contributes another 1,684 bytes: three pressure-mode
+wrappers, two RPC handlers, command initialization, GS reset and vertical-blank
+field retrieval. Ordinary 32-entry initialization loops and explicit 32-bit
+uncached receive addresses match the SIF initializer. The GS routines use
+genuine volatile 64-bit hardware accesses and the actual unsigned-64 return
+and parameter contract of GsPutIMR. No ordinary software state gains speculative
+volatility. The lane READMEs retain primary SDK references and retail-specific
+behavior differences.
+
+The 2,280-byte 001081E0 candidate is deliberately held despite exact bytes.
+Its proposed scratch vector only receives two initial zero stores, with no
+later reads or pointer escape. The neighboring emitter's real position vector
+does not establish this local object's provenance. A complete stack-access
+census and exact artifact are preserved in work/parallel_game_family_random;
+the source is excluded from its ready list and receives zero credit. Three
+DMA routines likewise remain uncredited because their volatile-access schedule
+does not match under the checked historical profiles. The RPC client remains
+two stores away after bounded ordering and actual pointer-type probes.
