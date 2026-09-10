@@ -9905,7 +9905,8 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": " Independently repaired actual model pointer contract:151A20 explicitly returns heap pointer;59370/594E0 persist and forward model pointers at instance+C. Existing complete bytes/profile/flags unchanged. See work/astra_model_create/README.md and repairs.json."
   },
   {
     "function": "func_00151A40",
@@ -11082,7 +11083,8 @@
     ],
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": " Independently repaired actual model pointer contract:151A20 explicitly returns heap pointer;59370/594E0 persist and forward model pointers at instance+C. Existing complete bytes/profile/flags unchanged. See work/astra_model_create/README.md and repairs.json."
   },
   {
     "function": "func_001594E0",
@@ -11098,7 +11100,8 @@
     ],
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": " Independently repaired actual model pointer contract:151A20 explicitly returns heap pointer;59370/594E0 persist and forward model pointers at instance+C. Existing complete bytes/profile/flags unchanged. See work/astra_model_create/README.md and repairs.json."
   },
   {
     "function": "func_001595F8",
@@ -15145,6 +15148,22 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0017D088",
+    "source": "src/game/func_0017D088.c",
+    "address": "0x0017D088",
+    "size": 236,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0017D088",
+    "unit_end": "0x0017D178",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Real20-byte model allocation and template+8 loader contract; matched59370 ID allocation classes, actual pointer heap result,545B8 byte-pair stream and17D998 packet pointer consumer. Ordinary early failure return gives all236function+4alignment bytes exact, no fabricated locals or output padding. See work/astra_model_create/README.md and work/astra_resource_family_next/exact.json. Model+10 is now named/typed as the actual accumulated float transfer amount, independently read and written by17D998 and initialized by17D178. Complete constructor bytes remain exact. See work/parallel_model_packets/README.md.",
+    "provenance_note": "Complete readable C and every emitted text byte independently verified, including native alignment where emitted. No data or ownership additions. Original translation-unit boundaries remain provisional."
+  },
+  {
     "function": "func_0017D7E0",
     "source": "src/game/func_0017D7E0.c",
     "address": "0x0017D7E0",
@@ -15172,6 +15191,20 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0017D998",
+    "source": "src/game/func_0017D998.c",
+    "address": "0x0017D998",
+    "size": 560,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete560B model packet builder. Actual240-byte Part objects and packet slices from17D178; unsignedQWC float scaling, optional byte-pair skip stream from545B8, persistent float Model+10.1308F8 initializes actualtwo pointer bank entries and distinct capacity+8;54BB0 resets cursor tobase. Bounded char*pointers[2] within DrawList expresses this independently proved object prefix, with no claimed global definition or padding. Integer packet-address arguments retain existing hardware helper contracts. Full emitted object independently exact, no data. See work/parallel_model_packets/README.md and work/astra_model_packet_review/exact.json.",
+    "provenance_note": "Complete readable C and every emitted text byte independently verified, including native alignment where emitted. No data or ownership additions. Original translation-unit boundaries remain provisional."
   },
   {
     "function": "func_0017DBC8",
@@ -15231,6 +15264,20 @@
     "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
+    "function": "func_0017E528",
+    "source": "src/game/func_0017E528.c",
+    "address": "0x0017E528",
+    "size": 152,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Established8-byte sorted start/end range entries, unsigned count and start. Removal shifts actual two32-bit fields as in matched17E468 rather than copying an aggregate; no empty/missing-key guard invented. Every152 emitted bytes independently exact, no data. See work/parallel_game_family_release_modes/README.md.",
+    "provenance_note": "Complete readable C and every emitted text byte independently verified, including native alignment where emitted. No data or ownership additions. Original translation-unit boundaries remain provisional."
+  },
+  {
     "function": "func_0017E5C0",
     "source": "src/game/func_0017E5C0.c",
     "address": "0x0017E5C0",
@@ -15261,6 +15308,20 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
+    "function": "func_0017E6C8",
+    "source": "src/game/func_0017E6C8.c",
+    "address": "0x0017E6C8",
+    "size": 296,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete296B three-mode surface cleanup with independently proved52-byte descriptor, actual allocation/storage/pixel fields and scalar current/shared pointers. Each mode retains distinct clearing/free behavior; mode40 excludes shared buffer from free but clears persistent pixels. First complete C exact without data or pointer wrappers. See work/parallel_game_family_release_modes/README.md.",
+    "provenance_note": "Complete readable C and every emitted text byte independently verified, including native alignment where emitted. No data or ownership additions. Original translation-unit boundaries remain provisional."
   },
   {
     "function": "func_0017E7F0",

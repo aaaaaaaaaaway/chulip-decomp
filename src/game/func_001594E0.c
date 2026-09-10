@@ -2,7 +2,7 @@ typedef struct {
     void *f00;
     int f04;
     int f08;
-    int f0C;
+    void *f0C;
 } Item;
 
 typedef union {
@@ -30,7 +30,7 @@ typedef struct {
 extern Slot D_002ABA40[];
 
 int func_001533D8(Src *s, int idx, int cur);
-int func_0017D088(Src *s, int idx, int cur);
+void *func_0017D088(Src *s, int idx, void *cur);
 int func_00179818(Src *s, int idx, int cur, int b);
 void func_0015BE88(int idx, int a, int b);
 

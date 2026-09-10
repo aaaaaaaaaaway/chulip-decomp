@@ -14,7 +14,7 @@ typedef struct {
     Template *source;
     int unk04;
     int unk08;
-    int unk0C;
+    void *unk0C;
     int unk10;
     int unk14;
     int unk18;
@@ -23,7 +23,7 @@ typedef struct {
 extern Instance *func_00151A00(int);
 extern Instance *func_00151A20(int);
 extern int func_001533D8(Template *, int, int);
-extern int func_0017D088(Template *, int, int);
+extern void *func_0017D088(Template *, int, void *);
 extern int func_00179818(Template *, int, int, int);
 extern int func_001330A8(Template *, int);
 extern int func_00100290(Template *, int);
