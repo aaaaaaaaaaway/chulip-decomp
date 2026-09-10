@@ -524,11 +524,14 @@ def candidate_spec(source: Path) -> dict[str, object]:
         raise SystemExit(f"candidate metadata must be a JSON object: {sidecar}")
     allowed = {
         "function", "profiles", "build_profile", "object_flags", "range_start", "range_end",
-        "rodata_start", "sdata_start", "sbss_start", "destination",
+        "rodata_start", "sdata_start", "sbss_start", "destination", "promotion_hold",
     }
     unknown = sorted(set(value) - allowed)
     if unknown:
         raise SystemExit(f"unknown candidate metadata in {sidecar}: {', '.join(unknown)}")
+    hold = value.get("promotion_hold")
+    if hold is not None and (not isinstance(hold, str) or not hold.strip()):
+        raise SystemExit(f"promotion_hold must be a non-empty reason: {sidecar}")
     if value.get("function", function) != function:
         raise SystemExit(f"candidate metadata function disagrees with packet: {sidecar}")
     profiles_document = read_json(TOOLCHAINS, {"profiles": {}})
@@ -579,6 +582,7 @@ def candidate_spec(source: Path) -> dict[str, object]:
         "sdata_start": value.get("sdata_start"),
         "sbss_start": value.get("sbss_start"),
         "destination": destination,
+        **({"promotion_hold": hold} if hold is not None else {}),
     }
 
 
@@ -704,7 +708,24 @@ def verified_records(function: str) -> list[tuple[Path, dict[str, object]]]:
     return result
 
 
+def check_promotion_hold(record: dict[str, object]) -> None:
+    """Keep byte-exact diagnostic candidates separate from reviewed matches.
+
+    Check current metadata as well as the saved proof: semantic review may place
+    a hold after an exact harvest, without changing the source bytes.
+    """
+    spec = record["spec"]
+    assert isinstance(spec, dict)
+    reason = spec.get("promotion_hold")
+    if record.get("source"):
+        current = candidate_spec(ROOT / str(record["source"]))
+        reason = current.get("promotion_hold") or reason
+    if reason:
+        raise SystemExit(f"promotion held for {record['function']}: {reason}")
+
+
 def promotion_manifest(record: dict[str, object], destination: str) -> dict[str, object]:
+    check_promotion_hold(record)
     spec = record["spec"]
     assert isinstance(spec, dict)
     profiles = record["matched_profiles"]
@@ -845,6 +866,7 @@ def promote(function: str, *, record_path: Path | None, write: bool) -> int:
     source = ROOT / str(record["source"])
     if hashlib.sha256(source.read_bytes()).hexdigest() != record.get("source_sha256"):
         raise SystemExit("verified candidate changed; harvest it again")
+    check_promotion_hold(record)
     spec = record["spec"]
     assert isinstance(spec, dict)
     destination = str(spec["destination"])
@@ -1027,6 +1049,8 @@ def main() -> int:
             state = "MATCH" if record["exact"] else "MISS"
             profiles = ",".join(record["matched_profiles"]) or "-"
             print(f"{state:5} {record['function']} profiles={profiles} source={record['source']}")
+            if record["spec"].get("promotion_hold"):
+                print(f"  promotion held: {record['spec']['promotion_hold']}")
             failures += not bool(record["exact"])
         return 1 if failures else 0
     elif args.command == "promote":

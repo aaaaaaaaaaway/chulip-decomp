@@ -263,6 +263,59 @@ class CampaignTests(unittest.TestCase):
         self.assertEqual(manifest["rodata_start"], "0x2000")
         self.assertEqual(manifest["object_flags"], ["-Wa,-G8"])
 
+    def test_exact_harvest_retains_semantic_hold_without_promoting(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.seed(root)
+            source = root / "work/campaign/packets/func_a/candidates/one.c"
+            source.parent.mkdir(parents=True)
+            source.write_text("void func_a(void) {}\n")
+            sidecar = Path(str(source) + ".json")
+            sidecar.write_text(json.dumps({
+                "profiles": ["profile-a"],
+                "promotion_hold": "global object extent is unresolved",
+            }))
+            proof = subprocess.CompletedProcess(["match"], 0, "profile-a: MATCH\n", "")
+            with self.environment(root), patch.object(
+                campaign, "audit_c_source", return_value=[]
+            ), patch.object(campaign.subprocess, "run", return_value=proof):
+                record = campaign.verify_source(source)
+                self.assertTrue(record["exact"])
+                record_path = next(campaign.VERIFIED.glob("*.json"))
+                with self.assertRaisesRegex(SystemExit, "global object extent"):
+                    campaign.promote("func_a", record_path=record_path, write=True)
+                self.assertFalse((root / "src").exists())
+                # Removing metadata does not turn the saved held proof into approval.
+                sidecar.write_text(json.dumps({"profiles": ["profile-a"]}))
+                with self.assertRaisesRegex(SystemExit, "promotion held"):
+                    campaign.promotion_manifest(record, "src/game/func_a.c")
+
+    def test_hold_added_after_harvest_blocks_stale_exact_record(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.seed(root)
+            source = root / "work/campaign/packets/func_a/candidates/one.c"
+            source.parent.mkdir(parents=True)
+            source.write_text("void func_a(void) {}\n")
+            sidecar = Path(str(source) + ".json")
+            sidecar.write_text(json.dumps({"profiles": ["profile-a"]}))
+            proof = subprocess.CompletedProcess(["match"], 0, "profile-a: MATCH\n", "")
+            with self.environment(root), patch.object(
+                campaign, "audit_c_source", return_value=[]
+            ), patch.object(campaign.subprocess, "run", return_value=proof):
+                record = campaign.verify_source(source)
+                record_path = next(campaign.VERIFIED.glob("*.json"))
+                sidecar.write_text(json.dumps({
+                    "profiles": ["profile-a"],
+                    "promotion_hold": "review found unused artificial storage",
+                }))
+                # Both direct manifest users and the CLI must read the current hold.
+                with self.assertRaisesRegex(SystemExit, "unused artificial storage"):
+                    campaign.promotion_manifest(record, "src/game/func_a.c")
+                with self.assertRaisesRegex(SystemExit, "unused artificial storage"):
+                    campaign.promote("func_a", record_path=record_path, write=True)
+                self.assertFalse((root / "src").exists())
+
     def test_ambiguous_match_requires_reviewed_build_profile(self):
         record = {
             "function": "func_a",

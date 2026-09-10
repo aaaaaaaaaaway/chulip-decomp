@@ -81,6 +81,17 @@ Results are content-addressed, so an interrupted
 or repeated harvest skips unchanged experiments and retries changed source.
 The strict reconstructed-C audit rejects assembly bridges before compilation.
 
+If review finds an unresolved semantic, storage or ABI issue, record a
+`"promotion_hold": "reason and evidence path"` in the candidate sidecar. Harvest
+still records the actual byte result, including exact diagnostic matches, and
+prints the hold. Campaign promotion and manifest generation reject both a held
+proof and an older exact proof whose current sidecar now has a hold. The CLI
+checks before copying a source into `src/`. Resolve the evidence, remove the
+hold and re-harvest before submitting a new reviewed proof. This records a human
+review decision; it does not replace semantic review or make byte equality alone
+sufficient for promotion. Hand-written batch manifests still require the same
+coordinator review.
+
 ## Recovery intake
 
 Never merge an old discovery branch into `main`. Preserve it as an immutable

@@ -1694,3 +1694,33 @@ baseline and all970,772 loaded-image bytes. The SHA-256 remains
 `77768f0c5d84a92a6d185499b8bb4bb2205779a81fbdb859b15cc1d9ce28f876`.
 The authoritative checkpoint is **1,471/2,189 functions and264,108/663,704 function
 bytes**. Its log is `work/astra-20260910/choice-animation-promotion.log`.
+
+
+## Keep exact diagnostics on explicit promotion hold
+
+The beam audit exposed a workflow gap: an exact byte proof could outlive a later
+semantic hold documented only in notes. Campaign sidecars now accept a nonempty
+`promotion_hold` reason. Harvest retains and reports the true byte result, while
+both campaign promotion and manifest generation check the saved proof and current
+sidecar. Adding a hold after harvest therefore blocks old exact records before
+CLI source copying. A held saved record stays held even if its sidecar is removed;
+resolve the evidence and submit an updated reviewed proof. This does not automate
+semantic review or authorize bypass through hand-written batch manifests.
+
+The actual00124728 sidecar now records its unresolved extent. Both its older exact
+record and a newly harvested exact diagnostic are blocked from campaign promotion;
+the public matching count is unchanged. Two regression tests cover diagnostic
+harvest with a hold and a hold added after an exact harvest, including zero public
+source writes on rejection. All189 tests and public checks pass. Logs are
+`work/astra-20260910/promotion-hold-tests.log` and
+`work/astra-20260910/promotion-hold-public-check.log`.
+
+Other fresh complete frontiers from this pass are retained without credit:
+00124230 has three reordered setup instructions out of its1088-byte native range;
+0017B3A0 has two exchanged instructions out of576 native bytes;0015C4F0 has28
+entry-gate differences with its remaining animation body exact;0017EC38 retains
+its signedness/load-reuse difference. Established native-debug checks did not
+resolve them. Root's bounded real counter-lifetime and packet-advance expression
+checks also did not improve them. Their canonical bodies and negative evidence
+remain in the corresponding worker and root review folders for evidence-based
+continuation, without broad source permutations or qualifiers.
