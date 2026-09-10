@@ -1198,6 +1198,7 @@ segments:
       - [0x07D998, asm, cod/text_0017D998]
       - [0x07DBC8, c, game/func_0017DBC8]
       - [0x07DBD0, asm, cod/text_0017DBD0]
+      - [0x07E1A0, c, game/func_0017E1A0]
       - [0x07E330, c, game/func_0017E330]
       - [0x07E468, c, game/func_0017E468]
       - [0x07E528, asm, cod/text_0017E528]

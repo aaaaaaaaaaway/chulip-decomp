@@ -15107,6 +15107,20 @@
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0017E1A0",
+    "source": "src/game/func_0017E1A0.c",
+    "address": "0x0017E1A0",
+    "size": 400,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete 400-byte resource-load dispatcher. Actual 52-byte surface descriptor, 32-byte path buffer consumed by string and loader calls, independently verified resource getter/value contracts and ushort loader resource ID. Flagged storage-2 returns zero; other paths preserve fresh descriptor reloads. Full native text and object sections independently verified; no emitted data or new ownership. See work/parallel_resource_control/README.md and work/astra_resource_dispatch/exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_0017E330",
     "source": "src/game/func_0017E330.c",
     "address": "0x0017E330",

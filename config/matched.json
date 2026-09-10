@@ -8160,6 +8160,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_0017E1A0",
+    "source": "src/game/func_0017E1A0.c",
+    "address": "0x0017E1A0",
+    "size": 400,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
     "function": "func_0017E330",
     "source": "src/game/func_0017E330.c",
     "address": "0x0017E330",

@@ -1724,3 +1724,30 @@ resolve them. Root's bounded real counter-lifetime and packet-advance expression
 checks also did not improve them. Their canonical bodies and negative evidence
 remain in the corresponding worker and root review folders for evidence-based
 continuation, without broad source permutations or qualifiers.
+
+
+## Resource dispatcher and fresh complete frontiers
+
+The complete 0017E1A0 resource-load dispatcher adds 400 verified function bytes.
+Its actual 52-byte descriptor, 32-byte path buffer, getter/value contracts and
+unsigned-short loader resource ID are independently established. All native
+text bytes match; no data or mutable ownership was added. The full transaction
+passed 189 tests, baseline and all 970,772 loaded-image bytes, retaining SHA-256
+`77768f0c5d84a92a6d185499b8bb4bb2205779a81fbdb859b15cc1d9ce28f876`.
+Progress is **1,472/2,189 functions and 264,508/663,704 function bytes**.
+Evidence: `work/astra_resource_dispatch/exact.json` and
+`work/astra-20260910/resource-dispatch-promotion.log`.
+
+Fresh complete sources remain uncredited: 0012F210 choice-text producer emits
+376/384 target bytes with 93 differing word positions; 00155D08 actor setup emits
+728/728 with 48 differences; 0017BFC0 panel builder emits 608/608 with eleven.
+Their actual helper contracts and bounded negative checks are retained. The
+001260A0 loader reproduces the already known native assembler short-loop issue:
+one extra retry-loop NOP shifts an otherwise matching instruction sequence;
+348 function bytes plus four native alignment bytes versus 344 retail bytes.
+No repeated assembler sweep or padding workaround was attempted.
+
+The complete 0011DBF0 scatter-arc draft has an explicit promotion hold. Its earlier
+red/green local stores are unconditionally overwritten before any intervening
+consumer; escaped pointers from other iterations do not establish a consumer
+for those stores. Byte similarity cannot resolve this semantic requirement.
