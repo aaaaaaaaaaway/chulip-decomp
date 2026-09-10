@@ -10,6 +10,10 @@ dptoli = 0x001863A8;
    are already matched in the complete fp-bit/dp-bit source units. */
 fptodp = 0x00187140;
 dptofp = 0x00186548;
+/* GOFAST float-to-unsigned-int conversion: fp-bit.c names float_to_usi
+   fptoui under FLOAT / US_SOFTWARE_GOFAST. The complete matched provider
+   at 0x00187040 has this signature and conversion algorithm. */
+fptoui = 0x00187040;
 
 /* Sony EE compiler runtime helpers emitted by 64-bit integer operations. */
 __muldi3 = 0x00187180;

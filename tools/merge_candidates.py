@@ -802,6 +802,8 @@ def write_transaction(
         README,
         STATUS,
         SCOPE,
+        ROOT / "docs/progress.html",
+        ROOT / "docs/progress.svg",
         *obsolete_sources,
     )
     saved = backups(paths)
@@ -820,6 +822,7 @@ def write_transaction(
         run([sys.executable, "tools/progress.py", "--write-readme"])
         run([sys.executable, "tools/progress.py", "--write-status"])
         run([sys.executable, "tools/scope_scan.py", "--write-scope"])
+        run([sys.executable, "tools/treemap.py"])
         # Splat creates a fallback C file when a stale split still names a
         # source removed by this replacement. The source is already backed up
         # above, so enforce the planned deletion again before the public audit.

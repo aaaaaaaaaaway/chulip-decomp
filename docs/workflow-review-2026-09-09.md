@@ -1501,3 +1501,55 @@ retail. A real four-byte initialized frame counter is independently exact in the
 ignored object, but no public ownership or match is claimed. Independent bounded
 menu-transition0017AC08 arithmetic/reset probes did not improve its eight-word
 register frontier. Both complete drafts and negative results remain available.
+
+## Rain, actor initialization and small control families
+
+Four fresh complete functions add **1,336 function bytes**: falling-particle
+initializer00120C68 (612), actor-slot initializer00155450 (316), directional
+ring writer0010A8D0 (216), and sorted interval insertion0017E468 (192). The two
+initializers also emit eight total natural alignment bytes, verified without
+counting them as function bytes. All four emit no data and add no mutable
+ownership. Canonical whole-history screening selected previously unimplemented
+functions with independently matched allocators, initializers or consumers.
+
+The rain allocation is exactly0x3210: a16-byte header and two banks of400
+four-float records. Its real fourth position component is phase/delay. Ordinary
+records plus the four unknown existing header bytes replace an unnecessary
+alignment qualifier while retaining exact bytes. The actor initializer uses
+the established64-byte actor/owner/node layout and a real zero vector consumed
+by two vector copies. The ring routine preserves the actual negative-direction
+write-slot selection and cursor wrapping. Interval insertion preserves unsigned
+count comparisons, signed backward indices and stable order for equal keys.
+Evidence is in `work/parallel_game_family_rain_init`,
+`work/parallel_actor_controls`, `work/parallel_game_family_ring_write` and
+`work/parallel_control_fresh`.
+
+The existing00155AB0 source had an inaccurate void return declaration. Its
+matched callee00159370 returns the constructed owner pointer, and both matched
+00155590 and new00155450 consume that result. Correcting the declaration and
+return statement retains all84 existing bytes and earns no new matching credit.
+
+The animation setter pair00156CC0/00157510 is now fully reconstructed in ignored
+work but remains unmatched. Its4,248 function bytes receive no credit. Fresh
+native candidates are eight bytes longer than each complete target range, with
+408/414 differing word positions. Proved actor/node/link/frame-table layouts,
+retail special-resource and blend paths, and bounded source probes are recorded
+in `work/astra_animation_setters/README.md` and `frontier.json`. M2C from the Kaze
+checkout helped cross-check control flow; inferred helper signatures and a
+spurious final argument narrowing were corrected against actual retail calls.
+
+A natural `(unsigned int)float` cast emits the historical runtime name `fptoui`.
+The previously downloaded R5900 `fp-bit.c` maps `float_to_usi` to that name under
+`FLOAT` and `US_SOFTWARE_GOFAST`; its complete algorithm is already matched at
+00187040. The new linker alias therefore enables ordinary C conversions with a
+proved provider. No helper bytes or progress credit are added. This evidence
+was also checked against the old0011B020 frontier: that retail site uses inline
+signed conversion, so its rejected unsigned helper variant remains inapplicable.
+
+All promotion gates passed:185 tests,970,772-byte full-image equality, independent
+baseline, loaded layout, documentation/progress, scope, source and repository
+audits. The loaded-image SHA-256 remains
+`77768f0c5d84a92a6d185499b8bb4bb2205779a81fbdb859b15cc1d9ce28f876`.
+The authoritative total is **1,458/2,189 functions and256,756/663,704 function
+bytes** (66.6058% and38.6853%). Eleven small-data claims remain unchanged.
+The transaction log is `work/astra-20260910/actor-rain-sorted-promotion.log`.

@@ -6,7 +6,7 @@ CANDIDATES ?=
 CANDIDATE_ELF ?= build/current/chulip.us.elf
 OWNER ?= local
 
-.PHONY: setup install-hooks split baseline verify match merge reverify-ledger progress boundaries boundary-verify audit elf-report campaign-plan campaign-packet campaign-status campaign-harvest campaign-promote test public-check
+.PHONY: setup install-hooks split baseline verify match merge reverify-ledger progress treemap report boundaries boundary-verify audit elf-report campaign-plan campaign-packet campaign-status campaign-harvest campaign-promote test public-check
 
 setup:
 	$(PYTHON) tools/bootstrap.py
@@ -41,6 +41,13 @@ progress:
 	$(PYTHON) tools/progress.py --write-readme
 	$(PYTHON) tools/progress.py --write-status
 	$(PYTHON) tools/scope_scan.py --write-scope
+	$(PYTHON) tools/treemap.py
+
+treemap:
+	$(PYTHON) tools/treemap.py
+
+report:
+	$(PYTHON) tools/objdiff_report.py --output build/report.json
 
 boundaries:
 	$(PYTHON) tools/object_boundary_scan.py
@@ -80,5 +87,6 @@ public-check: test
 	$(PYTHON) tools/gen_splat_config.py --check
 	$(PYTHON) tools/progress.py --check-readme
 	$(PYTHON) tools/progress.py --check-status
+	$(PYTHON) tools/treemap.py --check
 	$(PYTHON) tools/scope_scan.py --check-scope
 	$(PYTHON) tools/repo_audit.py

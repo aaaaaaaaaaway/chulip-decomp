@@ -23,18 +23,27 @@ never counted as decompilation progress.
 <!-- decomp-progress-start -->
 ## Decompilation progress
 
-![Matched functions](https://img.shields.io/badge/functions-1454%20%2F%202189-2f81f7) ![Matched text bytes](https://img.shields.io/badge/text%20bytes-255420%20%2F%20663704-2f81f7)
+![Matched functions](https://img.shields.io/badge/functions-1458%20%2F%202189-2f81f7) ![Matched text bytes](https://img.shields.io/badge/text%20bytes-256756%20%2F%20663704-2f81f7)
 
-`███████████████░░░░░░░░░░░░░░░░░░░░░░░░░` **38.4840%** of provisional text bytes matched
+`███████████████░░░░░░░░░░░░░░░░░░░░░░░░░` **38.6853%** of provisional text bytes matched
 
 | Metric | Matched | Total | Progress |
 | --- | ---: | ---: | ---: |
-| Text bytes | 255,420 | 663,704 | 38.4840% |
-| Functions | 1,454 | 2,189 | 66.4230% |
+| Text bytes | 256,756 | 663,704 | 38.6853% |
+| Functions | 1,458 | 2,189 | 66.6058% |
 
 Text bytes is the measure to read; small functions are matched first, so the function count runs ahead of it. Only readable C that byte-matches in isolation and in the complete-image rebuild is counted — generated assembly contributes nothing. See [scope and denominator](docs/scope.md).
 
 <!-- decomp-progress-end -->
+
+[![Function-size treemap](docs/progress.svg)](docs/progress.html)
+
+[Open the interactive function map](docs/progress.html) locally in a browser.
+Each rectangle represents one function, sized by retail bytes: green is verified
+C, red is unmatched, and blue is handwritten assembly still included in the
+target. Search or click to inspect functions. `make progress` refreshes the map;
+promotion and commit checks keep it aligned with the ledger. `make report`
+exports an exact-only objdiff v2 report to `build/report.json` for decomp.dev.
 
 ## Project state
 

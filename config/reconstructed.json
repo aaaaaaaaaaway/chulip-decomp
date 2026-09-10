@@ -1758,6 +1758,20 @@
     "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched"
   },
   {
+    "function": "func_0010A8D0",
+    "source": "src/game/func_0010A8D0.c",
+    "address": "0x0010A8D0",
+    "size": 216,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete216-byte ring writer, first complete source exact. Matched09FA0 allocation and0A030 initialization independently prove416-byte record, signed direction, cursor and nine-entry ring. Actual backwards write-slot selection and absolute wrap retained. Full216B exact underSN136-G8 nativeassembler, no data. See work/parallel_game_family_ring_write/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_0010A9A8",
     "source": "src/game/func_0010A9A8.c",
     "address": "0x0010A9A8",
@@ -4586,6 +4600,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
+    "function": "func_00120C68",
+    "source": "src/game/func_00120C68.c",
+    "address": "0x00120C68",
+    "size": 612,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00120C68",
+    "unit_end": "0x00120ED0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete612-byte falling-particle initializer plus4nativealignment. Actual0x3210 allocation proves16-byte header and two400x16-byte banks, independently consumed by20F48 renderer. Ordinary four-float records, actual unknown header gap, no alignment qualifier. Known four-byte external pointer slot preserves native reloads without claiming original source spelling. Real signed random arithmetic, phase component and actual callback/allocator contracts. All616B verified, no data. See work/parallel_game_family_rain_init/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_00120ED0",
@@ -10388,6 +10418,22 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_00155450",
+    "source": "src/game/func_00155450.c",
+    "address": "0x00155450",
+    "size": 316,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00155450",
+    "unit_end": "0x00155590",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete316-byte actor-slot initializer plus4nativealignment. Actual64-byte slots/64-bit flag overlay, owner/node pointers, real aligned vector zero consumed by vector-copy helper, slot search and initialization retained. Pointer-return and byte-argument contracts independently checked at159370/155AB0 and155D08. First complete source exact; all320B verified with no data. See work/parallel_actor_controls/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_00155590",
     "source": "src/game/func_00155590.c",
     "address": "0x00155590",
@@ -10470,9 +10516,12 @@
       "ee-gcc2.95.3-136-O2-G8"
     ],
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "unit_start": "0x00155AB0",
+    "unit_end": "0x00155B04",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "profile_evidence": "Correct actual pointer return contract:159370 explicitly returns constructed owner and155AB0 forwards it; independent caller55590 and new55450 consume it. Complete ordinary C now returns the pointer rather than discarding a return consumed by callers. All original84 bytes retained under existing profile, no new progress credit. See work/parallel_actor_controls/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_00155B08",
@@ -14866,6 +14915,20 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0017E468",
+    "source": "src/game/func_0017E468.c",
+    "address": "0x0017E468",
+    "size": 192,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete192-byte sorted interval insertion; independently verified8-byte start/end record consumers and count reset. Explicit two-word shifts match ordinary loops, unsigned count comparisons and signed backward index, stable equal-key insertion. EstablishedSN136-G8 normalizedassembler context. Full192B exact, no data or new ownership. See work/parallel_control_fresh/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_0017E5C0",
