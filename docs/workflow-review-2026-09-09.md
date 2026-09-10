@@ -1297,3 +1297,58 @@ the source is excluded from its ready list and receives zero credit. Three
 DMA routines likewise remain uncredited because their volatile-access schedule
 does not match under the checked historical profiles. The RPC client remains
 two stores away after bounded ordering and actual pointer-type probes.
+
+
+## Chain, wave-board and scalar matrix family checkpoint
+
+The next verified checkpoint is **1,432 / 2,189 functions and 242,756 / 663,704
+function bytes**. This pass adds eleven functions and 7,340 bytes; the campaign
+has added 198 functions and 78,996 bytes from its original ledger. All five
+promotion transactions passed the full 970,772-byte image, independent baseline,
+185 tests, progress/scope checks and repository audit. The loaded-image SHA-256
+remains unchanged. Proof: work/astra-20260910/chain-wave-matrix-checkpoint.json.
+
+The game-family lane contributes 5,868 bytes across five functions. Chain
+initialization/rendering (0010DD30/0010E290) share a 48-byte header and eight
+0x660-byte effect records; the allocator's 0x3330 bytes prove this arrangement.
+Both complete reconstructions matched on their first compile. The 1,208-byte
+00110D70 respawning sprite renderer also matched on its first reconstruction,
+using the existing 0x1320 emitter and 48-byte particle layout. Its real Sprite
+object has a retail-uninitialized depth field, preserved and documented; every
+other local object has direct dataflow.
+
+The larger breakthrough is the 2,296-byte 001114F8 wave renderer plus its
+468-byte 00111DF0 normal builder. Their 0x990-byte Board contains two 10x10
+float grids and a naturally aligned 10x10 vector grid. The renderer preserves
+the actual eight-neighbor spring accumulation and emits two quads per accepted
+cell. Normal generation calls the existing cross/normalize primitives and
+scales the resulting vectors by 496. The helper matched on its first complete
+compile; the renderer needed the established debug assembler profile's two
+native FPU hazard nops and the real scalar-local declaration order. The normal
+builder writes 9x9 entries while rendering reads boundary endpoints inside the
+10x10 allocation; no invented initialization hides that retail behavior.
+
+This evidence also removes the old constructor's opaque 401-word region in
+favor of the real grid and natural alignment. Its caller now uses a consistent
+parameter order and actual position/color arrays. Separate float/integer EABI
+register banks had allowed incompatible declarations to emit identical calls.
+All 336 bytes of the existing constructor/control unit and 116 caller bytes
+remain exact under their original configurations. These source corrections
+receive no additional function or byte credit.
+
+The scalar math lane found three ordinary C builders within a mostly VU region:
+camera inverse, normalized light directions and projection/screen transform,
+628 bytes total. Actual local vectors/matrices explain the frames and all
+primitive arguments were checked against retail. Existing VU callees retain
+their original status. Three SDK routines add 844 bytes: media-mode command,
+memory-card initialization/version checks and callback-thread initialization.
+Their public protocol families provide useful context while retail determines
+actual error behavior, delay endpoints and kernel call contracts.
+
+The projected polygon 001202F0 is saved at 624 emitted bytes with 17 differing
+instructions, down from its first 608-byte draft. Positive clipping conditions
+and the actual angle-calculation position account for that improvement. Its
+remaining division/store and tag-register scheduling remains uncredited;
+bounded probes are appended in work/astra_projected_polygon/results.jsonl.
+The uncredited scalar shadow builder and CDVD callback worker likewise retain
+negative source-shape evidence to prevent repeated searches.

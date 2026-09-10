@@ -2199,6 +2199,22 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0010DD30",
+    "source": "src/game/func_0010DD30.c",
+    "address": "0x0010DD30",
+    "size": 1268,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0010DD30",
+    "unit_end": "0x0010E228",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete chain-emitter initializer/renderer reconstructed from shared48-byte header and eight0x660-byte effects, each32particles of48bytes; matched allocator0x3330 and controls corroborate layout. Actual58868 int return and158A00 third output argument audited. Entire native text including4-byte alignment verified; all local vectors/matrix consumed by real transforms. See work/parallel_game_family_nextcluster/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_0010E228",
     "source": "src/game/func_0010E228.c",
     "address": "0x0010E228",
@@ -2240,6 +2256,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0010E290",
+    "source": "src/game/func_0010E290.c",
+    "address": "0x0010E290",
+    "size": 628,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0010E290",
+    "unit_end": "0x0010E508",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete chain-emitter initializer/renderer reconstructed from shared48-byte header and eight0x660-byte effects, each32particles of48bytes; matched allocator0x3330 and controls corroborate layout. Actual58868 int return and158A00 third output argument audited. Entire native text including4-byte alignment verified; all local vectors/matrix consumed by real transforms. See work/parallel_game_family_nextcluster/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_0010E508",
@@ -2662,6 +2694,20 @@
     "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
   },
   {
+    "function": "func_00110D70",
+    "source": "src/game/func_00110D70.c",
+    "address": "0x00110D70",
+    "size": 1208,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete1208-byte hundred-particle respawn renderer. Matched constructor proves0x1320 emitter and48-byte particle layout; actual projection and48-byte sprite object consumed. Retail leaves sprite.z uninitialized, explicitly documented and not repaired. All other local vectors/screens have direct dataflow. First complete reconstruction and final formatted full text exact, zero emitted data. See work/parallel_game_family_spriterespawn/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_00111228",
     "source": "src/game/func_00111228.c",
     "address": "0x00111228",
@@ -2691,6 +2737,7 @@
     ],
     "isolated_match": true,
     "whole_program_match": true,
+    "profile_evidence": "New wave renderer and normal builder establish genuine0x990 Board with float grids and aligned10x10 normal vectors; old opaque401-word region replaced by real fields. Caller11300 declaration made consistent with definition, using actual position/color arrays. Separate EABI register banks preserve retail argument registers. Full336-byte existing unit and116-byte caller exact under original profiles/flags. No additional credit. See work/astra_board_contract/README.md.",
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
@@ -2706,6 +2753,7 @@
     "unit_end": "0x00111450",
     "isolated_match": true,
     "whole_program_match": true,
+    "profile_evidence": "New wave renderer and normal builder establish genuine0x990 Board with float grids and aligned10x10 normal vectors; old opaque401-word region replaced by real fields. Caller11300 declaration made consistent with definition, using actual position/color arrays. Separate EABI register banks preserve retail argument registers. Full336-byte existing unit and116-byte caller exact under original profiles/flags. No additional credit. See work/astra_board_contract/README.md.",
     "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched"
   },
   {
@@ -2721,6 +2769,7 @@
     "unit_end": "0x00111450",
     "isolated_match": true,
     "whole_program_match": true,
+    "profile_evidence": "New wave renderer and normal builder establish genuine0x990 Board with float grids and aligned10x10 normal vectors; old opaque401-word region replaced by real fields. Caller11300 declaration made consistent with definition, using actual position/color arrays. Separate EABI register banks preserve retail argument registers. Full336-byte existing unit and116-byte caller exact under original profiles/flags. No additional credit. See work/astra_board_contract/README.md.",
     "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched"
   },
   {
@@ -2753,6 +2802,36 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched"
+  },
+  {
+    "function": "func_001114F8",
+    "source": "src/game/func_001114F8.c",
+    "address": "0x001114F8",
+    "size": 2296,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as-g"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete2296-byte wave-board renderer with real0x990 board, two10x10 spring grids and aligned10x10 normals. Eight-neighbor force accumulator, phase impulse, normal-before-integration order and all projected quad packet writes preserved. Actual loop local declaration order and established SN136-ps2as-g supply native hazard nops; no extra arithmetic. Boundary normals remain retail-uninitialized. No emitted data. See work/parallel_game_family_wave/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
+    "function": "func_00111DF0",
+    "source": "src/game/func_00111DF0.c",
+    "address": "0x00111DF0",
+    "size": 468,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00111DF0",
+    "unit_end": "0x00111FC8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete468-byte normal-grid builder, first reconstruction exact across472 emitted bytes including4 native alignment bytes. Actual integer cell spacing, two consumed tangent vectors, cross/normalize calls and496-scaled normal outputs over9x9 cells; all local stores have real dataflow. Same allocator-proven0x990 Board as114F8. No emitted data. See work/astra_board_normals/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_00111FC8",
@@ -16748,6 +16827,38 @@
     "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0018AA08",
+    "source": "src/game/func_0018AA08.c",
+    "address": "0x0018AA08",
+    "size": 176,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x0018AA08",
+    "unit_end": "0x0018AAB8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete scalar matrix builder: camera frame/inverse, normalized light directions, or projection transform. Genuine vector/matrix locals passed to existing retail primitive contracts; actual float coefficient arithmetic and assignment order preserved. Entire SonyO2-G0 emitted text exact, no emitted data. See work/parallel_scalar_math_next/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
+    "function": "func_0018AAB8",
+    "source": "src/game/func_0018AAB8.c",
+    "address": "0x0018AAB8",
+    "size": 192,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x0018AAB8",
+    "unit_end": "0x0018AB78",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete scalar matrix builder: camera frame/inverse, normalized light directions, or projection transform. Genuine vector/matrix locals passed to existing retail primitive contracts; actual float coefficient arithmetic and assignment order preserved. Entire SonyO2-G0 emitted text exact, no emitted data. See work/parallel_scalar_math_next/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_0018AB78",
     "source": "src/game/func_0018AB78.c",
     "address": "0x0018AB78",
@@ -16759,6 +16870,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0018ABE0",
+    "source": "src/game/func_0018ABE0.c",
+    "address": "0x0018ABE0",
+    "size": 260,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2-G0"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2-G0",
+    "unit_start": "0x0018ABE0",
+    "unit_end": "0x0018ACE4",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete scalar matrix builder: camera frame/inverse, normalized light directions, or projection transform. Genuine vector/matrix locals passed to existing retail primitive contracts; actual float coefficient arithmetic and assignment order preserved. Entire SonyO2-G0 emitted text exact, no emitted data. See work/parallel_scalar_math_next/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_0018AF18",
@@ -17291,6 +17418,20 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0018ED38",
+    "source": "src/game/func_0018ED38.c",
+    "address": "0x0018ED38",
+    "size": 212,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete212-byte CDVD callback-thread initializer. Actual thread/status field layouts and signed-int kernel syscall contracts independently audited; preserves creating-thread status, explicit GP pointer, create/start path and existing-thread priority update with distinct return values. SonyO2 first reconstruction/final formatted full range exact, no data. See work/parallel_cd_callback/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_0018EE10",
     "source": "src/game/func_0018EE10.c",
     "address": "0x0018EE10",
@@ -17399,6 +17540,34 @@
     "whole_program_match": true,
     "profile_evidence": "Sony EE GNU C 2.9-ee-991111-01 and the era-correct bundled GNU assembler reproduce the retail runtime schedule and instruction encodings",
     "provenance_note": "recovered from the retail disassembly and confirmed by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0018FD40",
+    "source": "src/game/func_0018FD40.c",
+    "address": "0x0018FD40",
+    "size": 196,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete CDVD media-mode command0x22 or memory-card service0x80000400 initializer. Retail governs semaphore order, synchronous RPC, uncached response, finite retry delay and genuine fatal bind loop, module version/error checks. Public PS2SDK corroborates protocol and actual syscall contracts. Entire SonyO2 text exact, no emitted data. See work/parallel_rpc_cdmc/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
+    "function": "func_0018FE08",
+    "source": "src/game/func_0018FE08.c",
+    "address": "0x0018FE08",
+    "size": 436,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete CDVD media-mode command0x22 or memory-card service0x80000400 initializer. Retail governs semaphore order, synchronous RPC, uncached response, finite retry delay and genuine fatal bind loop, module version/error checks. Public PS2SDK corroborates protocol and actual syscall contracts. Entire SonyO2 text exact, no emitted data. See work/parallel_rpc_cdmc/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_0018FFC0",
