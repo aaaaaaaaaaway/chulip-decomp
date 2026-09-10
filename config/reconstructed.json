@@ -1722,7 +1722,24 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
+    "profile_evidence": "The endpoint setup copies two actual four-float vectors through18A680. Existing caller table fields changed from int arrays to float arrays and callee declaration made consistent with the new definition. All60 bytes remain exact under originalSN136-G8 context; no added credit. See work/astra_endpoint_setup/README.md.",
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0010AA50",
+    "source": "src/game/func_0010AA50.c",
+    "address": "0x0010AA50",
+    "size": 252,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0010AA50",
+    "unit_end": "0x0010AB50",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete252-byte endpoint-emitter setup plus4 native alignment bytes. Genuine0x110 emitter has two owner/offset pairs,RGBA and ten20-byte strands. Cached header/strand pointers reproduce initial stores while later vector-copy calls reload the shared pointer. Preserves actual rand()*10 delay (not remainder),duration and random width. All256 bytes exact/no data. See work/astra_endpoint_setup/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_0010AB50",
@@ -2046,6 +2063,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched"
+  },
+  {
+    "function": "func_0010CA70",
+    "source": "src/game/func_0010CA70.c",
+    "address": "0x0010CA70",
+    "size": 1140,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0010CA70",
+    "unit_end": "0x0010CEE8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete1140-byte bone-attached particle renderer. Constructor-proven0x5D0 emitter/30x48-byte particles, corrected owner-matrix output contract, real transformed/projected position and Sprite dataflow. Branch-local int alpha initialized64 then decremented by actual decay fraction resolves final9 words naturally. All1144 emitted bytes exact including4 native gap; no data. See work/astra_bonefade/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_0010CEE8",
@@ -2443,6 +2476,20 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by symbolic reconstruction of the retail leaf and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0010F258",
+    "source": "src/game/func_0010F258.c",
+    "address": "0x0010F258",
+    "size": 912,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete912-byte spark initializer uses actual0xC30 emitter with64x48-byte particles and24-byte integer origin/direction source records. Preserves activation guards, all random calls and native float sequence, final active stores. Entire native text exact/no data. See work/parallel_game_family_sparks/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_0010F5E8",
@@ -3312,6 +3359,70 @@
     "whole_program_match": true,
     "profile_evidence": "Historical SN compiler and PS2 assembler exact with no additional flags. All source-owned small-data symbols explicitly enumerated in config/data_ownership.json and independently validated in the full native-alignment link.",
     "provenance_note": "Provisional single-function source and directly used small-data providers; exact range is verification scope, not an authenticated original translation-unit boundary. Complete ELF contribution, used globals, unique providers, GP access and initializer evidence reviewed; see docs/data-ownership.md."
+  },
+  {
+    "function": "func_001151B0",
+    "source": "src/game/func_001151B0.c",
+    "address": "0x001151B0",
+    "size": 328,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x001151B0",
+    "unit_end": "0x001152F8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete burst/bounce particle initialization or update, actual48-byte burst and32-byte bounce records, aligned vector copy/add/scale contracts and real packed-color emitter signature. Countdown store precedes genuine alpha division, original random-angle expression and sampled integer lifetime preserved, float count bound/record0 collision boundary retained. Full native range including actual4-byte gaps where emitted verified; no data. See work/parallel_geometry_next/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
+    "function": "func_001152F8",
+    "source": "src/game/func_001152F8.c",
+    "address": "0x001152F8",
+    "size": 408,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x001152F8",
+    "unit_end": "0x00115490",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete burst/bounce particle initialization or update, actual48-byte burst and32-byte bounce records, aligned vector copy/add/scale contracts and real packed-color emitter signature. Countdown store precedes genuine alpha division, original random-angle expression and sampled integer lifetime preserved, float count bound/record0 collision boundary retained. Full native range including actual4-byte gaps where emitted verified; no data. See work/parallel_geometry_next/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
+    "function": "func_00115490",
+    "source": "src/game/func_00115490.c",
+    "address": "0x00115490",
+    "size": 452,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00115490",
+    "unit_end": "0x00115658",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete burst/bounce particle initialization or update, actual48-byte burst and32-byte bounce records, aligned vector copy/add/scale contracts and real packed-color emitter signature. Countdown store precedes genuine alpha division, original random-angle expression and sampled integer lifetime preserved, float count bound/record0 collision boundary retained. Full native range including actual4-byte gaps where emitted verified; no data. See work/parallel_geometry_next/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
+    "function": "func_00115658",
+    "source": "src/game/func_00115658.c",
+    "address": "0x00115658",
+    "size": 380,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00115658",
+    "unit_end": "0x001157D8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete burst/bounce particle initialization or update, actual48-byte burst and32-byte bounce records, aligned vector copy/add/scale contracts and real packed-color emitter signature. Countdown store precedes genuine alpha division, original random-angle expression and sampled integer lifetime preserved, float count bound/record0 collision boundary retained. Full native range including actual4-byte gaps where emitted verified; no data. See work/parallel_geometry_next/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_001157D8",
@@ -9497,6 +9608,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_00151CD8",
+    "source": "src/game/func_00151CD8.c",
+    "address": "0x00151CD8",
+    "size": 284,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00151CD8",
+    "unit_end": "0x00151DF8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete284-byte heap-gap clearer plus4 native alignment bytes and actual4-byte initialized list head D1ECBD0 in.sdata. Scalar external arena base with native assembler reproduces absolute load; real initialized-head definition supplies its GP load. Retail FFFFFFFF sentinel, matched initialization/removal contracts, definition/extern and assembler context comparisons independently audited. No fabricated extent/qualifier/section relabel. Full text/data exact. See work/astra_heap_clear/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. Complete four-byte initialized allocation-list head independently verified and uniquely owned."
   },
   {
     "function": "func_00151DF8",
@@ -19280,6 +19407,20 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched"
+  },
+  {
+    "function": "func_00199CD0",
+    "source": "src/game/func_00199CD0.c",
+    "address": "0x00199CD0",
+    "size": 208,
+    "verified_profiles": [
+      "ee-gcc2.9-991111-01-O2"
+    ],
+    "build_profile": "ee-gcc2.9-991111-01-O2",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete208-byte DECI2 TTY read loop. Count-only volatility supported by actual199DA0 to1A0C58 to syscall0x7C registration of1999E8, queue-count writes through199968 and foreground consume1999A8, plus pinned primarySDK user-thread/handler queue contract. Ordinary remaining fields/pointers; no whole-object qualifier. Newline/carriage return and nonpositive length behavior preserved. Full SonyO2 range freshly matched, no data. See work/parallel_tty_family/README.md and ready.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_00199E98",

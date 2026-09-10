@@ -1352,3 +1352,69 @@ remaining division/store and tag-register scheduling remains uncredited;
 bounded probes are appended in work/astra_projected_polygon/results.jsonl.
 The uncredited scalar shadow builder and CDVD callback worker likewise retain
 negative source-shape evidence to prevent repeated searches.
+
+
+## Particle motion, heap source context and TTY checkpoint
+
+The verified ledger is now **1,441 / 2,189 functions and 247,120 / 663,704
+function bytes**. This pass adds nine functions and 4,364 function bytes;
+cumulative gains are 207 functions and 83,360 bytes. Four complete promotion
+transactions passed all gates, including 185 tests, independent baseline and
+the unchanged 970,772-byte loaded image. There are eleven reviewed small-data
+claims after adding one actual four-byte initialized object. Proof is retained
+in work/astra-20260910/particles-heap-tty-checkpoint.json.
+
+The particle lanes add 3,620 bytes. Four burst/bounce functions (001151B0,
+001152F8, 00115490, 00115658) share proved 48-byte and 32-byte records and the
+actual packed-color emitter/vector contracts. Preserving the counter store
+before its genuine alpha division resolves the burst update. The original
+float angle expression and a real PRNG sample retained across trig calls solve
+the bouncing initializer. The 912-byte 0010F258 spark initializer transfers the
+known 0xC30 emitter with 64 particles and 24-byte integer source records.
+The 1,140-byte bone renderer 0010CA70 resolves its final nine words with a real
+branch-local alpha value initialized to 64 and then reduced by its decay
+fraction. A shared alpha across branches was worse; no extra operations or
+qualifiers were used. Full native text, including actual alignment where
+emitted, was independently compared.
+
+The 284-byte heap-gap clearer 00151CD8 was initially eleven words away under
+GNU assembly with a provisional incomplete-array arena declaration. Restoring
+the real scalar arena pointer and using the native assembler reproduces its
+absolute load. The remaining list-head access becomes the actual GP load when
+its real initialized scalar D_001ECBD0 is supplied in the C source. The entire
+four-byte .sdata contribution is FFFFFFFF, independently matching retail and
+the empty-list sentinel semantics in existing initialization/removal code.
+It has one reviewed provider and fills an exact Splat gap; the neighboring
+tail sentinel remains in assembly. All 288 emitted text bytes and four data
+bytes match. This explains a source/assembler context difference without an
+invented array extent or relabeled section; the full original TU boundary
+remains provisional. Evidence: work/astra_heap_clear/README.md.
+
+The 208-byte DECI2 TTY reader uses count-only volatility. Actual retail passes
+the real handler and TTY object through DECI2 registration operation 1 and
+syscall 0x7C. That registered handler increments the same availability count
+on input; the reader waits on it and decrements it on consumption. The pinned
+[primary PS2SDK queue implementation](https://github.com/ps2dev/ps2sdk/blob/d1a988c22595f4623e42cfe1c1e23aafb7965dc8/ee/kernel/src/tty.c#L68-L92)
+independently documents the user-thread/handler producer-consumer context.
+Only that field is qualified. Whole-TTY qualifier experiments and the remaining
+handler/init drafts are explicitly excluded. The complete audit, actual
+registration addresses and immutable references are in
+work/parallel_tty_family/README.md.
+
+Fresh endpoint-emitter analysis adds its 252-byte setup 0010AA50. The actual
+cached header and strand pointers remove redundant initial reloads while the
+vector-copy calls retain their real shared-pointer reads. Its original
+PRNG-result-times-ten delay is preserved, not changed to modulo ten. The
+existing 60-byte caller now describes both input offsets as float vectors and
+uses a compatible declaration; all its bytes remain exact with no additional
+credit. The 1,872-byte renderer 0010AB90 is a saved uncredited draft. Its
+hardware sqrt fallback targets the verified double wrapper, unlike the normal
+single-precision helper. A proper double-call compiler probe does not produce
+the retail sequence. No wrong library alias or fabricated prototype was added
+to hide this unresolved source/ABI context.
+
+The projected renderer 001205F8 remains three register instructions away after
+bounded root coordinate/packet/callback-declaration probes; its entire switch
+table still matches. The spark renderer and allocator search also remain
+uncredited. All negative sources and measurements are retained for subsequent
+work instead of repeating the same probes.
