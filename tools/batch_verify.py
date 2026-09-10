@@ -97,6 +97,8 @@ def command(entry: dict[str, object], source: Path, profile: str) -> list[str]:
         result.extend(["--range-start", str(entry["range_start"])])
     if entry.get("range_end") is not None:
         result.extend(["--range-end", str(entry["range_end"])])
+    if entry.get("rodata_start") is not None:
+        result.extend(["--rodata-start", str(entry["rodata_start"])])
     # Small-data placement is normally derived from the address-named symbols a
     # source defines, so these keys are only for a unit whose ownership cannot
     # be read off its own object.
@@ -147,6 +149,7 @@ def main() -> int:
                 tuple(entry.get("object_flags", [])),
                 entry.get("range_start"),
                 entry.get("range_end"),
+                entry.get("rodata_start"),
                 entry.get("sdata_start"),
                 entry.get("sbss_start"),
                 None if explicit_range else entry["function"],

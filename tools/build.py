@@ -3,13 +3,17 @@
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
+import os
 import re
 import struct
 import subprocess
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+import data_ownership
 from match import (
     TEXT_VRAM,
     compile_historical_object,
@@ -321,9 +325,85 @@ def extend_bss_to_memory_end(linker: str, memory_end: int) -> str:
         raise SystemExit("unexpected generated BSS linker section end")
     return linker.replace(
         marker,
-        f"        . = 0x{memory_end:08X};\n{marker}",
+        # A plain constant here is a section-relative offset. ABSOLUTE keeps
+        # the configured address from being added to the BSS base again.
+        f"        . = ABSOLUTE(0x{memory_end:08X});\n{marker}",
         1,
     )
+
+
+def split_small_data_outputs(linker: str, metadata: dict[str, object]) -> str:
+    """Honor native ELF alignment for small data without changing text layout.
+
+    Splat combines text and SDATA under SUBALIGN(8), and SBSS and BSS under
+    another SUBALIGN(8). Separate only those small-data regions. All allocated
+    outputs still belong to the same retail load segment; INFO proofs do not.
+    """
+    if re.search(r"\bPHDRS\b|\.cod_sdata\b|\.cod_sbss\b", linker):
+        raise SystemExit("unexpected preexisting small-data outputs or PHDRS")
+    sections = {section["name"]: section for section in metadata["sections"]}
+    base = parse_address(metadata["load_segment"]["vram"])
+    sdata, sbss, bss = (
+        parse_address(sections[name]["vram"])
+        for name in (".sdata", ".sbss", ".bss")
+    )
+    if not base < sdata < sbss <= bss:
+        raise SystemExit("unexpected small-data section order")
+
+    def replace_once(old: str, new: str) -> None:
+        nonlocal linker
+        if linker.count(old) != 1:
+            raise SystemExit(f"unexpected generated linker boundary: {old.strip()}")
+        linker = linker.replace(old, new, 1)
+
+    replace_once(
+        "        cod_SDATA_START = .;",
+        f"    }} :retail\n    .cod_sdata 0x{sdata:08X} : AT(0x{sdata-base:X})\n"
+        "    {\n        cod_SDATA_START = .;",
+    )
+    replace_once("    }\n    cod_bss_VRAM = ADDR(.cod_bss);",
+                 "    } :retail\n    cod_bss_VRAM = ADDR(.cod_sbss);")
+    replace_once(
+        f".cod_bss 0x{sbss:08X} (NOLOAD) : SUBALIGN(8)",
+        f".cod_sbss 0x{sbss:08X} (NOLOAD) : AT(0x{sbss-base:X})",
+    )
+    replace_once(
+        "        cod_BSS_START = .;",
+        f"    }} :retail\n    .cod_bss 0x{bss:08X} (NOLOAD) : AT(0x{bss-base:X}) SUBALIGN(8)\n"
+        "    {\n        cod_BSS_START = .;",
+    )
+    replace_once("    }\n    __romPos += SIZEOF(.cod);",
+                 "    } :retail\n    __romPos += SIZEOF(.cod) + SIZEOF(.cod_sdata);")
+    # pin_jump_tables emits exactly these single-line, non-allocated sections.
+    linker, proofs = re.subn(
+        r"(?m)^(    \.jtbl_\S+ 0x[0-9A-F]+ \(INFO\) : \{ [^\n]+ \})$",
+        r"\1 :NONE", linker,
+    )
+    if proofs != linker.count("(INFO)"):
+        raise SystemExit("unexpected INFO proof section syntax")
+    return "PHDRS { retail PT_LOAD FLAGS(7); }\n" + linker
+
+
+def verify_load_layout(linked: Path, expected: dict[str, object]) -> None:
+    """Check the actual load segment, including zero-fill absent from .rom."""
+    blob = linked.read_bytes()
+    if len(blob) < 52 or blob[:6] != b"\x7fELF\x01\x01":
+        raise SystemExit("linked output is not ELF32 little-endian")
+    header = struct.unpack_from("<16sHHIIIIIHHHHHH", blob)
+    if header[1] != 2 or header[2] != 8:
+        raise SystemExit("linked output is not a MIPS executable")
+    offset, stride, count = header[5], header[9], header[10]
+    if stride != 32 or not count or offset + count * stride > len(blob):
+        raise SystemExit("invalid linked ELF program headers")
+    segments = [struct.unpack_from("<IIIIIIII", blob, offset + index * stride)
+                for index in range(count)]
+    loads = [segment for segment in segments if segment[0] == 1]
+    wanted = tuple(parse_address(expected[key]) for key in ("vram", "file_size", "memory_size"))
+    if len(loads) != 1 or (loads[0][2], loads[0][4], loads[0][5]) != wanted:
+        actual = [(segment[2], segment[4], segment[5]) for segment in loads]
+        raise SystemExit(f"PT_LOAD layout mismatch: expected {wanted}, got {actual}")
+    if loads[0][1] + loads[0][4] > len(blob):
+        raise SystemExit("linked PT_LOAD file extent exceeds the ELF")
 
 
 def verify_jump_tables(linked: Path, tables: dict[Path, int], target: bytes) -> None:
@@ -377,23 +457,61 @@ def first_difference(expected: bytes, actual: bytes) -> str:
     return f"size differs: expected {len(expected)}, got {len(actual)}"
 
 
+def compile_source(
+    source_name: str,
+    entries: list[dict[str, object]],
+    toolchains: dict[str, dict[str, object]],
+) -> Path:
+    """Freshly compile one source with one authoritative historical path."""
+    source = ROOT / source_name
+    profile_names = {str(entry["build_profile"]) for entry in entries}
+    object_flag_sets = {
+        tuple(str(flag) for flag in entry.get("object_flags", [])) for entry in entries
+    }
+    if len(profile_names) != 1 or len(object_flag_sets) != 1:
+        functions = ", ".join(str(entry["function"]) for entry in entries)
+        raise SystemExit(f"inconsistent shared translation-unit settings: {functions}")
+    profile = toolchains[profile_names.pop()]
+    object_flags = list(object_flag_sets.pop())
+    obj = ROOT / "build" / Path(source_name).with_suffix(".o")
+    obj.parent.mkdir(parents=True, exist_ok=True)
+    # The historical path already compiles the C source. An additional -S
+    # invocation produced an unused listing and doubled compiler work.
+    if not compile_historical_object(profile, source, obj, object_flags):
+        generated = ROOT / "build/compiled" / Path(source_name).with_suffix(".s")
+        generated.parent.mkdir(parents=True, exist_ok=True)
+        run_compiler(profile_command(profile, source, generated))
+        assemble(generated, obj)
+    return obj
+
+
+def assemble_source(source: Path) -> Path:
+    if not source.is_file():
+        raise SystemExit(f"missing generated input: {source.relative_to(ROOT)}; run configure.py --split")
+    relative = source.relative_to(ROOT / "asm")
+    obj = ROOT / "build/asm" / relative.with_suffix(".o")
+    assemble(source, obj)
+    return obj
+
+
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--jobs", type=int, default=min(4, os.cpu_count() or 1),
+                        help="concurrent fresh compiler jobs (default: up to 4)")
+    args = parser.parse_args()
+    if args.jobs < 1:
+        parser.error("--jobs must be positive")
     toolchains = json.loads((ROOT / "config/toolchains.json").read_text())["profiles"]
     reconstructed = json.loads((ROOT / "config/reconstructed.json").read_text())
 
     generated_linker = (ROOT / "build/chulip.us.ld").read_text()
     check_ledger_agrees(generated_linker, reconstructed)
-    object_paths = sorted(set(re.findall(r"build/asm/([^\s(]+\.o)", generated_linker)))
-    assembly_sources = [ROOT / "asm" / Path(path).with_suffix(".s") for path in object_paths]
-    objects: list[Path] = []
-    for source in assembly_sources:
-        if not source.is_file():
-            raise SystemExit(f"missing generated input: {source.relative_to(ROOT)}; run configure.py --split")
-        relative = source.relative_to(ROOT / "asm")
-        obj = ROOT / "build/asm" / relative.with_suffix(".o")
-        assemble(source, obj)
-        objects.append(obj)
-
+    object_paths = set(re.findall(r"build/asm/([^\s(]+\.o)", generated_linker))
+    # Splat may omit an assembled fragment following a source-owned gap.
+    # Compile every configured fragment before validating the final layout.
+    for obj in data_ownership.required_fragment_objects(root=ROOT):
+        object_paths.add(obj.relative_to(ROOT / "build/asm").as_posix())
+    assembly_sources = [ROOT / "asm" / Path(path).with_suffix(".s") for path in sorted(object_paths)]
     source_entries: dict[str, list[dict[str, object]]] = {}
 
     for entry in reconstructed:
@@ -406,25 +524,16 @@ def main() -> int:
     jump_tables: dict[Path, int] = {}
     owned_data: dict[Path, tuple[int, int]] = {}
 
-    for source_name, entries in source_entries.items():
-        source = ROOT / source_name
-        profile_names = {str(entry["build_profile"]) for entry in entries}
-        object_flag_sets = {
-            tuple(str(flag) for flag in entry.get("object_flags", [])) for entry in entries
-        }
-        if len(profile_names) != 1 or len(object_flag_sets) != 1:
-            functions = ", ".join(str(entry["function"]) for entry in entries)
-            raise SystemExit(f"inconsistent shared translation-unit settings: {functions}")
-        profile = toolchains[profile_names.pop()]
-        object_flags = list(object_flag_sets.pop())
-        generated = ROOT / "build/compiled" / Path(source_name).with_suffix(".s")
-        generated.parent.mkdir(parents=True, exist_ok=True)
-        run_compiler(profile_command(profile, source, generated))
-        obj = ROOT / "build" / Path(source_name).with_suffix(".o")
-        obj.parent.mkdir(parents=True, exist_ok=True)
-        if not compile_historical_object(profile, source, obj, object_flags):
-            assemble(generated, obj)
-        objects.append(obj)
+    # Each unit has independent output paths. map preserves the previous
+    # object order, and all compilation must succeed before any link/proof.
+    with ThreadPoolExecutor(max_workers=args.jobs) as workers:
+        objects = list(workers.map(assemble_source, assembly_sources))
+        source_objects = list(workers.map(
+            lambda name: compile_source(name, source_entries[name], toolchains),
+            source_entries,
+        ))
+    objects.extend(source_objects)
+    for (source_name, entries), obj in zip(source_entries.items(), source_objects):
         data_origin, data_disagreements = source_owned_section_origin(obj, ".data")
         if data_disagreements:
             raise SystemExit("; ".join(data_disagreements))
@@ -454,13 +563,17 @@ def main() -> int:
     bss_header = ".cod_bss (NOLOAD) :"
     if generated_linker.count(bss_header) != 1:
         raise SystemExit("unexpected generated BSS linker section")
-    linker = generated_linker.replace(bss_header, ".cod_bss 0x001ED080 (NOLOAD) :")
     elf_config = json.loads((ROOT / "config/elf.json").read_text())
+    sbss = next(section for section in elf_config["sections"] if section["name"] == ".sbss")
+    sbss_start = parse_address(sbss["vram"])
+    linker = generated_linker.replace(bss_header, f".cod_bss 0x{sbss_start:08X} (NOLOAD) :")
     load = elf_config["load_segment"]
     memory_end = int(load["vram"], 0) + int(load["memory_size"], 0)
     linker = extend_bss_to_memory_end(linker, memory_end)
     linker = pin_source_data(linker, owned_data)
     linker = pin_jump_tables(linker, jump_tables)
+    linker = split_small_data_outputs(linker, elf_config)
+    linker = data_ownership.rewrite_linker(linker, objects, root=ROOT)
     linker_path = output / "chulip.us.ld"
     linker_path.write_text(linker)
     derived = output / "derived_syms.ld"
@@ -497,8 +610,9 @@ def main() -> int:
             str(linked),
         ]
     )
+    verify_load_layout(linked, load)
     image = output / "chulip.us.rom"
-    run(["mipsel-linux-gnu-objcopy", "-O", "binary", "-j", ".cod", str(linked), str(image)])
+    run(["mipsel-linux-gnu-objcopy", "-O", "binary", "-j", ".cod", "-j", ".cod_sdata", str(linked), str(image)])
 
     expected = (ROOT / "original/SLUS_207.42.rom").read_bytes()
     actual = image.read_bytes()
@@ -511,6 +625,7 @@ def main() -> int:
 
     matched = json.loads((ROOT / "config/matched.json").read_text())
     print(f"FULL IMAGE MATCH: {len(actual)} bytes")
+    print(f"PT_LOAD memory extent verified through {memory_end:#010x}")
     print(f"sha256: {digest}")
     print(f"source-reconstructed functions in build: {len(reconstructed)}")
     print(f"compiled jump tables pinned at their retail addresses: {len(jump_tables)}")

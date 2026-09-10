@@ -11,7 +11,7 @@ extern int D_002DE640[];
 extern int func_0019B760(int *name, int a, int b, int *in, int inlen,
                          int *out, int outlen, int f, int g);
 
-int func_00189290(void) {
+int func_00189290(int mode) {
     int i;
 
     for (i = 0; i < 4; i++) {

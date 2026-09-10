@@ -16,6 +16,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install public metadata parser
+        run: python3 -m pip install PyYAML==6.0.3
       - name: Compile public Python tools
         run: python3 -m compileall -q configure.py tools
       - name: Verify generated progress and repository policy

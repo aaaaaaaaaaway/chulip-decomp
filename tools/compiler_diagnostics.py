@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+import hashlib
+from pathlib import Path
 import re
 
 
@@ -72,6 +74,36 @@ _BENIGN = (
     re.compile(r"cast from pointer to integer of different size\b", re.I),
 )
 
+# Historical memalign rounds an allocated address through unsigned long and
+# converts it back to a pointer. The EE ABI has 64-bit long and 32-bit pointers;
+# this explicit round trip is the original allocator algorithm, not an implicit
+# call/argument conversion. Its complete 464-byte object matches retail. Scope
+# the reviewed warning to the unchanged vendor source and this exact location;
+# an unrelated narrowing integer-to-pointer cast still needs review.
+_MEMALIGN_SOURCE = Path(__file__).resolve().parents[1] / "tools/vendor/newlib-20000221/stdlib/mallocr.c"
+# Vendored copy differs from upstream only by the existing portable malloc.h
+# include spelling (upstream hash46947273...). Pin the actual compiled copy.
+_MEMALIGN_SHA256 = "47847abda5d1adfb8c55ecafac766f456c3e2ee0569f022c088b753fa6586cdc"
+_MEMALIGN_WARNING = re.compile(
+    r"^(?P<source>(?:.*/)?tools/vendor/newlib-20000221/stdlib/mallocr\.c):3038:\s*"
+    r"warning:\s*cast to pointer from integer of different size\s*$", re.I
+)
+
+
+def reviewed_source_diagnostic(line: str) -> bool:
+    found = _MEMALIGN_WARNING.fullmatch(line)
+    if not found:
+        return False
+    try:
+        reported = Path(found['source'])
+        if not reported.is_absolute():
+            reported = Path(__file__).resolve().parents[1] / reported
+        if reported.resolve() != _MEMALIGN_SOURCE.resolve():
+            return False
+        return hashlib.sha256(_MEMALIGN_SOURCE.read_bytes()).hexdigest() == _MEMALIGN_SHA256
+    except OSError:
+        return False
+
 # Assemblers and linkers describe constraints that are not C ABI defects, and
 # their warnings travel in the same captured stream. Skip anything a tool
 # prefixed with its own name, matching the contract match.run_compiler states.
@@ -108,6 +140,8 @@ def unexpected_diagnostics(output: str) -> list[str]:
         if not stripped or _TOOL_PREFIXED.search(stripped):
             continue
         if _ASSEMBLER_DIAGNOSTIC.search(stripped):
+            continue
+        if reviewed_source_diagnostic(stripped):
             continue
         found = _DIAGNOSTIC_LINE.search(stripped)
         if found is None:

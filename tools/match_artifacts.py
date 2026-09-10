@@ -129,11 +129,11 @@ def compile_bytes(spec: MatchSpec) -> bytes:
         script = work / "function.ld"
         derived = work / "derived_symbols.ld"
 
-        match.run(match.profile_command(spec.profile, spec.source, assembly))
-        normalized.write_text(normalize(assembly.read_text()))
         if not match.compile_historical_object(
             spec.profile, spec.source, obj, list(spec.object_flags)
         ):
+            match.run_compiler(match.profile_command(spec.profile, spec.source, assembly))
+            normalized.write_text(normalize(assembly.read_text()))
             match.run(
                 [
                     "mipsel-linux-gnu-as",

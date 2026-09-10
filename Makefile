@@ -76,6 +76,7 @@ test:
 
 public-check: test
 	$(PYTHON) -m compileall -q configure.py tools
+	$(PYTHON) tools/data_ownership.py --check
 	$(PYTHON) tools/gen_splat_config.py --check
 	$(PYTHON) tools/progress.py --check-readme
 	$(PYTHON) tools/progress.py --check-status

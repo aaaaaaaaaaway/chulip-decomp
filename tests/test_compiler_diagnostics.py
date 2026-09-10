@@ -71,6 +71,24 @@ class CompilerDiagnosticsTests(unittest.TestCase):
         self.assertEqual(dangerous_diagnostics(output), [])
         self.assertEqual(unexpected_diagnostics(output), [])
 
+    def test_memalign_width_cast_review_is_bound_to_original_source(self) -> None:
+        diagnostic = ('tools/vendor/newlib-20000221/stdlib/mallocr.c:3038: warning: '
+                      'cast to pointer from integer of different size')
+        self.assertEqual(unexpected_diagnostics(diagnostic), [])
+        self.assertEqual(unexpected_diagnostics(diagnostic.replace('3038', '3039')),
+                         ['cast to pointer from integer of different size'])
+        self.assertEqual(unexpected_diagnostics(diagnostic.replace('mallocr.c', 'other.c')),
+                         ['cast to pointer from integer of different size'])
+        self.assertEqual(unexpected_diagnostics('/tmp/another-source/' + diagnostic),
+                         ['cast to pointer from integer of different size'])
+        with patch('compiler_diagnostics._MEMALIGN_SHA256', '0' * 64):
+            self.assertEqual(unexpected_diagnostics(diagnostic),
+                             ['cast to pointer from integer of different size'])
+        implicit = diagnostic.replace('cast to pointer from integer of different size',
+                                      'assignment makes pointer from integer without a cast')
+        self.assertTrue(dangerous_diagnostics(implicit))
+        self.assertTrue(unexpected_diagnostics(implicit))
+
     def test_assembler_and_linker_lines_are_not_c_diagnostics(self) -> None:
         output = "\n".join(
             (

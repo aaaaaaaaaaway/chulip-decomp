@@ -6,9 +6,17 @@ dpdiv = 0x00186020;
 dpcmp = 0x001862A0;
 litodp = 0x001862F0;
 dptoli = 0x001863A8;
+/* Sony compiler names for natural float/double conversions. Both providers
+   are already matched in the complete fp-bit/dp-bit source units. */
+fptodp = 0x00187140;
+dptofp = 0x00186548;
 
 /* Sony EE compiler runtime helpers emitted by 64-bit integer operations. */
 __muldi3 = 0x00187180;
+/* Signed quotient/remainder providers, identified by sign normalization and
+   the retail formatter's natural signed-long division/remainder calls. */
+__divdi3 = 0x001A16A0;
+__moddi3 = 0x001A1E80;
 __udivdi3 = 0x001A24E8;
 __umoddi3 = 0x001A2AB8;
 /* Float-to-unsigned-64 cast helper. The function at this address is already

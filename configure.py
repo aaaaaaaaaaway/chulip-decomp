@@ -8,6 +8,7 @@ import hashlib
 import importlib.metadata
 import struct
 import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -101,6 +102,24 @@ def main() -> int:
         verify_tools()
         subprocess.run(
             [str(ROOT / ".venv/bin/python"), "-m", "splat", "split", str(CONFIG)],
+            cwd=ROOT,
+            check=True,
+        )
+        # Pinned spimdisasm reads data as whole words and omits explicit raw
+        # fragments shorter than four bytes. Preserve only those raw bytes;
+        # this does not add source ownership or reconstructed-byte credit.
+        from tools.small_data_fragments import repair
+
+        repair(ROOT, image)
+        # Validate ownership claims without requiring compiled objects. The
+        # builder validates ELF contributions and places them in the final
+        # consumed script after fresh compilation.
+        subprocess.run(
+            [
+                sys.executable,
+                str(ROOT / "tools/data_ownership.py"),
+                "--check",
+            ],
             cwd=ROOT,
             check=True,
         )

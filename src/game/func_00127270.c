@@ -1,6 +1,6 @@
 /* object_flags: -Wa,-G4 */
 
-extern unsigned char D_001EC8D4;
+extern signed char D_001EC8D4;
 extern short D_001ED29A;
 extern short D_001ED29C;
 

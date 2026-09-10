@@ -8,7 +8,7 @@ void func_0018A8E8(Mat4 *d, Mat4 *s, float a);
 void func_0018A840(Mat4 *d, Mat4 *s, float a);
 void func_0018A3D0(void *out, Mat4 *m, void *extra);
 
-void func_0011FA48(void *out, unsigned short id, void *extra) {
+void func_0011FA48(void *out, int id, void *extra) {
     Mat4 m;
     Vec4f v;
 

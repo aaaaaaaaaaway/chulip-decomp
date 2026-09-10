@@ -1,4 +1,4 @@
-long func_00113670(long *dst, int ax, int ay, int bx, int by,
+int func_00113670(long *dst, int ax, int ay, int bx, int by,
                    int u0, int v0, int u1, int v1, int z, int extra) {
     int ua = u0 + 8;
     int ub = u1 + 8;

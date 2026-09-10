@@ -2,3 +2,6 @@
 _start = 0x00100008; // type:func
 D_001ED088 = 0x001ED088; // type:u16 size:0x2
 D_001ED08C = 0x001ED08C; // type:u8 size:0x1
+
+// Raw assembled fragment after the one-byte C provider; no source ownership claim.
+D_001EC8D5 = 0x001EC8D5; // type:u8 size:0x3

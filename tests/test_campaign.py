@@ -82,6 +82,51 @@ class CampaignTests(unittest.TestCase):
         self.assertIsNotNone(found)
         self.assertEqual(found.groups(), ("12", "136"))
 
+    def test_shared_global_context_uses_ledger_sources_and_preserves_type_hits(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.seed(root)
+            (root / "src").mkdir()
+            (root / "src/callback.c").write_text(
+                "extern volatile int D_001E3168[];\n"
+                "void callback(void) { signal(D_001E3168[0]); }\n"
+            )
+            (root / "src/unreviewed.c").write_text("int D_001E3168;\n")
+            (root / "config/reconstructed.json").write_text(json.dumps([
+                {"function": "callback", "source": "src/callback.c", "build_profile": "sony"},
+                {"function": "helper", "source": "src/callback.c", "build_profile": "sony"},
+                {"function": "stale", "source": "src/missing.c", "build_profile": "sony"},
+            ]))
+            with self.environment(root):
+                rows = campaign.shared_global_references("lw $a0, %lo(D_001E3168)($v0)")
+                self.assertEqual(len(rows), 1)
+                self.assertEqual(rows[0]["source"], "src/callback.c")
+                self.assertEqual(rows[0]["functions"], ["callback", "helper"])
+                self.assertEqual(rows[0]["profiles"], ["sony"])
+                self.assertEqual(rows[0]["source_hits"][0],
+                                 {"line": 1, "text": "extern volatile int D_001E3168[];"})
+                self.assertEqual(campaign.shared_global_references("jr $ra"), [])
+                self.assertEqual(campaign.shared_global_references("D_001E3168", limit=0), [])
+
+    def test_callee_context_uses_actual_provider_not_caller_prototypes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.seed(root)
+            (root / "src").mkdir()
+            (root / "src/provider.c").write_text("int func_b(int mode) { return 0; }\n")
+            (root / "src/old_draft.c").write_text("extern void func_b(void);\n")
+            (root / "config/reconstructed.json").write_text(json.dumps([
+                {"function": "func_b", "source": "src/provider.c", "build_profile": "sony"},
+                {"function": "missing", "source": "src/missing.c"},
+            ]))
+            with self.environment(root):
+                rows = campaign.matched_callee_references("jal func_b\nj missing\njal unknown\njalr $v0")
+                self.assertEqual(len(rows), 1)
+                self.assertEqual(rows[0]["source"], "src/provider.c")
+                self.assertEqual(rows[0]["source_hits"],
+                                 [{"line": 1, "text": "int func_b(int mode) { return 0; }"}])
+                self.assertEqual(campaign.matched_callee_references("jalr $v0"), [])
+
     def test_promotion_lock_excludes_a_second_worker_until_released(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

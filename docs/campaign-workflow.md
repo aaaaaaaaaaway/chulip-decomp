@@ -6,6 +6,34 @@ progress.
 
 ## Start a lane
 
+Select a family before selecting isolated functions. Search
+`docs/matching-knowledge.jsonl`, `docs/candidate-recovery.md`, and existing lane
+notes for its global symbols and callees. Older sidecarless exact candidates
+can still be recovered through fresh verification. Do not repeat a recorded
+permutation plateau unless a new source, type, or compiler hypothesis changes
+the experiment.
+
+```sh
+python3 tools/family_queue.py --limit 10
+python3 tools/family_queue.py --anchor D_001ED6C0
+rg -n 'D_001ED6C0|func_00158868' docs work/lanes --glob '*.md' --glob '*.jsonl'
+python3 tools/callee_context.py work/campaign/packets/FUNCTION/candidates/CANDIDATE.c
+```
+
+The inventory links pending members to already matched source examples. Its
+clusters overlap and its byte totals are investigation scope, not promised
+matches. For recognizable library code, compare historical target source and
+build macros before local syntax searches. Original object grouping still
+requires independent artifact or boundary evidence.
+
+`callee_context.py` flags explicit parameter-count and floating-point-position
+conflicts against matched callee definitions. It does not rewrite source and is
+not a complete C parser. Check the caller's actual argument setup as well as
+the callee: historical code may pass unused extra arguments. The giant script
+drafts had missing float arguments that the compiler could not diagnose because
+their local declarations were wrong too. Fixing these restores semantics; it
+does not establish an exact match by itself.
+
 ```sh
 python3 tools/campaign.py plan --limit 20
 python3 tools/campaign.py packet --next --owner NAME
@@ -23,6 +51,19 @@ All discovery workers must share this worktree so they also share
 their claimed packet and may run isolated harvests concurrently. One
 coordinator owns `promote --write`, tracked files, commits, and pushes; those
 operations remain serialized.
+
+The full builder compiles independent units concurrently, using up to four
+jobs by default. `python3 tools/build.py --jobs 1` selects serial compilation;
+`--jobs N` selects another positive limit. Each build still recompiles every
+object and verifies the complete image. Candidate searches use one historical
+compiler path per attempt, avoiding an additional unused assembly listing.
+
+Collect several exact candidates before a full promotion when workers are
+active. The coordinator can stage their reviewed sources and submit one JSONL
+manifest to `tools/merge_candidates.py` (dry run, then `--write`). That importer
+already replays every candidate and performs one transactional full-image
+build for the batch. Preserve each candidate's compiler, flags, complete range,
+and source hash; do not merge worker ledger or generated-file changes.
 
 ## Check candidates
 

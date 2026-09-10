@@ -290,6 +290,68 @@ def usage_hits(function: str, limit: int = 40) -> list[str]:
     return result
 
 
+def shared_global_references(assembly: str, limit: int = 12) -> list[dict[str, object]]:
+    """Surface existing source context even when its instruction shape differs.
+
+    These are review pointers, not inferred types or permission to copy a
+    qualifier. Only current reconstruction-ledger sources are considered.
+    """
+    globals_used = set(candidate_queue.GLOBAL.findall(assembly))
+    if not globals_used or limit <= 0:
+        return []
+    sources: dict[str, list[dict[str, object]]] = {}
+    for entry in read_json(RECONSTRUCTED, []):
+        sources.setdefault(entry["source"], []).append(entry)
+    references = []
+    for source, entries in sorted(sources.items()):
+        path = ROOT / source
+        if not path.is_file():
+            continue
+        contents = path.read_text(errors="replace")
+        shared = sorted(globals_used & set(candidate_queue.GLOBAL.findall(contents)))
+        if not shared:
+            continue
+        hits = [
+            {"line": number, "text": line.strip()}
+            for number, line in enumerate(contents.splitlines(), 1)
+            if set(candidate_queue.GLOBAL.findall(line)) & set(shared)
+        ]
+        references.append({
+            "source": source,
+            "functions": sorted(entry["function"] for entry in entries),
+            "profiles": sorted({entry["build_profile"] for entry in entries
+                                if entry.get("build_profile")}),
+            "shared_globals": shared,
+            "source_hits": hits[:12],
+        })
+    references.sort(key=lambda row: (-len(row["shared_globals"]), row["source"]))
+    return references[:limit]
+
+
+def matched_callee_references(assembly: str) -> list[dict[str, object]]:
+    """Point at verified callee definitions before copying old draft prototypes."""
+    calls = set(re.findall(r"\b(?:jal|j)\s+([A-Za-z_][A-Za-z0-9_]*)\b", assembly))
+    references = []
+    for entry in read_json(RECONSTRUCTED, []):
+        function = entry["function"]
+        if function not in calls:
+            continue
+        path = ROOT / entry["source"]
+        if not path.is_file():
+            continue
+        pattern = re.compile(rf"\b{re.escape(function)}\s*\(")
+        hits = [{"line": number, "text": line.strip()}
+                for number, line in enumerate(path.read_text(errors="replace").splitlines(), 1)
+                if pattern.search(line)]
+        references.append({
+            "function": function,
+            "source": entry["source"],
+            "profile": entry.get("build_profile"),
+            "source_hits": hits[:8],
+        })
+    return sorted(references, key=lambda row: row["function"])
+
+
 def analysis_context(function: str, address: object) -> tuple[str | None, str]:
     """Find a local Ghidra export without making it part of public evidence."""
     address_text = f"{int(str(address), 0):08x}"
@@ -329,6 +391,8 @@ def write_packet(function: str, owner: str, hours: float) -> Path:
             f"generated assembly for {function} is missing; run make split first"
         )
     references = nearest_references(function)
+    shared_references = shared_global_references(assembly)
+    callee_references = matched_callee_references(assembly)
     analysis_path, analysis = analysis_context(function, entry["address"])
     prior = prior_candidate_paths(function)
     lease = acquire(function, owner, hours)
@@ -346,6 +410,8 @@ def write_packet(function: str, owner: str, hours: float) -> Path:
         "analysis_source": analysis_path,
         "claim": lease,
         "references": references,
+        "shared_global_references": shared_references,
+        "matched_callee_references": callee_references,
         "prior_candidates": prior,
         "usage_hits": usage_hits(function),
     }
@@ -361,6 +427,14 @@ def write_packet(function: str, owner: str, hours: float) -> Path:
         f"(`{item.get('profile') or '?'}`)"
         for item in references
     ) or "- None above the similarity threshold."
+    shared_lines = "\n".join(
+        f"- `{item['source']}`: " + ", ".join(f"`{name}`" for name in item["shared_globals"])
+        for item in shared_references
+    ) or "- No current reconstructed source references the same named globals."
+    callee_lines = "\n".join(
+        f"- `{item['function']}`: `{item['source']}`"
+        for item in callee_references
+    ) or "- No direct callee has an available reconstruction-ledger source."
     readme = f"""# {function}
 
 Address `{entry['address']}`, {entry['size']} bytes. Claimed by `{owner}` until
@@ -390,6 +464,24 @@ python3 tools/campaign.py promote {function}
 ## Matched references
 
 {reference_lines}
+
+## Shared-global source context
+
+{shared_lines}
+
+`packet.json` includes line-numbered source hits and compiler profiles for
+these references. Review their declarations, structures, and call contracts
+before probing new source shapes. Shared symbols do not prove original unit
+boundaries or justify copying qualifiers without semantic evidence.
+
+## Matched callee contracts
+
+{callee_lines}
+
+Review the actual definitions and their line-numbered hits in `packet.json`
+before retaining prototypes from older drafts. Even an ignored integer return
+can affect historical register allocation. These references do not infer
+contracts for unmatched or indirect callees.
 
 The assembly is in `retail.s`; machine-generated packet data is in
 `packet.json`. A local Ghidra export, when available, is copied to `analysis.c`
@@ -816,12 +908,12 @@ def show_plan(limit: int, as_json: bool) -> None:
     if as_json:
         print(json.dumps(rows, indent=2))
         return
-    print("rank  cost/B bytes call br glob gp fp ee raw dep function")
+    print("rank  cost/B bytes call br glob gp fp ee hw raw dep function")
     for rank, row in enumerate(rows, 1):
         print(
             f"{rank:4} {row['score']:7.2f} {row['size']:5} {row['calls']:4} "
             f"{row['branches']:2} {row['globals']:4} {row['gp_refs']:2} "
-            f"{row['float_ops']:2} {row['ee_ops']:2} {row['unknown_words']:3} "
+            f"{row['float_ops']:2} {row['ee_ops']:2} {row['hardware_ops']:2} {row['unknown_words']:3} "
             f"{row['pending_callees']:3} {row['function']}"
         )
 

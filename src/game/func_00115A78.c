@@ -1,4 +1,4 @@
-long func_00115A78(long *dst, int x0, int y0, int x1, int y1,
+int func_00115A78(long *dst, int x0, int y0, int x1, int y1,
                    int u0, int v0, int u1, int v1, int z, int extra, long flags) {
     dst[0] = 0x6400000000000001L;
     dst[1] = 0x535310L;

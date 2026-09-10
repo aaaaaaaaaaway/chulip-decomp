@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "comment": [
+    "Small-data symbols whose bytes come from reconstructed C rather than the assembled data split.",
+    "A claim requires independent source/unit evidence; matching an address alone is not ownership proof.",
+    "Entries name symbol, source, section (sdata or sbss), retail address, and symbol size.",
+    "Every defined symbol in an owned object section must be enumerated, and the complete section must fill an explicit Splat gap.",
+    "tools/data_ownership.py --check validates configuration without compiled objects.",
+    "tools/build.py validates fresh ELF symbols, sizes, unique providers, origins, gaps and fragments before placing each whole contribution once in the final linker script.",
+    "The full loaded image and PT_LOAD memory extent must still match retail. No new claims are inferred from zero bytes or nearby symbols."
+  ],
+  "owned": [
+    {
+      "symbol": "D_001EC8AC",
+      "source": "src/game/func_00114010.c",
+      "section": "sdata",
+      "address": "0x001EC8AC",
+      "size": 4
+    },
+    {
+      "symbol": "D_001EC8B0",
+      "source": "src/game/func_00114010.c",
+      "section": "sdata",
+      "address": "0x001EC8B0",
+      "size": 4
+    },
+    {
+      "symbol": "D_001EC8B8",
+      "source": "src/game/func_00114E88.c",
+      "section": "sdata",
+      "address": "0x001EC8B8",
+      "size": 4
+    },
+    {
+      "symbol": "D_001EC95C",
+      "source": "src/game/func_00130E68.c",
+      "section": "sdata",
+      "address": "0x001EC95C",
+      "size": 4
+    },
+    {
+      "symbol": "D_001EC98C",
+      "source": "src/game/func_001332D8.c",
+      "section": "sdata",
+      "address": "0x001EC98C",
+      "size": 4
+    },
+    {
+      "symbol": "D_001ED4C0",
+      "source": "src/game/func_001606A0.c",
+      "section": "sbss",
+      "address": "0x001ED4C0",
+      "size": 4
+    },
+    {
+      "symbol": "D_001ECD3C",
+      "source": "src/game/func_001609E0.c",
+      "section": "sdata",
+      "address": "0x001ECD3C",
+      "size": 4
+    },
+    {
+      "symbol": "D_001EC8BC",
+      "source": "src/game/func_00115F18.c",
+      "section": "sdata",
+      "address": "0x001EC8BC",
+      "size": 4
+    },
+    {
+      "symbol": "D_001EC8C0",
+      "source": "src/game/func_00115F18.c",
+      "section": "sdata",
+      "address": "0x001EC8C0",
+      "size": 1
+    },
+    {
+      "symbol": "D_001EC8D4",
+      "source": "src/game/func_001271F0.c",
+      "section": "sdata",
+      "address": "0x001EC8D4",
+      "size": 1
+    }
+  ]
+}
