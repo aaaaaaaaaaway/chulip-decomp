@@ -147,3 +147,46 @@ a shared source unit, prepare one manifest record for every function in that
 unit and run `tools/merge_candidates.py --replace-existing`. The importer
 replays every function proof, updates both exact ledgers together, and removes
 superseded source files inside the same rollback-protected transaction.
+
+
+## Prepare a bounded permuter search
+
+`tools/permute.py` uses the existing historical compiler adapter. Review a small
+source variation space first; stock random rewrites are not automatically safe.
+The search score is diagnostic. Every output still requires semantic review,
+complete emitted-byte verification, and the full promotion gates above.
+
+For reviewed instruction-only text, direct calls can be represented using their
+actual catalog symbols to remove symbolic-versus-absolute call scoring noise:
+
+```sh
+python3 tools/permute.py func_0017B3A0 \
+  --source work/campaign/packets/func_0017B3A0/candidates/parallel_menu_panel.c \
+  --profile ee-gcc2.95.3-136-O2-G8-ps2as \
+  --output-dir work/permuter/func_0017B3A0 \
+  --range-end 0x0017B5E0 --relocate-direct-calls
+```
+
+The explicit end includes the four native alignment bytes beyond this catalog
+function. Without that option, the target uses the catalog function size.
+The optional relocation mode decodes only external direct JAL destinations from
+retail instructions and resolves them against the real function catalog. It does
+not infer embedded data, jump tables, HI16/LO16 pairs or aliases. Review that the
+selected range contains instructions/alignment, with no embedded literal data.
+Internal and unknown call targets are rejected. Use ordinary raw-target mode
+when this narrow mode does not apply.
+
+The generated target is linked with the verifier's existing derived-symbol step
+and compared against every selected retail byte before preparation succeeds.
+Preparation validates the selected range before changing an existing source/oracle
+pair. Target construction failures remove target.o, including failures before
+assembly or during linking. The candidate compiler is
+unchanged. Generated settings select R5900 disassembly; when invoking the
+permuter, use `--stack-diffs --no-ignore-branch-targets` to retain those differences.
+The score can still differ from a complete-byte comparison for other reasons.
+
+On the corrected 17B3A0 source this removed 30 false call-relocation points
+(score 90 to 60), while the same two instruction positions remained different
+across all 576 bytes. This is a scoring correction, not a new match. See
+`work/astra_permuter_oracle/proof.json` for the integrated-tool replay and
+`work/parallel_permuter_panel_oracle/score_proof.json` for the before/after proof.

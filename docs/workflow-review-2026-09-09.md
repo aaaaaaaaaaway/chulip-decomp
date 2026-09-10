@@ -1819,3 +1819,64 @@ payload at001ECF70 is four bytes, but twelve zero bytes before the next independ
 object at001ECF80 leave the complete object extent unresolved. The one-element
 pointer-array declaration is not justified by payload width alone. No inferred
 padding or enlarged declaration was accepted. See `work/parallel_texture_initialize/held.json`.
+
+
+## Follow-up families: five functions and 2,044 bytes
+
+The next family pass adds five complete functions without emitted data:
+0012FD08 (168 bytes), 0012F8A8 (320), 0012FF28 (432), 0017FA98 (276), and
+00180AC8 (848). All 2,048 emitted text bytes match, including the four native
+alignment bytes after 0017FA98. Only 2,044 function bytes are credited.
+
+The pose transfer uses actual aligned 64-byte matrix and 16-byte vector objects,
+with every byte consumed or written by the independently inspected VU helpers.
+The threshold and refresh pair benefit from ordinary full-width int temporaries,
+with narrowing at the real helper boundary. The refresh source uses the actor
+pointer proved by its producer and field-accessing consumers. The callback pair
+reuses the newly established callback ABI and native-debug source evidence. A
+real saved original index and original state pointer preserve separate lifetimes;
+00180AC8 uses the genuine 48-byte Sprite plus a separate live local, replacing
+older unmatched drafts that enlarged the descriptor to place that index.
+No forced stack offset, qualifier, invented extent or filler was introduced.
+
+Two existing sources were also corrected without new matching credit. Getter
+001548A0 now returns its actual actor pointer. 00156B70 now accepts and explicitly
+forwards the second incoming vector pointer to the real two-argument 16-byte
+copy routine, instead of relying on incidental register retention. Both retain
+all their existing emitted bytes under unchanged profiles and flags. The nested
+vector target in 00156B70 is represented by its actual four-float footprint.
+
+Independent proofs are `work/astra_family_followup/exact.json` and `repairs.json`.
+The complete transaction log is `work/astra-20260910/family-followup-promotion.log`:
+195 tests, baseline, all 970,772 loaded-image bytes, and all public gates pass.
+SHA-256 remains `77768f0c5d84a92a6d185499b8bb4bb2205779a81fbdb859b15cc1d9ce28f876`.
+Progress is **1,480/2,189 functions and 268,200/663,704 function bytes**.
+
+## Remove false direct-call scoring penalties
+
+The permuter adapter now has an opt-in `--relocate-direct-calls` mode and explicit
+`--range-end`. It derives external direct JAL symbols only from reviewed retail
+instructions and the catalog, then uses the existing derived-symbol linker step
+to verify every selected target byte. Unknown/internal calls and incomplete words
+are rejected; a failed linked oracle is removed. Raw-target mode remains available.
+This does not infer embedded data, jump tables or general address relocations,
+and it does not alter candidate compilation or the promotion requirements.
+
+The integrated command reproduces all 576 retail bytes for the corrected
+0017B3A0 frontier and changes its baseline score from 90 to 60 by removing six
+false symbolic-call penalties. The candidate still has the same two differing
+instructions; no new search or match is claimed. The comparison-before/after
+experiment used identical candidate object bytes. Eight portable regression tests
+cover complete extent, decoded calls, unsupported targets, alignment, full-byte
+verification, and early/late failure cleanup in reused preparation directories. The real-tool replay is preserved
+in `work/astra_permuter_oracle/proof.json`, with prior comparison evidence in
+`work/parallel_permuter_panel_oracle/score_proof.json`. Usage and limitations are
+now in `docs/campaign-workflow.md`.
+
+
+Independent tool review found and fixed an early-failure reuse case: an invalid
+range is now rejected before changing the old source/oracle pair, and all target
+construction/preparation failures invalidate target.o before a new pair can be
+used. The 12 focused permuter tests pass, including the eight new cases. This
+cleanup change does not alter candidate compiler output or the verified source
+matches. The final pre-commit suite includes 197 tests.

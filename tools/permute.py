@@ -1,16 +1,12 @@
 #!/usr/bin/env python3
-"""Prepare a decomp-permuter working directory for one function.
+"""Prepare a decomp-permuter directory using the historical compile adapter.
 
-The permuter searches source rewrites that keep behaviour and change register
-allocation and scheduling. That is the work a lane currently does by hand: one
-856-byte function landed only after a lane exhausted roughly 5,040 declaration
-orders and 4,000 statement orders to settle a register-allocation tie, and 119
-unmatched functions are larger than 1 KB.
+Source variations can change register allocation and instruction scheduling.
+Every output still needs semantic review and complete byte verification before
+promotion. The optional direct-call target removes symbolic-call scoring noise
+only after its linked bytes reproduce the full selected retail range.
 
-This writes the four files the permuter expects and nothing else. It does not
-vendor the permuter: point --permuter at a checkout, or run the printed command
-yourself. The compile is delegated to tools/permute_compile.py so the search
-optimises against the same object tools/match.py judges.
+This tool prepares files without running a search or vendoring decomp-permuter.
 """
 
 from __future__ import annotations
@@ -18,9 +14,12 @@ from __future__ import annotations
 import argparse
 import json
 import shutil
+import struct
 import subprocess
 import sys
 from pathlib import Path
+
+import match
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "config/functions.json"
@@ -56,9 +55,13 @@ def verified_candidate(function: str) -> dict[str, object] | None:
     return None
 
 
-def retail_bytes(entry: dict[str, object]) -> bytes:
+def retail_bytes(entry: dict[str, object], range_end: int | None = None) -> bytes:
     address = int(str(entry["address"]), 16)
     size = int(entry["size"])
+    if range_end is not None:
+        if range_end < address + size:
+            raise ValueError("explicit range must include the whole catalog function")
+        size = range_end - address
     image = TARGET.read_bytes()
     offset = address - TEXT_VRAM
     body = image[offset : offset + size]
@@ -67,39 +70,80 @@ def retail_bytes(entry: dict[str, object]) -> bytes:
     return body
 
 
-def write_target_object(function: str, body: bytes, directory: Path) -> Path:
-    """Assemble the retail bytes into an object carrying the function symbol.
+def direct_call_listing(function: str, body: bytes, address: int) -> str:
+    """Represent reviewed instruction-only text using real external JAL symbols.
 
-    The permuter scores a candidate object against this one, so it needs the
-    bytes under the right symbol rather than a bare blob.
+    This opt-in mode does not infer data, jump tables, HI16/LO16 pairs or aliases.
+    Call destinations come only from retail instruction fields and the catalog,
+    never from candidate code or candidate relocation positions.
     """
-    binary = directory / "target.bin"
-    binary.write_bytes(body)
-    listing = directory / "target.s"
-    listing.write_text(
-        ".section .text\n"
-        ".align 2\n"
-        f".globl {function}\n"
-        f".type {function}, @function\n"
-        f"{function}:\n"
-        f'.incbin "{binary.name}"\n'
-        f".size {function}, . - {function}\n"
-    )
-    output = directory / "target.o"
+    if address % 4 or len(body) % 4:
+        raise ValueError("direct-call target requires complete aligned MIPS words")
+    known = {int(str(row["address"]), 16): row["name"]
+             for row in json.loads(CATALOG.read_text())["functions"]}
+    lines = [".section .text", ".set noreorder", ".align 2",
+             f".globl {function}", f".type {function}, @function", f"{function}:"]
+    for offset in range(0, len(body), 4):
+        word = struct.unpack_from("<I", body, offset)[0]
+        if word >> 26 == 3:
+            target = ((address + offset + 4) & 0xF0000000) | ((word & 0x03FFFFFF) << 2)
+            if address <= target < address + len(body):
+                raise ValueError("internal JAL requires explicit local-label support")
+            if target not in known:
+                raise ValueError(f"JAL target 0x{target:08X} is absent from the catalog")
+            lines.append(f"jal {known[target]}")
+        else:
+            lines.append(f".word 0x{word:08X}")
+    lines.append(f".size {function}, . - {function}")
+    return "\n".join(lines) + "\n"
+
+
+def verify_target_object(obj: Path, directory: Path, address: int, body: bytes) -> None:
+    """Fail unless the diagnostic target links back to every supplied retail byte."""
+    directory = directory.resolve()
+    script, derived = directory / "target.ld", directory / "target_derived.ld"
+    linked, binary = directory / "target_linked.elf", directory / "target_linked.bin"
+    script.write_text(match.linker_script(address, None, match.SDATA_VRAM))
+    match.write_derived_symbols(obj.resolve(), derived)
     subprocess.run(
-        [
-            "mipsel-linux-gnu-as",
-            "-EL",
-            "-march=r5900",
-            "-mabi=eabi",
-            "-no-pad-sections",
-            "-o",
-            str(output),
-            str(listing.name),
-        ],
-        cwd=directory,
-        check=True,
-    )
+        ["mipsel-linux-gnu-ld", "-EL", "-m", "elf32ltsmip", "--no-check-sections",
+         "-T", str(script), "-T", str(derived), "-T", "config/linker_aliases.ld",
+         "-T", "build/undefined_funcs_auto.txt", "-T", "build/undefined_syms_auto.txt",
+         "-o", str(linked), str(obj.resolve())], cwd=ROOT, check=True)
+    subprocess.run(
+        ["mipsel-linux-gnu-objcopy", "-O", "binary", "-j", ".text", str(linked), str(binary)],
+        cwd=ROOT, check=True)
+    if binary.read_bytes() != body:
+        raise ValueError("relocated target failed full retail-byte verification")
+
+
+def write_target_object(function: str, body: bytes, directory: Path, *,
+                        address: int | None = None, relocate_direct_calls: bool = False) -> Path:
+    """Build a raw target, or an explicitly reviewed direct-call relocation target."""
+    output = directory / "target.o"
+    output.unlink(missing_ok=True)
+    try:
+        binary = directory / "target.bin"
+        binary.write_bytes(body)
+        listing = directory / "target.s"
+        if relocate_direct_calls:
+            if address is None:
+                raise ValueError("direct-call relocation requires the real text address")
+            listing.write_text(direct_call_listing(function, body, address))
+        else:
+            listing.write_text(
+                ".section .text\n.align 2\n"
+                f".globl {function}\n.type {function}, @function\n{function}:\n"
+                f'.incbin "{binary.name}"\n'
+                f".size {function}, . - {function}\n")
+        subprocess.run(
+            ["mipsel-linux-gnu-as", "-EL", "-march=r5900", "-mabi=eabi", "-no-pad-sections",
+             "-o", str(output.resolve()), listing.name], cwd=directory, check=True)
+        if relocate_direct_calls:
+            verify_target_object(output, directory, address, body)
+    except BaseException:
+        output.unlink(missing_ok=True)
+        raise
     return output
 
 
@@ -138,6 +182,10 @@ def main() -> int:
     parser.add_argument(
         "--permuter", type=Path, help="decomp-permuter checkout, to print its command"
     )
+    parser.add_argument("--range-end", type=lambda value: int(value, 0),
+                        help="explicit end of the complete emitted text range")
+    parser.add_argument("--relocate-direct-calls", action="store_true",
+                        help="reviewed instruction-only text: represent external JAL relocations")
     arguments = parser.parse_args()
 
     function = arguments.function
@@ -164,17 +212,25 @@ def main() -> int:
         else [str(flag) for flag in (known.get("object_flags") or [])]
     )
 
-    directory = arguments.output_dir or (DEFAULT_ROOT / function)
+    body = retail_bytes(entry, arguments.range_end)
+    directory = (arguments.output_dir or (DEFAULT_ROOT / function)).resolve()
     directory.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(source, directory / "base.c")
-    body = retail_bytes(entry)
-    write_target_object(function, body, directory)
-    write_compile_script(directory, str(profile), list(object_flags))
-    (directory / "settings.toml").write_text(
-        f'func_name = "{function}"\ncompiler_type = "gcc"\n'
-    )
+    target = directory / "target.o"
+    target.unlink(missing_ok=True)
+    try:
+        shutil.copyfile(source, directory / "base.c")
+        write_target_object(function, body, directory, address=int(str(entry["address"]), 16),
+                            relocate_direct_calls=arguments.relocate_direct_calls)
+        write_compile_script(directory, str(profile), list(object_flags))
+        (directory / "settings.toml").write_text(
+            f'func_name = "{function}"\ncompiler_type = "gcc"\n'
+            'objdump_command = "mipsel-linux-gnu-objdump -drz -m mips:5900"\n'
+        )
+    except BaseException:
+        target.unlink(missing_ok=True)
+        raise
 
-    print(f"prepared {directory.relative_to(ROOT)}")
+    print(f"prepared {directory.relative_to(ROOT) if directory.is_relative_to(ROOT) else directory}")
     print(f"  function     {function} ({len(body)} bytes at {entry['address']})")
     print(f"  base.c       {source.relative_to(ROOT) if source.is_relative_to(ROOT) else source}")
     print(f"  profile      {profile}{' ' + ' '.join(object_flags) if object_flags else ''}")

@@ -6028,6 +6028,20 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0012F8A8",
+    "source": "src/game/func_0012F8A8.c",
+    "address": "0x0012F8A8",
+    "size": 320,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Real104-byte PlayerStats layout, ordinary scalar table pointer, actual32-byte threshold stride and script-variable conversions; three actor-refresh passes with independently established4-byte ID lists and opaque actor pointer getter. Full-width local calculations narrow at actual helper boundaries. Complete320/432B sources independently exact. See work/parallel_game_family_state_pair/README.md and work/astra_family_followup/exact.json.",
+    "provenance_note": "Complete readable C and full emitted native text independently verified, including real alignment. Original translation-unit boundaries remain provisional. No emitted data or mutable ownership additions."
+  },
+  {
     "function": "func_0012F9E8",
     "source": "src/game/func_0012F9E8.c",
     "address": "0x0012F9E8",
@@ -6187,6 +6201,22 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0012FD08",
+    "source": "src/game/func_0012FD08.c",
+    "address": "0x0012FD08",
+    "size": 168,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0012FD08",
+    "unit_end": "0x0012FDB0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete168B pose transfer. Actual64-byte aligned matrix and16-byte aligned vector consumed/written by established VU helpers; real in-place rotations and global matrix copy to actor model+C0. All native bytes independently exact, no fake stack extent or data ownership. See work/astra_pose_transfer/README.md.",
+    "provenance_note": "Complete readable C and full emitted native text independently verified, including real alignment. Original translation-unit boundaries remain provisional. No emitted data or mutable ownership additions."
+  },
+  {
     "function": "func_0012FDB0",
     "source": "src/game/func_0012FDB0.c",
     "address": "0x0012FDB0",
@@ -6224,6 +6254,20 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0012FF28",
+    "source": "src/game/func_0012FF28.c",
+    "address": "0x0012FF28",
+    "size": 432,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Real104-byte PlayerStats layout, ordinary scalar table pointer, actual32-byte threshold stride and script-variable conversions; three actor-refresh passes with independently established4-byte ID lists and opaque actor pointer getter. Full-width local calculations narrow at actual helper boundaries. Complete320/432B sources independently exact. See work/parallel_game_family_state_pair/README.md and work/astra_family_followup/exact.json.",
+    "provenance_note": "Complete readable C and full emitted native text independently verified, including real alignment. Original translation-unit boundaries remain provisional. No emitted data or mutable ownership additions."
   },
   {
     "function": "func_001300D8",
@@ -10427,7 +10471,8 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": "Actual pointer contract independently established by matched producers/consumers and retail.548A0 returns the actor pointer stored by548C0;56B70 explicitly forwards its incoming vector source to the actual two-argument16-byte copier. Unchanged existing profile/flags and full emitted object verified. See work/astra_family_followup/repairs.json and work/astra_pose_transfer/README.md."
   },
   {
     "function": "func_001548C0",
@@ -10721,7 +10766,8 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": "Actual pointer contract independently established by matched producers/consumers and retail.548A0 returns the actor pointer stored by548C0;56B70 explicitly forwards its incoming vector source to the actual two-argument16-byte copier. Unchanged existing profile/flags and full emitted object verified. See work/astra_family_followup/repairs.json and work/astra_pose_transfer/README.md."
   },
   {
     "function": "func_00156BC8",
@@ -15584,6 +15630,22 @@
     "profile_evidence": "Callback contract independently established by matched113138 dispatcher and retail registry stores. Explicit int-returning callback(packet,int,int) and forwarded registry arguments; complete existing source range reverified with unchanged profile and object flags. See work/parallel_controller_reveal/README.md and work/astra_controller_review/exact.json."
   },
   {
+    "function": "func_0017FA98",
+    "source": "src/game/func_0017FA98.c",
+    "address": "0x0017FA98",
+    "size": 276,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as-g"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "unit_start": "0x0017FA98",
+    "unit_end": "0x0017FBB0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Actual callback(packet,int,int) ABI and genuine counter array. Original state pointer and original index remain separately live; advancing registration index uses ordinary postincrement.180AC8 uses actual48-byte Sprite plus real original-index spill, distinct integer/float rounding and color-before-scale assignment lifetimes. No fabricated64-byte descriptor. Full native-debug output independently exact. See work/parallel_callback_transition/README.md and work/astra_family_followup/exact.json.",
+    "provenance_note": "Complete readable C and full emitted native text independently verified, including real alignment. Original translation-unit boundaries remain provisional. No emitted data or mutable ownership additions."
+  },
+  {
     "function": "func_0017FBB0",
     "source": "src/game/func_0017FBB0.c",
     "address": "0x0017FBB0",
@@ -15669,6 +15731,20 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
+    "function": "func_00180AC8",
+    "source": "src/game/func_00180AC8.c",
+    "address": "0x00180AC8",
+    "size": 848,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as-g"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Actual callback(packet,int,int) ABI and genuine counter array. Original state pointer and original index remain separately live; advancing registration index uses ordinary postincrement.180AC8 uses actual48-byte Sprite plus real original-index spill, distinct integer/float rounding and color-before-scale assignment lifetimes. No fabricated64-byte descriptor. Full native-debug output independently exact. See work/parallel_callback_transition/README.md and work/astra_family_followup/exact.json.",
+    "provenance_note": "Complete readable C and full emitted native text independently verified, including real alignment. Original translation-unit boundaries remain provisional. No emitted data or mutable ownership additions."
   },
   {
     "function": "func_00181700",
