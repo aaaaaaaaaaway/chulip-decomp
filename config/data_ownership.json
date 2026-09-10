@@ -86,6 +86,20 @@
       "section": "sdata",
       "address": "0x001ECBD0",
       "size": 4
+    },
+    {
+      "symbol": "D_001ECD08",
+      "source": "src/game/func_0015EE20.c",
+      "section": "sdata",
+      "address": "0x001ECD08",
+      "size": 4
+    },
+    {
+      "symbol": "D_001ECD0C",
+      "source": "src/game/func_0015EE20.c",
+      "section": "sdata",
+      "address": "0x001ECD0C",
+      "size": 4
     }
   ]
 }

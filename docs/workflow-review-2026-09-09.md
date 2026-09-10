@@ -1646,3 +1646,51 @@ The full-image SHA-256 remains
 `77768f0c5d84a92a6d185499b8bb4bb2205779a81fbdb859b15cc1d9ce28f876`.
 Authoritative totals are **1,468/2,189 functions and262,164/663,704 function bytes**.
 The transaction log is `work/astra-20260910/surface-actor-events-promotion.log`.
+
+
+## Choice menu and shared animation advancement
+
+Three complete functions add **1,944 function bytes**: choice-menu renderer
+0015EE20 (656), fallback animation advancement0015BFE8 (592), and live animation
+advancement0015C238 (696). Every emitted text byte is exact under the established
+SN136 native assembler G8 profile with no extra flags. There are no alignment tails.
+
+The menu renderer contributes two real initialized float scale variables at
+001ECD08 and001ECD0C, initially1.0 and0.5. Matched0015EE08 independently writes
+these addresses as x/y; the renderer consumes both for text scale and row spacing.
+Their complete8-byte.sdata section, symbol offsets/sizes and original initializers
+are independently verified. No existing source defines or owns either variable.
+The neighboring literal words beginning001ECD10 remain outside these claims.
+The ownership registry now has13 claims. Original translation-unit boundaries
+remain provisional; no section attributes or arbitrary storage extent was used.
+
+The menu retains its actual text/pointer/count/coordinate layout, input feedback,
+confirmation delay, selection clamping, registry removal and packet-cursor return.
+The first complete extern-only source already matched nearly all aligned
+instructions; the real scale definitions supply the required GP accesses naturally.
+
+The animation pair shares the proved actor/owner/snapshot transfer and512-byte
+frame-bank layout. A real cached sequence index for paired start/end bounds
+transferred directly between both complete sources. Separate actual eligibility
+checks resolved the fallback routine's remaining branch shape. Each retains its
+own pause, reverse, restart and stop rules, unsigned limit conversions and snapshot
+updates; the live routine calls the newly matched0015D410 event scheduler after
+an eligible restart. No shared substitute implementation or byte credit is used.
+Evidence is in `work/astra_choice_render`, `work/astra_choice_animation` and
+`work/parallel_actor_events_next`.
+
+The fresh00124728 beam initializer has an exact936-byte diagnostic but remains
+uncredited. Its pointer payload at001ED268 is proven32 bits, while the following
+four bytes before001ED270 have unresolved ownership/extent. The one-element pointer
+array source therefore remains held; an ordinary scalar pointer source emits600
+bytes. The old8-byte wrapper is not independent extent evidence. No new wrapper,
+qualifier or storage claim was introduced to force promotion. The separate complete
+00122B20 particle renderer also remains unmatched; its packet register context and
+native padding differ despite matching motion/projection logic. Both frontiers
+are frozen in the worker folders with zero matching credit.
+
+The full transaction passed187 tests, source/section/ownership audits, independent
+baseline and all970,772 loaded-image bytes. The SHA-256 remains
+`77768f0c5d84a92a6d185499b8bb4bb2205779a81fbdb859b15cc1d9ce28f876`.
+The authoritative checkpoint is **1,471/2,189 functions and264,108/663,704 function
+bytes**. Its log is `work/astra-20260910/choice-animation-promotion.log`.

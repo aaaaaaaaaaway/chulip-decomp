@@ -918,7 +918,9 @@ segments:
       - [0x05BE38, c, game/func_0015BE38]
       - [0x05BE88, c, game/func_0015BE88]
       - [0x05BFB8, c, game/func_0015BFB8]
-      - [0x05BFE8, asm, cod/text_0015BFE8]
+      - [0x05BFE8, c, game/func_0015BFE8]
+      - [0x05C238, c, game/func_0015C238]
+      - [0x05C4F0, asm, cod/text_0015C4F0]
       - [0x05C718, c, game/func_0015C718]
       - [0x05C750, c, game/func_0015C750]
       - [0x05C7E0, asm, cod/text_0015C7E0]
@@ -968,7 +970,7 @@ segments:
       - [0x05EDC0, c, game/func_0015EDC0]
       - [0x05EE08, c, game/func_0015EE08]
       - [0x05EE18, c, game/func_0015EE18]
-      - [0x05EE20, asm, cod/text_0015EE20]
+      - [0x05EE20, c, game/func_0015EE20]
       - [0x05F0B0, c, game/func_0015F0B0]
       - [0x05F0F0, asm, cod/text_0015F0F0]
       - [0x05F1A0, c, game/func_0015F1A0]
@@ -1662,6 +1664,8 @@ segments:
       - [0x0EC990, sdata, cod/sdata_after_001332D8]
       - [0x0ECBD0] # func_00151CD8 initialized allocation-list head: 4 bytes
       - [0x0ECBD4, sdata, cod/sdata_after_00151CD8]
+      - [0x0ECD08] # func_0015EE20 two initialized text scales: 8 bytes
+      - [0x0ECD10, sdata, cod/sdata_after_0015EE20]
       - [0x0ECD3C] # func_001609E0 complete counter contribution: 4 bytes
       - [0x0ECD40, sdata, cod/sdata_after_001609E0]
       - { type: sbss, vram: 0x001ED080, name: cod/sbss }

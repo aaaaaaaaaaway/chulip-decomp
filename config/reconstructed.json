@@ -11412,6 +11412,38 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0015BFE8",
+    "source": "src/game/func_0015BFE8.c",
+    "address": "0x0015BFE8",
+    "size": 592,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0015BFE8",
+    "unit_end": "0x0015C238",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete snapshot/live animation advancement pair, proved actor/owner/snapshot transfer and512B frame banks. Actual unsigned limit/length float conversions, distinct eligibility/pause/stop/reverse/restart rules, real cached sequence for paired bounds and matched5D410 event scheduling retained. Full text exact; no data, qualifiers, padding or new ownership. See work/parallel_actor_events_next/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range independently verified. Original translation-unit boundaries remain provisional. Choice renderer contributes two independently verified four-byte initialized scale variables; other functions emit no data."
+  },
+  {
+    "function": "func_0015C238",
+    "source": "src/game/func_0015C238.c",
+    "address": "0x0015C238",
+    "size": 696,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0015C238",
+    "unit_end": "0x0015C4F0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete snapshot/live animation advancement pair, proved actor/owner/snapshot transfer and512B frame banks. Actual unsigned limit/length float conversions, distinct eligibility/pause/stop/reverse/restart rules, real cached sequence for paired bounds and matched5D410 event scheduling retained. Full text exact; no data, qualifiers, padding or new ownership. See work/parallel_actor_events_next/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range independently verified. Original translation-unit boundaries remain provisional. Choice renderer contributes two independently verified four-byte initialized scale variables; other functions emit no data."
+  },
+  {
     "function": "func_0015C718",
     "source": "src/game/func_0015C718.c",
     "address": "0x0015C718",
@@ -11982,6 +12014,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0015EE20",
+    "source": "src/game/func_0015EE20.c",
+    "address": "0x0015EE20",
+    "size": 656,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0015EE20",
+    "unit_end": "0x0015F0B0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete656B choice-menu renderer, actual text/pointer/count/coordinate layout and matched input/text/registry contracts. Real scales1.0f/0.5f at1ECD08/1ECD0C independently written by matched15EE08; all8 emitted sdata bytes and symbol offsets verified, unique ownership. No attributes, fake extents or padding. See work/astra_choice_render/README.md.",
+    "provenance_note": "Complete readable C and full emitted text range independently verified. Original translation-unit boundaries remain provisional. Choice renderer contributes two independently verified four-byte initialized scale variables; other functions emit no data."
   },
   {
     "function": "func_0015F0B0",
