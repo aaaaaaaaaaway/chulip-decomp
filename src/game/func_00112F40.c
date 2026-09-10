@@ -1,11 +1,11 @@
 struct Callback {
-    void (*fn)(void);
+    int (*fn)(char *, int, int);
     int arg0;
     int arg1;
 };
 extern struct Callback D_001EDE90[];
 extern int D_001ED1B0;
-void func_00112F40(void (*fn)(void)) {
+void func_00112F40(int (*fn)(char *, int, int)) {
     int i;
     int count;
     do {

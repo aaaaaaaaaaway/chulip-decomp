@@ -3137,7 +3137,8 @@
     ],
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": "Callback contract independently established by matched113138 dispatcher and retail registry stores. Explicit int-returning callback(packet,int,int) and forwarded registry arguments; complete existing source range reverified with unchanged profile and object flags. See work/parallel_controller_reveal/README.md and work/astra_controller_review/exact.json."
   },
   {
     "function": "func_00112F40",
@@ -3153,7 +3154,8 @@
     ],
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": "Callback contract independently established by matched113138 dispatcher and retail registry stores. Explicit int-returning callback(packet,int,int) and forwarded registry arguments; complete existing source range reverified with unchanged profile and object flags. See work/parallel_controller_reveal/README.md and work/astra_controller_review/exact.json."
   },
   {
     "function": "func_00112FD0",
@@ -5997,6 +5999,22 @@
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
   },
   {
+    "function": "func_0012F678",
+    "source": "src/game/func_0012F678.c",
+    "address": "0x0012F678",
+    "size": 132,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0012F678",
+    "unit_end": "0x0012F700",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete 132-byte choice-string lookup plus all four native alignment bytes exact. Actual byte arguments, 0x2A4 record stride, byte-sized delimiter counter, two-zero separators and double-hash sentinel established directly from retail. Plain external byte storage with no inferred extent or ownership. First complete C matches; independently replayed all136 native bytes and object sections. See work/astra_choice_lookup/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
+  },
+  {
     "function": "func_0012F700",
     "source": "src/game/func_0012F700.c",
     "address": "0x0012F700",
@@ -6024,6 +6042,22 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+  },
+  {
+    "function": "func_0012FA20",
+    "source": "src/game/func_0012FA20.c",
+    "address": "0x0012FA20",
+    "size": 184,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x0012FA20",
+    "unit_end": "0x0012FAD8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "Complete184-byte bounded stat adjustment. Actual signed-byte delta, ushort value/limit at58/5A corroborated by matched12E390, full104-byte profile layout from12E5E8, and actual64-bit flags returned by matched136AE8. Negative-zero sets bit20; other paths clear it with a64-bit complement, preserving upper flags. Conditional clamp-first source yields native branch ordering. All184 native bytes independently exact, no data/ownership additions. See work/astra_choice_stat/README.md and exact.json.",
+    "provenance_note": "Complete readable C and full emitted text range including natural alignment independently verified. Original translation-unit boundaries remain provisional. No emitted data or new mutable ownership."
   },
   {
     "function": "func_0012FAD8",
@@ -15515,7 +15549,8 @@
     ],
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": "Callback contract independently established by matched113138 dispatcher and retail registry stores. Explicit int-returning callback(packet,int,int) and forwarded registry arguments; complete existing source range reverified with unchanged profile and object flags. See work/parallel_controller_reveal/README.md and work/astra_controller_review/exact.json."
   },
   {
     "function": "func_0017F9F0",
@@ -15531,7 +15566,8 @@
     ],
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established"
+    "provenance_note": "recovered by reading the retail disassembly and confirmed only by isolated and whole-image byte comparison; the authentic translation-unit boundary around this range is not yet established",
+    "profile_evidence": "Callback contract independently established by matched113138 dispatcher and retail registry stores. Explicit int-returning callback(packet,int,int) and forwarded registry arguments; complete existing source range reverified with unchanged profile and object flags. See work/parallel_controller_reveal/README.md and work/astra_controller_review/exact.json."
   },
   {
     "function": "func_0017FA28",
@@ -15544,7 +15580,8 @@
     "build_profile": "ee-gcc2.95.3-136-O2-G8",
     "isolated_match": true,
     "whole_program_match": true,
-    "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+    "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded",
+    "profile_evidence": "Callback contract independently established by matched113138 dispatcher and retail registry stores. Explicit int-returning callback(packet,int,int) and forwarded registry arguments; complete existing source range reverified with unchanged profile and object flags. See work/parallel_controller_reveal/README.md and work/astra_controller_review/exact.json."
   },
   {
     "function": "func_0017FBB0",
@@ -15589,6 +15626,23 @@
     "isolated_match": true,
     "whole_program_match": true,
     "provenance_note": "the range is internally consistent with a single compilation; the retail object may extend into neighbours that are not yet matched"
+  },
+  {
+    "function": "func_0017FE98",
+    "source": "src/game/func_0017FE98.c",
+    "address": "0x0017FE98",
+    "size": 1332,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as-g"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "unit_start": "0x0017FE98",
+    "unit_end": "0x001803D0",
+    "rodata_start": "0x001EACE0",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "profile_evidence": "1332-byte controller reveal with real48-byte Sprite and six7-int arrays, actual memset consumer and all140 initialized literal plus20 natural alignment bytes. Branch-local interpolation and additive negative640 offset recover actual FP lifetimes under established native-debug profile. Actual typed callback chain and forwarded arguments independently verified and repaired. See work/parallel_controller_reveal/README.md and work/astra_controller_review/exact.json.",
+    "provenance_note": "Complete readable C; original outer translation-unit boundaries remain provisional. Full1336 native text and160 emitted literal bytes independently exact. No mutable data ownership additions."
   },
   {
     "function": "func_001803D0",

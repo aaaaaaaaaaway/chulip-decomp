@@ -3168,6 +3168,14 @@
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
   },
   {
+    "function": "func_0012F678",
+    "source": "src/game/func_0012F678.c",
+    "address": "0x0012F678",
+    "size": 132,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
     "function": "func_0012F700",
     "source": "src/game/func_0012F700.c",
     "address": "0x0012F700",
@@ -3182,6 +3190,14 @@
     "size": 52,
     "profile": "ee-gcc2.95.3-136-O2-G8",
     "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+  },
+  {
+    "function": "func_0012FA20",
+    "source": "src/game/func_0012FA20.c",
+    "address": "0x0012FA20",
+    "size": 184,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
   },
   {
     "function": "func_0012FAD8",
@@ -8414,6 +8430,14 @@
     "size": 328,
     "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
     "evidence": "the complete unit range is reproduced by one source compiled once with one configuration"
+  },
+  {
+    "function": "func_0017FE98",
+    "source": "src/game/func_0017FE98.c",
+    "address": "0x0017FE98",
+    "size": 1332,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as-g",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
   },
   {
     "function": "func_001803D0",

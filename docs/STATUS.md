@@ -21,11 +21,11 @@
 
 Provisional function catalog: **2,189 functions / 663,704 bytes**
 
-Source-reconstructed and matched: **1,472 functions / 264,508 bytes**
+Source-reconstructed and matched: **1,475 functions / 266,156 bytes**
 
-Matched functions: **1,472 / 2,189 (67.2453%)**
+Matched functions: **1,475 / 2,189 (67.3824%)**
 
-Matched text bytes: **264,508 / 663,704 (39.8533%)**
+Matched text bytes: **266,156 / 663,704 (40.1016%)**
 
 <!-- decomp-status-end -->
 

@@ -1751,3 +1751,71 @@ The complete 0011DBF0 scatter-arc draft has an explicit promotion hold. Its earl
 red/green local stores are unconditionally overwritten before any intervening
 consumer; escaped pointers from other iterations do not establish a consumer
 for those stores. Byte similarity cannot resolve this semantic requirement.
+
+
+## Choice-family transfer and measured permuter experiment
+
+Two fresh small functions add316 verified function bytes. 0012F678 matched on its
+first complete C reconstruction:132 function bytes plus four genuine native
+alignment bytes. Its byte arguments,0x2A4 table stride, two-zero separators and
+double-hash end marker are explicit ordinary C. The shared parser work supplied
+the relevant format knowledge. 0012FA20 adds184 bytes: the matched profile layout
+and64-bit state flags establish its signed-byte stat delta and upper-limit clamp.
+Putting the upper-limit case first resolved its only three branch/store differences.
+Both independent audits and complete promotion transactions pass189 tests,
+baseline and all970772 image bytes. Count after these two is1474 functions and
+264824 function bytes. Logs are `work/astra-20260910/choice-lookup-promotion.log`
+and `work/astra-20260910/choice-stat-promotion.log`.
+
+The existing Kaze decomp-permuter and Chulip historical compile adapter completed
+all1440 reviewed store-order variants on0017B3A0 within a300-second bound, with
+zero compile errors and no improvement. All automatic randomization passes were
+disabled. The cached numeric value and both callee contracts were corrected first;
+the canonical corrected source still differs only at+0x1B0/+0x1B4 across576 bytes.
+A documented30-point call-relocation scoring bias was retained after one bounded
+oracle-link setup failure. Scoring never replaced complete-byte verification.
+This experiment rules out the specific finite store-order space; it does not prove
+other source forms impossible. Evidence and reproducible command are in
+`work/parallel_permuter_panel/README.md` and `result.json`.
+
+The fresh filtered choice parser0012F390 remains at456/464 bytes with98 differing
+positions, without data or source-audit issues. It preserves the actual paired
+append helper0015F128, old scratch contents between entries, requested limits and
+mask filtering. The numeric glyph renderer00113A00 remains at524 function bytes
+plus natural alignment with33 differing positions. Neither earns match credit.
+
+
+## Controller reveal and explicit callback forwarding
+
+The complete0017FE98 reveal controller adds1332 function bytes, four native text
+alignment bytes, and160 associated literal bytes. All five initialized seven-int
+arrays and their20 compiler-emitted alignment bytes match. The sixth actual array
+is cleared by the real memset before width/height initialization; all six arrays
+have runtime consumers. Branch-local interpolation amounts and the additive
+negative640 offset recover the source FP lifetimes under the established native
+debug profile. No added instructions, qualifiers, storage extents or padding.
+Independent proof: `work/astra_controller_review/exact.json`; literal and semantic
+audits: `work/parallel_controller_reveal/README.md` and `literal-audit.json`.
+
+The callback review found two earlier source defects despite their byte matches:
+0017F9B8 called registration without explicit incoming callback/arguments, and
+0017F9F0 omitted the callback argument to removal. Both now forward their actual
+arguments. Matched00113138 independently proves callback(packet,int,int) returning
+a packet count. These wrappers, the delayed callback0017FA28, and registry
+00112EB0/00112F40 now express that type consistently. All five repairs preserve
+existing exact bytes under unchanged profiles/flags. A separate strict host-C
+behavioral check verifies pointer/two-integer forwarding, counter changes, and
+both null no-op paths; it supplements the historical byte and image gates.
+
+The full transaction passes189 tests, baseline and all970772 image bytes.
+SHA-256 remains `77768f0c5d84a92a6d185499b8bb4bb2205779a81fbdb859b15cc1d9ce28f876`.
+This pass totals four new functions and2048 function bytes, reaching
+**1475/2189 functions and266156/663704 function bytes**. Literal/alignment bytes
+are independently verified but do not inflate function-byte progress. The full
+log is `work/astra-20260910/controller-reveal-promotion.log`.
+
+0017CDA8's664-byte exact diagnostic stays on explicit promotion hold: its pointer
+payload at001ECF70 is four bytes, but twelve zero bytes before the next independent
+object at001ECF80 leave the complete object extent unresolved. The one-element
+pointer-array declaration is not justified by payload width alone. No inferred
+padding or enlarged declaration was accepted. See `work/parallel_texture_initialize/held.json`.

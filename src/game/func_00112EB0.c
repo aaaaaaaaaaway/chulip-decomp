@@ -1,5 +1,5 @@
 struct Callback {
-    void (*fn)(void);
+    int (*fn)(char *, int, int);
     int arg0;
     int arg1;
 };
@@ -7,7 +7,7 @@ struct Callback {
 extern struct Callback D_001EDE90[];
 extern int D_001ED1B0;
 
-void func_00112EB0(void (*fn)(void), int arg0, int arg1) {
+void func_00112EB0(int (*fn)(char *, int, int), int arg0, int arg1) {
     int i;
 
     for (i = 0; i < D_001ED1B0; i++) {
