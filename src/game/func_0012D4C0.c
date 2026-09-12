@@ -1,5 +1,5 @@
-extern unsigned int func_00138CC8(int arg0, int arg1, int arg2);
-extern unsigned short *func_00138DF0(unsigned int handle);
+extern int func_00138CC8(int id, short *values, int field);
+extern unsigned short *func_00138DF0(int handle);
 extern void func_00158BB8(unsigned short index, int arg1);
 extern void func_00138988(int arg0);
 

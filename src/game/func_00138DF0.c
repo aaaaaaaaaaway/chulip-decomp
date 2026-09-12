@@ -1,9 +1,17 @@
-typedef struct Entry36 {
-    unsigned char bytes[36];
-} Entry36;
+typedef struct EventRecord {
+    unsigned int key;
+    unsigned int flags;
+    short current_ticks;
+    short initial_ticks;
+    short elapsed;
+    short delay;
+    unsigned int state;
+    unsigned short values[4];
+    int next;
+    int previous;
+} EventRecord;
+extern EventRecord D_00203C20[];
 
-extern unsigned char D_00203C34[];
-
-Entry36 *func_00138DF0(int index) {
-    return (Entry36 *)(D_00203C34 + index * 36);
+unsigned short *func_00138DF0(int index) {
+    return D_00203C20[index].values;
 }

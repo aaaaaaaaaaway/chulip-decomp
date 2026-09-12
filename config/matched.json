@@ -2973,7 +2973,7 @@
     "address": "0x0012D4C0",
     "size": 84,
     "profile": "ee-gcc2.95.3-136-O2-G8",
-    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+    "evidence": "Correct event-search return/pointer parameters and agree with the getter index contract; retain the retail unsigned handle/sentinel and complete 84-byte source range."
   },
   {
     "function": "func_0012D518",
@@ -4405,7 +4405,7 @@
     "address": "0x00138DF0",
     "size": 24,
     "profile": "ee-gcc2.95.3-136-O2-G8",
-    "evidence": "Readable C reproduces the complete retail function range under every listed profile; strict byte comparison passed."
+    "evidence": "Return the actual four-halfword payload of the 36-byte event record; removes the unsupported payload wrapper and retains all prior complete profile and whole-image proof requirements."
   },
   {
     "function": "func_00138E08",

@@ -187,3 +187,80 @@ The buffer extent still needs an independent audit: 138468's third argument is
 flags, not a byte count, and that callee copies four halfwords. Its 0x10 flag
 does not prove a 16-byte local array. The explicit-pointer probe preserves the
 inherited extent without claiming it is established.
+
+## Further region-family and contract corrections
+
+The buffer extent audit reviews all six event-list consumers and every local
+use. Four halfwords suffice; changing buf[8] to buf[4] preserves the complete
+linked text and every allocated native PROGBITS section. Evidence and consumer
+source hashes are in `work/astra_solver_review/buffer-extent-review.json`.
+
+Cases 0x2079 and 0x20DE repeat the redundant-guard pattern. Retail has one
+signed BLEZ product guard, with si=0 in its delay slot; the draft has BLEZL
+followed by BLEZ. Removing each outer guard recovers the retail loop entry.
+Before that change, the dimensions' product is made explicitly unsigned32,
+then interpreted as signed32 for comparison, matching retail low32 MULT and
+signed branch behavior. This preserves native bytes and avoids assuming that
+two unrestricted unsigned-short dimensions cannot overflow signed int.
+Other index/division validity assumptions are not established by this change.
+
+The event-call audit corrects allocator 138468's int result and key/flags types,
+uses the actual signed payload views for replacement/search, and supplies the
+three missing declarations for 389F8,38B70,38E58. No buffer is enlarged and no
+element conversion or copy is added. The source keeps the getter's unsigned
+halfword view, including its separate later signed comparison.
+
+An additional caller audit found a missing count argument in case2040:
+retail16A7B4 explicitly moves b into a1 before calling12F210, and the callee
+captures a1 as unsigned16 at12F22C. The source now supplies it. The related
+12F390 contract is a byte-string pointer, two unsigned16 values and a32-bit
+mask, consistent with its entry masking/stores. Explicit char-pointer views
+preserve the actual script bytes. The packed script offset is assembled with
+an unsigned32 shift/OR then converted to signed32 before division by2; retail
+uses the corresponding signed rounding sequence. The arithmetic correction
+does not change native text.
+
+The script metadata is a real aggregate: allocation stores the entry pointer
+at2D8840, message lookup reads the word at+4, and matched actor-list consumers
+read count at+0x10. A ScriptTable view describes those fields, replacing the
+inherited pointer-array and separate three-int-array declarations. A prior
+scalar-only probe fails linking because it wrongly selects out-of-range GP
+relocations; that failure is retained, not bypassed with assembler flags.
+The aggregate view links under the unchanged native profile and claims no data
+ownership. Uninterpreted bytes between known fields remain explicit.
+
+| Successive complete cleaned draft | Text bytes | Aligned words / 3611 |
+| --- | ---: | ---: |
+| Eight-byte buffer, operand-order correction | 14296 | 2640 |
+| Explicit region-product width | 14296 | 2640 |
+| Single guards in both region loops | 14280 | 2652 |
+| Event-list call contracts | 14280 | 2657 |
+| Choice call contracts, including missing count | 14288 | 2651 |
+| Defined packed word and script-header view | 14288 | 2651 |
+
+The current source-provenance frontier is
+`work/astra_solver_review/variants/scalar_script_header.c`, **73.4146%** aligned
+words. Correcting real calls can lower similarity; retain their actual contracts.
+Neither this draft nor the higher-scoring inherited draft is a full match.
+Results and section inventories are in `variants/region-guards-results.json`,
+`event-contract-results.json`, `choice-script-results.json` and
+`script-header-results.json`. Disassembly is in `region-loop-disassembly.json`.
+
+## Two existing event-function repairs verified
+
+Getter00138DF0 now returns the actual four-halfword payload from the established
+36-byte event record, using its real base D203C20 and values field at+0x14.
+It removes the unsupported opaque36-byte wrapper starting at the payload.
+Caller0012D4C0 uses the actual int search result and short-pointer parameter
+contract and agrees with the getter's int index parameter. Its unsigned handle
+and FFFFFFFF sentinel remain: their conversion is defined and their retail
+construction is preserved.
+
+The full transactional importer independently replays all four prior getter
+profiles and the caller's prior profile. All108 existing function bytes, the
+970772-byte rebuilt image, baseline and public gates pass;204 tests pass.
+The image SHA-256 remains
+`77768f0c5d84a92a6d185499b8bb4bb2205779a81fbdb859b15cc1d9ce28f876`.
+The ledger remains1491/2189 functions and272484/663704 function bytes. The
+generated treemap changes only its ledger checksum; totals and layout agree.
+Transaction evidence: `work/astra_solver_review/event_repairs/promotion.log`.
