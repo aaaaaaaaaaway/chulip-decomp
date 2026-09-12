@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import importlib.util
+import struct
 import sys
 import tempfile
 import unittest
@@ -21,6 +23,7 @@ class AsmDiffTests(unittest.TestCase):
         self.assertEqual(asm_diff.classify_difference("addu $v0,$a0,$a1", "subu $v0,$a0,$a1"), "opcode")
         self.assertEqual(asm_diff.classify_difference("lw $v0,4($sp)", "lw $v1,4($sp)"), "register")
         self.assertEqual(asm_diff.classify_difference("lw v0,4(sp)", "lw v1,4(sp)"), "register")
+        self.assertEqual(asm_diff.classify_difference("addu $v0,$a4,$a5", "addu $v0,$a4,$a7"), "register")
         self.assertEqual(
             asm_diff.classify_difference("addiu $sp,$sp,-16", "addiu $sp,$sp,-32"),
             "immediate/target",
@@ -32,6 +35,24 @@ class AsmDiffTests(unittest.TestCase):
         report, status = asm_diff.render(left, [(0, "03e00008", "jr $ra")], 0x1000, 4)
         self.assertEqual(status, 1)
         self.assertIn("opcode", report)
+
+    def test_r5900_rejects_partial_instruction(self):
+        with self.assertRaisesRegex(ValueError, "complete four-byte words"):
+            asm_diff.disassemble_r5900(b"\x00" * 5, 0x168D78)
+
+    @unittest.skipUnless(importlib.util.find_spec("rabbitizer"), "requires pinned Rabbitizer")
+    def test_r5900_decodes_quadwords_and_preserves_delay_slot_nops(self):
+        words = [0x7FB00110, 0x7BB00110, 0x03E00008, 0, 0]
+        rows = asm_diff.disassemble_r5900(struct.pack("<5I", *words), 0x168D78)
+        self.assertEqual([r[0] for r in rows], [0, 4, 8, 12, 16])
+        self.assertEqual([r[1] for r in rows], [f"{w:08x}" for w in words])
+        self.assertEqual([r[2].split()[0] for r in rows], ["sq", "lq", "jr", "nop", "nop"])
+        changed = list(rows)
+        _, word, text = asm_diff.disassemble_r5900(struct.pack("<I", 0x7BB10110), 0x168D7C)[0]
+        changed[1] = (4, word, text)
+        report, status = asm_diff.render(rows, changed, 0x168D78, len(words) * 4)
+        self.assertEqual(status, 1)
+        self.assertIn("register", report)
 
 
 class SimilarityTests(unittest.TestCase):

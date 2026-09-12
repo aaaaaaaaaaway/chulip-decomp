@@ -199,3 +199,25 @@ On the corrected 17B3A0 source this removed 30 false call-relocation points
 across all 576 bytes. This is a scoring correction, not a new match. See
 `work/astra_permuter_oracle/proof.json` for the integrated-tool replay and
 `work/parallel_permuter_panel_oracle/score_proof.json` for the before/after proof.
+
+## Inspect EE instructions and compiler decisions
+
+The instruction diff has an optional decoder using pinned Rabbitizer 1.16.2:
+
+```sh
+.venv/bin/python tools/asm_diff.py func_00131780 --decoder rabbitizer
+```
+
+This decodes R5900 quadword operations such as LQ/SQ, preserves every encoded
+word and delay-slot nop, and uses the same complete build/range as the normal
+diff. The default objdump mode remains available. Register classification also
+recognizes the EE argument-register names a4 through a7. Neither decoder
+normalizes register numbers, branch destinations, stack offsets or raw words
+for matching. A real replay of 00131780 retains its complete 552-byte match.
+
+For large-function plateaus, locate the first responsible compiler pass before
+starting another permutation search. The historical driver supports `-da` pass
+dumps; separately compile without it and verify the assembly is unchanged.
+The giant2 investigation recovered real lifetime and frontend-folding differences
+this way. See [the measured experiments](giant2-compiler-trace-2026-09-12.md)
+for source holds, complete-object measurements and limits on similarity scores.

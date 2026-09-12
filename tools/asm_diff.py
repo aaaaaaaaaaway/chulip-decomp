@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import struct
 import subprocess
 import sys
 import tempfile
@@ -14,6 +15,25 @@ import match_artifacts
 
 OBJDUMP = "mipsel-linux-gnu-objdump"
 INSN_RE = re.compile(r"^\s*([0-9a-fA-F]+):\s+([0-9a-fA-F]{8})\s+(.*?)\s*$")
+
+
+def disassemble_r5900(blob: bytes, vram: int) -> list[tuple[int, str, str]]:
+    """Decode every raw word with the project's pinned EE-aware decoder."""
+    if len(blob) % 4:
+        raise ValueError("R5900 instruction input must contain complete four-byte words")
+    try:
+        import rabbitizer
+    except ImportError as error:
+        raise ValueError("Rabbitizer is unavailable; run with .venv/bin/python") from error
+    instructions = []
+    for index, (word,) in enumerate(struct.iter_unpack("<I", blob)):
+        offset = index * 4
+        instruction = rabbitizer.Instruction(
+            word, vram + offset, rabbitizer.InstrCategory.R5900
+        )
+        text = " ".join(instruction.disassemble().split())
+        instructions.append((offset, f"{word:08x}", text))
+    return instructions
 
 
 def disassemble(blob: bytes, vram: int) -> list[tuple[int, str, str]]:
@@ -69,7 +89,7 @@ def classify_difference(left: str, right: str) -> str:
     right_operands = right_parts[1] if len(right_parts) == 2 else ""
     registers = (
         r"(?<![A-Za-z0-9_])\$?"
-        r"(?:zero|at|v[01]|a[0-3]|t[0-9]|s[0-8]|k[01]|gp|sp|fp|ra|f[0-9]+)\b"
+        r"(?:zero|at|v[01]|a[0-7]|t[0-9]|s[0-8]|k[01]|gp|sp|fp|ra|f[0-9]+)\b"
     )
     if re.findall(registers, left_operands) != re.findall(registers, right_operands):
         return "register"
@@ -127,13 +147,18 @@ def main() -> int:
     match_artifacts.add_match_arguments(parser)
     parser.add_argument("--context", type=int, default=2)
     parser.add_argument("--all", action="store_true", help="show every instruction")
+    parser.add_argument(
+        "--decoder", choices=("objdump", "rabbitizer"), default="objdump",
+        help="Rabbitizer decodes EE instructions using the pinned Python dependency",
+    )
     args = parser.parse_args()
     try:
         spec = match_artifacts.spec_from_args(args)
         original_bytes = match_artifacts.expected_bytes(spec)
         candidate_bytes = match_artifacts.compile_bytes(spec)
-        original = disassemble(original_bytes, spec.address)
-        candidate = disassemble(candidate_bytes, spec.address)
+        decoder = disassemble_r5900 if args.decoder == "rabbitizer" else disassemble
+        original = decoder(original_bytes, spec.address)
+        candidate = decoder(candidate_bytes, spec.address)
     except (OSError, ValueError, subprocess.CalledProcessError) as error:
         detail = (
             match_artifacts.compile_error_text(error)
