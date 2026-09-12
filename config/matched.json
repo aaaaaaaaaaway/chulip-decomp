@@ -3109,7 +3109,7 @@
     "address": "0x0012E5D8",
     "size": 8,
     "profile": "ee-gcc2.95.3-136-O2-G8",
-    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+    "evidence": "Preserve complete two-function16-byte unit and actual unused argument supplied by the retail caller; no new function credit."
   },
   {
     "function": "func_0012E5E0",
@@ -3117,7 +3117,7 @@
     "address": "0x0012E5E0",
     "size": 8,
     "profile": "ee-gcc2.95.3-136-O2-G8",
-    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+    "evidence": "Preserve complete two-function16-byte unit and actual unused argument supplied by the retail caller; no new function credit."
   },
   {
     "function": "func_0012E5E8",
@@ -6533,7 +6533,7 @@
     "address": "0x0015ED80",
     "size": 36,
     "profile": "ee-gcc2.95.3-136-O2-G8",
-    "evidence": "isolated exact match; the complete source-unit byte range is reproduced by the recovered C under the established build 1.36 -G8 profile"
+    "evidence": "Explicit source-pointer forwarding into the proven byte-copy routine; complete existing native range and whole-image gates required."
   },
   {
     "function": "func_0015EDA8",

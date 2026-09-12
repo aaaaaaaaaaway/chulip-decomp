@@ -264,3 +264,31 @@ The image SHA-256 remains
 The ledger remains1491/2189 functions and272484/663704 function bytes. The
 generated treemap changes only its ledger checksum; totals and layout agree.
 Transaction evidence: `work/astra_solver_review/event_repairs/promotion.log`.
+
+## Explicit message forwarding and remaining narrow contracts
+
+Case2070 omitted the argument to15ED80. Retail first loads D1ED750 into a0,
+checks its first byte, and then calls15ED80 with that pointer still in a0.
+The callee copies a0 to a1 and forwards it to15DED8; that routine reads and
+advances the source byte pointer until a double-NUL terminator. Both giant
+calls now explicitly pass D1ED750, and the wrapper describes a read-only byte
+source instead of an integer. This is real argument forwarding, not reliance
+on incidental register retention.
+
+The zero-return stub12E5E0 now accepts the unused int argument explicitly
+supplied by retail168F68. Its neighbor12E5D8 remains unchanged in their complete
+16-byte unit. The wrapper's36 bytes and that full16-byte unit pass all prior
+proofs, complete image, baseline and public gates (204 tests). Evidence:
+`work/astra_solver_review/forward_repairs/promotion.log`.
+
+The actor lookup73148 declaration now agrees with its unsigned16 input/result
+and FFFF sentinel. This retains the complete giant text byte-for-byte, so no
+additional caller mask is needed. The missing message argument improves the
+cleaned draft to2655/3611 aligned words (73.5253%), still14288/14444 text bytes.
+Current candidate: `work/astra_solver_review/variants/scalar_actor_lookup_u16.c`,
+SHA-256 `602f2b680f4fb52f1bfecf28298b72278b6515c2155ced1a3bc3b491c8597d48`.
+
+Fresh16-pass dumps under `work/astra_solver_review/contracts-trace/` again
+preserve assembly exactly. Use this trace for subsequent allocation analysis:
+earlier pseudo IDs must not be assumed valid after the contract/control edits.
+The pending and other source holds remain, and no giant has been promoted.
