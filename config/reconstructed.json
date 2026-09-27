@@ -796,6 +796,21 @@
     "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
   },
   {
+    "function": "func_00105A38",
+    "source": "src/game/func_00105A38.c",
+    "address": "0x00105A38",
+    "size": 188,
+    "verified_profiles": [
+      "ee-gcc2.95.3-136-O2-G8-ps2as"
+    ],
+    "build_profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "unit_start": "0x00105A38",
+    "unit_end": "0x00105AF8",
+    "isolated_match": true,
+    "whole_program_match": true,
+    "provenance_note": "authentic translation-unit ownership remains provisional unless an explicit unit range is recorded"
+  },
+  {
     "function": "func_00105AF8",
     "source": "src/game/func_00105AF8.c",
     "address": "0x00105AF8",

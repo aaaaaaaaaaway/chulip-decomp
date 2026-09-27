@@ -22,8 +22,8 @@ baseline disassembly. The table below is generated; run
 
 | Class | Functions | Bytes | Share of text |
 | --- | ---: | ---: | ---: |
-| matched | 1,491 | 272,484 | 41.06% |
-| reachable, not yet written | 427 | 264,796 | 39.90% |
+| matched | 1,492 | 272,672 | 41.08% |
+| reachable, not yet written | 426 | 264,608 | 39.87% |
 | jump-table switch | 38 | 112,916 | 17.01% |
 | kernel syscall stub | 0 | 0 | 0.00% |
 | VU0 macro mode | 41 | 4,976 | 0.75% |
@@ -34,7 +34,7 @@ Not expressible in C at all: **12,028 bytes (1.81%)** -- kernel syscall stubs, V
 
 Switch functions whose tables are pinned but whose bodies are unwritten: **112,916 bytes (17.01%)**. These are reachable work and stay in the denominator.
 
-Reachable denominator: **651,676 bytes**, against which **272,484 (41.8128%)** is matched.
+Reachable denominator: **651,676 bytes**, against which **272,672 (41.8417%)** is matched.
 
 <!-- decomp-scope-end -->
 

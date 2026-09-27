@@ -400,6 +400,14 @@
     "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
   },
   {
+    "function": "func_00105A38",
+    "source": "src/game/func_00105A38.c",
+    "address": "0x00105A38",
+    "size": 188,
+    "profile": "ee-gcc2.95.3-136-O2-G8-ps2as",
+    "evidence": "isolated exact match discovered by the restartable campaign and independently replayed during transactional import"
+  },
+  {
     "function": "func_00105AF8",
     "source": "src/game/func_00105AF8.c",
     "address": "0x00105AF8",
