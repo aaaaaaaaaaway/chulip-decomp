@@ -24,19 +24,3 @@ jobs:
         run: python3 -m compileall -q configure.py tools
       - name: Verify generated progress and repository policy
         run: make public-check
-
-  report:
-    name: decomp.dev progress report
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Generate objdiff report
-        run: make report
-      - name: Upload progress report artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: us_report
-          path: build/report.json
